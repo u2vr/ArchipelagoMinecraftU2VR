@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/leather_boots",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_165"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Copper Boots (Tier 3)",
+    "icon": {
+      "id": "minecraft:copper_boots"
+    },
+    "title": "Copper Boots"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

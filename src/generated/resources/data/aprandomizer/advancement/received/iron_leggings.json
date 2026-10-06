@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/copper_leggings",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_161"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Iron Leggings (Tier 4, 2 recipes)",
+    "icon": {
+      "id": "minecraft:iron_leggings"
+    },
+    "title": "Iron Leggings"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

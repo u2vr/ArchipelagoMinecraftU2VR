@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "shipwreck"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Shipwreck structure",
+    "icon": {
+      "id": "minecraft:oak_boat"
+    },
+    "show_toast": true,
+    "title": "Shipwreck"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

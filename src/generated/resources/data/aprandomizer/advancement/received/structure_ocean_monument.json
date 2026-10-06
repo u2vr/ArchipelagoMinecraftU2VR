@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_ancient_city",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 5
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Ocean Monuments",
+    "icon": {
+      "id": "minecraft:prismarine_shard"
+    },
+    "title": "Ocean Monument Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

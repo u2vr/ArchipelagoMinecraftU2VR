@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/inventory_slot"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks slot 10 (10/36 slots available)",
+    "icon": {
+      "id": "minecraft:chest"
+    },
+    "title": "Inventory Slot 1/27"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

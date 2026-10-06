@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_pillager_outpost",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 3
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Trial Chambers",
+    "icon": {
+      "id": "minecraft:trial_key"
+    },
+    "title": "Trial Chambers Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

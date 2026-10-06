@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/hunger_5",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/hunger",
+        "tier": 6
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Hunger Bar (Maximum reached!)",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:golden_carrot"
+    },
+    "title": "Hunger Upgrade 6/6 (Max)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

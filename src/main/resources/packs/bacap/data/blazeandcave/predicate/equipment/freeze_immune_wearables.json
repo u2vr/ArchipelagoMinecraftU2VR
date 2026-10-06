@@ -1,0 +1,49 @@
+{
+	"type": "minecraft:any_of",
+	"terms": [
+		{
+			"type": "minecraft:entity_properties",
+			"entity": "this",
+			"predicate": {
+				"equipment": {
+					"head": {
+						"items": "#minecraft:freeze_immune_wearables"
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:entity_properties",
+			"entity": "this",
+			"predicate": {
+				"equipment": {
+					"chest": {
+						"items": "#minecraft:freeze_immune_wearables"
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:entity_properties",
+			"entity": "this",
+			"predicate": {
+				"equipment": {
+					"legs": {
+						"items": "#minecraft:freeze_immune_wearables"
+					}
+				}
+			}
+		},
+		{
+			"type": "minecraft:entity_properties",
+			"entity": "this",
+			"predicate": {
+				"equipment": {
+					"feet": {
+						"items": "#minecraft:freeze_immune_wearables"
+					}
+				}
+			}
+		}
+	]
+}

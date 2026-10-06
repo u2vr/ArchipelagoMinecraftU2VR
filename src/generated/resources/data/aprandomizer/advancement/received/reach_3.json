@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/reach_2",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/reach",
+        "tier": 3
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Block Reach (Maximum reached!)",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:fishing_rod"
+    },
+    "title": "Reach Upgrade 3/3 (Max)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

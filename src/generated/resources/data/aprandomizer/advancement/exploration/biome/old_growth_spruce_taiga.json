@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:old_growth_spruce_taiga"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Old Growth Spruce Taiga biome",
+    "icon": {
+      "id": "minecraft:spruce_log"
+    },
+    "show_toast": true,
+    "title": "Old Growth Spruce Taiga"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

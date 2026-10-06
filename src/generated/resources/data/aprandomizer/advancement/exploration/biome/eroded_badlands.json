@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:eroded_badlands"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Eroded Badlands biome",
+    "icon": {
+      "id": "minecraft:red_sand"
+    },
+    "show_toast": true,
+    "title": "Eroded Badlands"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

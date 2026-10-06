@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/end_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:end_barrens"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the End Barrens biome",
+    "icon": {
+      "id": "minecraft:end_stone_bricks"
+    },
+    "show_toast": true,
+    "title": "End Barrens"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

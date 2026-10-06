@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/diamond_shovel",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_51"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Netherite Shovel (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:netherite_shovel"
+    },
+    "title": "Netherite Shovel"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

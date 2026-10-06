@@ -1,0 +1,184 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:warped_shelf"
+		},
+		"title": {"translate":"Locked and Loaded"},
+		"description": {"color":"#75E1FF","translate":"Swap your entire hotbar of items with a trio of powered Shelves"},
+		"announce_to_chat": true,
+		"frame": "goal"
+	},
+	"parent": "blazeandcave:building/shelfception",
+	"rewards": {
+		"function": "bacap_rewards:building/locked_and_loaded"
+	},		
+	"criteria": {
+		"locked_and_loaded": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:any_of",
+					"terms": [
+						{
+							"type": "minecraft:all_of",
+							"terms": [
+								{
+									"type": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"blocks": "#minecraft:wooden_shelves",
+											"state": {
+												"side_chain": "left"
+											}
+										}
+									}
+								},
+								{
+									"type": "minecraft:any_of",
+									"terms": [
+										{
+											"type": "minecraft:location_check",
+											"offsetZ": 1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "west",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetZ": -1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "east",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetX": 1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "south",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetX": -1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "north",
+														"side_chain": "center"
+													}
+												}
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "minecraft:all_of",
+							"terms": [
+								{
+									"type": "minecraft:location_check",
+									"predicate": {
+										"block": {
+											"blocks": "#minecraft:wooden_shelves",
+											"state": {
+												"side_chain": "right"
+											}
+										}
+									}
+								},
+								{
+									"type": "minecraft:any_of",
+									"terms": [
+										{
+											"type": "minecraft:location_check",
+											"offsetZ": -1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "west",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetZ": 1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "east",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetX": -1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "south",
+														"side_chain": "center"
+													}
+												}
+											}
+										},
+										{
+											"type": "minecraft:location_check",
+											"offsetX": 1,
+											"predicate": {
+												"block": {
+													"blocks": "#minecraft:wooden_shelves",
+													"state": {
+														"facing": "north",
+														"side_chain": "center"
+													}
+												}
+											}
+										}
+									]
+								}
+							]
+						},
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": "#minecraft:wooden_shelves",
+									"state": {
+										"side_chain": "center"
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}	
+}

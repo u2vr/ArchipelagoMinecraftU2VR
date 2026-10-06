@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/iron_sword",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_59"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Golden Sword (Tier 5)",
+    "icon": {
+      "id": "minecraft:golden_sword"
+    },
+    "title": "Golden Sword"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

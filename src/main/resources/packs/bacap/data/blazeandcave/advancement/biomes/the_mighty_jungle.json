@@ -1,0 +1,51 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:jungle_leaves"
+		},
+		"title": {"translate":"The Mighty Jungle"},
+		"description": {"color":"green","translate":"Go for a safari in the jungle"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:biomes/tarzan",
+	"rewards": {
+		"function": "bacap_rewards:biomes/the_mighty_jungle"
+	},	
+	"criteria": {
+		"jungle": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"biomes": [
+										"minecraft:jungle",
+										"minecraft:sparse_jungle",
+										"minecraft:bamboo_jungle"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

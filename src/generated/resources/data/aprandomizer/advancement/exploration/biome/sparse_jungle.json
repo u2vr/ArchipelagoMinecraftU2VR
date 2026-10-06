@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:sparse_jungle"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Sparse Jungle biome",
+    "icon": {
+      "id": "minecraft:melon"
+    },
+    "show_toast": true,
+    "title": "Sparse Jungle"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

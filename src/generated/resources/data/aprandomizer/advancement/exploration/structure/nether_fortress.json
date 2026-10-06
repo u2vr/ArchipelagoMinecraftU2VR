@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "nether_fortress"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Nether Fortress structure",
+    "icon": {
+      "id": "minecraft:nether_bricks"
+    },
+    "show_toast": true,
+    "title": "Nether Fortress"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

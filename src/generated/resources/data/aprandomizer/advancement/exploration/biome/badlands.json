@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:badlands"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Badlands biome",
+    "icon": {
+      "id": "minecraft:terracotta"
+    },
+    "show_toast": true,
+    "title": "Badlands"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

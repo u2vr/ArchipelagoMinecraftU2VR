@@ -1,0 +1,11 @@
+{
+  "rewards": {
+    "type": "aprandomizer:item",
+    "item": {
+      "components": {
+        "minecraft:item_name": "The Arrow"
+      },
+      "id": "minecraft:arrow"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+	"rewards": {
+		"function": "blazeandcave:advancement/check/paintings"
+	},
+	"criteria": {
+		"painting": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:match_tool",
+					"predicate": {
+						"items": [
+							"minecraft:painting"
+						]
+					}
+				}
+			}
+		}
+	}
+}

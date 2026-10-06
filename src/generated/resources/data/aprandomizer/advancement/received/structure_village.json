@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Villages",
+    "icon": {
+      "id": "minecraft:emerald"
+    },
+    "title": "Village Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

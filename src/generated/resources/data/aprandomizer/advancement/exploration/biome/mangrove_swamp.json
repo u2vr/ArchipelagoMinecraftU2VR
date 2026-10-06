@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:mangrove_swamp"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Mangrove Swamp biome",
+    "icon": {
+      "id": "minecraft:mangrove_propagule"
+    },
+    "show_toast": true,
+    "title": "Mangrove Swamp"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

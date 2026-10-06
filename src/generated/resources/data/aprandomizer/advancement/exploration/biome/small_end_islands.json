@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/end_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:small_end_islands"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Small End Islands biome",
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "show_toast": true,
+    "title": "Small End Islands"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

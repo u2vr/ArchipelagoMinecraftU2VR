@@ -1,0 +1,60 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:black_concrete_powder"
+		},
+		"title": {"translate":"Heart of Darkness"},
+		"description": {"color":"green","translate":"Submerge yourself in complete darkness"},
+		"announce_to_chat": true
+	},
+	"parent": "minecraft:story/mine_stone",
+	"rewards": {
+		"function": "bacap_rewards:mining/heart_of_darkness"
+	},
+	"criteria": {
+		"enter_cave": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"light": {
+										"light": {
+											"max": 0
+										}
+									}
+								}
+							}
+						},
+						{
+							"type": "minecraft:location_check",
+							"offsetY": 1,
+							"predicate": {
+								"light": {
+									"light": 0
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

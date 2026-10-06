@@ -1,0 +1,22 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:cactus"
+		},
+		"title": {"translate":"Spikey!"},
+		"description": {"color":"green","translate":"Run into a cactus"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:farming/its_a_cactus",
+	"rewards": {
+		"function": "bacap_rewards:farming/spikey"
+	},
+	"criteria": {
+		"cactus": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": "minecraft:cactus"
+			}
+		}
+	}
+}

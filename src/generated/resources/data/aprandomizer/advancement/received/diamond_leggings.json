@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/golden_leggings",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_159"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Diamond Leggings (Tier 6)",
+    "icon": {
+      "id": "minecraft:diamond_leggings"
+    },
+    "title": "Diamond Leggings"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "ruined_portal"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Ruined Portal structure",
+    "icon": {
+      "id": "minecraft:crying_obsidian"
+    },
+    "show_toast": true,
+    "title": "Ruined Portal"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

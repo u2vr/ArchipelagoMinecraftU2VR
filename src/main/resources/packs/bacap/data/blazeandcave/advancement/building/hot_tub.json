@@ -1,0 +1,46 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:lava_bucket"
+		},
+		"title": {"translate":"Hot Tub"},
+		"description": {"color":"green","translate":"Sit in a cauldron filled with lava"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:building/bubble_bubble_toil_and_trouble",
+	"rewards": {
+		"function": "bacap_rewards:building/hot_tub"
+	},
+	"criteria": {
+		"enter_lava_cauldron": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": "minecraft:lava_cauldron"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

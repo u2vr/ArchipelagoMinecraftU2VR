@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/golden_chestplate",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_147"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Diamond Chestplate (Tier 6)",
+    "icon": {
+      "id": "minecraft:diamond_chestplate"
+    },
+    "title": "Diamond Chestplate"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

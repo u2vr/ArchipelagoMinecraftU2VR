@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/wooden_sword",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_62"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Stone Sword (Tier 2)",
+    "icon": {
+      "id": "minecraft:stone_sword"
+    },
+    "title": "Stone Sword"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

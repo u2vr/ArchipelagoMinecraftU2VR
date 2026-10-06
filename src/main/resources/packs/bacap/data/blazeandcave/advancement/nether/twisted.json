@@ -1,0 +1,49 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:twisting_vines"
+		},
+		"title": {"translate":"Twisted"},
+		"description": {"color":"green","translate":"Climb on some Twisting Vines in a Warped Forest"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:nether/dont_blink",
+	"rewards": {
+		"function": "bacap_rewards:nether/twisted"
+	},
+	"criteria": {
+		"twisting_vines": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:twisting_vines_plant",
+										"minecraft:twisting_vines"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

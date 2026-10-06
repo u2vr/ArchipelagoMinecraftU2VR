@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/inventory_slot_26",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/inventory_slot",
+        "tier": 27
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks slot 36 (All 36/36 inventory slots available!)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:ender_chest"
+    },
+    "title": "Inventory Slot 27/27 (Full Inventory)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

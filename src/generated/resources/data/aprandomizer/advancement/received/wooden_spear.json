@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_89"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Wooden Spear (Tier 1)",
+    "icon": {
+      "id": "minecraft:wooden_spear"
+    },
+    "title": "Wooden Spear"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

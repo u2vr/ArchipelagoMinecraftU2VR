@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:chest",
+    "minecraft:iron_ingot"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aprandomizer:shared_chest"
+  }
+}

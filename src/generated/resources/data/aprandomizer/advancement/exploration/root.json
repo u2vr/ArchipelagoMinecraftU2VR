@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:gui/advancements/backgrounds/adventure",
+    "description": "Discover unique biomes and structures across the dimensions",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "World Exploration"
+  },
+  "requirements": [
+    [
+      "auto"
+    ]
+  ]
+}

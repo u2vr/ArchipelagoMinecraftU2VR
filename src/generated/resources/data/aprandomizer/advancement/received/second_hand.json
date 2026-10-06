@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/offhand"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks use of offhand slot",
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": "Second Hand Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

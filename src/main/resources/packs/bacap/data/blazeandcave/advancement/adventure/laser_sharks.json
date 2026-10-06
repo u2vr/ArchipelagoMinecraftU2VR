@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:prismarine_shard"
+		},
+		"title": {"translate":"Laser Sharks!"},
+		"description": {"color":"green","translate":"Defeat a Guardian"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:adventure/monumental",
+	"rewards": {
+		"function": "bacap_rewards:adventure/laser_sharks"
+	},		
+	"criteria": {
+		"guardian": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:guardian"
+					}
+				}
+			}
+		}
+	}
+}

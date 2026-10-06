@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:stony_shore"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Stony Shore biome",
+    "icon": {
+      "id": "minecraft:stone"
+    },
+    "show_toast": true,
+    "title": "Stony Shore"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

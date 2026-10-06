@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:modifier/monster_sun_burning"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Monsters no longer burn in the daylight!",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:skeleton_skull"
+    },
+    "title": "Curse: Day Monsters"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

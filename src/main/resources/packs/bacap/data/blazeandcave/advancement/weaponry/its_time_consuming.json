@@ -1,0 +1,42 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:clock"
+		},
+		"title": {"translate":"It's time consuming"},
+		"description": {"color":"green","translate":"Kill something using a clock"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:weaponry/diemonds",
+	"rewards": {
+		"function": "bacap_rewards:weaponry/its_time_consuming"
+	},		
+	"criteria": {
+		"clock": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:clock"
+								]
+							}
+						}
+					}
+				}
+			}
+		}	
+	}
+}

@@ -1,0 +1,44 @@
+package gg.archipelago.aprandomizer.data.loot;
+
+import gg.archipelago.aprandomizer.APRandomizer;
+import gg.archipelago.aprandomizer.data.loot.modifiers.OverrideItemLootModifier;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
+import net.neoforged.neoforge.common.loot.AddTableLootModifier;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
+
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+public class APGlobalLootModifierProvider extends GlobalLootModifierProvider {
+
+    public APGlobalLootModifierProvider(PackOutput output, CompletableFuture<Provider> registries) {
+        super(output, registries, APRandomizer.MODID);
+    }
+
+    @Override
+    protected void start() {
+        HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
+        this.add("entities/drowned/add_trident", new AddTableLootModifier(
+                Optional.of(Holder.direct(LootTableIdCondition.builder(EntityTypes.DROWNED.getDefaultLootTable().get().identifier()).build())),
+                1000,
+                APLootTables.ENTITIES_DROWNED_ADD_TRIDENT));
+
+        this.add("entities/wither_skeleton/override_wither_skeleton_skull", new OverrideItemLootModifier(
+                Optional.of(Holder.direct(LootTableIdCondition.builder(EntityTypes.WITHER_SKELETON.getDefaultLootTable().get().identifier()).build())),
+                1000,
+                ItemPredicate.Builder.item()
+                        .of(items, Items.WITHER_SKELETON_SKULL)
+                        .build(),
+                APLootTables.ENTITIES_WITHER_SKELETON_ADD_WITHER_SKELETON_SKULL));
+    }
+
+}

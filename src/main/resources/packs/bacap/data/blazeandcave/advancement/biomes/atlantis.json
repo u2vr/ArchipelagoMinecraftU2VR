@@ -1,0 +1,50 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:chiseled_stone_bricks"
+		},
+		"title": {"translate":"Atlantis?"},
+		"description": {"color":"green","translate":"Explore some Underwater Ruins"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:biomes/pushed_around",
+	"rewards": {
+		"function": "bacap_rewards:biomes/atlantis"
+	},		
+	"criteria": {
+		"ocean_ruin": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": [
+										"minecraft:ocean_ruin_cold",
+										"minecraft:ocean_ruin_warm"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

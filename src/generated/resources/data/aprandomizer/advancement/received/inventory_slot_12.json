@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/inventory_slot_11",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/inventory_slot",
+        "tier": 12
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks slot 21 (21/36 slots available)",
+    "icon": {
+      "id": "minecraft:chest"
+    },
+    "title": "Inventory Slot 12/27"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

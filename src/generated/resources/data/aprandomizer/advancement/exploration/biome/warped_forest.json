@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/nether_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:warped_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Warped Forest biome",
+    "icon": {
+      "id": "minecraft:warped_fungus"
+    },
+    "show_toast": true,
+    "title": "Warped Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

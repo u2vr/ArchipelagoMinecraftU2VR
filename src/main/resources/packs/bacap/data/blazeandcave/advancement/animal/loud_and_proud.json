@@ -1,0 +1,50 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:sculk_sensor"
+		},
+		"title": {"translate":"Loud and Proud"},
+		"description": {"color":"#75E1FF","translate":"Play a Goat Horn in the Deep Dark"},
+		"announce_to_chat": true,
+		"frame": "goal"
+	},
+	"parent": "blazeandcave:animal/ram",
+	"rewards": {
+		"function": "bacap_rewards:animal/loud_and_proud"
+	},			
+	"criteria": {
+		"goat_horn": {
+			"trigger": "minecraft:using_item",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:goat_horn"
+					]
+				},
+				"player": {
+					"type": "minecraft:any_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"biomes": "minecraft:deep_dark"
+								}
+							}
+						},
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "minecraft:ancient_city"
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

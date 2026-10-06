@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/reach"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Block Reach",
+    "icon": {
+      "id": "minecraft:fishing_rod"
+    },
+    "title": "Reach Upgrade 1/3"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

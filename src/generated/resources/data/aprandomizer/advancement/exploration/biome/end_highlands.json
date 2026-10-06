@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/end_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:end_highlands"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the End Highlands biome",
+    "icon": {
+      "id": "minecraft:chorus_fruit"
+    },
+    "show_toast": true,
+    "title": "End Highlands"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

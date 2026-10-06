@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "swamp_hut"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Swamp Hut structure",
+    "icon": {
+      "id": "minecraft:cauldron"
+    },
+    "show_toast": true,
+    "title": "Swamp Hut"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

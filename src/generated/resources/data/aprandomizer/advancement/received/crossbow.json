@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/bow",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_76"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Crossbow (Tier 5)",
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": "Crossbow"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

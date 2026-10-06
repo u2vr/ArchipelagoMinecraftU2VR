@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "pillager_outpost"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Pillager Outpost structure",
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "show_toast": true,
+    "title": "Pillager Outpost"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

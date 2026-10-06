@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:modifier/monster_spawn_light"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Monsters can spawn at any light level!",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:creeper_head"
+    },
+    "title": "Curse: Lightless Spawning"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:mushroom_fields"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Mushroom Fields biome",
+    "icon": {
+      "id": "minecraft:mycelium"
+    },
+    "show_toast": true,
+    "title": "Mushroom Fields"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:deep_lukewarm_ocean"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Deep Lukewarm Ocean biome",
+    "icon": {
+      "id": "minecraft:sea_pickle"
+    },
+    "show_toast": true,
+    "title": "Deep Lukewarm Ocean"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

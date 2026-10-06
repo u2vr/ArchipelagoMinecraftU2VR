@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/diamond_helmet",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_131"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Netherite Helmet (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:netherite_helmet"
+    },
+    "title": "Netherite Helmet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

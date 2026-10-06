@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:windswept_hills"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Windswept Hills biome",
+    "icon": {
+      "id": "minecraft:emerald_ore"
+    },
+    "show_toast": true,
+    "title": "Windswept Hills"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

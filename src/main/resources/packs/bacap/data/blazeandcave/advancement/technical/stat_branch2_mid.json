@@ -1,0 +1,21 @@
+{
+	"parent": "blazeandcave:statistics/journeyman_enchanter",	
+	"criteria": {
+		"root": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player":  {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"minecraft:type_specific/player": {
+							"advancements": {
+								"blazeandcave:statistics/root": true
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

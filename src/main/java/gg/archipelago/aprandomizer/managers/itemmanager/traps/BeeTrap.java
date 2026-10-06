@@ -1,0 +1,47 @@
+package gg.archipelago.aprandomizer.managers.itemmanager.traps;
+
+import gg.archipelago.aprandomizer.common.Utils.Utils;
+import gg.archipelago.aprandomizer.managers.RestrictionManager;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntityReference;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.phys.Vec3;
+
+public class BeeTrap implements Trap {
+
+    final private int numberOfBees;
+
+    public BeeTrap(int numberOfBees) {
+        this.numberOfBees = numberOfBees;
+    }
+
+    public BeeTrap() {
+        this(3);
+    }
+
+    @Override
+    public void trigger(MinecraftServer server, ServerPlayer player) {
+        server.execute(() -> {
+            ServerLevel world = player.level();
+            Vec3 pos = player.position();
+            String sender = RestrictionManager.getCurrentTrapSender();
+            for (int i = 0; i < numberOfBees; i++) {
+                Bee bee = EntityTypes.BEE.create(world, EntitySpawnReason.MOB_SUMMONED);
+                if (bee == null) continue;
+                Vec3 offset = Utils.getRandomPosition(pos, 5);
+                bee.snapTo(offset);
+                bee.setPersistentAngerTarget(EntityReference.of(player.getUUID()));
+                bee.setTimeToRemainAngry(1200);
+                if (sender != null && !sender.isBlank()) {
+                    bee.setCustomName(net.minecraft.network.chat.Component.literal(sender).withStyle(net.minecraft.ChatFormatting.RED));
+                    bee.setCustomNameVisible(true);
+                }
+                world.addFreshEntity(bee);
+            }
+        });
+    }
+}

@@ -1,0 +1,1109 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:lily_of_the_valley"
+		},
+		"title": {"translate":"Harry Potter"},
+		"description": {"color":"dark_purple","translate":"Place every type of plant in a flower pot"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "blazeandcave:building/pot_planter",
+	"rewards": {
+		"function": "bacap_rewards:building/harry_potter"
+	},
+	"criteria": {
+		"dandelion": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_dandelion"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:dandelion"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poppy": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_poppy"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:poppy"
+								]
+							}
+					}
+					]
+				}
+			}
+		},
+		"blue_orchid": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_blue_orchid"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:blue_orchid"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"allium": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_allium"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:allium"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"azure_bluet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_azure_bluet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:azure_bluet"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_red_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:red_tulip"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_orange_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:orange_tulip"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_white_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:white_tulip"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_pink_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:pink_tulip"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oxeye_daisy": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_oxeye_daisy"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:oxeye_daisy"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cornflower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_cornflower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:cornflower"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lily_of_the_valley": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_lily_of_the_valley"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:lily_of_the_valley"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"wither_rose": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_wither_rose"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:wither_rose"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_oak_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:oak_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_spruce_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:spruce_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_birch_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:birch_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_jungle_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:jungle_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_acacia_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:acacia_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_dark_oak_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:dark_oak_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_mushroom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_red_mushroom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:red_mushroom"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"brown_mushroom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_brown_mushroom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:brown_mushroom"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"fern": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_fern"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:fern"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dead_bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_dead_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:dead_bush"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cactus": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_cactus"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:cactus"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_bamboo"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:bamboo"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"crimson_fungus": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_crimson_fungus"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:crimson_fungus"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"warped_fungus": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_warped_fungus"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:warped_fungus"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"crimson_roots": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_crimson_roots"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:crimson_roots"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"warped_roots": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_warped_roots"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:warped_roots"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"azalea": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_azalea_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:azalea"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"flowering_azalea": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_flowering_azalea_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flowering_azalea"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_propagule": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_mangrove_propagule"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:mangrove_propagule"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_cherry_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:cherry_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"torchflower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_torchflower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:torchflower"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_pale_oak_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:pale_oak_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"closed_eyeblossom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_closed_eyeblossom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:closed_eyeblossom"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"open_eyeblossom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_open_eyeblossom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:open_eyeblossom"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"golden_dandelion": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_golden_dandelion"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:golden_dandelion"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_sapling": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:potted_poplar_sapling"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:poplar_sapling"
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

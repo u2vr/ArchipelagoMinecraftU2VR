@@ -1,0 +1,117 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:buried_trial_chambers_map"
+		},
+		"title": {"translate":"All Around the World"},
+		"description": {"color":"dark_purple","translate":"Buy every kind of Explorer Map that can be bought from Cartographers"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "blazeandcave:adventure/treasure_map",
+	"rewards": {
+		"function": "bacap_rewards:adventure/all_around_the_world"
+	},		
+	"criteria": {
+		"plains_village_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:plains_village_map"
+					]
+				}
+			}
+		},
+		"desert_village_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:desert_village_map"
+					]
+				}
+			}
+		},
+		"savanna_village_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:savanna_village_map"
+					]
+				}
+			}
+		},
+		"snowy_village_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:snowy_village_map"
+					]
+				}
+			}
+		},
+		"taiga_village_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:taiga_village_map"
+					]
+				}
+			}
+		},
+		"swamp_hut_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:swamp_hut_map"
+					]
+				}
+			}
+		},
+		"jungle_pyramid_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:jungle_pyramid_map"
+					]
+				}
+			}
+		},
+		"buried_trial_chambers_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:buried_trial_chambers_map"
+					]
+				}
+			}
+		},
+		"ocean_monument_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:ocean_monument_map"
+					]
+				}
+			}
+		},
+		"woodland_mansion_map": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"item": {
+					"items": [
+						"minecraft:woodland_mansion_map"
+					]
+				}
+			}
+		}
+	}
+}

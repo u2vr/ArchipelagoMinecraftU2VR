@@ -1,0 +1,16 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Structures",
+    "id": "aprandomizer:end_city",
+    "name": "End City",
+    "target": {
+      "type": "aprandomizer:structure",
+      "level": {
+        "type": "aprandomizer:randomized_structure_level",
+        "name": "aprandomizer:end_city"
+      },
+      "structures": "#aprandomizer:end_city"
+    }
+  }
+}

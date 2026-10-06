@@ -1,0 +1,35 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:axolotl_spawn_egg"
+		},
+		"title": {"translate":"Axolittle"},
+		"description": {"color":"green","translate":"Breed two Axolotls together using Tropical Fish"},
+		"announce_to_chat": true
+	},
+	"parent": "minecraft:husbandry/kill_axolotl_target",
+	"rewards": {
+		"function": "bacap_rewards:animal/axolittle"
+	},		
+	"criteria": {
+		"axolotl": {
+			"trigger": "minecraft:bred_animals",
+			"conditions": {
+				"parent": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:axolotl"
+					}
+				},
+				"partner": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:axolotl"
+					}
+				}
+			}
+		}
+	}
+}

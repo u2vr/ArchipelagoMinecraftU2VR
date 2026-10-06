@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:dark_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Dark Forest biome",
+    "icon": {
+      "id": "minecraft:dark_oak_sapling"
+    },
+    "show_toast": true,
+    "title": "Dark Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

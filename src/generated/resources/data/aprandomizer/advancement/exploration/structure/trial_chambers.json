@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "trial_chambers"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Trial Chambers structure",
+    "icon": {
+      "id": "minecraft:trial_key"
+    },
+    "show_toast": true,
+    "title": "Trial Chambers"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:warm_ocean"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Warm Ocean biome",
+    "icon": {
+      "id": "minecraft:tube_coral"
+    },
+    "show_toast": true,
+    "title": "Warm Ocean"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

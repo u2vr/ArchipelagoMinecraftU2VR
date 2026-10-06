@@ -1,0 +1,48 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:obsidian"
+		},
+		"title": {"translate":"From Whence It Came!"},
+		"description": {"color":"green","translate":"Find a broken Nether Portal in the Nether"},
+		"announce_to_chat": true
+	},
+	"parent": "minecraft:nether/root",
+	"rewards": {
+		"function": "bacap_rewards:nether/from_whence_it_came"
+	},		
+	"criteria": {
+		"ruined_portal": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "#minecraft:ruined_portal",
+									"dimension": "the_nether"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

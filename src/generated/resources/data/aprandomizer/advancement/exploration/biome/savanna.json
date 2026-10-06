@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:savanna"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Savanna biome",
+    "icon": {
+      "id": "minecraft:acacia_sapling"
+    },
+    "show_toast": true,
+    "title": "Savanna"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

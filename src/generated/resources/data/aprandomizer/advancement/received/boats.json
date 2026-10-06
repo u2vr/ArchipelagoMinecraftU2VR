@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_81"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Boats (Tier 4, 10 recipes)",
+    "icon": {
+      "id": "minecraft:acacia_boat"
+    },
+    "title": "Boats"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,49 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:flint_and_steel"
+		},
+		"title": {"translate":"Ancient Restoration"},
+		"description": {"color":"#75E1FF","translate":"Rebuild and reactivate a Ruined Portal"},
+		"announce_to_chat": true,
+		"frame": "goal"
+	},
+	"parent": "blazeandcave:nether/from_whence_it_came",
+	"rewards": {
+		"function": "bacap_rewards:nether/ancient_restoration"
+	},
+	"criteria": {
+		"entered_nether_portal": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": "minecraft:nether_portal",
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "#minecraft:ruined_portal"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

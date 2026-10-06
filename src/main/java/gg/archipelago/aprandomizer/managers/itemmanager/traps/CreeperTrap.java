@@ -1,0 +1,44 @@
+package gg.archipelago.aprandomizer.managers.itemmanager.traps;
+
+import gg.archipelago.aprandomizer.common.Utils.Utils;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.phys.Vec3;
+
+public class CreeperTrap implements Trap {
+
+    final private int numberOfCreepers;
+
+    public CreeperTrap(int numberOfCreepers) {
+        this.numberOfCreepers = numberOfCreepers;
+    }
+
+    public CreeperTrap() {
+        this(3);
+    }
+
+    @Override
+    public void trigger(MinecraftServer server, ServerPlayer player) {
+        server.execute(() -> {
+            ServerLevel world = (ServerLevel) player.level();
+            Vec3 pos = player.position();
+            String sender = gg.archipelago.aprandomizer.managers.RestrictionManager.getCurrentTrapSender();
+            for (int i = 0; i < numberOfCreepers; i++) {
+                Creeper creeper = EntityTypes.CREEPER.create(world, EntitySpawnReason.MOB_SUMMONED);
+                if (creeper == null) continue;
+                creeper.setTarget(player);
+                if (sender != null && !sender.isBlank()) {
+                    creeper.setCustomName(net.minecraft.network.chat.Component.literal(sender).withStyle(net.minecraft.ChatFormatting.RED));
+                    creeper.setCustomNameVisible(true);
+                }
+                Vec3 offset = Utils.getRandomPosition(pos, 5);
+                creeper.snapTo(offset);
+                world.addFreshEntity(creeper);
+            }
+        });
+    }
+}

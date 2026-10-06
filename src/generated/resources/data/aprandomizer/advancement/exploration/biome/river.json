@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:river"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the River biome",
+    "icon": {
+      "id": "minecraft:water_bucket"
+    },
+    "show_toast": true,
+    "title": "River"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/hunger"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Hunger Bar",
+    "icon": {
+      "id": "minecraft:cooked_beef"
+    },
+    "title": "Hunger Upgrade 1/6"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

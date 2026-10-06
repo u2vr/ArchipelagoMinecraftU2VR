@@ -1,0 +1,47 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:nether_bricks"
+		},
+		"title": {"translate":"A Terrible Fortress"},
+		"description": {"color":"green","translate":"Break your way into a Nether Fortress"},
+		"announce_to_chat": true
+	},
+	"parent": "minecraft:nether/root",
+	"rewards": {
+		"function": "bacap_rewards:nether/a_terrible_fortress"
+	},		
+	"criteria": {
+		"fortress": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "fortress"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

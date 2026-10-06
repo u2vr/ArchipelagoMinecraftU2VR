@@ -1,0 +1,25 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:stone_pressure_plate"
+		},
+		"title": {"translate":"Under Pressure"},
+		"description": {"color":"green","translate":"Step on a pressure plate"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:redstone/leveraging_synergy",
+	"rewards": {
+		"function": "bacap_rewards:redstone/under_pressure"
+	},
+	"criteria": {
+		"pressure_plate": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": "#minecraft:pressure_plates",
+				"state": {
+					"powered": "true"
+				}
+			}
+		}
+	}
+}

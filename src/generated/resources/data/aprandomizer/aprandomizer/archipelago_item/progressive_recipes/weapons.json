@@ -1,0 +1,64 @@
+{
+  "tiers": [
+    {
+      "rewards": [
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:stone_sword"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:stone_axe"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:stone_spear"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:copper_sword"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:copper_axe"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:copper_spear"
+        }
+      ]
+    },
+    {
+      "rewards": [
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:iron_sword"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:iron_axe"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:iron_spear"
+        }
+      ]
+    },
+    {
+      "rewards": [
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:diamond_sword"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:diamond_axe"
+        },
+        {
+          "type": "aprandomizer:recipe",
+          "recipe": "minecraft:diamond_spear"
+        }
+      ]
+    }
+  ]
+}

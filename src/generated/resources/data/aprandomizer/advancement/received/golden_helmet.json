@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/iron_helmet",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_128"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Golden Helmet (Tier 5)",
+    "icon": {
+      "id": "minecraft:golden_helmet"
+    },
+    "title": "Golden Helmet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

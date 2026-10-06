@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "end_city"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the End City structure",
+    "icon": {
+      "id": "minecraft:purpur_block"
+    },
+    "show_toast": true,
+    "title": "End City"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

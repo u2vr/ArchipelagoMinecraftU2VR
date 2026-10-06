@@ -1,0 +1,691 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:jukebox"
+		},
+		"title": {"translate":"Travelling Bard"},
+		"description": {"color":"dark_purple","translate":"Play a Note Block in every type of biome"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "blazeandcave:redstone/noteworthy",
+	"rewards": {
+		"function": "bacap_rewards:redstone/travelling_bard"
+	},
+	"criteria": {
+		"snowy_plains": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:snowy_plains",
+							"minecraft:ice_spikes"
+						]
+					}
+				}
+			}
+		},
+		"snowy_taiga": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:snowy_taiga"
+					}
+				}
+			}
+		},
+		"windswept_hills": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:windswept_hills",
+							"minecraft:windswept_gravelly_hills",
+							"minecraft:windswept_forest"
+						]
+					}
+				}
+			}
+		},
+		"taiga": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:taiga"
+					}
+				}
+			}
+		},
+		"old_growth_taiga": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:old_growth_pine_taiga",
+							"minecraft:old_growth_spruce_taiga"
+						]
+					}
+				}
+			}
+		},
+		"plains": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:plains",
+							"minecraft:sunflower_plains"
+						]
+					}
+				}
+			}
+		},
+		"forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:forest",
+							"minecraft:flower_forest"
+						]
+					}
+				}
+			}
+		},
+		"birch_forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:birch_forest",
+							"minecraft:old_growth_birch_forest"
+						]
+					}
+				}
+			}
+		},
+		"dark_forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:dark_forest"
+					}
+				}
+			}
+		},
+		"swamp": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:swamp",
+							"minecraft:mangrove_swamp"
+						]
+					}
+				}
+			}
+		},
+		"jungle": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:jungle",
+							"minecraft:sparse_jungle",
+							"minecraft:bamboo_jungle"
+						]
+					}
+				}
+			}
+		},
+		"river": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:river",
+							"minecraft:frozen_river"
+						]
+					}
+				}
+			}
+		},
+		"beach": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:beach",
+							"minecraft:snowy_beach",
+							"minecraft:stony_shore"
+						]
+					}
+				}
+			}
+		},
+		"mushroom_fields": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:mushroom_fields"
+					}
+				}
+			}
+		},
+		"desert": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:desert"
+					}
+				}
+			}
+		},
+		"savanna": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:savanna",
+							"minecraft:savanna_plateau",
+							"minecraft:windswept_savanna"
+						]
+					}
+				}
+			}
+		},
+		"badlands": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:badlands",
+							"minecraft:wooded_badlands",
+							"minecraft:eroded_badlands"
+						]
+					}
+				}
+			}
+		},
+		"warm_ocean": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:warm_ocean"
+					}
+				}
+			}
+		},
+		"lukewarm_ocean": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:lukewarm_ocean",
+							"minecraft:deep_lukewarm_ocean"
+						]
+					}
+				}
+			}
+		},
+		"ocean": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:ocean",
+							"minecraft:deep_ocean"
+						]
+					}
+				}
+			}
+		},
+		"cold_ocean": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:cold_ocean",
+							"minecraft:deep_cold_ocean"
+						]
+					}
+				}
+			}
+		},
+		"frozen_ocean": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:frozen_ocean",
+							"minecraft:deep_frozen_ocean"
+						]
+					}
+				}
+			}
+		},
+		"meadow": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "minecraft:meadow"
+					}
+				}
+			}
+		},
+		"snowy_slopes_or_grove": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:snowy_slopes",
+							"minecraft:grove"
+						]
+					}
+				}
+			}
+		},
+		"peaks": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:frozen_peaks",
+							"minecraft:jagged_peaks",
+							"minecraft:stony_peaks"
+						]
+					}
+				}
+			}
+		},
+		"nether_wastes": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "nether_wastes"
+					}
+				}
+			}
+		},
+		"soul_sand_valley": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "soul_sand_valley"
+					}
+				}
+			}
+		},
+		"crimson_forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "crimson_forest"
+					}
+				}
+			}
+		},
+		"warped_forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "warped_forest"
+					}
+				}
+			}
+		},
+		"basalt_deltas": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "basalt_deltas"
+					}
+				}
+			}
+		},
+		"the_end": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": [
+							"minecraft:the_end",
+							"minecraft:small_end_islands",
+							"minecraft:end_midlands",
+							"minecraft:end_highlands",
+							"minecraft:end_barrens"
+						]
+					}
+				}
+			}
+		},
+		"lush_caves": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "lush_caves"
+					}
+				}
+			}
+		},
+		"dripstone_caves": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "dripstone_caves"
+					}
+				}
+			}
+		},
+		"deep_dark": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "deep_dark"
+					}
+				}
+			}
+		},
+		"cherry_grove": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "cherry_grove"
+					}
+				}
+			}
+		},
+		"pale_garden": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "pale_garden"
+					}
+				}
+			}
+		},
+		"sulfur_caves": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "sulfur_caves"
+					}
+				}
+			}
+		},
+		"dappled_forest": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:note_block"
+							]
+						},
+						"biomes": "dappled_forest"
+					}
+				}
+			}
+		}
+	}
+}

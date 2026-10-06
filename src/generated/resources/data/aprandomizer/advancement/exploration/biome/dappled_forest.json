@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:dappled_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Dappled Forest biome",
+    "icon": {
+      "id": "minecraft:oak_leaves"
+    },
+    "show_toast": true,
+    "title": "Dappled Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

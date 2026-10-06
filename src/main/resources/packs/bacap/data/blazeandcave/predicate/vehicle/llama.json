@@ -1,0 +1,12 @@
+{
+	"type": "minecraft:entity_properties",
+	"entity": "this",
+	"predicate": {
+		"vehicle": {
+			"entity_type": [
+				"trader_llama",
+				"llama"
+			]
+		}
+	}
+}

@@ -1,0 +1,785 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:chicken"
+		},
+		"title": {"translate":"The Mighty Hunter"},
+		"description": {"color":"dark_purple","translate":"Hunt all types of land animals with your bow"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "minecraft:adventure/sniper_duel",
+	"rewards": {
+		"function": "bacap_rewards:weaponry/the_mighty_hunter"
+	},	
+	"criteria": {
+		"chicken": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:chicken"
+					}
+				}
+			}
+		},	
+		"cow": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:cow"
+					}
+				}
+			}
+		},
+		"pig": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:pig"
+					}
+				}
+			}
+		},
+		"sheep": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:sheep"
+					}
+				}
+			}
+		},
+		"rabbit": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:rabbit"
+					}
+				}
+			}
+		},
+		"mooshroom": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:mooshroom"
+					}
+				}
+			}
+		},
+		"polar_bear": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:polar_bear"
+					}
+				}
+			}
+		},
+		"horse": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:horse"
+					}
+				}
+			}
+		},
+		"donkey": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:donkey"
+					}
+				}
+			}
+		},
+		"mule": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:mule"
+					}
+				}
+			}
+		},
+		"llama": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:llama"
+					}
+				}
+			}
+		},
+		"wolf": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:wolf"
+					}
+				}
+			}
+		},
+		"ocelot": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:ocelot"
+					}
+				}
+			}
+		},
+		"parrot": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:parrot"
+					}
+				}
+			}
+		},
+		"cat": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:cat"
+					}
+				}
+			}
+		},
+		"panda": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:panda"
+					}
+				}
+			}
+		},
+		"fox": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:fox"
+					}
+				}
+			}
+		},
+		"bee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:bee"
+					}
+				}
+			}
+		},
+		"hoglin": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:hoglin"
+					}
+				}
+			}
+		},
+		"strider": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:strider"
+					}
+				}
+			}
+		},
+		"bat": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:bat"
+					}
+				}
+			}
+		},
+		"trader_llama": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:trader_llama"
+					}
+				}
+			}
+		},
+		"turtle": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:turtle"
+					}
+				}
+			}
+		},
+		"goat": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:goat"
+					}
+				}
+			}
+		},
+		"frog": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:frog"
+					}
+				}
+			}
+		},
+		"camel": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:camel"
+					}
+				}
+			}
+		},
+		"sniffer": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:sniffer"
+					}
+				}
+			}
+		},
+		"armadillo": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:armadillo"
+					}
+				}
+			}
+		},
+		"skeleton_horse": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:skeleton_horse"
+					}
+				}
+			}
+		},
+		"zoglin": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:zoglin"
+					}
+				}
+			}
+		},
+		"zombie_horse": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:zombie_horse"
+					}
+				}
+			}
+		},
+		"camel_husk": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "#blazeandcave:arrows",
+						"nbt": "{weapon:{id:\"minecraft:bow\"}}"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:camel_husk"
+					}
+				}
+			}
+		}
+	}
+}

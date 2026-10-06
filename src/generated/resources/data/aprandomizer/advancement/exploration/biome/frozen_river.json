@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:frozen_river"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Frozen River biome",
+    "icon": {
+      "id": "minecraft:ice"
+    },
+    "show_toast": true,
+    "title": "Frozen River"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

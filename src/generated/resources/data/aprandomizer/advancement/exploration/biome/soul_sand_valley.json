@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/nether_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:soul_sand_valley"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Soul Sand Valley biome",
+    "icon": {
+      "id": "minecraft:soul_sand"
+    },
+    "show_toast": true,
+    "title": "Soul Sand Valley"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

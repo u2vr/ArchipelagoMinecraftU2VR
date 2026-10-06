@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:windswept_savanna"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Windswept Savanna biome",
+    "icon": {
+      "id": "minecraft:acacia_leaves"
+    },
+    "show_toast": true,
+    "title": "Windswept Savanna"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

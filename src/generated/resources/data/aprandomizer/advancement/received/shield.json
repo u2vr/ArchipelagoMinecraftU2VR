@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/iron_ingot",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_123"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Shield (Tier 4)",
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": "Shield"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

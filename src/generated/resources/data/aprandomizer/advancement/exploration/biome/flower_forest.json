@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:flower_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Flower Forest biome",
+    "icon": {
+      "id": "minecraft:allium"
+    },
+    "show_toast": true,
+    "title": "Flower Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

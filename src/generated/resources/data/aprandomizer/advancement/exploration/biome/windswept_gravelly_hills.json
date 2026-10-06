@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:windswept_gravelly_hills"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Windswept Gravelly Hills biome",
+    "icon": {
+      "id": "minecraft:gravel"
+    },
+    "show_toast": true,
+    "title": "Windswept Gravelly Hills"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

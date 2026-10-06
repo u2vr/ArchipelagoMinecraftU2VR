@@ -1,0 +1,16 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Structures",
+    "id": "aprandomizer:ocean_monument",
+    "name": "Ocean Monument",
+    "target": {
+      "type": "aprandomizer:structure",
+      "level": {
+        "type": "aprandomizer:constant",
+        "level": "minecraft:overworld"
+      },
+      "structures": "#aprandomizer:ocean_monument"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:seagrass"
+		},
+		"title": {"translate":"The sea calls you..."},
+		"description": {"color":"green","translate":"Find an ocean"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:biomes/just_keep_swimming",	
+	"rewards": {
+		"function": "bacap_rewards:biomes/the_sea_calls_you"
+	},	
+	"criteria": {
+		"ocean": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"biomes": "#minecraft:is_ocean"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

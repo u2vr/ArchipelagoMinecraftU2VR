@@ -1,0 +1,61 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:writable_book"
+		},
+		"title": {"translate":"Statistics"},
+		"description": {"color":"#CCCCCC","translate":"If your numbers go up, you're having more fun"},
+		"background": "block/loom_side",
+		"show_toast": false,
+		"announce_to_chat": false
+	},
+	"rewards": {
+		"function": "bacap_rewards:statistics/root"
+	},		
+	"criteria": {
+		"the_first_night": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player":  {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"minecraft:type_specific/player": {
+							"advancements": {
+								"blazeandcave:statistics/the_first_night": true
+							}
+						}
+					}
+				}
+			}
+		},
+		"diamond": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:diamond"
+						]
+					}
+				]
+			}
+		},
+		"entered_portal": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": [
+					"minecraft:nether_portal",
+					"minecraft:end_portal"
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"the_first_night",
+			"diamond",
+			"entered_portal"
+		]
+	]
+}

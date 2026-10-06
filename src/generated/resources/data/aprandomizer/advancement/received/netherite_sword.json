@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/diamond_sword",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_61"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Netherite Sword (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:netherite_sword"
+    },
+    "title": "Netherite Sword"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

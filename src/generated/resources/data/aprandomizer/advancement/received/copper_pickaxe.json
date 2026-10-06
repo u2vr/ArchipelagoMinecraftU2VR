@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_12"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Copper Pickaxe (Tier 3)",
+    "icon": {
+      "id": "minecraft:copper_pickaxe"
+    },
+    "title": "Copper Pickaxe"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "desert_pyramid"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Desert Pyramid structure",
+    "icon": {
+      "id": "minecraft:chiseled_sandstone"
+    },
+    "show_toast": true,
+    "title": "Desert Pyramid"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

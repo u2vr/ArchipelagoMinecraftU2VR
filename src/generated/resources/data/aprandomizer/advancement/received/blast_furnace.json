@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/furnace",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_71"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Blast Furnace (Tier 5)",
+    "icon": {
+      "id": "minecraft:blast_furnace"
+    },
+    "title": "Blast Furnace"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

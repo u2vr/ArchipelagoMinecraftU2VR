@@ -1,0 +1,22 @@
+{
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:block/basalt_side",
+    "description": "Track all unlocked recipes, upgrades and items from Archipelago",
+    "icon": {
+      "id": "minecraft:structure_block"
+    },
+    "show_toast": false,
+    "title": "Received Items & Recipes"
+  },
+  "requirements": [
+    [
+      "auto"
+    ]
+  ]
+}

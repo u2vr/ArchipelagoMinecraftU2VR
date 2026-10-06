@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/end_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:end_midlands"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the End Midlands biome",
+    "icon": {
+      "id": "minecraft:chorus_flower"
+    },
+    "show_toast": true,
+    "title": "End Midlands"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/blaze_powder",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_121"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Ender Eye (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "title": "Ender Eye"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

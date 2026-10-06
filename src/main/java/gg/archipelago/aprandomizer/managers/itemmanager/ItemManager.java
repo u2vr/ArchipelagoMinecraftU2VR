@@ -1,0 +1,509 @@
+package gg.archipelago.aprandomizer.managers.itemmanager;
+
+import com.google.common.base.Predicates;
+import gg.archipelago.aprandomizer.APRandomizer;
+import gg.archipelago.aprandomizer.APRegistries;
+import gg.archipelago.aprandomizer.advancements.APCriteriaTriggers;
+import gg.archipelago.aprandomizer.attachments.APAttachmentTypes;
+import gg.archipelago.aprandomizer.attachments.APPlayerAttachment;
+import gg.archipelago.aprandomizer.common.Utils.Utils;
+import gg.archipelago.aprandomizer.data.WorldData;
+import gg.archipelago.aprandomizer.items.*;
+import gg.archipelago.aprandomizer.managers.GoalManager;
+import gg.archipelago.aprandomizer.managers.RestrictionManager;
+import gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager;
+import gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeNode;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import it.unimi.dsi.fastutil.longs.LongList;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Util;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.LodestoneTracker;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+public class ItemManager {
+    // Directly reference a log4j logger.
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    public static final long RECIPE_UNLOCK = 1L;
+    public static final long HP_UPGRADE = 2L;
+    public static final long HUNGER_UPGRADE = 3L;
+    public static final long REACH_UPGRADE = 4L;
+    public static final long WORLD_BORDER_UPGRADE = 5L;
+    public static final long STRUCTURE_UNLOCK = 6L;
+    public static final long OFFHAND_UNLOCK = 7L;
+    public static final long INVENTORY_SLOT_UPGRADE = 8L;
+    public static final long TRAP_ITEM = 9L;
+    public static final long MONSTER_SUN_BURNING_DISABLED = 10L;
+    public static final long MONSTER_SPAWN_LIGHT_DISABLED = 11L;
+
+    public static final long COMPASS_VILLAGE = 12L;
+    public static final long COMPASS_PILLAGER_OUTPOST = 13L;
+    public static final long COMPASS_FORTRESS = 14L;
+    public static final long COMPASS_BASTION_REMNANT = 15L;
+    public static final long COMPASS_END_CITY = 16L;
+    public static final long COMPASS_OCEAN_MONUMENT = 17L;
+    public static final long COMPASS_WOODLAND_MANSION = 18L;
+    public static final long COMPASS_ANCIENT_CITY = 19L;
+    public static final long COMPASS_TRAIL_RUINS = 20L;
+    public static final long COMPASS_TRIAL_CHAMBERS = 21L;
+    public static final long COMPASS_SULFUR_CAVES = 22L;
+    public static final long COMPASS_UNVISITED_BIOMES = 23L;
+
+    public static final long DRAGON_EGG_SHARD = 24L;
+
+    private static final Long2ObjectMap<ResourceKey<APItem>> DEFAULT_ITEMS = Util.make(new Long2ObjectOpenHashMap<>(), map -> {
+        // Active Archipelago Item Pool
+        map.put(RECIPE_UNLOCK, APItems.RECIPE_UNLOCK);
+        map.put(HP_UPGRADE, APItems.HP_UPGRADE);
+        map.put(HUNGER_UPGRADE, APItems.HUNGER_UPGRADE);
+        map.put(REACH_UPGRADE, APItems.REACH_UPGRADE);
+        map.put(WORLD_BORDER_UPGRADE, APItems.WORLD_BORDER_UPGRADE);
+        map.put(STRUCTURE_UNLOCK, APItems.STRUCTURE_UNLOCK);
+        map.put(OFFHAND_UNLOCK, APItems.OFFHAND_UNLOCK);
+        map.put(INVENTORY_SLOT_UPGRADE, APItems.INVENTORY_SLOT_UPGRADE);
+        map.put(TRAP_ITEM, APItems.TRAP_ITEM);
+        map.put(MONSTER_SUN_BURNING_DISABLED, APItems.MONSTER_SUN_BURNING_DISABLED);
+        map.put(MONSTER_SPAWN_LIGHT_DISABLED, APItems.MONSTER_SPAWN_LIGHT_DISABLED);
+
+        // Structure Compasses
+        map.put(COMPASS_VILLAGE, APItems.COMPASS_VILLAGE);
+        map.put(COMPASS_PILLAGER_OUTPOST, APItems.COMPASS_PILLAGER_OUTPOST);
+        map.put(COMPASS_FORTRESS, APItems.COMPASS_FORTRESS);
+        map.put(COMPASS_BASTION_REMNANT, APItems.COMPASS_BASTION_REMNANT);
+        map.put(COMPASS_END_CITY, APItems.COMPASS_END_CITY);
+        map.put(COMPASS_OCEAN_MONUMENT, APItems.COMPASS_OCEAN_MONUMENT);
+        map.put(COMPASS_WOODLAND_MANSION, APItems.COMPASS_WOODLAND_MANSION);
+        map.put(COMPASS_ANCIENT_CITY, APItems.COMPASS_ANCIENT_CITY);
+        map.put(COMPASS_TRAIL_RUINS, APItems.COMPASS_TRAIL_RUINS);
+        map.put(COMPASS_TRIAL_CHAMBERS, APItems.COMPASS_TRIAL_CHAMBERS);
+        map.put(COMPASS_SULFUR_CAVES, APItems.COMPASS_SULFUR_CAVES);
+        map.put(COMPASS_UNVISITED_BIOMES, APItems.COMPASS_UNVISITED_BIOMES);
+
+        map.put(DRAGON_EGG_SHARD, APItems.DRAGON_EGG_SHARD);
+
+        // Legacy IDs
+        map.put(37L, APItems.COMPASS_VILLAGE);
+        map.put(38L, APItems.COMPASS_PILLAGER_OUTPOST);
+        map.put(39L, APItems.COMPASS_FORTRESS);
+        map.put(40L, APItems.COMPASS_BASTION_REMNANT);
+        map.put(41L, APItems.COMPASS_END_CITY);
+        map.put(43L, APItems.DRAGON_EGG_SHARD);
+        map.put(48L, APItems.COMPASS_OCEAN_MONUMENT);
+        map.put(49L, APItems.COMPASS_WOODLAND_MANSION);
+        map.put(50L, APItems.COMPASS_ANCIENT_CITY);
+        map.put(51L, APItems.COMPASS_TRAIL_RUINS);
+        map.put(52L, APItems.COMPASS_TRIAL_CHAMBERS);
+        map.put(53L, APItems.COMPASS_SULFUR_CAVES);
+        map.put(54L, APItems.COMPASS_UNVISITED_BIOMES);
+
+        /* Legacy item pool preserved for reference without deleting code:
+        map.put(1L, APItems.GROUP_RECIPES_ARCHERY);
+        map.put(2L, APItems.PROGRESSIVE_RECIPES_RESOURCE_CRAFTING);
+        map.put(3L, APItems.GROUP_RECIPES_BREWING);
+        map.put(4L, APItems.GROUP_RECIPES_ENCHANTING);
+        map.put(5L, APItems.GROUP_RECIPES_BUCKET);
+        map.put(6L, APItems.GROUP_RECIPES_FLINT_AND_STEEL);
+        map.put(7L, APItems.GROUP_RECIPES_BEDS);
+        map.put(8L, APItems.GROUP_RECIPES_BOTTLES);
+        map.put(9L, APItems.GROUP_RECIPES_SHIELD);
+        map.put(10L, APItems.GROUP_RECIPES_FISHING);
+        map.put(11L, APItems.GROUP_RECIPES_CAMPFIRES);
+        map.put(12L, APItems.PROGRESSIVE_RECIPES_WEAPONS);
+        map.put(13L, APItems.PROGRESSIVE_RECIPES_TOOLS);
+        map.put(14L, APItems.PROGRESSIVE_RECIPES_ARMOR);
+        map.put(15L, APItems.ITEMSTACK_NETHERITE_SCRAP);
+        map.put(16L, APItems.ITEMSTACK_EIGHT_EMERALD);
+        map.put(17L, APItems.ITEMSTACK_FOUR_EMERALD);
+        map.put(18L, APItems.ITEMSTACK_ENCHANTMENT_CHANNELING_ONE);
+        map.put(19L, APItems.ITEMSTACK_ENCHANTMENT_SILK_TOUCH_ONE);
+        map.put(20L, APItems.ITEMSTACK_ENCHANTMENT_SHARPNESS_THREE);
+        map.put(21L, APItems.ITEMSTACK_ENCHANTMENT_PIERCING_FOUR);
+        map.put(22L, APItems.ITEMSTACK_ENCHANTMENT_MOB_LOOTING_THREE);
+        map.put(23L, APItems.ITEMSTACK_ENCHANTMENT_INFINITY_ARROWS_ONE);
+        map.put(24L, APItems.ITEMSTACK_DIAMOND_ORE);
+        map.put(25L, APItems.ITEMSTACK_IRON_ORE);
+        map.put(26L, APItems.EXPERIENCE_FIVE_HUNDRED);
+        map.put(27L, APItems.EXPERIENCE_ONE_HUNDRED);
+        map.put(28L, APItems.EXPERIENCE_FIFTY);
+        map.put(29L, APItems.ITEMSTACK_ENDER_PEARL);
+        map.put(30L, APItems.ITEMSTACK_LAPIS_LAZULI);
+        map.put(31L, APItems.ITEMSTACK_COOKED_PORKCHOP);
+        map.put(32L, APItems.ITEMSTACK_GOLD_ORE);
+        map.put(33L, APItems.ITEMSTACK_ROTTEN_FLESH);
+        map.put(34L, APItems.ITEMSTACK_THE_ARROW);
+        map.put(35L, APItems.ITEMSTACK_THIRTY_TWO_ARROW);
+        map.put(36L, APItems.GROUP_RECIPES_SADDLE);
+        map.put(37L, APItems.COMPASS_VILLAGE);
+        map.put(38L, APItems.COMPASS_PILLAGER_OUTPOST);
+        map.put(39L, APItems.COMPASS_FORTRESS);
+        map.put(40L, APItems.COMPASS_BASTION_REMNANT);
+        map.put(41L, APItems.COMPASS_END_CITY);
+        map.put(42L, APItems.ITEMSTACK_SHULKER_BOX);
+        map.put(DRAGON_EGG_SHARD, APItems.DRAGON_EGG_SHARD);
+        map.put(44L, APItems.GROUP_RECIPES_SPYGLASS);
+        map.put(45L, APItems.GROUP_RECIPES_LEAD);
+        map.put(46L, APItems.TRAP_BEES);
+        map.put(47L, APItems.GROUP_RECIPES_BRUSH);
+        map.put(48L, APItems.COMPASS_OCEAN_MONUMENT);
+        map.put(49L, APItems.COMPASS_WOODLAND_MANSION);
+        map.put(50L, APItems.COMPASS_ANCIENT_CITY);
+        map.put(51L, APItems.COMPASS_TRAIL_RUINS);
+        map.put(52L, APItems.COMPASS_TRIAL_CHAMBERS);
+        map.put(53L, APItems.COMPASS_SULFUR_CAVES);
+        map.put(54L, APItems.COMPASS_UNVISITED_BIOMES);
+        */
+    });
+
+//    long index = 51L;
+//    private final HashMap<Long, Callable<Trap>> trapData = new HashMap<>() {{
+//        put(index++, BeeTrap::new);
+//        put(index++, CreeperTrap::new);
+//        put(index++, SandRain::new);
+//        put(index++, FakeWither::new);
+//        put(index++, GoonTrap::new);
+//        put(index++, FishFountainTrap::new);
+//        put(index++, MiningFatigueTrap::new);
+//        put(index++, BlindnessTrap::new);
+//        put(index++, PhantomTrap::new);
+//        put(index++, WaterTrap::new);
+//        put(index++, GhastTrap::new);
+//        put(index++, LevitateTrap::new);
+//        put(index++, AboutFaceTrap::new);
+//        put(index++, AnvilTrap::new);
+//    }};
+
+    private Object2IntMap<ResourceKey<APItem>> tiers = new Object2IntOpenHashMap<>();
+    private List<Tier> receivedItems = new ArrayList<>();
+    private int index = 0;
+    private final MinecraftServer server;
+    private final GoalManager goalManager;
+    private final WorldData worldData;
+
+    public ItemManager(MinecraftServer server, GoalManager goalManager, WorldData worldData) {
+        this.server = server;
+        this.goalManager = goalManager;
+        this.worldData = worldData;
+    }
+
+    public void setReceivedItems(LongList items) {
+        tiers = new Object2IntOpenHashMap<>();
+        receivedItems = items.longStream()
+                .mapToObj(this::getTier)
+                .filter(Predicates.notNull())
+                .collect(Collectors.toList());
+        goalManager.updateGoal(false);
+    }
+
+    private Tier getTier(long itemID) {
+        MinecraftServer server = APRandomizer.getServer();
+        if (server != null && DEFAULT_ITEMS.containsKey(itemID)) {
+            ResourceKey<APItem> itemKey = DEFAULT_ITEMS.get(itemID);
+            int tierIndex = tiers.getInt(itemKey);
+            tiers.put(itemKey, tierIndex + 1);
+            Optional<Holder.Reference<APItem>> itemOptional = server.registryAccess().get(itemKey);
+            if (itemOptional.isPresent()) {
+                APItem item = itemOptional.get().value();
+                APTier tier = item.tiers().get(Math.min(item.tiers().size() - 1, tierIndex));
+                return new Tier(tier, itemKey, tierIndex);
+            } else {
+                LOGGER.error("{} not found", DEFAULT_ITEMS.get(itemID));
+            }
+        }
+        return null;
+    }
+
+    public void giveItem(APTier tier, ResourceKey<APItem> key, ServerPlayer player, int itemIndex, int tierIndex) {
+        if (APRandomizer.isJailPlayers()) {
+            //don't send items to players if game has not started.
+            return;
+        }
+
+        APPlayerAttachment attachment = player.getData(APAttachmentTypes.AP_PLAYER);
+
+        if (attachment.getIndex() >= itemIndex)
+            return;
+
+        APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, key, tierIndex + 1);
+
+        //update the player's index of received items for syncing later.
+        attachment.setIndex(itemIndex);
+        for (APReward reward : tier.rewards()) {
+            reward.give(player);
+        }
+        try {
+            player.getAdvancements().save();
+        } catch (Exception ignored) {}
+    }
+
+
+    public boolean giveItemToAll(long itemID, int index) {
+        return giveItemToAll(itemID, index, null);
+    }
+
+    public boolean giveItemToAll(long itemID, int index, String senderSlotName) {
+        if (index <= this.index)
+            return false;
+        this.index = index;
+        Tier tier = getTier(itemID);
+        if (tier != null) {
+            receivedItems.add(tier);
+            // Don't fire if we have already received this location
+            WorldData worldData = APRandomizer.getWorldData();
+            if (worldData == null)
+                return false;
+            if (index <= worldData.getItemIndex())
+                return false;
+
+            RestrictionManager.setCurrentTrapSender(senderSlotName);
+            try {
+                for (APReward reward : tier.tier.rewards()) {
+                    reward.give(server);
+                }
+                for (ServerPlayer serverPlayerEntity : server.getPlayerList().getPlayers()) {
+                    giveItem(tier.tier, tier.key, serverPlayerEntity, index, tier.tierIndex);
+                }
+            } finally {
+                RestrictionManager.setCurrentTrapSender(null);
+            }
+            worldData.setItemIndex(index);
+            syncAllPlayerAdvancements();
+        } else {
+            return false;
+        }
+
+        goalManager.updateGoal(true);
+        return true;
+    }
+
+    /***
+     fetches the index form the player's capability then makes sure they have all items after that index.
+     * @param player ServerPlayer to catch up
+     */
+    public void catchUpPlayer(ServerPlayer player) {
+        grantAllInitialRecipes(player);
+        int playerIndex = player.getData(APAttachmentTypes.AP_PLAYER).getIndex();
+
+        for (int i = playerIndex; i < receivedItems.size(); i++) {
+            Tier tier = receivedItems.get(i);
+            if (APItems.TRAP_ITEM.equals(tier.key)) {
+                player.getData(APAttachmentTypes.AP_PLAYER).setIndex(i + 1);
+                continue;
+            }
+            giveItem(tier.tier, tier.key, player, i + 1, tier.tierIndex);
+        }
+
+        syncPlayerAdvancements(player);
+    }
+
+    public void syncPlayerAdvancements(ServerPlayer player) {
+        if (player == null || APRandomizer.isJailPlayers()) return;
+        WorldData data = APRandomizer.getWorldData();
+        if (data == null) return;
+
+        // 1. HP Upgrades
+        if (RestrictionManager.isHpRestrictionEnabled()) {
+            int hp = data.getHpUpgrades();
+            for (int i = 1; i <= hp; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.HP_UPGRADE, i);
+            }
+        }
+
+        // 2. Hunger Upgrades
+        if (RestrictionManager.isHungerRestrictionEnabled()) {
+            int hunger = data.getHungerUpgrades();
+            for (int i = 1; i <= hunger; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.HUNGER_UPGRADE, i);
+            }
+        }
+
+        // 3. Reach Upgrades
+        if (RestrictionManager.isReachRestrictionEnabled()) {
+            int reach = data.getReachUpgrades();
+            for (int i = 1; i <= reach; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.REACH_UPGRADE, i);
+            }
+        }
+
+        // 4. World Border Upgrades
+        if (RestrictionManager.isWorldBorderRestrictionEnabled()) {
+            int border = data.getWorldBorderUpgrades();
+            for (int i = 1; i <= border; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.WORLD_BORDER_UPGRADE, i);
+            }
+        }
+
+        // 5. Structure Unlocks
+        if (RestrictionManager.isStructureRestrictionEnabled()) {
+            int structures = data.getStructureUpgrades();
+            for (int i = 1; i <= structures; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.STRUCTURE_UNLOCK, i);
+            }
+        }
+
+        // 6. Offhand Unlock
+        if (RestrictionManager.isOffhandRestrictionEnabled() && data.isOffhandUnlocked()) {
+            APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.OFFHAND_UNLOCK, 1);
+        }
+
+        // 7. Inventory Slot Upgrades
+        if (RestrictionManager.isInventorySlotRestrictionEnabled()) {
+            int slots = data.getInventorySlotUpgrades();
+            for (int i = 1; i <= slots; i++) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.INVENTORY_SLOT_UPGRADE, i);
+            }
+        }
+
+        // 8. Curses
+        if (RestrictionManager.isCursesEnabled()) {
+            if (data.isMonsterSunBurningDisabled()) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.MONSTER_SUN_BURNING_DISABLED, 1);
+            }
+            if (data.isIgnoreLightSpawningEnabled()) {
+                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.MONSTER_SPAWN_LIGHT_DISABLED, 1);
+            }
+        }
+
+        // 9. Recipe Tree Nodes
+        Set<ResourceKey<Recipe<?>>> unlocked = new HashSet<>(data.getUnlockedRecipes());
+        for (RecipeTreeNode node : RecipeTreeManager.getAllNodes()) {
+            if (node.isUnlocked(unlocked)) {
+                APCriteriaTriggers.RECIPE_NODE.get().trigger(player, node.id());
+            }
+        }
+
+        // 10. Persist advancements to disk
+        try {
+            player.getAdvancements().save();
+        } catch (Exception e) {
+            LOGGER.error("Failed to save advancements for player {}", player.getScoreboardName(), e);
+        }
+    }
+
+    public void syncAllPlayerAdvancements() {
+        if (APRandomizer.isJailPlayers()) return;
+        MinecraftServer currentServer = APRandomizer.getServer();
+        if (currentServer != null) {
+            for (ServerPlayer player : currentServer.getPlayerList().getPlayers()) {
+                syncPlayerAdvancements(player);
+            }
+        }
+    }
+
+    public void catchUp(MinecraftServer server) {
+        WorldData data = APRandomizer.getWorldData();
+        if (data != null) {
+            for (int i = data.getItemIndex(); i < receivedItems.size(); i++) {
+                for (APReward reward : receivedItems.get(i).tier.rewards()) {
+                    reward.give(server);
+                }
+            }
+            data.setItemIndex(receivedItems.size());
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                catchUpPlayer(player);
+            }
+        }
+    }
+
+    public Set<ResourceKey<Recipe<?>>> getLockedRecipes(RegistryAccess registryAccess) {
+        Set<ResourceKey<Recipe<?>>> lockedRecipes = new HashSet<>(RecipeTreeManager.getAllTreeRecipes());
+        lockedRecipes.removeAll(RecipeTreeManager.getInitialUnlockedRecipes());
+        if (worldData != null) {
+            lockedRecipes.removeAll(worldData.getUnlockedRecipes());
+        }
+        return lockedRecipes;
+    }
+
+    public void grantAllInitialRecipes(ServerPlayer player) {
+        Set<ResourceKey<Recipe<?>>> lockedRecipes = getLockedRecipes(player.registryAccess());
+        Set<RecipeHolder<?>> recipes = player.level().getServer().getRecipeManager().getRecipes().stream().filter(recipe -> !lockedRecipes.contains(recipe.id())).collect(Collectors.toSet());
+        player.awardRecipes(recipes);
+    }
+
+    public static void updateCompassLocation(CompassReward compassReward, ServerPlayer player, ItemStack compass) {
+        //get our local custom structure if needed.
+        Optional<BlockPos> pos = compassReward.target().findTarget(player.level(), player.blockPosition(), player);
+        List<String> lore = new ArrayList<>(List.of(
+                "Right click with compass in hand to",
+                "select a target from unlocked compasses."));
+        Component displayName = Component.empty()
+                .append("Structure Compass (")
+                .append(compassReward.name())
+                .append(")");
+
+        if (pos.isPresent()) {
+            lore.addFirst("Location X: " + pos.get().getX() + (compassReward.target().includeY() ? ", Y: " + pos.get().getY() : "") + ", Z: " + pos.get().getZ());
+        } else {
+            displayName = Component.empty()
+                    .append("Structure Compass (")
+                    .append(compassReward.name())
+                    .append(") Not Found")
+                    .withStyle(ChatFormatting.YELLOW);
+        }
+
+        //update the nbt data with our new structure.
+        CompoundTag nbt = compass.has(DataComponents.CUSTOM_DATA) ? compass.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag() : new CompoundTag();
+        nbt.store("target", CompassReward.CODEC, player.registryAccess().createSerializationContext(NbtOps.INSTANCE), compassReward);
+        compass.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
+
+        //update the nbt data with our new structure.
+        compass.set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(pos.map(block -> GlobalPos.of(player.level().dimension(), block)), false));
+        Utils.setNameAndLore(compass, displayName, lore);
+        player.containerMenu.broadcastChanges();
+    }
+
+    // remove all compasses but one in player inventory
+    public static void cleanCompasses(ServerPlayer player) {
+        AtomicInteger cCount = new AtomicInteger();
+        player.getInventory().forEach(item -> {
+            if (!item.is(Items.COMPASS)) return;
+            if (!item.has(DataComponents.CUSTOM_DATA)) return;
+            CompoundTag nbt = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            if (!nbt.contains("target")) return;
+            cCount.getAndIncrement();
+            if (cCount.get() > 1) {
+                player.getInventory().removeItem(item);
+            }
+        });
+    }
+
+    // refresh all compasses in player inventory
+    public static void refreshCompasses(ServerPlayer player) {
+        player.getInventory().forEach((item) -> {
+            if (!item.is(Items.COMPASS)) return;
+            if (!item.has(DataComponents.CUSTOM_DATA)) return;
+            CompoundTag nbt = item.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            Optional<CompassReward> structure = nbt.read("target", CompassReward.CODEC, player.registryAccess().createSerializationContext(NbtOps.INSTANCE));
+            if (structure.isEmpty()) return;
+
+            updateCompassLocation(structure.get(), player, item);
+        });
+    }
+
+    private record Tier(APTier tier, ResourceKey<APItem> key, int tierIndex) {
+
+    }
+}

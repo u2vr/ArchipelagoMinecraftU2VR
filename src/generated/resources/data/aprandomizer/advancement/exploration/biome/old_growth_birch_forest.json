@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:old_growth_birch_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Old Growth Birch Forest biome",
+    "icon": {
+      "id": "minecraft:birch_log"
+    },
+    "show_toast": true,
+    "title": "Old Growth Birch Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

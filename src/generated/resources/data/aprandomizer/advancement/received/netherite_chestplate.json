@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/diamond_chestplate",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_151"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Netherite Chestplate (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:netherite_chestplate"
+    },
+    "title": "Netherite Chestplate"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

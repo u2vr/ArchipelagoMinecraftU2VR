@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_ocean_monument",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 6
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Nether Fortresses",
+    "icon": {
+      "id": "minecraft:blaze_rod"
+    },
+    "title": "Nether Fortress Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

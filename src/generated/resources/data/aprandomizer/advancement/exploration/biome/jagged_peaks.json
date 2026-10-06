@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/caves_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:jagged_peaks"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Jagged Peaks biome",
+    "icon": {
+      "id": "minecraft:iron_ore"
+    },
+    "show_toast": true,
+    "title": "Jagged Peaks"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

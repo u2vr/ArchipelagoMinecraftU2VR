@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:cherry_grove"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Cherry Grove biome",
+    "icon": {
+      "id": "minecraft:cherry_sapling"
+    },
+    "show_toast": true,
+    "title": "Cherry Grove"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

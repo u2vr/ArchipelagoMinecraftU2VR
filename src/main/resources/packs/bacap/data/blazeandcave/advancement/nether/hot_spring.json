@@ -1,0 +1,47 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:water_bucket"
+		},
+		"title": {"translate":"Hot Spring"},
+		"description": {"color":"green","translate":"Sit in water in the Nether"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:nether/hells_bells",
+	"rewards": {
+		"function": "bacap_rewards:nether/hot_spring"
+	},
+	"criteria": {
+		"enter_water_cauldron": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": "minecraft:water_cauldron"
+								},
+								"dimension": "the_nether"
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

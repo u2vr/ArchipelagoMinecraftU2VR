@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/caves_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:stony_peaks"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Stony Peaks biome",
+    "icon": {
+      "id": "minecraft:calcite"
+    },
+    "show_toast": true,
+    "title": "Stony Peaks"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

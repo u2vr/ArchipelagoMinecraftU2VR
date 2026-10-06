@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:desert"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Desert biome",
+    "icon": {
+      "id": "minecraft:sand"
+    },
+    "show_toast": true,
+    "title": "Desert"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

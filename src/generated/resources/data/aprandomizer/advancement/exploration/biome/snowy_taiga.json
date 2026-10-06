@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:snowy_taiga"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Snowy Taiga biome",
+    "icon": {
+      "id": "minecraft:snow"
+    },
+    "show_toast": true,
+    "title": "Snowy Taiga"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

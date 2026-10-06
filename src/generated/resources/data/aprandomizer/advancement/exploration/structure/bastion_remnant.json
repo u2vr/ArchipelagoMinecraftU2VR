@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "bastion_remnant"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Bastion Remnant structure",
+    "icon": {
+      "id": "minecraft:gilded_blackstone"
+    },
+    "show_toast": true,
+    "title": "Bastion Remnant"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

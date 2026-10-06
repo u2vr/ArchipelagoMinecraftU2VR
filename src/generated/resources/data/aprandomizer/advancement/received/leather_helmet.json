@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_130"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Leather Helmet (Tier 2)",
+    "icon": {
+      "id": "minecraft:leather_helmet"
+    },
+    "title": "Leather Helmet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

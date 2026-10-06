@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:deep_cold_ocean"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Deep Cold Ocean biome",
+    "icon": {
+      "id": "minecraft:cooked_salmon"
+    },
+    "show_toast": true,
+    "title": "Deep Cold Ocean"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

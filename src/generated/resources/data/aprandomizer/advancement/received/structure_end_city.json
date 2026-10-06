@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/structure_bastion",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 8
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to End Cities",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:purpur_block"
+    },
+    "title": "End City Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

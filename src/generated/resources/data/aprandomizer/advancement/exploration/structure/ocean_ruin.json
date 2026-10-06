@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "ocean_ruin"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Ocean Ruin structure",
+    "icon": {
+      "id": "minecraft:prismarine"
+    },
+    "show_toast": true,
+    "title": "Ocean Ruin"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

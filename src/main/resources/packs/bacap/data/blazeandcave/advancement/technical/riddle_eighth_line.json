@@ -1,0 +1,35 @@
+{
+	"rewards": {
+		"function": "blazeandcave:advancement/riddle/eighth_line"
+	},	
+	"criteria": {
+		"wither": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+							"entity_type": "minecraft:wither"
+					}
+				},
+				"killing_blow": {
+					"direct_entity": {
+							"entity_type": "minecraft:splash_potion"
+					}
+				},
+				"player":  {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"minecraft:type_specific/player": {
+							"advancements": {
+								"blazeandcave:technical/riddle_seventh_line": true
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

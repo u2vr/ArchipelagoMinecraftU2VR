@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_114"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Doors and Trapdoors (Tier 1, 34 recipes)",
+    "icon": {
+      "id": "minecraft:acacia_door"
+    },
+    "title": "Doors and Trapdoors"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

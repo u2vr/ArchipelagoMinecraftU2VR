@@ -1,0 +1,47 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:spruce_fence"
+		},
+		"title": {"translate":"Ahoy!"},
+		"description": {"color":"green","translate":"Come across a sunken ship"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:biomes/atlantis",
+	"rewards": {
+		"function": "bacap_rewards:biomes/ahoy"
+	},		
+	"criteria": {
+		"shipwreck": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "#minecraft:shipwreck"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

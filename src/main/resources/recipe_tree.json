@@ -1,0 +1,1545 @@
+{
+  "meta": {
+    "app": "Minecraft Recipe Tree Studio",
+    "total_nodes": 137,
+    "total_links": 136,
+    "generated": "2026-10-01T21:02:38.079Z"
+  },
+  "tree": [
+    {
+      "id": "node_11",
+      "tier": 0,
+      "item": "minecraft:air",
+      "name": "Archipelago",
+      "recipes": [
+        "minecraft:cobblestone"
+      ],
+      "children": [
+        {
+          "id": "node_12",
+          "tier": 3,
+          "item": "minecraft:copper_pickaxe",
+          "name": "Copper Pickaxe",
+          "recipes": [
+            "minecraft:copper_pickaxe"
+          ],
+          "children": [
+            {
+              "id": "node_13",
+              "tier": 4,
+              "item": "minecraft:iron_pickaxe",
+              "name": "Iron Pickaxe",
+              "recipes": [
+                "minecraft:iron_pickaxe"
+              ],
+              "children": [
+                {
+                  "id": "node_14",
+                  "tier": 5,
+                  "item": "minecraft:golden_pickaxe",
+                  "name": "Golden Pickaxe",
+                  "recipes": [
+                    "minecraft:golden_pickaxe"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_15",
+                      "tier": 6,
+                      "item": "minecraft:diamond_pickaxe",
+                      "name": "Diamond Pickaxe",
+                      "recipes": [
+                        "minecraft:diamond_pickaxe"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_16",
+                          "tier": 7,
+                          "item": "minecraft:netherite_pickaxe",
+                          "name": "Netherite Pickaxe",
+                          "recipes": [
+                            "minecraft:netherite_pickaxe"
+                          ],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_17",
+          "tier": 3,
+          "item": "minecraft:iron_ingot",
+          "name": "Iron Ingot",
+          "recipes": [
+            "minecraft:iron_ingot"
+          ],
+          "children": [
+            {
+              "id": "node_103",
+              "tier": 4,
+              "item": "minecraft:shears",
+              "name": "Shears",
+              "recipes": [
+                "minecraft:shears"
+              ],
+              "children": []
+            },
+            {
+              "id": "node_111",
+              "tier": 4,
+              "item": "minecraft:minecart",
+              "name": "Minecart",
+              "recipes": [
+                "minecraft:minecart"
+              ],
+              "children": []
+            },
+            {
+              "id": "node_123",
+              "tier": 4,
+              "item": "minecraft:shield",
+              "name": "Shield",
+              "recipes": [
+                "minecraft:shield"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "node_36",
+          "tier": 3,
+          "item": "minecraft:copper_axe",
+          "name": "Copper Axe",
+          "recipes": [
+            "minecraft:copper_axe"
+          ],
+          "children": [
+            {
+              "id": "node_39",
+              "tier": 4,
+              "item": "minecraft:iron_axe",
+              "name": "Iron Axe",
+              "recipes": [
+                "minecraft:iron_axe"
+              ],
+              "children": [
+                {
+                  "id": "node_38",
+                  "tier": 5,
+                  "item": "minecraft:golden_axe",
+                  "name": "Golden Axe",
+                  "recipes": [
+                    "minecraft:golden_axe"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_37",
+                      "tier": 6,
+                      "item": "minecraft:diamond_axe",
+                      "name": "Diamond Axe",
+                      "recipes": [
+                        "minecraft:diamond_axe"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_40",
+                          "tier": 7,
+                          "item": "minecraft:netherite_axe",
+                          "name": "Netherite Axe",
+                          "recipes": [
+                            "minecraft:netherite_axe"
+                          ],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_47",
+          "tier": 3,
+          "item": "minecraft:copper_shovel",
+          "name": "Copper Shovel",
+          "recipes": [
+            "minecraft:copper_shovel"
+          ],
+          "children": [
+            {
+              "id": "node_50",
+              "tier": 4,
+              "item": "minecraft:iron_shovel",
+              "name": "Iron Shovel",
+              "recipes": [
+                "minecraft:iron_shovel"
+              ],
+              "children": [
+                {
+                  "id": "node_49",
+                  "tier": 5,
+                  "item": "minecraft:golden_shovel",
+                  "name": "Golden Shovel",
+                  "recipes": [
+                    "minecraft:golden_shovel"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_48",
+                      "tier": 6,
+                      "item": "minecraft:diamond_shovel",
+                      "name": "Diamond Shovel",
+                      "recipes": [
+                        "minecraft:diamond_shovel"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_51",
+                          "tier": 7,
+                          "item": "minecraft:netherite_shovel",
+                          "name": "Netherite Shovel",
+                          "recipes": [
+                            "minecraft:netherite_shovel"
+                          ],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_70",
+          "tier": 2,
+          "item": "minecraft:furnace",
+          "name": "Furnace",
+          "recipes": [
+            "minecraft:furnace"
+          ],
+          "children": [
+            {
+              "id": "node_71",
+              "tier": 5,
+              "item": "minecraft:blast_furnace",
+              "name": "Blast Furnace",
+              "recipes": [
+                "minecraft:blast_furnace"
+              ],
+              "children": []
+            },
+            {
+              "id": "node_77",
+              "tier": 4,
+              "item": "minecraft:smoker",
+              "name": "Smoker",
+              "recipes": [
+                "minecraft:smoker"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "node_75",
+          "tier": 3,
+          "item": "minecraft:bow",
+          "name": "Bow",
+          "recipes": [
+            "minecraft:bow"
+          ],
+          "children": [
+            {
+              "id": "node_76",
+              "tier": 5,
+              "item": "minecraft:crossbow",
+              "name": "Crossbow",
+              "recipes": [
+                "minecraft:crossbow"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "node_81",
+          "tier": 4,
+          "item": "minecraft:acacia_boat",
+          "name": "Boats",
+          "recipes": [
+            "minecraft:acacia_boat",
+            "minecraft:birch_boat",
+            "minecraft:cherry_boat",
+            "minecraft:dark_oak_boat",
+            "minecraft:jungle_boat",
+            "minecraft:mangrove_boat",
+            "minecraft:oak_boat",
+            "minecraft:pale_oak_boat",
+            "minecraft:poplar_boat",
+            "minecraft:spruce_boat"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_83",
+          "tier": 1,
+          "item": "minecraft:wooden_sword",
+          "name": "Wooden Sword",
+          "recipes": [
+            "minecraft:wooden_sword"
+          ],
+          "children": [
+            {
+              "id": "node_62",
+              "tier": 2,
+              "item": "minecraft:stone_sword",
+              "name": "Stone Sword",
+              "recipes": [
+                "minecraft:stone_sword"
+              ],
+              "children": [
+                {
+                  "id": "node_57",
+                  "tier": 3,
+                  "item": "minecraft:copper_sword",
+                  "name": "Copper Sword",
+                  "recipes": [
+                    "minecraft:copper_sword"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_60",
+                      "tier": 4,
+                      "item": "minecraft:iron_sword",
+                      "name": "Iron Sword",
+                      "recipes": [
+                        "minecraft:iron_sword"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_59",
+                          "tier": 5,
+                          "item": "minecraft:golden_sword",
+                          "name": "Golden Sword",
+                          "recipes": [
+                            "minecraft:golden_sword"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_58",
+                              "tier": 6,
+                              "item": "minecraft:diamond_sword",
+                              "name": "Diamond Sword",
+                              "recipes": [
+                                "minecraft:diamond_sword"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_61",
+                                  "tier": 7,
+                                  "item": "minecraft:netherite_sword",
+                                  "name": "Netherite Sword",
+                                  "recipes": [
+                                    "minecraft:netherite_sword"
+                                  ],
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_86",
+          "tier": 1,
+          "item": "minecraft:wooden_hoe",
+          "name": "Wooden Hoe",
+          "recipes": [
+            "minecraft:wooden_hoe"
+          ],
+          "children": [
+            {
+              "id": "node_18",
+              "tier": 2,
+              "item": "minecraft:stone_hoe",
+              "name": "Stone Hoe",
+              "recipes": [
+                "minecraft:stone_hoe"
+              ],
+              "children": [
+                {
+                  "id": "node_22",
+                  "tier": 3,
+                  "item": "minecraft:copper_hoe",
+                  "name": "Copper Hoe",
+                  "recipes": [
+                    "minecraft:copper_hoe"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_25",
+                      "tier": 4,
+                      "item": "minecraft:iron_hoe",
+                      "name": "Iron Hoe",
+                      "recipes": [
+                        "minecraft:iron_hoe"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_23",
+                          "tier": 5,
+                          "item": "minecraft:golden_hoe",
+                          "name": "Golden Hoe",
+                          "recipes": [
+                            "minecraft:golden_hoe"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_24",
+                              "tier": 6,
+                              "item": "minecraft:diamond_hoe",
+                              "name": "Diamond Hoe",
+                              "recipes": [
+                                "minecraft:diamond_hoe"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_26",
+                                  "tier": 7,
+                                  "item": "minecraft:netherite_hoe",
+                                  "name": "Netherite Hoe",
+                                  "recipes": [
+                                    "minecraft:netherite_hoe"
+                                  ],
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_89",
+          "tier": 1,
+          "item": "minecraft:wooden_spear",
+          "name": "Wooden Spear",
+          "recipes": [
+            "minecraft:wooden_spear"
+          ],
+          "children": [
+            {
+              "id": "node_90",
+              "tier": 2,
+              "item": "minecraft:stone_spear",
+              "name": "Stone Spear",
+              "recipes": [
+                "minecraft:stone_spear"
+              ],
+              "children": [
+                {
+                  "id": "node_91",
+                  "tier": 3,
+                  "item": "minecraft:copper_spear",
+                  "name": "Copper Spear",
+                  "recipes": [
+                    "minecraft:copper_spear"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_92",
+                      "tier": 4,
+                      "item": "minecraft:iron_spear",
+                      "name": "Iron Spear",
+                      "recipes": [
+                        "minecraft:iron_spear"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_93",
+                          "tier": 5,
+                          "item": "minecraft:golden_spear",
+                          "name": "Golden Spear",
+                          "recipes": [
+                            "minecraft:golden_spear"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_94",
+                              "tier": 6,
+                              "item": "minecraft:diamond_spear",
+                              "name": "Diamond Spear",
+                              "recipes": [
+                                "minecraft:diamond_spear"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_95",
+                                  "tier": 7,
+                                  "item": "minecraft:netherite_spear",
+                                  "name": "Netherite Spear",
+                                  "recipes": [
+                                    "minecraft:netherite_spear"
+                                  ],
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_105",
+          "tier": 6,
+          "item": "minecraft:flint_and_steel",
+          "name": "Flint And Steel",
+          "recipes": [
+            "minecraft:flint_and_steel"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_107",
+          "tier": 6,
+          "item": "minecraft:bucket",
+          "name": "Bucket",
+          "recipes": [
+            "minecraft:bucket"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_109",
+          "tier": 2,
+          "item": "minecraft:fishing_rod",
+          "name": "Fishing Rod",
+          "recipes": [
+            "minecraft:fishing_rod"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_114",
+          "tier": 1,
+          "item": "minecraft:acacia_door",
+          "name": "Doors and Trapdoors",
+          "recipes": [
+            "minecraft:acacia_door",
+            "minecraft:acacia_trapdoor",
+            "minecraft:bamboo_door",
+            "minecraft:bamboo_trapdoor",
+            "minecraft:birch_door",
+            "minecraft:birch_trapdoor",
+            "minecraft:cherry_door",
+            "minecraft:cherry_trapdoor",
+            "minecraft:copper_door",
+            "minecraft:copper_trapdoor",
+            "minecraft:dark_oak_door",
+            "minecraft:dark_oak_trapdoor",
+            "minecraft:exposed_copper_door",
+            "minecraft:exposed_copper_trapdoor",
+            "minecraft:jungle_door",
+            "minecraft:jungle_trapdoor",
+            "minecraft:mangrove_door",
+            "minecraft:mangrove_trapdoor",
+            "minecraft:oak_door",
+            "minecraft:oak_trapdoor",
+            "minecraft:oxidized_copper_door",
+            "minecraft:oxidized_copper_trapdoor",
+            "minecraft:waxed_oxidized_copper_door",
+            "minecraft:waxed_oxidized_copper_trapdoor",
+            "minecraft:pale_oak_door",
+            "minecraft:pale_oak_trapdoor",
+            "minecraft:poplar_door",
+            "minecraft:poplar_trapdoor",
+            "minecraft:spruce_door",
+            "minecraft:spruce_trapdoor",
+            "minecraft:waxed_weathered_copper_door",
+            "minecraft:waxed_weathered_copper_trapdoor",
+            "minecraft:weathered_copper_door",
+            "minecraft:weathered_copper_trapdoor"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_116",
+          "tier": 6,
+          "item": "minecraft:enchanting_table",
+          "name": "Enchanting Table",
+          "recipes": [
+            "minecraft:enchanting_table"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_74",
+          "tier": 4,
+          "item": "minecraft:blaze_powder",
+          "name": "Blaze Powder",
+          "recipes": [
+            "minecraft:blaze_powder"
+          ],
+          "children": [
+            {
+              "id": "node_121",
+              "tier": 7,
+              "item": "minecraft:ender_eye",
+              "name": "Ender Eye",
+              "recipes": [
+                "minecraft:ender_eye"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": "node_130",
+          "tier": 2,
+          "item": "minecraft:leather_helmet",
+          "name": "Leather Helmet",
+          "recipes": [
+            "minecraft:leather_helmet"
+          ],
+          "children": [
+            {
+              "id": "node_126",
+              "tier": 3,
+              "item": "minecraft:copper_helmet",
+              "name": "Copper Helmet",
+              "recipes": [
+                "minecraft:copper_helmet"
+              ],
+              "children": [
+                {
+                  "id": "node_129",
+                  "tier": 4,
+                  "item": "minecraft:iron_helmet",
+                  "name": "Iron Helmet",
+                  "recipes": [
+                    "minecraft:iron_helmet",
+                    "minecraft:chainmail_helmet"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_128",
+                      "tier": 5,
+                      "item": "minecraft:golden_helmet",
+                      "name": "Golden Helmet",
+                      "recipes": [
+                        "minecraft:golden_helmet"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_127",
+                          "tier": 6,
+                          "item": "minecraft:diamond_helmet",
+                          "name": "Diamond Helmet",
+                          "recipes": [
+                            "minecraft:diamond_helmet"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_131",
+                              "tier": 7,
+                              "item": "minecraft:netherite_helmet",
+                              "name": "Netherite Helmet",
+                              "recipes": [
+                                "minecraft:netherite_helmet"
+                              ],
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_162",
+          "tier": 2,
+          "item": "minecraft:leather_leggings",
+          "name": "Leather Leggings",
+          "recipes": [
+            "minecraft:leather_leggings"
+          ],
+          "children": [
+            {
+              "id": "node_158",
+              "tier": 3,
+              "item": "minecraft:copper_leggings",
+              "name": "Copper Leggings",
+              "recipes": [
+                "minecraft:copper_leggings"
+              ],
+              "children": [
+                {
+                  "id": "node_161",
+                  "tier": 4,
+                  "item": "minecraft:iron_leggings",
+                  "name": "Iron Leggings",
+                  "recipes": [
+                    "minecraft:iron_leggings",
+                    "minecraft:chainmail_leggings"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_160",
+                      "tier": 5,
+                      "item": "minecraft:golden_leggings",
+                      "name": "Golden Leggings",
+                      "recipes": [
+                        "minecraft:golden_leggings"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_159",
+                          "tier": 6,
+                          "item": "minecraft:diamond_leggings",
+                          "name": "Diamond Leggings",
+                          "recipes": [
+                            "minecraft:diamond_leggings"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_163",
+                              "tier": 7,
+                              "item": "minecraft:netherite_leggings",
+                              "name": "Netherite Leggings",
+                              "recipes": [
+                                "minecraft:netherite_leggings"
+                              ],
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_150",
+          "tier": 2,
+          "item": "minecraft:leather_chestplate",
+          "name": "Leather Chestplate",
+          "recipes": [
+            "minecraft:leather_chestplate"
+          ],
+          "children": [
+            {
+              "id": "node_146",
+              "tier": 3,
+              "item": "minecraft:copper_chestplate",
+              "name": "Copper Chestplate",
+              "recipes": [
+                "minecraft:copper_chestplate"
+              ],
+              "children": [
+                {
+                  "id": "node_149",
+                  "tier": 4,
+                  "item": "minecraft:iron_chestplate",
+                  "name": "Iron Chestplate",
+                  "recipes": [
+                    "minecraft:iron_chestplate",
+                    "minecraft:chainmail_chestplate"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_148",
+                      "tier": 5,
+                      "item": "minecraft:golden_chestplate",
+                      "name": "Golden Chestplate",
+                      "recipes": [
+                        "minecraft:golden_chestplate"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_147",
+                          "tier": 6,
+                          "item": "minecraft:diamond_chestplate",
+                          "name": "Diamond Chestplate",
+                          "recipes": [
+                            "minecraft:diamond_chestplate"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_151",
+                              "tier": 7,
+                              "item": "minecraft:netherite_chestplate",
+                              "name": "Netherite Chestplate",
+                              "recipes": [
+                                "minecraft:netherite_chestplate"
+                              ],
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_169",
+          "tier": 2,
+          "item": "minecraft:leather_boots",
+          "name": "Leather Boots",
+          "recipes": [
+            "minecraft:leather_boots"
+          ],
+          "children": [
+            {
+              "id": "node_165",
+              "tier": 3,
+              "item": "minecraft:copper_boots",
+              "name": "Copper Boots",
+              "recipes": [
+                "minecraft:copper_boots"
+              ],
+              "children": [
+                {
+                  "id": "node_168",
+                  "tier": 4,
+                  "item": "minecraft:iron_boots",
+                  "name": "Iron Boots",
+                  "recipes": [
+                    "minecraft:iron_boots",
+                    "minecraft:chainmail_boots"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_167",
+                      "tier": 5,
+                      "item": "minecraft:golden_boots",
+                      "name": "Golden Boots",
+                      "recipes": [
+                        "minecraft:golden_boots"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_166",
+                          "tier": 6,
+                          "item": "minecraft:diamond_boots",
+                          "name": "Diamond Boots",
+                          "recipes": [
+                            "minecraft:diamond_boots"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_170",
+                              "tier": 7,
+                              "item": "minecraft:netherite_boots",
+                              "name": "Netherite Boots",
+                              "recipes": [
+                                "minecraft:netherite_boots"
+                              ],
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_186",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "HP",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_187",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "HP",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_188",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "HP",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_191",
+                      "tier": 0,
+                      "item": "minecraft:air",
+                      "name": "HP",
+                      "recipes": [
+                        "minecraft:air"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_190",
+                          "tier": 0,
+                          "item": "minecraft:air",
+                          "name": "HP",
+                          "recipes": [
+                            "minecraft:air"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_189",
+                              "tier": 0,
+                              "item": "minecraft:air",
+                              "name": "HP",
+                              "recipes": [
+                                "minecraft:air"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_192",
+                                  "tier": 0,
+                                  "item": "minecraft:air",
+                                  "name": "HP",
+                                  "recipes": [
+                                    "minecraft:air"
+                                  ],
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_204",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "Hunger",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_207",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "Hunger",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_205",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "Hunger",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_206",
+                      "tier": 0,
+                      "item": "minecraft:air",
+                      "name": "Hunger",
+                      "recipes": [
+                        "minecraft:air"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_213",
+                          "tier": 0,
+                          "item": "minecraft:air",
+                          "name": "Hunger",
+                          "recipes": [
+                            "minecraft:air"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_212",
+                              "tier": 0,
+                              "item": "minecraft:air",
+                              "name": "Hunger",
+                              "recipes": [
+                                "minecraft:air"
+                              ],
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_216",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "Hand Length",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_218",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "Hand Length",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_217",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "Hand Length",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_222",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "World Border",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_226",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "World Border",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_224",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "World Border",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_225",
+                      "tier": 0,
+                      "item": "minecraft:air",
+                      "name": "World Border",
+                      "recipes": [
+                        "minecraft:air"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_223",
+                          "tier": 0,
+                          "item": "minecraft:air",
+                          "name": "World Border",
+                          "recipes": [
+                            "minecraft:air"
+                          ],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_232",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "Village",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_236",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "Pillager Outpost",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_235",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "Fortress",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_234",
+                      "tier": 0,
+                      "item": "minecraft:air",
+                      "name": "Bastion",
+                      "recipes": [
+                        "minecraft:air"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_238",
+                          "tier": 0,
+                          "item": "minecraft:air",
+                          "name": "Trial Chambers",
+                          "recipes": [
+                            "minecraft:air"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_237",
+                              "tier": 0,
+                              "item": "minecraft:air",
+                              "name": "Ancient City",
+                              "recipes": [
+                                "minecraft:air"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_233",
+                                  "tier": 0,
+                                  "item": "minecraft:air",
+                                  "name": "Ocean Monument",
+                                  "recipes": [
+                                    "minecraft:air"
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": "node_239",
+                                      "tier": 0,
+                                      "item": "minecraft:air",
+                                      "name": "End City",
+                                      "recipes": [
+                                        "minecraft:air"
+                                      ],
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_245",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "Second Hand",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_240",
+          "tier": 0,
+          "item": "minecraft:air",
+          "name": "Inventory Slot 1",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": [
+            {
+              "id": "node_242",
+              "tier": 0,
+              "item": "minecraft:air",
+              "name": "Inventory Slot 2",
+              "recipes": [
+                "minecraft:air"
+              ],
+              "children": [
+                {
+                  "id": "node_slot_3",
+                  "tier": 0,
+                  "item": "minecraft:air",
+                  "name": "Inventory Slot 3",
+                  "recipes": [
+                    "minecraft:air"
+                  ],
+                  "children": [
+                    {
+                      "id": "node_slot_4",
+                      "tier": 0,
+                      "item": "minecraft:air",
+                      "name": "Inventory Slot 4",
+                      "recipes": [
+                        "minecraft:air"
+                      ],
+                      "children": [
+                        {
+                          "id": "node_slot_5",
+                          "tier": 0,
+                          "item": "minecraft:air",
+                          "name": "Inventory Slot 5",
+                          "recipes": [
+                            "minecraft:air"
+                          ],
+                          "children": [
+                            {
+                              "id": "node_slot_6",
+                              "tier": 0,
+                              "item": "minecraft:air",
+                              "name": "Inventory Slot 6",
+                              "recipes": [
+                                "minecraft:air"
+                              ],
+                              "children": [
+                                {
+                                  "id": "node_slot_7",
+                                  "tier": 0,
+                                  "item": "minecraft:air",
+                                  "name": "Inventory Slot 7",
+                                  "recipes": [
+                                    "minecraft:air"
+                                  ],
+                                  "children": [
+                                    {
+                                      "id": "node_slot_8",
+                                      "tier": 0,
+                                      "item": "minecraft:air",
+                                      "name": "Inventory Slot 8",
+                                      "recipes": [
+                                        "minecraft:air"
+                                      ],
+                                      "children": [
+                                        {
+                                          "id": "node_slot_9",
+                                          "tier": 0,
+                                          "item": "minecraft:air",
+                                          "name": "Inventory Slot 9",
+                                          "recipes": [
+                                            "minecraft:air"
+                                          ],
+                                          "children": [
+                                            {
+                                              "id": "node_slot_10",
+                                              "tier": 0,
+                                              "item": "minecraft:air",
+                                              "name": "Inventory Slot 10",
+                                              "recipes": [
+                                                "minecraft:air"
+                                              ],
+                                              "children": [
+                                                {
+                                                  "id": "node_slot_11",
+                                                  "tier": 0,
+                                                  "item": "minecraft:air",
+                                                  "name": "Inventory Slot 11",
+                                                  "recipes": [
+                                                    "minecraft:air"
+                                                  ],
+                                                  "children": [
+                                                    {
+                                                      "id": "node_slot_12",
+                                                      "tier": 0,
+                                                      "item": "minecraft:air",
+                                                      "name": "Inventory Slot 12",
+                                                      "recipes": [
+                                                        "minecraft:air"
+                                                      ],
+                                                      "children": [
+                                                        {
+                                                          "id": "node_slot_13",
+                                                          "tier": 0,
+                                                          "item": "minecraft:air",
+                                                          "name": "Inventory Slot 13",
+                                                          "recipes": [
+                                                            "minecraft:air"
+                                                          ],
+                                                          "children": [
+                                                            {
+                                                              "id": "node_slot_14",
+                                                              "tier": 0,
+                                                              "item": "minecraft:air",
+                                                              "name": "Inventory Slot 14",
+                                                              "recipes": [
+                                                                "minecraft:air"
+                                                              ],
+                                                              "children": [
+                                                                {
+                                                                  "id": "node_slot_15",
+                                                                  "tier": 0,
+                                                                  "item": "minecraft:air",
+                                                                  "name": "Inventory Slot 15",
+                                                                  "recipes": [
+                                                                    "minecraft:air"
+                                                                  ],
+                                                                  "children": [
+                                                                    {
+                                                                      "id": "node_slot_16",
+                                                                      "tier": 0,
+                                                                      "item": "minecraft:air",
+                                                                      "name": "Inventory Slot 16",
+                                                                      "recipes": [
+                                                                        "minecraft:air"
+                                                                      ],
+                                                                      "children": [
+                                                                        {
+                                                                          "id": "node_slot_17",
+                                                                          "tier": 0,
+                                                                          "item": "minecraft:air",
+                                                                          "name": "Inventory Slot 17",
+                                                                          "recipes": [
+                                                                            "minecraft:air"
+                                                                          ],
+                                                                          "children": [
+                                                                            {
+                                                                              "id": "node_slot_18",
+                                                                              "tier": 0,
+                                                                              "item": "minecraft:air",
+                                                                              "name": "Inventory Slot 18",
+                                                                              "recipes": [
+                                                                                "minecraft:air"
+                                                                              ],
+                                                                              "children": [
+                                                                                {
+                                                                                  "id": "node_slot_19",
+                                                                                  "tier": 0,
+                                                                                  "item": "minecraft:air",
+                                                                                  "name": "Inventory Slot 19",
+                                                                                  "recipes": [
+                                                                                    "minecraft:air"
+                                                                                  ],
+                                                                                  "children": [
+                                                                                    {
+                                                                                      "id": "node_slot_20",
+                                                                                      "tier": 0,
+                                                                                      "item": "minecraft:air",
+                                                                                      "name": "Inventory Slot 20",
+                                                                                      "recipes": [
+                                                                                        "minecraft:air"
+                                                                                      ],
+                                                                                      "children": [
+                                                                                        {
+                                                                                          "id": "node_slot_21",
+                                                                                          "tier": 0,
+                                                                                          "item": "minecraft:air",
+                                                                                          "name": "Inventory Slot 21",
+                                                                                          "recipes": [
+                                                                                            "minecraft:air"
+                                                                                          ],
+                                                                                          "children": [
+                                                                                            {
+                                                                                              "id": "node_slot_22",
+                                                                                              "tier": 0,
+                                                                                              "item": "minecraft:air",
+                                                                                              "name": "Inventory Slot 22",
+                                                                                              "recipes": [
+                                                                                                "minecraft:air"
+                                                                                              ],
+                                                                                              "children": [
+                                                                                                {
+                                                                                                  "id": "node_slot_23",
+                                                                                                  "tier": 0,
+                                                                                                  "item": "minecraft:air",
+                                                                                                  "name": "Inventory Slot 23",
+                                                                                                  "recipes": [
+                                                                                                    "minecraft:air"
+                                                                                                  ],
+                                                                                                  "children": [
+                                                                                                    {
+                                                                                                      "id": "node_slot_24",
+                                                                                                      "tier": 0,
+                                                                                                      "item": "minecraft:air",
+                                                                                                      "name": "Inventory Slot 24",
+                                                                                                      "recipes": [
+                                                                                                        "minecraft:air"
+                                                                                                      ],
+                                                                                                      "children": [
+                                                                                                        {
+                                                                                                          "id": "node_slot_25",
+                                                                                                          "tier": 0,
+                                                                                                          "item": "minecraft:air",
+                                                                                                          "name": "Inventory Slot 25",
+                                                                                                          "recipes": [
+                                                                                                            "minecraft:air"
+                                                                                                          ],
+                                                                                                          "children": [
+                                                                                                            {
+                                                                                                              "id": "node_slot_26",
+                                                                                                              "tier": 0,
+                                                                                                              "item": "minecraft:air",
+                                                                                                              "name": "Inventory Slot 26",
+                                                                                                              "recipes": [
+                                                                                                                "minecraft:air"
+                                                                                                              ],
+                                                                                                              "children": [
+                                                                                                                {
+                                                                                                                  "id": "node_241",
+                                                                                                                  "tier": 0,
+                                                                                                                  "item": "minecraft:air",
+                                                                                                                  "name": "Inventory Slot 27",
+                                                                                                                  "recipes": [
+                                                                                                                    "minecraft:air"
+                                                                                                                  ],
+                                                                                                                  "children": []
+                                                                                                                }
+                                                                                                              ]
+                                                                                                            }
+                                                                                                          ]
+                                                                                                        }
+                                                                                                      ]
+                                                                                                    }
+                                                                                                  ]
+                                                                                                }
+                                                                                              ]
+                                                                                            }
+                                                                                          ]
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      ]
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "node_261",
+          "tier": 5,
+          "item": "minecraft:air",
+          "name": "Disable Day Monster Ignition",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": []
+        },
+        {
+          "id": "node_260",
+          "tier": 5,
+          "item": "minecraft:air",
+          "name": "Disable Light Check for Monster Spawn",
+          "recipes": [
+            "minecraft:air"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "hp_restriction": true,
+    "hunger_restriction": true,
+    "offhand_restriction": true,
+    "reach_restriction": true,
+    "inventory_slot_restriction": true,
+    "structure_restriction": true,
+    "world_border_restriction": true,
+    "traps_enabled": true,
+    "curses_enabled": true,
+    "starting_shared_chest": true,
+    "recipe_unlock_mode": "random_by_bias",
+    "recipe_tier_unlock_percentage": 50
+  }
+}

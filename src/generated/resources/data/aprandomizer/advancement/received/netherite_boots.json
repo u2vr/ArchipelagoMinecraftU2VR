@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/diamond_boots",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_170"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Netherite Boots (Tier 7)",
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:netherite_boots"
+    },
+    "title": "Netherite Boots"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

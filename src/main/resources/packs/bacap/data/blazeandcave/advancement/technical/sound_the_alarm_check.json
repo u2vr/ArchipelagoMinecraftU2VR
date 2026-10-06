@@ -1,0 +1,22 @@
+{
+	"rewards": {
+		"function": "blazeandcave:advancement/check/sound_the_alarm"
+	},		
+	"criteria": {
+		"bell": {
+			"trigger": "minecraft:default_block_use",
+			"conditions": {
+				"location": {
+					"type": "minecraft:location_check",
+					"predicate": {
+						"block": {
+							"blocks": [
+								"minecraft:bell"
+							]
+						}
+					}
+				}
+			}
+		}
+	}
+}

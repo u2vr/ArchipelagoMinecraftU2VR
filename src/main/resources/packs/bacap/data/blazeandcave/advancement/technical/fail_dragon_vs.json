@@ -1,0 +1,34 @@
+{		
+	"criteria": {
+		"ride": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"vehicle": {
+							"entity_type": "#blazeandcave:player_rideables"
+						}
+					}
+				}
+			}
+		},
+		"enter_hazard": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": [
+					"minecraft:water",
+					"minecraft:lava",
+					"minecraft:bubble_column"
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"ride",
+			"enter_hazard"
+		]
+	]
+}

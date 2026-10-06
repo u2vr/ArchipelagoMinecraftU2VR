@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:bamboo_jungle"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Bamboo Jungle biome",
+    "icon": {
+      "id": "minecraft:bamboo"
+    },
+    "show_toast": true,
+    "title": "Bamboo Jungle"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

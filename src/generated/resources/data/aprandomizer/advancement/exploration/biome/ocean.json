@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:ocean"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Ocean biome",
+    "icon": {
+      "id": "minecraft:kelp"
+    },
+    "show_toast": true,
+    "title": "Ocean"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

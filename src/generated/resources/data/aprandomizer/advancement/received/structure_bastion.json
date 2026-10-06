@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_fortress",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 7
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Bastion Remnants",
+    "icon": {
+      "id": "minecraft:gilded_blackstone"
+    },
+    "title": "Bastion Remnant Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

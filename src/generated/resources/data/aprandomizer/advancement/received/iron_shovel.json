@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/copper_shovel",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_50"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Iron Shovel (Tier 4)",
+    "icon": {
+      "id": "minecraft:iron_shovel"
+    },
+    "title": "Iron Shovel"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/golden_boots",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_166"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Diamond Boots (Tier 6)",
+    "icon": {
+      "id": "minecraft:diamond_boots"
+    },
+    "title": "Diamond Boots"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

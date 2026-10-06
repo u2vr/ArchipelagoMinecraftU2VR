@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:savanna_plateau"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Savanna Plateau biome",
+    "icon": {
+      "id": "minecraft:acacia_log"
+    },
+    "show_toast": true,
+    "title": "Savanna Plateau"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

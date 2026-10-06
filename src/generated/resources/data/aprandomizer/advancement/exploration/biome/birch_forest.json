@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:birch_forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Birch Forest biome",
+    "icon": {
+      "id": "minecraft:birch_sapling"
+    },
+    "show_toast": true,
+    "title": "Birch Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

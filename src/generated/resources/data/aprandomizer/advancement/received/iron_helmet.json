@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/copper_helmet",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_129"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Iron Helmet (Tier 4, 2 recipes)",
+    "icon": {
+      "id": "minecraft:iron_helmet"
+    },
+    "title": "Iron Helmet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

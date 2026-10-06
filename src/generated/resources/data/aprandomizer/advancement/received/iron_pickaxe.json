@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/copper_pickaxe",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_13"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Iron Pickaxe (Tier 4)",
+    "icon": {
+      "id": "minecraft:iron_pickaxe"
+    },
+    "title": "Iron Pickaxe"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

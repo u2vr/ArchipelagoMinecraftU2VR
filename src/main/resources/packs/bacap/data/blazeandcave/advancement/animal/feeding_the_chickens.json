@@ -1,0 +1,35 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:wheat_seeds"
+		},
+		"title": {"translate":"Feeding the §mDucks§r Chickens"},
+		"description": {"color":"green","translate":"Breed chickens by feeding them seeds"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:animal/which_came_first",
+	"rewards": {
+		"function": "bacap_rewards:animal/feeding_the_chickens"
+	},		
+	"criteria": {
+		"chicken": {
+			"trigger": "minecraft:bred_animals",
+			"conditions": {
+				"parent": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:chicken"
+					}
+				},
+				"partner": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:chicken"
+					}
+				}
+			}
+		}
+	}
+}

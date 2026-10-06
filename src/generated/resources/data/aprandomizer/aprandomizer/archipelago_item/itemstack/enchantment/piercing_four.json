@@ -1,0 +1,13 @@
+{
+  "rewards": {
+    "type": "aprandomizer:item",
+    "item": {
+      "components": {
+        "minecraft:stored_enchantments": {
+          "minecraft:piercing": 4
+        }
+      },
+      "id": "minecraft:enchanted_book"
+    }
+  }
+}

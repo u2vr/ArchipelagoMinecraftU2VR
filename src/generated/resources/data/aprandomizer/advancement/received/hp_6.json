@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/hp_5",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/hp",
+        "tier": 6
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Heart",
+    "icon": {
+      "id": "minecraft:apple"
+    },
+    "title": "HP Upgrade 6/7"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

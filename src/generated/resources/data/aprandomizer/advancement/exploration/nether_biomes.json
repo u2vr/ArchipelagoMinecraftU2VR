@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/root",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "nether_biomes"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Explore biomes in Nether Biomes",
+    "icon": {
+      "id": "minecraft:netherrack"
+    },
+    "show_toast": true,
+    "title": "Nether Biomes"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

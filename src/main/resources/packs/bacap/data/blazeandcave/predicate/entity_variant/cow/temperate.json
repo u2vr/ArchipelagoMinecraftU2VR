@@ -1,0 +1,10 @@
+{
+	"type": "minecraft:entity_properties",
+	"entity": "this",
+	"predicate": {
+		"entity_type": "cow",
+		"components": {
+			"minecraft:cow/variant": "minecraft:temperate"
+		}
+	}
+}

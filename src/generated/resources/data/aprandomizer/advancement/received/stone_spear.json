@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/wooden_spear",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_90"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Stone Spear (Tier 2)",
+    "icon": {
+      "id": "minecraft:stone_spear"
+    },
+    "title": "Stone Spear"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

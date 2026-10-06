@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:ender_chest"
+  ],
+  "result": {
+    "count": 1,
+    "id": "aprandomizer:shared_chest"
+  }
+}

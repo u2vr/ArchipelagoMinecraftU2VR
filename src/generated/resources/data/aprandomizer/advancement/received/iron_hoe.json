@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/copper_hoe",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_25"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Iron Hoe (Tier 4)",
+    "icon": {
+      "id": "minecraft:iron_hoe"
+    },
+    "title": "Iron Hoe"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

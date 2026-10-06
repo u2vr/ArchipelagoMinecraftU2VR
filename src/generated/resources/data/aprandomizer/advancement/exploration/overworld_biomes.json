@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/root",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "overworld_biomes"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Explore biomes in Overworld Biomes",
+    "icon": {
+      "id": "minecraft:grass_block"
+    },
+    "show_toast": true,
+    "title": "Overworld Biomes"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

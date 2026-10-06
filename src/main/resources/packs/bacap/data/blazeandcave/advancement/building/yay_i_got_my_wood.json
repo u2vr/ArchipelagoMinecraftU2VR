@@ -1,0 +1,210 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:acacia_log"
+		},
+		"title": {"translate":"Yay! I got my wood!"},
+		"description": {"color":"#75E1FF","translate":"Collect every type of log and stem"},
+		"announce_to_chat": true,
+		"frame": "goal"
+	},
+	"parent": "blazeandcave:building/lost_its_bark",
+	"rewards": {
+		"function": "bacap_rewards:building/yay_i_got_my_wood"
+	},		
+	"criteria": {
+		"oak_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:oak_log",
+							"minecraft:stripped_oak_log",
+							"minecraft:oak_wood",
+							"minecraft:stripped_oak_wood"
+						]
+					}
+				]
+			}
+		},
+		"spruce_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:spruce_log",
+							"minecraft:stripped_spruce_log",
+							"minecraft:spruce_wood",
+							"minecraft:stripped_spruce_wood"
+						]
+					}
+				]
+			}
+		},
+		"birch_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:birch_log",
+							"minecraft:stripped_birch_log",
+							"minecraft:birch_wood",
+							"minecraft:stripped_birch_wood"
+						]
+					}
+				]
+			}
+		},
+		"jungle_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:jungle_log",
+							"minecraft:stripped_jungle_log",
+							"minecraft:jungle_wood",
+							"minecraft:stripped_jungle_wood"
+						]
+					}
+				]
+			}
+		},
+		"acacia_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:acacia_log",
+							"minecraft:stripped_acacia_log",
+							"minecraft:acacia_wood",
+							"minecraft:stripped_acacia_wood"
+						]
+					}
+				]
+			}
+		},
+		"dark_oak_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:dark_oak_log",
+							"minecraft:stripped_dark_oak_log",
+							"minecraft:dark_oak_wood",
+							"minecraft:stripped_dark_oak_wood"
+						]
+					}
+				]
+			}
+		},
+		"crimson_stem": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:crimson_stem",
+							"minecraft:stripped_crimson_stem",
+							"minecraft:crimson_hyphae",
+							"minecraft:stripped_crimson_hyphae"
+						]
+					}
+				]
+			}
+		},
+		"warped_stem": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:warped_stem",
+							"minecraft:stripped_warped_stem",
+							"minecraft:warped_hyphae",
+							"minecraft:stripped_warped_hyphae"
+						]
+					}
+				]
+			}
+		},
+		"mangrove_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:mangrove_log",
+							"minecraft:stripped_mangrove_log",
+							"minecraft:mangrove_wood",
+							"minecraft:stripped_mangrove_wood"
+						]
+					}
+				]
+			}
+		},
+		"bamboo_block": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:bamboo_block",
+							"minecraft:stripped_bamboo_block"
+						]
+					}
+				]
+			}
+		},
+		"cherry_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:cherry_log",
+							"minecraft:stripped_cherry_log",
+							"minecraft:cherry_wood",
+							"minecraft:stripped_cherry_wood"
+						]
+					}
+				]
+			}
+		},
+		"pale_oak_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:pale_oak_log",
+							"minecraft:stripped_pale_oak_log",
+							"minecraft:pale_oak_wood",
+							"minecraft:stripped_pale_oak_wood"
+						]
+					}
+				]
+			}
+		},
+		"poplar_log": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"minecraft:poplar_log",
+							"minecraft:stripped_poplar_log",
+							"minecraft:poplar_wood",
+							"minecraft:stripped_poplar_wood"
+						]
+					}
+				]
+			}
+		}
+	}
+}

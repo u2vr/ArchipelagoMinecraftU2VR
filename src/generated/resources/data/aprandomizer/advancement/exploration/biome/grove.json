@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:grove"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Grove biome",
+    "icon": {
+      "id": "minecraft:powder_snow_bucket"
+    },
+    "show_toast": true,
+    "title": "Grove"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

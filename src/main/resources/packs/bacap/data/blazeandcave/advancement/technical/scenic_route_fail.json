@@ -1,0 +1,45 @@
+{		
+	"criteria": {
+		"ride_happy_ghast": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"vehicle": {
+							"entity_type": "happy_ghast"
+						}
+					}
+				}
+			}
+		},
+		"enter_end_gateway": {
+			"trigger": "minecraft:enter_block",
+			"conditions": {
+				"blocks": "minecraft:end_gateway"
+			}
+		},
+		"use_elytra": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"flags": {
+							"is_flying": true
+						}
+					}
+				}
+			}
+		}
+	},
+	"requirements": [
+		[
+			"ride_happy_ghast",
+			"enter_end_gateway",
+			"use_elytra"
+		]
+	]
+}

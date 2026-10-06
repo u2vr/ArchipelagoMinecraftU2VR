@@ -1,0 +1,35 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:potato"
+		},
+		"title": {"translate":"Piglet's BIG Advancement"},
+		"description": {"color":"green","translate":"Breed two pigs to get this little piggy"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:animal/pork_chop",
+	"rewards": {
+		"function": "bacap_rewards:animal/piglets_big_advancement"
+	},		
+	"criteria": {
+		"pig": {
+			"trigger": "minecraft:bred_animals",
+			"conditions": {
+				"parent": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:pig"
+					}
+				},
+				"partner": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:pig"
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "trail_ruins"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Trail Ruins structure",
+    "icon": {
+      "id": "minecraft:brush"
+    },
+    "show_toast": true,
+    "title": "Trail Ruins"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,48 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:crying_obsidian"
+		},
+		"title": {"translate":"Now You’re Thinking With Portals"},
+		"description": {"color":"green","translate":"Find a broken Nether Portal in the Overworld"},
+		"announce_to_chat": true
+	},
+	"parent": "minecraft:adventure/root",
+	"rewards": {
+		"function": "bacap_rewards:adventure/now_youre_thinking_with_portals"
+	},		
+	"criteria": {
+		"ruined_portal": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"location": {
+									"structures": "#minecraft:ruined_portal",
+									"dimension": "overworld"
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

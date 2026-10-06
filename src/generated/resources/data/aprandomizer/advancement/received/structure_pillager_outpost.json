@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_village",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 2
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Pillager Outposts",
+    "icon": {
+      "id": "minecraft:crossbow"
+    },
+    "title": "Pillager Outpost Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

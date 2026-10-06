@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "nether_fossil"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Nether Fossil structure",
+    "icon": {
+      "id": "minecraft:bone_block"
+    },
+    "show_toast": true,
+    "title": "Nether Fossil"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

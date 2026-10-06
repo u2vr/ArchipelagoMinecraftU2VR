@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "jungle_temple"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Jungle Temple structure",
+    "icon": {
+      "id": "minecraft:chiseled_stone_bricks"
+    },
+    "show_toast": true,
+    "title": "Jungle Temple"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

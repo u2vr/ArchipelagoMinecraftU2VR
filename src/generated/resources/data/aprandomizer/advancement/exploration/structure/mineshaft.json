@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "mineshaft"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Mineshaft structure",
+    "icon": {
+      "id": "minecraft:chest_minecart"
+    },
+    "show_toast": true,
+    "title": "Mineshaft"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

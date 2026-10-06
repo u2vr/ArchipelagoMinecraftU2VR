@@ -1,0 +1,7327 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:stripped_spruce_log"
+		},
+		"title": {"translate":"Bonfire Night"},
+		"description": {"color":"dark_purple","translate":"Light every flammable block on fire"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "blazeandcave:mining/flint_miner",
+	"rewards": {
+		"function": "bacap_rewards:mining/bonfire_night"
+	},		
+	"criteria": {
+		"oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_spruce_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_spruce_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_birch_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_birch_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_jungle_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_jungle_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_acacia_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_acacia_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_dark_oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_dark_oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_spruce_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_spruce_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_birch_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_birch_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_jungle_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_jungle_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_acacia_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_acacia_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_dark_oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_dark_oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"coal_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:coal_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"composter": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:composter"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"beehive": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:beehive"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"target": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:target"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"tnt": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:tnt"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"vine": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:vine"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bookshelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bookshelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lectern": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lectern"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bee_nest": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bee_nest"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"azalea_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:azalea_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"flowering_azalea_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:flowering_azalea_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:white_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"magenta_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:magenta_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_blue_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_blue_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"yellow_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:yellow_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lime_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lime_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"gray_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:gray_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_gray_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_gray_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cyan_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cyan_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"purple_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:purple_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"blue_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:blue_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"brown_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:brown_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"green_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:green_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"black_wool": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:black_wool"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dried_kelp_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dried_kelp_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:white_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"magenta_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:magenta_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_blue_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_blue_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"yellow_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:yellow_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lime_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lime_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"gray_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:gray_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_gray_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_gray_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cyan_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cyan_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"purple_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:purple_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"blue_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:blue_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"brown_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:brown_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"green_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:green_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"black_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:black_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"hay_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:hay_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"scaffolding": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:scaffolding"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dandelion": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dandelion"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poppy": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poppy"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"blue_orchid": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:blue_orchid"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"allium": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:allium"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"azure_bluet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:azure_bluet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_tulip": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:white_tulip"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oxeye_daisy": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oxeye_daisy"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cornflower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cornflower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lily_of_the_valley": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lily_of_the_valley"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"wither_rose": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:wither_rose"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"sunflower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:sunflower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lilac": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lilac"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"rose_bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:rose_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"peony": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:peony"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"grass": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:short_grass"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"tall_grass": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:tall_grass"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"fern": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:fern"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"large_fern": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:large_fern"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dead_bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dead_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"sweet_berry_bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:sweet_berry_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_mangrove_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_mangrove_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_mangrove_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_mangrove_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_roots": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_roots"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_bamboo_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_bamboo_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_mosaic": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_mosaic"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_mosaic_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_mosaic_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_mosaic_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_mosaic_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_cherry_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_cherry_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_cherry_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_cherry_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_petals": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_petals"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pitcher_plant": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pitcher_plant"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"torchflower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:torchflower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cave_vines": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cave_vines",
+										"minecraft:cave_vines_plant"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"glow_lichen": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:glow_lichen"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"azalea": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:azalea"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"flowering_azalea": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:flowering_azalea"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"hanging_roots": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:hanging_roots"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"small_dripleaf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:small_dripleaf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"big_dripleaf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:big_dripleaf",
+										"minecraft:big_dripleaf_stem"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spore_blossom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spore_blossom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_pale_oak_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_pale_oak_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_pale_oak_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_pale_oak_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"closed_eyeblossom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:closed_eyeblossom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"open_eyeblossom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:open_eyeblossom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_hanging_moss": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_hanging_moss"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_moss_block": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_moss_block"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_moss_carpet": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_moss_carpet"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cactus_flower": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cactus_flower"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"firefly_bush": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:firefly_bush"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"leaf_litter": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:leaf_litter"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"short_dry_grass": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:short_dry_grass"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"tall_dry_grass": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:tall_dry_grass"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"wildflowers": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:wildflowers"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"oak_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:oak_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"spruce_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:spruce_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"birch_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:birch_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"jungle_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:jungle_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"acacia_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:acacia_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"dark_oak_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:dark_oak_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"mangrove_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:mangrove_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cherry_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cherry_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pale_oak_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pale_oak_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"bamboo_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:bamboo_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"golden_dandelion": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:golden_dandelion"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_poplar_log": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_poplar_log"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"stripped_poplar_wood": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:stripped_poplar_wood"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_planks": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_planks"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_fence_gate": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_fence_gate"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_fence": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_fence"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"poplar_shelf": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:poplar_shelf"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_poplar_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_poplar_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_poplar_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_poplar_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"yellow_poplar_leaves": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:yellow_poplar_leaves"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_shrub": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_shrub"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"shelf_mushroom": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:shelf_mushroom"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:white_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"magenta_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:magenta_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_blue_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_blue_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"yellow_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:yellow_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lime_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lime_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"gray_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:gray_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_gray_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_gray_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cyan_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cyan_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"purple_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:purple_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"blue_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:blue_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"brown_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:brown_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"green_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:green_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"black_wool_slab": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:black_wool_slab"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"white_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:white_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"orange_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:orange_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"magenta_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:magenta_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_blue_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_blue_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"yellow_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:yellow_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"lime_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:lime_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"pink_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:pink_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"gray_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:gray_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"light_gray_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:light_gray_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"cyan_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:cyan_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"purple_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:purple_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"blue_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:blue_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"brown_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:brown_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"green_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:green_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"red_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:red_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		},
+		"black_wool_stairs": {
+			"trigger": "minecraft:item_used_on_block",
+			"conditions": {
+				"location": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:location_check",
+							"predicate": {
+								"block": {
+									"blocks": [
+										"minecraft:black_wool_stairs"
+									]
+								}
+							}
+						},
+						{
+							"type": "minecraft:match_tool",
+							"predicate": {
+								"items": [
+									"minecraft:flint_and_steel",
+									"minecraft:fire_charge"
+								]
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

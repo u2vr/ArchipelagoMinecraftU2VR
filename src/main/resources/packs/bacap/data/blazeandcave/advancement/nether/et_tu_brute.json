@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:iron_chain"
+		},
+		"title": {"translate":"Et tu, Brute?"},
+		"description": {"color":"green","translate":"Get murdered by Piglin Brutes"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:nether/brute_force",
+	"rewards": {
+		"function": "bacap_rewards:nether/et_tu_brute"
+	},		
+	"criteria": {
+		"piglin_brute": {
+			"trigger": "minecraft:entity_killed_player",
+			"conditions": {
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:piglin_brute"
+					}
+				}
+			}
+		}
+	}
+}

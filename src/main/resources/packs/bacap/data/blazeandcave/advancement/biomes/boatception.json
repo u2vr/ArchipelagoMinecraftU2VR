@@ -1,0 +1,54 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:spruce_boat"
+		},
+		"title": {"translate":"Boatception"},
+		"description": {"color":"#75E1FF","translate":"Get in a boat within a shipwreck"},
+		"announce_to_chat": true,
+		"frame": "goal"
+	},
+	"parent": "blazeandcave:biomes/ahoy",
+	"rewards": {
+		"function": "bacap_rewards:biomes/boatception"
+	},		
+	"criteria": {
+		"boatception": {
+			"trigger": "minecraft:started_riding",
+			"conditions": {
+				"player": {
+					"type": "minecraft:all_of",
+					"terms": [
+						{
+							"type": "minecraft:entity_properties",
+							"entity": "this",
+							"predicate": {
+								"vehicle": {
+									"entity_type": "#blazeandcave:all_boats",
+									"location": {
+										"structures": [
+											"shipwreck",
+											"shipwreck_beached"
+										]
+									}
+								}
+							}
+						},
+						{
+							"type": "minecraft:inverted",
+							"term": {
+								"type": "minecraft:entity_properties",
+								"entity": "this",
+								"predicate": {
+									"minecraft:type_specific/player": {
+										"gamemode": ["spectator"]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	}
+}

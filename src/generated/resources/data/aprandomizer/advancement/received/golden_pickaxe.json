@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/iron_pickaxe",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_14"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Golden Pickaxe (Tier 5)",
+    "icon": {
+      "id": "minecraft:golden_pickaxe"
+    },
+    "title": "Golden Pickaxe"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

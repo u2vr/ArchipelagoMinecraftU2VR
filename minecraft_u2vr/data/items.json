@@ -1,0 +1,69 @@
+{
+	"all_items": [
+		"Recipe Unlock",
+		"HP Upgrade",
+		"Hunger Upgrade",
+		"Reach Upgrade",
+		"World Border Upgrade",
+		"Structure Unlock",
+		"Offhand Unlock",
+		"Inventory Slot Upgrade",
+		"Random Trap",
+		"Disable Day Monster Ignition",
+		"Disable Light Check for Monster Spawn",
+		"Structure Compass (Village)",
+		"Structure Compass (Pillager Outpost)",
+		"Structure Compass (Nether Fortress)",
+		"Structure Compass (Bastion Remnant)",
+		"Structure Compass (End City)",
+		"Structure Compass (Ocean Monument)",
+		"Structure Compass (Woodland Mansion)",
+		"Structure Compass (Ancient City)",
+		"Structure Compass (Trail Ruins)",
+		"Structure Compass (Trial Chambers)",
+		"Structure Compass (Sulfur Caves)",
+		"Structure Compass (Unvisited Biomes)",
+		"Dragon Egg Shard"
+	],
+	"progression_items": [
+		"Recipe Unlock",
+		"HP Upgrade",
+		"Hunger Upgrade",
+		"Reach Upgrade",
+		"World Border Upgrade",
+		"Structure Unlock",
+		"Offhand Unlock",
+		"Inventory Slot Upgrade",
+		"Structure Compass (Village)",
+		"Structure Compass (Pillager Outpost)",
+		"Structure Compass (Nether Fortress)",
+		"Structure Compass (Bastion Remnant)",
+		"Structure Compass (End City)",
+		"Structure Compass (Ocean Monument)",
+		"Structure Compass (Woodland Mansion)",
+		"Structure Compass (Ancient City)",
+		"Structure Compass (Trail Ruins)",
+		"Structure Compass (Trial Chambers)",
+		"Structure Compass (Sulfur Caves)",
+		"Structure Compass (Unvisited Biomes)",
+		"Dragon Egg Shard"
+	],
+	"useful_items": [
+		"HP Upgrade",
+		"Hunger Upgrade",
+		"Offhand Unlock",
+		"Inventory Slot Upgrade"
+	],
+	"trap_items": [
+		"Random Trap",
+		"Disable Day Monster Ignition",
+		"Disable Light Check for Monster Spawn"
+	],
+	"required_pool": {
+		"Recipe Unlock": 77
+	},
+	"junk_weights": {
+		"Random Trap": 1,
+		"Recipe Unlock": 1
+	}
+}

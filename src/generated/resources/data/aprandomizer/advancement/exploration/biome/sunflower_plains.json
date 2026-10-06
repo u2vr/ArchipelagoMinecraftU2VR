@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:sunflower_plains"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Sunflower Plains biome",
+    "icon": {
+      "id": "minecraft:sunflower"
+    },
+    "show_toast": true,
+    "title": "Sunflower Plains"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

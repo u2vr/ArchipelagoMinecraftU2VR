@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:pale_garden"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Pale Garden biome",
+    "icon": {
+      "id": "minecraft:pale_oak_sapling"
+    },
+    "show_toast": true,
+    "title": "Pale Garden"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

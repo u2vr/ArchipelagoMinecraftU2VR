@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/structure_trial_chambers",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/structure_unlock",
+        "tier": 4
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Unlocks access to Ancient Cities",
+    "icon": {
+      "id": "minecraft:echo_shard"
+    },
+    "title": "Ancient City Access"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

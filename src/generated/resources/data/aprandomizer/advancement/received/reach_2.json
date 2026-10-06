@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/reach_1",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/reach",
+        "tier": 2
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Block Reach",
+    "icon": {
+      "id": "minecraft:fishing_rod"
+    },
+    "title": "Reach Upgrade 2/3"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

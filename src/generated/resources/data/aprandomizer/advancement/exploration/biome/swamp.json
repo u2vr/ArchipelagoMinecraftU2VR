@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:swamp"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Swamp biome",
+    "icon": {
+      "id": "minecraft:lily_pad"
+    },
+    "show_toast": true,
+    "title": "Swamp"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

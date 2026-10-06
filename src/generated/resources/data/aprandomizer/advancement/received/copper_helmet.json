@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/leather_helmet",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_126"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Copper Helmet (Tier 3)",
+    "icon": {
+      "id": "minecraft:copper_helmet"
+    },
+    "title": "Copper Helmet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

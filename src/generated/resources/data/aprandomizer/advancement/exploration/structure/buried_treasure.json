@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "buried_treasure"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Buried Treasure structure",
+    "icon": {
+      "id": "minecraft:heart_of_the_sea"
+    },
+    "show_toast": true,
+    "title": "Buried Treasure"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

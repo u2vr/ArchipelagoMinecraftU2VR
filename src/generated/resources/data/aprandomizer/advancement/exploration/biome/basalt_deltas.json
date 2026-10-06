@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/nether_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:basalt_deltas"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Basalt Deltas biome",
+    "icon": {
+      "id": "minecraft:basalt"
+    },
+    "show_toast": true,
+    "title": "Basalt Deltas"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

@@ -1,0 +1,919 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:prismarine_shard"
+		},
+		"title": {"translate":"The Aquatic Hunter"},
+		"description": {"color":"dark_purple","translate":"Hunt all types of aquatic creatures with your trident"},
+		"announce_to_chat": true,
+		"frame": "challenge"
+	},
+	"parent": "blazeandcave:weaponry/king_of_the_sea",
+	"rewards": {
+		"function": "bacap_rewards:weaponry/the_aquatic_hunter"
+	},	
+	"criteria": {
+		"guardian": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:guardian"
+					}
+				}
+			}
+		},
+		"guardian_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:guardian"
+					}
+				}
+			}
+		},
+		"squid": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:squid"
+					}
+				}
+			}
+		},
+		"squid_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:squid"
+					}
+				}
+			}
+		},
+		"turtle": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:turtle"
+					}
+				}
+			}
+		},
+		"turtle_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:turtle"
+					}
+				}
+			}
+		},
+		"dolphin": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:dolphin"
+					}
+				}
+			}
+		},
+		"dolphin_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:dolphin"
+					}
+				}
+			}
+		},
+		"cod_mob": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "minecraft:trident"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:cod"
+					}
+				}
+			}
+		},
+		"cod_mob_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:cod"
+					}
+				}
+			}
+		},
+		"salmon_mob": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#minecraft:is_projectile",
+							"expected": true
+						}
+					],
+					"direct_entity": {
+						"entity_type": "minecraft:trident"
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:salmon"
+					}
+				}
+			}
+		},
+		"salmon_mob_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:salmon"
+					}
+				}
+			}
+		},
+		"pufferfish": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:pufferfish"
+					}
+				}
+			}
+		},
+		"pufferfish_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:pufferfish"
+					}
+				}
+			}
+		},
+		"tropical_fish": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:tropical_fish"
+					}
+				}
+			}
+		},
+		"tropical_fish_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:tropical_fish"
+					}
+				}
+			}
+		},
+		"drowned": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:drowned"
+					}
+				}
+			}
+		},
+		"drowned_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:drowned"
+					}
+				}
+			}
+		},
+		"axolotl": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:axolotl"
+					}
+				}
+			}
+		},
+		"axolotl_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:axolotl"
+					}
+				}
+			}
+		},
+		"glow_squid": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:glow_squid"
+					}
+				}
+			}
+		},
+		"glow_squid_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:glow_squid"
+					}
+				}
+			}
+		},
+		"frog": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:frog"
+					}
+				}
+			}
+		},
+		"frog_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:frog"
+					}
+				}
+			}
+		},
+		"tadpole": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:tadpole"
+					}
+				}
+			}
+		},
+		"tadpole_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:tadpole"
+					}
+				}
+			}
+		},
+		"nautilus": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:nautilus"
+					}
+				}
+			}
+		},
+		"nautilus_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:nautilus"
+					}
+				}
+			}
+		},
+		"zombie_nautilus": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+							{
+								"id": "#minecraft:is_projectile",
+								"expected": true
+							}
+						],
+						"direct_entity": {
+							"entity_type": "minecraft:trident"
+						}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:zombie_nautilus"
+					}
+				}
+			}
+		},
+		"zombie_nautilus_melee": {
+			"trigger": "minecraft:player_killed_entity",
+			"conditions": {
+				"killing_blow": {
+					"tags": [
+						{
+							"id": "#blazeandcave:is_player_hit",
+							"expected": true
+						}
+					]
+				},
+				"player": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"equipment": {
+							"mainhand": {
+								"items": [
+									"minecraft:trident"
+								]
+							}
+						}
+					}
+				},
+				"entity": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "minecraft:zombie_nautilus"
+					}
+				}
+			}
+		}
+	},
+	"requirements": [
+		[
+			"guardian",
+			"guardian_melee"
+		],
+		[
+			"squid",
+			"squid_melee"
+		],
+		[
+			"turtle",
+			"turtle_melee"
+		],
+		[
+			"dolphin",
+			"dolphin_melee"
+		],
+		[
+			"cod_mob",
+			"cod_mob_melee"
+		],
+		[
+			"salmon_mob",
+			"salmon_mob_melee"
+		],
+		[
+			"pufferfish",
+			"pufferfish_melee"
+		],
+		[
+			"tropical_fish",
+			"tropical_fish_melee"
+		],
+		[
+			"drowned",
+			"drowned_melee"
+		],
+		[
+			"axolotl",
+			"axolotl_melee"
+		],
+		[
+			"glow_squid",
+			"glow_squid_melee"
+		],
+		[
+			"frog",
+			"frog_melee"
+		],
+		[
+			"tadpole",
+			"tadpole_melee"
+		],
+		[
+			"nautilus",
+			"nautilus_melee"
+		],
+		[
+			"zombie_nautilus",
+			"zombie_nautilus_melee"
+		]
+	]
+}

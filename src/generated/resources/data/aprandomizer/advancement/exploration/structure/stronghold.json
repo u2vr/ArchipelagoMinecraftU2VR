@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "stronghold"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Discover the Stronghold structure",
+    "icon": {
+      "id": "minecraft:ender_eye"
+    },
+    "show_toast": true,
+    "title": "Stronghold"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

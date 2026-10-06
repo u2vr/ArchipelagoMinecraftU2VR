@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:forest"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Forest biome",
+    "icon": {
+      "id": "minecraft:oak_sapling"
+    },
+    "show_toast": true,
+    "title": "Forest"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

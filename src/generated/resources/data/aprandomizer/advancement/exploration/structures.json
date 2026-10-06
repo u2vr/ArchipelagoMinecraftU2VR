@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/root",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "structures"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Discover unique structures across the world",
+    "icon": {
+      "id": "minecraft:chiseled_stone_bricks"
+    },
+    "show_toast": true,
+    "title": "Structures"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

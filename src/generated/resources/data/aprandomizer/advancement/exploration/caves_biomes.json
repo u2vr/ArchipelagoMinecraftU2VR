@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/root",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "caves_biomes"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Explore biomes in Caves & Peaks",
+    "icon": {
+      "id": "minecraft:pointed_dripstone"
+    },
+    "show_toast": true,
+    "title": "Caves & Peaks"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

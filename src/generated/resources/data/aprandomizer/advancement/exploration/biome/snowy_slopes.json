@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/caves_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:snowy_slopes"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Snowy Slopes biome",
+    "icon": {
+      "id": "minecraft:snow_block"
+    },
+    "show_toast": true,
+    "title": "Snowy Slopes"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}
