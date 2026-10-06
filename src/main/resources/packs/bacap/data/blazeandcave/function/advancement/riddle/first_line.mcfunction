@@ -1,0 +1,1 @@
+title @s actionbar {"color":"gray","italic":true,"translate":"First line complete…"}

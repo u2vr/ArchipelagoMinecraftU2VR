@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/furnace",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_77"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Smoker (Tier 4)",
+    "icon": {
+      "id": "minecraft:smoker"
+    },
+    "title": "Smoker"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

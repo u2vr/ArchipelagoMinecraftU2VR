@@ -1,0 +1,16 @@
+{
+	"type": "minecraft:inverted",
+	"term": {
+		"type": "minecraft:entity_properties",
+		"predicate": {
+			"equipment": {
+				"mainhand": {
+					"items": [
+						"minecraft:crossbow"
+					]
+				}
+			}
+		},
+		"entity": "this"
+	}
+}

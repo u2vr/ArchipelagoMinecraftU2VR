@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/overworld_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:plains"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Plains biome",
+    "icon": {
+      "id": "minecraft:grass_block"
+    },
+    "show_toast": true,
+    "title": "Plains"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

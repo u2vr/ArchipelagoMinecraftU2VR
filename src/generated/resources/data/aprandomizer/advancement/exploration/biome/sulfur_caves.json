@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/caves_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:sulfur_caves"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Sulfur Caves biome",
+    "icon": {
+      "id": "minecraft:raw_gold"
+    },
+    "show_toast": true,
+    "title": "Sulfur Caves"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

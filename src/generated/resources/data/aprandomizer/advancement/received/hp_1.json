@@ -1,0 +1,24 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/hp"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Heart",
+    "icon": {
+      "id": "minecraft:apple"
+    },
+    "title": "HP Upgrade 1/7"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

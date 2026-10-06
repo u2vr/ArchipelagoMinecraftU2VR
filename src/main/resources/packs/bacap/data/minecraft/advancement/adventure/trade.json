@@ -1,0 +1,28 @@
+{
+	"display": {
+		"icon": {
+			"id": "minecraft:emerald"
+		},
+		"title": {"translate":"What a Deal!"},
+		"description": {"color":"green","translate":"Successfully trade with a Villager"},
+		"announce_to_chat": true
+	},
+	"parent": "blazeandcave:adventure/do_you_want_to_trade",
+	"rewards": {
+		"function": "bacap_rewards:adventure/what_a_deal"
+	},		
+	"criteria": {
+		"trade": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"villager": {
+					"type": "minecraft:entity_properties",
+					"entity": "this",
+					"predicate": {
+						"entity_type": "villager"
+					}
+				}
+			}
+		}
+	}
+}

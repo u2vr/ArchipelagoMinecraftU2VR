@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/world_border_3",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/world_border",
+        "tier": 4
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Expand World Border",
+    "icon": {
+      "id": "minecraft:map"
+    },
+    "title": "World Border Upgrade 4/5"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

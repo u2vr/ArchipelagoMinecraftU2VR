@@ -1,0 +1,8 @@
+{
+  "rewards": {
+    "type": "aprandomizer:item",
+    "item": {
+      "id": "minecraft:shulker_box"
+    }
+  }
+}

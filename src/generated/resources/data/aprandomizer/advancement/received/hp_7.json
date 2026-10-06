@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/hp_6",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:upgrade/hp",
+        "tier": 7
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "+1 Heart (Maximum reached!)",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:enchanted_golden_apple"
+    },
+    "title": "HP Upgrade 7/7 (Max)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

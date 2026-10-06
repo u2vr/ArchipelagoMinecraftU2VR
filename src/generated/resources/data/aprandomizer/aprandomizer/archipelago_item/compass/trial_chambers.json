@@ -1,0 +1,16 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Structures",
+    "id": "aprandomizer:trial_chambers",
+    "name": "Trial Chambers",
+    "target": {
+      "type": "aprandomizer:structure",
+      "level": {
+        "type": "aprandomizer:constant",
+        "level": "minecraft:overworld"
+      },
+      "structures": "#aprandomizer:trial_chambers"
+    }
+  }
+}

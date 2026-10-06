@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/nether_biomes",
+  "criteria": {
+    "visited": {
+      "trigger": "aprandomizer:exploration",
+      "conditions": {
+        "id": "minecraft:nether_wastes"
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": "Visit the Nether Wastes biome",
+    "icon": {
+      "id": "minecraft:netherrack"
+    },
+    "show_toast": true,
+    "title": "Nether Wastes"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}
