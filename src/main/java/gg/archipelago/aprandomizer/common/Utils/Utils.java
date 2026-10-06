@@ -49,15 +49,15 @@ public class Utils {
     }
 
     public static void sendMessageToAll(Component message) {
-        //tell the server to send the message in a thread safe way as overlay notification.
-        server().execute(() -> server().getPlayerList().broadcastSystemMessage(message, true));
+        //tell the server to send the message in a thread safe way as chat message.
+        server().execute(() -> server().getPlayerList().broadcastSystemMessage(message, false));
     }
 
     public static void sendFancyMessageToAll(APPrint apPrint) {
         Component message = Utils.apPrintToTextComponent(apPrint);
 
-        //tell the server to send the message in a thread safe way as overlay notification.
-        server().execute(() -> server().getPlayerList().broadcastSystemMessage(message, true));
+        //tell the server to send the message in a thread safe way as chat message.
+        server().execute(() -> server().getPlayerList().broadcastSystemMessage(message, false));
     }
 
     public static boolean bitmaskMatchAll(int value, int mask) {

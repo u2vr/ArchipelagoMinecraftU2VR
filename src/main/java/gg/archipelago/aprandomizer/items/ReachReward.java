@@ -27,6 +27,8 @@ public record ReachReward() implements APReward {
             RestrictionManager.applyReach(player);
         }
         double reach = RestrictionManager.getBlockReach();
+        int reachUpgrades = (worldData != null) ? worldData.getReachUpgrades() : 0;
         Utils.sendTitleToAll(Component.literal("§b+Дальность взаимодействия"), Component.literal("Дальность копания: " + reach + " бл.!"), 10, 40, 10);
+        Utils.sendMessageToAll("§a[Archipelago] §fРазблокировано увеличение дальности руки: §b" + reach + " бл. §7(" + reachUpgrades + "/3)");
     }
 }

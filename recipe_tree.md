@@ -56,7 +56,7 @@ graph LR
   node_107["[Tier 6] ✨ Bucket<br/><code>bucket</code>"]
   node_109["[Tier 2] ✨ Fishing Rod<br/><code>fishing_rod</code>"]
   node_111["[Tier 4] ✨ Minecart<br/><code>minecart</code>"]
-  node_114["[Tier 1] ✨ Doors and Trapdoors<br/><code>acacia_door</code>"]
+  node_114["[Tier 1] ✨ Doors, Trapdoors and Fence Gates<br/><code>acacia_door</code>"]
   node_116["[Tier 6] 📦 Enchanting Table<br/><code>enchanting_table</code>"]
   node_121["[Tier 7] ✨ Ender Eye<br/><code>ender_eye</code>"]
   node_123["[Tier 4] ✨ Shield<br/><code>shield</code>"]

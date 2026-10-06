@@ -23,6 +23,8 @@ public record HungerReward() implements APReward {
             worldData.incrementHungerUpgrades();
         }
         int maxFood = RestrictionManager.getMaxFoodLevel();
-        Utils.sendTitleToAll(Component.literal("§6+Уровень Сытости"), Component.literal("Макс. уровень голода: " + (maxFood / 2) + " окорочков!"), 10, 40, 10);
+        int hunger = worldData.getHungerUpgrades();
+        Utils.sendTitleToAll(Component.literal("§6+Уровень Сытости"), Component.literal("Макс. уровень голода: " + (maxFood / 2) + " окорочков! (" + hunger + "/6)"), 10, 40, 10);
+        Utils.sendMessageToAll("§a[Archipelago] §fРазблокировано улучшение сытости: §6+1 Окорочок §7(Всего: " + (maxFood / 2) + " окорочков, " + hunger + "/6)");
     }
 }

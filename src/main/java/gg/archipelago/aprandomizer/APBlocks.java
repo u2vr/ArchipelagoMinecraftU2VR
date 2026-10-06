@@ -28,7 +28,7 @@ public class APBlocks {
             () -> BlockBehaviour.Properties.of()
                     .setId(net.minecraft.resources.ResourceKey.create(Registries.BLOCK, net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "shared_chest")))
                     .mapColor(MapColor.COLOR_PURPLE)
-                    .strength(2.5F, 1200.0F)
+                    .strength(0.3F)
                     .sound(SoundType.STONE)
                     .lightLevel(state -> 4)
                     .noOcclusion()

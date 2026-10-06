@@ -27,6 +27,9 @@ public record HpReward() implements APReward {
             RestrictionManager.applyHealth(player);
             player.heal(2.0f);
         }
-        Utils.sendTitleToAll(Component.literal("§c+1 Сердце (HP)"), Component.literal("Максимальное здоровье увеличено!"), 10, 40, 10);
+        int hp = worldData.getHpUpgrades();
+        int hearts = 3 + hp;
+        Utils.sendTitleToAll(Component.literal("§c+1 Сердце (HP)"), Component.literal("Максимальное здоровье: " + hearts + " сердец (" + hp + "/7)"), 10, 40, 10);
+        Utils.sendMessageToAll("§a[Archipelago] §fРазблокировано улучшение здоровья: §c+1 Сердце §7(Всего: " + hearts + " сердец, " + hp + "/7)");
     }
 }

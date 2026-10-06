@@ -11,9 +11,9 @@ if TYPE_CHECKING:
 
 
 def get_junk_item_names(rand, k: int) -> List[str]:
-	junk_weights = Constants.item_info.get("junk_weights", {"Random Trap": 1, "Recipe Unlock": 1})
+	junk_weights = Constants.item_info.get("junk_weights", {"Random Trap": 1})
 	if not junk_weights or k <= 0:
-		return ["Recipe Unlock"] * k
+		return ["Random Trap"] * k
 	junk = rand.choices(
 		list(junk_weights.keys()),
 		weights=list(junk_weights.values()),
@@ -79,26 +79,8 @@ def build_item_pool(world: "MinecraftWorld") -> List[Item]:
 	# 12. Traps & Junk filler for remaining unfilled locations
 	remaining = total_location_count - len(itempool)
 	if remaining > 0:
-		trap_pct = getattr(world.options, "bee_traps", None)
-		trap_pct_val = trap_pct.value if trap_pct else 0
-		if getattr(world.options, "advancement_type", None) and world.options.advancement_type.value == 2:
-			# In Random BACAP mode, remaining slots are specifically calculated from trap percentage
-			if trap_pct_val > 0:
-				itempool += [world.create_item("Random Trap") for _ in range(remaining)]
-			else:
-				junk = get_junk_item_names(world.random, remaining)
-				itempool += [world.create_item(name) for name in junk]
-		else:
-			trap_fraction = trap_pct_val * 0.01
-			trap_qty = ceil(trap_fraction * remaining) if trap_fraction > 0 else 0
-			trap_qty = min(trap_qty, remaining)
-
-			itempool += [world.create_item("Random Trap") for _ in range(trap_qty)]
-			remaining_filler = remaining - trap_qty
-
-			if remaining_filler > 0:
-				junk = get_junk_item_names(world.random, remaining_filler)
-				itempool += [world.create_item(name) for name in junk]
+		junk = get_junk_item_names(world.random, remaining)
+		itempool += [world.create_item(name) for name in junk]
 
 	# If item pool exceeds total locations (e.g. custom reduced locations), truncate safely
 	if len(itempool) > total_location_count:

@@ -25,6 +25,8 @@ public record WorldBorderReward() implements APReward {
         RestrictionManager.applyWorldBorder(server);
         double size = RestrictionManager.getWorldBorderSize();
         String sizeText = size >= 60000000.0 ? "максимальный размер!" : (int) size + " блоков!";
+        int borderUpgrades = (worldData != null) ? worldData.getWorldBorderUpgrades() : 0;
         Utils.sendTitleToAll(Component.literal("§a+Граница Мира"), Component.literal("Размер мира расширен: " + sizeText), 10, 40, 10);
+        Utils.sendMessageToAll("§a[Archipelago] §fРасширена граница мира: §a" + sizeText + " §7(" + borderUpgrades + "/5)");
     }
 }

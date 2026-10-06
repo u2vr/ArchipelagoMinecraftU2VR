@@ -120,9 +120,9 @@ public class OnAdvancement {
         // 2. Exclude recipes
         if (id.getPath().startsWith("recipes/")) return;
 
-        // 3. Must be blazeandcave or minecraft namespace
+        // 3. Must be blazeandcave namespace
         String ns = id.getNamespace();
-        if (!ns.equals("blazeandcave") && !ns.equals("minecraft")) return;
+        if (!ns.equals("blazeandcave")) return;
 
         // 4. Exclude the starter welcome root advancement
         if (ns.equals("blazeandcave") && id.getPath().equals("bacap/root")) return;

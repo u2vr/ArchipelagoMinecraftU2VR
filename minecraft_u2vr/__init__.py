@@ -220,7 +220,7 @@ class MinecraftWorld(World):
             'starting_shared_chest': bool(self.options.starting_shared_chest.value),
             'advancement_type': self.options.advancement_type.current_key,
             'bacap_advancement_step': int(self.options.bacap_advancement_step.value),
-            'bacap_check_count': min(Constants.TOTAL_BACAP_ADVANCEMENTS // max(1, int(self.options.bacap_advancement_step.value)), Constants.MAX_BACAP_MILESTONES),
+            'bacap_check_count': self._get_bacap_milestone_count(),
             'biome_checks': bool(self.options.biome_checks.value),
             'structure_checks': bool(self.options.structure_checks.value),
             'hint_cost': int(self.options.hint_cost.value),
@@ -331,8 +331,7 @@ class MinecraftWorld(World):
         item.classification = ItemClassification.progression
         return item
 
-    def _create_random_bacap_locations(self) -> None:
-        # 1. Calculate total required locked items (slots that need unlocking)
+    def _calculate_total_needed_slots(self) -> int:
         total_locked_slots = 77  # Recipe Unlocks
         if self.options.hp_restriction:
             total_locked_slots += 7
@@ -356,25 +355,38 @@ class MinecraftWorld(World):
         if self.options.egg_shards_required > 0 and "Dragon Egg Shard" in self.item_name_to_id:
             total_locked_slots += self.options.egg_shards_available.value
 
-        # 2. Add extra slots for traps according to Trap Percentage (bee_traps)
         trap_pct = getattr(self.options, "bee_traps", None)
         trap_percent_val = trap_pct.value if trap_pct else 0
         trap_count = ceil(total_locked_slots * (trap_percent_val / 100.0)) if trap_percent_val > 0 else 0
-        total_needed_slots = total_locked_slots + trap_count
+        return total_locked_slots + trap_count
 
-        # 3. Other check tasks (traders, biomes, structures)
+    def _get_other_check_tasks(self) -> int:
         other_check_tasks = self.options.wandering_trader_trades.value
         if self.options.biome_checks.value:
             other_check_tasks += len(Constants.all_biome_names)
         if self.options.structure_checks.value:
             other_check_tasks += len(Constants.STRUCTURE_REGION_MAPPING)
+        return other_check_tasks
 
-        # 4. Required random BACAP count
+    def _get_bacap_milestone_count(self) -> int:
+        step = max(1, self.options.bacap_advancement_step.value)
+        max_possible = min(Constants.TOTAL_BACAP_ADVANCEMENTS // step, Constants.MAX_BACAP_MILESTONES)
+        total_needed = self._calculate_total_needed_slots()
+        other_checks = self._get_other_check_tasks()
+        needed_milestones = total_needed - other_checks
+        if needed_milestones <= 0:
+            return 0
+        return min(needed_milestones, max_possible)
+
+    def _create_random_bacap_locations(self) -> None:
+        total_needed_slots = self._calculate_total_needed_slots()
+        other_check_tasks = self._get_other_check_tasks()
+
         needed_count = total_needed_slots - other_check_tasks
         if needed_count <= 0:
             needed_count = max(10, self.options.check_goal.value)
 
-        # 5. Filter candidates (exclude all structures and biomes to prevent world expansion / structure softlocks)
+        # Filter candidates (exclude all structures and biomes to prevent world expansion / structure softlocks)
         candidates = list(Constants.bacap_non_structure_biome_advancements)
 
         needed_count = min(needed_count, len(candidates))
@@ -413,8 +425,7 @@ class MinecraftWorld(World):
                     region.locations.append(loc)
         elif self.options.advancement_type.value == 1:  # BACAP Milestone
             overworld_region = self.multiworld.get_region("Overworld", self.player)
-            step = max(1, self.options.bacap_advancement_step.value)
-            bacap_count = min(Constants.TOTAL_BACAP_ADVANCEMENTS // step, Constants.MAX_BACAP_MILESTONES)
+            bacap_count = self._get_bacap_milestone_count()
             for i in range(1, bacap_count + 1):
                 loc_name = f"BACAP Milestone {i}"
                 loc = MinecraftLocation(self.player, loc_name,

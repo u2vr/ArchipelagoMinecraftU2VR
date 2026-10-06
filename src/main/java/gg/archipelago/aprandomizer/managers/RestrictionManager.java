@@ -635,6 +635,7 @@ public class RestrictionManager {
                         }
                     }
                     Utils.sendTitleToPlayer(player, Component.literal("§eЗлые пчёлы!"), Component.literal("От: §c" + sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §eЗлые пчёлы §fот §c" + sender + "§f!"));
                 }
                 case 1 -> {
                     // Спавн скелетов
@@ -650,6 +651,7 @@ public class RestrictionManager {
                         }
                     }
                     Utils.sendTitleToPlayer(player, Component.literal("§7Засада скелетов!"), Component.literal("От: §c" + sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §7Засада скелетов §fот §c" + sender + "§f!"));
                 }
                 case 2 -> {
                     // Спавн зомби
@@ -665,6 +667,7 @@ public class RestrictionManager {
                         }
                     }
                     Utils.sendTitleToPlayer(player, Component.literal("§2Орда зомби!"), Component.literal("От: §c" + sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §2Орда зомби §fот §c" + sender + "§f!"));
                 }
             }
         } else {
@@ -692,6 +695,7 @@ public class RestrictionManager {
                 }
                 player.containerMenu.broadcastChanges();
                 Utils.sendTitleToPlayer(player, Component.literal("§6Мусор в карманах!"), Component.literal("От: §c" + sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §6Мусор в карманах §fот §c" + sender + "§f!"));
             } else if (nonMobRoll < 85) {
                 // Падающий песок 3х9х9 (высота 3, ширина 9, длина 9) над игроком
                 int startX = player.getBlockX() - 4;
@@ -709,10 +713,12 @@ public class RestrictionManager {
                     }
                 }
                 Utils.sendTitleToPlayer(player, Component.literal("§6Падающий песок!"), Component.literal("Песчаный обвал 3х9х9 от: §c" + sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §6Песчаный обвал §fот §c" + sender + "§f!"));
             } else {
                 // Слепота
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, false, false));
                 Utils.sendTitleToPlayer(player, Component.literal("§8Слепота!"), Component.literal("От: §c" + sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §8Слепота §fот §c" + sender + "§f!"));
             }
         }
     }
