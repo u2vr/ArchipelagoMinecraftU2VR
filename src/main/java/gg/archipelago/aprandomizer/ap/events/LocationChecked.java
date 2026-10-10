@@ -13,7 +13,8 @@ public class LocationChecked {
 
     @ArchipelagoEventListener
     public void onLocationChecked(CheckedLocationsEvent event) {
-        event.checkedLocations.forEach(advancementManager::addAdvancement);
-
+        if (event.checkedLocations == null || event.checkedLocations.isEmpty()) return;
+        boolean showToasts = event.checkedLocations.size() <= 2;
+        advancementManager.addAdvancements(event.checkedLocations, showToasts);
     }
 }

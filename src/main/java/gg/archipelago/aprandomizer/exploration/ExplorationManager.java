@@ -283,5 +283,7 @@ public class ExplorationManager {
         if (hasAnyBiome || hasAnyStructure) {
             grantAdvancement(player, ExplorationData.ROOT_ADVANCEMENT_ID);
         }
+
+        player.getAdvancements().flushDirty(player, false);
     }
 }

@@ -245,6 +245,7 @@ public class APRandomizer {
 
         if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
             gg.archipelago.aprandomizer.client.ClientKeyHandler.init(modEventBus);
+            gg.archipelago.aprandomizer.client.ClientToastHandler.init();
         }
     }
 

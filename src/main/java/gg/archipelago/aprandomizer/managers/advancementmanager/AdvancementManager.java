@@ -333,7 +333,22 @@ public class AdvancementManager {
         if (goalManager != null) {
             goalManager.updateGoal(true);
         }
-        syncAllAdvancements();
+        syncAllAdvancements(true);
+    }
+
+    public void addAdvancements(java.util.Collection<Long> ids, boolean showToasts) {
+        if (ids == null || ids.isEmpty()) return;
+        earnedAdvancements.addAll(ids);
+        if (worldData != null) {
+            for (Long id : ids) {
+                worldData.addLocation(id);
+            }
+        }
+        GoalManager goalManager = getGoalManager();
+        if (goalManager != null) {
+            goalManager.updateGoal(true);
+        }
+        syncAllAdvancements(showToasts);
     }
 
     public void addAdvancement(ResourceKey<APLocation> key) {
@@ -363,10 +378,19 @@ public class AdvancementManager {
     }
 
     public void syncAllAdvancements() {
+        syncAllAdvancements(false);
+    }
+
+    public void syncAllAdvancements(boolean showToasts) {
         if (server == null) return;
         Registry<APLocation> locationRegistry = server.registryAccess().lookupOrThrow(APRegistries.ARCHIPELAGO_LOCATION);
         for (var a : locationRegistry.registryKeySet()) {
             syncAdvancement(a, locationRegistry.getValueOrThrow(a));
+        }
+        if (!showToasts) {
+            for (ServerPlayer serverPlayerEntity : server.getPlayerList().getPlayers()) {
+                serverPlayerEntity.getAdvancements().flushDirty(serverPlayerEntity, false);
+            }
         }
     }
 
@@ -384,6 +408,6 @@ public class AdvancementManager {
             worldData.addLocation(checkedLocation);
         }
         //checkedLocations.forEach(worldData::addLocation);
-        syncAllAdvancements();
+        syncAllAdvancements(false);
     }
 }

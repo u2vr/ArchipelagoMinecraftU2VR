@@ -398,6 +398,7 @@ public class ItemManager {
         // 10. Persist advancements to disk
         try {
             player.getAdvancements().save();
+            player.getAdvancements().flushDirty(player, false);
         } catch (Exception e) {
             LOGGER.error("Failed to save advancements for player {}", player.getScoreboardName(), e);
         }
