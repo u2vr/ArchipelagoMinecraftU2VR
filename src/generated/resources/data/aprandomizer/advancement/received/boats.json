@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Boats (Tier 4, 10 recipes)",
+    "description": "Boats (Tier 4, 22 recipes)",
     "icon": {
       "id": "minecraft:acacia_boat"
     },
+    "show_toast": false,
     "title": "Boats"
   },
   "requirements": [

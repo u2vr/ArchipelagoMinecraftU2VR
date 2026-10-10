@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Iron Boots (Tier 4, 2 recipes)",
+    "description": "Iron Boots (Tier 4)",
     "icon": {
       "id": "minecraft:iron_boots"
     },
+    "show_toast": false,
     "title": "Iron Boots"
   },
   "requirements": [

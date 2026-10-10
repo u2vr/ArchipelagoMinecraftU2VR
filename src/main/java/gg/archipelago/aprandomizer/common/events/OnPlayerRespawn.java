@@ -28,6 +28,7 @@ public class OnPlayerRespawn {
             itemManager.catchUpPlayer(player);
         }
         gg.archipelago.aprandomizer.exploration.ExplorationManager.syncPlayerExploration(player);
+        gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager.syncStateToPlayer(player);
 
         //if we are leaving because the dragon is dead check if our goals are all done!
         GoalManager goalManager = APRandomizer.getGoalManager();

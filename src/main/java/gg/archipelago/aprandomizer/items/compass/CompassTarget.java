@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -16,6 +18,14 @@ public interface CompassTarget {
 
     public default boolean includeY() {
         return true;
+    }
+
+    public default List<String> getExtraLore(ServerLevel level, BlockPos targetPos, ServerPlayer player) {
+        return Collections.emptyList();
+    }
+
+    public default List<String> getNotFoundLore(ServerLevel level, ServerPlayer player) {
+        return Collections.emptyList();
     }
 
     public MapCodec<? extends CompassTarget> codec();

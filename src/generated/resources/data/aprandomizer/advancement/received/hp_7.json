@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:enchanted_golden_apple"
     },
+    "show_toast": false,
     "title": "HP Upgrade 7/7 (Max)"
   },
   "requirements": [

@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:copper_boots"
     },
+    "show_toast": false,
     "title": "Copper Boots"
   },
   "requirements": [

@@ -27,15 +27,47 @@ import org.apache.logging.log4j.Logger;
 public class ExplorationManager {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public static boolean isBiomeChecksEnabled() {
+    public static boolean isMajorBiomeChecksEnabled() {
         if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
-            var sd = APRandomizer.getAP().getSlotData();
-            if (sd.biomeChecks != null) return sd.isBiomeChecks();
+            return APRandomizer.getAP().getSlotData().isMajorBiomeChecksEnabled();
         }
-        if (APRandomizer.getApmcData() != null && APRandomizer.getApmcData().biome_checks != null) {
-            return APRandomizer.getApmcData().isBiomeChecks();
+        if (APRandomizer.getApmcData() != null) {
+            return APRandomizer.getApmcData().isMajorBiomeChecksEnabled();
         }
         return false;
+    }
+
+    public static boolean isSmallBiomeChecksEnabled() {
+        if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
+            return APRandomizer.getAP().getSlotData().isSmallBiomeChecksEnabled();
+        }
+        if (APRandomizer.getApmcData() != null) {
+            return APRandomizer.getApmcData().isSmallBiomeChecksEnabled();
+        }
+        return false;
+    }
+
+    public static boolean isEndGameBiomeChecksEnabled() {
+        if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
+            return APRandomizer.getAP().getSlotData().isEndGameBiomeChecksEnabled();
+        }
+        if (APRandomizer.getApmcData() != null) {
+            return APRandomizer.getApmcData().isEndGameBiomeChecksEnabled();
+        }
+        return false;
+    }
+
+    public static boolean isBiomeCheckEnabled(ExplorationData.BiomeEntry biome) {
+        if (biome == null) return false;
+        return switch (biome.group()) {
+            case MAJOR -> isMajorBiomeChecksEnabled();
+            case SMALL -> isSmallBiomeChecksEnabled();
+            case ENDGAME -> isEndGameBiomeChecksEnabled();
+        };
+    }
+
+    public static boolean isBiomeChecksEnabled() {
+        return isMajorBiomeChecksEnabled() || isSmallBiomeChecksEnabled() || isEndGameBiomeChecksEnabled();
     }
 
     public static boolean isStructureChecksEnabled() {
@@ -47,6 +79,56 @@ public class ExplorationManager {
             return APRandomizer.getApmcData().isStructureChecks();
         }
         return false;
+    }
+
+    public static boolean isExplorationAdvancementEnabled(Identifier advId) {
+        if (advId == null || !advId.getNamespace().equals(APRandomizer.MODID)) {
+            return true;
+        }
+        String path = advId.getPath();
+        if (!path.startsWith("exploration/")) {
+            return true;
+        }
+
+        if (path.startsWith("exploration/biome/")) {
+            String biomePath = path.substring("exploration/biome/".length());
+            for (ExplorationData.BiomeEntry biome : ExplorationData.BIOMES) {
+                if (biome.path().equals(biomePath)) {
+                    return isBiomeCheckEnabled(biome);
+                }
+            }
+            return false;
+        }
+
+        if (path.startsWith("exploration/structure/")) {
+            return isStructureChecksEnabled();
+        }
+
+        if (path.equals("exploration/overworld_biomes")) {
+            return isMajorBiomeChecksEnabled() || isSmallBiomeChecksEnabled();
+        }
+
+        if (path.equals("exploration/caves_biomes")) {
+            return isSmallBiomeChecksEnabled();
+        }
+
+        if (path.equals("exploration/nether_biomes")) {
+            return isMajorBiomeChecksEnabled();
+        }
+
+        if (path.equals("exploration/end_biomes")) {
+            return isEndGameBiomeChecksEnabled();
+        }
+
+        if (path.equals("exploration/structures")) {
+            return isStructureChecksEnabled();
+        }
+
+        if (path.equals("exploration/root")) {
+            return isBiomeChecksEnabled() || isStructureChecksEnabled();
+        }
+
+        return true;
     }
 
     @SubscribeEvent
@@ -113,13 +195,12 @@ public class ExplorationManager {
         MinecraftServer server = player.level().getServer();
         AdvancementManager am = APRandomizer.getAdvancementManager();
 
-        // Award advancement in the dedicated tree to all online players
-        awardExplorationAdvancement(server, biome.getAdvancementId(), biome.category().getAdvancementId());
+        boolean checksEnabled = isBiomeCheckEnabled(biome);
+        if (checksEnabled) {
+            // Award advancement in the dedicated tree to all online players
+            awardExplorationAdvancement(server, biome.getAdvancementId(), biome.category().getAdvancementId());
 
-        // Check Archipelago location if biome checks enabled
-        boolean checksEnabled = isBiomeChecksEnabled();
-        if (checksEnabled && am != null) {
-            if (!am.hasAdvancement(biome.locationId())) {
+            if (am != null && !am.hasAdvancement(biome.locationId())) {
                 am.addAdvancement(biome.locationId());
             }
         }
@@ -139,13 +220,12 @@ public class ExplorationManager {
         MinecraftServer server = player.level().getServer();
         AdvancementManager am = APRandomizer.getAdvancementManager();
 
-        // Award advancement in the dedicated tree to all online players
-        awardExplorationAdvancement(server, structure.getAdvancementId(), ExplorationData.STRUCTURES_CATEGORY_ID);
-
-        // Check Archipelago location if structure checks enabled
         boolean checksEnabled = isStructureChecksEnabled();
-        if (checksEnabled && am != null) {
-            if (!am.hasAdvancement(structure.locationId())) {
+        if (checksEnabled) {
+            // Award advancement in the dedicated tree to all online players
+            awardExplorationAdvancement(server, structure.getAdvancementId(), ExplorationData.STRUCTURES_CATEGORY_ID);
+
+            if (am != null && !am.hasAdvancement(structure.locationId())) {
                 am.addAdvancement(structure.locationId());
             }
         }
@@ -159,6 +239,7 @@ public class ExplorationManager {
             grantAdvancement(p, ExplorationData.ROOT_ADVANCEMENT_ID);
             grantAdvancement(p, parentCategoryId);
             grantAdvancement(p, childId);
+            gg.archipelago.aprandomizer.managers.itemmanager.ItemManager.refreshCompasses(p);
         }
     }
 
@@ -173,29 +254,34 @@ public class ExplorationManager {
         }
     }
 
-
     public static void syncPlayerExploration(ServerPlayer player) {
         WorldData worldData = APRandomizer.getWorldData();
         if (worldData == null) return;
 
-        if (!worldData.getVisitedBiomes().isEmpty() || !worldData.getVisitedStructures().isEmpty()) {
-            grantAdvancement(player, ExplorationData.ROOT_ADVANCEMENT_ID);
-        }
-
+        boolean hasAnyBiome = false;
         for (String biomeId : worldData.getVisitedBiomes()) {
             ExplorationData.BiomeEntry b = ExplorationData.getBiomeById(biomeId);
-            if (b != null) {
+            if (b != null && isBiomeCheckEnabled(b)) {
+                hasAnyBiome = true;
                 grantAdvancement(player, b.category().getAdvancementId());
                 grantAdvancement(player, b.getAdvancementId());
             }
         }
 
-        for (String structId : worldData.getVisitedStructures()) {
-            ExplorationData.StructureCheckEntry s = ExplorationData.getStructureById(structId);
-            if (s != null) {
-                grantAdvancement(player, ExplorationData.STRUCTURES_CATEGORY_ID);
-                grantAdvancement(player, s.getAdvancementId());
+        boolean hasAnyStructure = false;
+        if (isStructureChecksEnabled()) {
+            for (String structId : worldData.getVisitedStructures()) {
+                ExplorationData.StructureCheckEntry s = ExplorationData.getStructureById(structId);
+                if (s != null) {
+                    hasAnyStructure = true;
+                    grantAdvancement(player, ExplorationData.STRUCTURES_CATEGORY_ID);
+                    grantAdvancement(player, s.getAdvancementId());
+                }
             }
+        }
+
+        if (hasAnyBiome || hasAnyStructure) {
+            grantAdvancement(player, ExplorationData.ROOT_ADVANCEMENT_ID);
         }
     }
 }

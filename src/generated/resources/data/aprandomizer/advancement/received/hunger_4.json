@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:cooked_beef"
     },
+    "show_toast": false,
     "title": "Hunger Upgrade 4/6"
   },
   "requirements": [

@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:creeper_head"
     },
+    "show_toast": false,
     "title": "Curse: Lightless Spawning"
   },
   "requirements": [

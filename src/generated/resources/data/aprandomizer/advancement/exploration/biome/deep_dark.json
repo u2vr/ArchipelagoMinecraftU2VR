@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/caves_biomes",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "minecraft:deep_dark"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Visit the Deep Dark biome",
     "icon": {
       "id": "minecraft:sculk_catalyst"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Deep Dark"
   },
   "requirements": [

@@ -80,9 +80,10 @@ public class RestrictionManager {
     private static final List<StructureEntry> STRUCTURES = List.of(
             new StructureEntry("Village", APStructureTags.VILLAGE, "Деревня"),
             new StructureEntry("Pillager Outpost", APStructureTags.PILLAGER_OUTPOST, "Аванпост разбойников"),
+            new StructureEntry("Trial Chambers", APStructureTags.TRIAL_CHAMBERS, "Испытательные палаты"),
             new StructureEntry("Nether Fortress", APStructureTags.FORTRESS, "Крепость Незера"),
             new StructureEntry("Bastion Remnant", APStructureTags.BASTION_REMNANT, "Бастион"),
-            new StructureEntry("Trial Chambers", APStructureTags.TRIAL_CHAMBERS, "Испытательные палаты"),
+            new StructureEntry("Stronghold", APStructureTags.STRONGHOLD, "Крепость"),
             new StructureEntry("Ancient City", APStructureTags.ANCIENT_CITY, "Древний город"),
             new StructureEntry("Ocean Monument", APStructureTags.OCEAN_MONUMENT, "Подводный монумент"),
             new StructureEntry("End City", APStructureTags.END_CITY, "Город Края")

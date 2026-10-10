@@ -93,13 +93,6 @@ public class ClientRecipeManager {
     }
 
     public static synchronized void requestUnlock(String nodeId) {
-        RecipeTreeNode node = RecipeTreeManager.getNodeById(nodeId);
-        if (node != null) {
-            UNLOCKED_NODE_IDS.add(nodeId);
-            if (tickets > 0) {
-                tickets--;
-            }
-        }
         net.neoforged.neoforge.client.network.ClientPacketDistributor.sendToServer(new UnlockRecipeNodePayload(nodeId));
     }
 

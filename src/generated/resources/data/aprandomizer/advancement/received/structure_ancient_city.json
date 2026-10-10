@@ -1,10 +1,10 @@
 {
-  "parent": "aprandomizer:received/structure_trial_chambers",
+  "parent": "aprandomizer:received/structure_stronghold",
   "criteria": {
     "received": {
       "conditions": {
         "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 4
+        "tier": 7
       },
       "trigger": "aprandomizer:received_item"
     }
@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:echo_shard"
     },
+    "show_toast": false,
     "title": "Ancient City Access"
   },
   "requirements": [

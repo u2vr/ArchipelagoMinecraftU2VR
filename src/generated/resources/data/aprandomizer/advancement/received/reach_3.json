@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:fishing_rod"
     },
+    "show_toast": false,
     "title": "Reach Upgrade 3/3 (Max)"
   },
   "requirements": [

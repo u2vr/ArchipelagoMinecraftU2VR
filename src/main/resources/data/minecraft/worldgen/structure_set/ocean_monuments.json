@@ -6,10 +6,10 @@
     }
   ],
   "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 23,
+    "separation": 4,
     "spread_type": "triangular",
-    "salt": 10387313,
-    "spacing": 20,
-    "separation": 6,
-    "type": "minecraft:random_spread"
+    "salt": 10387313
   }
 }

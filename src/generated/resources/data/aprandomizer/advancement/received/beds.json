@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "node_id": "node_318"
+      },
+      "trigger": "aprandomizer:recipe_node"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Beds (Tier 1, 17 recipes)",
+    "icon": {
+      "id": "minecraft:white_bed"
+    },
+    "show_toast": false,
+    "title": "Beds"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:chest"
     },
+    "show_toast": false,
     "title": "Inventory Slot 12/27"
   },
   "requirements": [

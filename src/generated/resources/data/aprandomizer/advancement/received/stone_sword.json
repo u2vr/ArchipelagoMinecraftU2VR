@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:stone_sword"
     },
+    "show_toast": false,
     "title": "Stone Sword"
   },
   "requirements": [

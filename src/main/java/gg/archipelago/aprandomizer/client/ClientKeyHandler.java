@@ -39,6 +39,9 @@ public class ClientKeyHandler {
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
         while (OPEN_RECIPE_TREE.consumeClick()) {
+            if (!ClientRecipeManager.isTicketMode()) {
+                continue;
+            }
             Minecraft mc = Minecraft.getInstance();
             if (mc.gui.screen() == null) {
                 mc.gui.setScreen(new RecipeSkillTreeScreen(null));

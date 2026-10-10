@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Iron Leggings (Tier 4, 2 recipes)",
+    "description": "Iron Leggings (Tier 4)",
     "icon": {
       "id": "minecraft:iron_leggings"
     },
+    "show_toast": false,
     "title": "Iron Leggings"
   },
   "requirements": [

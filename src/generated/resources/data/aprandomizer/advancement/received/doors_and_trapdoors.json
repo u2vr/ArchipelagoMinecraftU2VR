@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Doors and Trapdoors (Tier 1, 34 recipes)",
+    "description": "Doors and Trapdoors (Tier 1, 51 recipes)",
     "icon": {
       "id": "minecraft:acacia_door"
     },
+    "show_toast": false,
     "title": "Doors and Trapdoors"
   },
   "requirements": [

@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/end_biomes",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "minecraft:end_midlands"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Visit the End Midlands biome",
     "icon": {
       "id": "minecraft:chorus_flower"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "End Midlands"
   },
   "requirements": [

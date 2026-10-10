@@ -15,7 +15,7 @@ location_info = load_data_file("locations.json")
 location_name_to_id = {name: index \
                        for index, name in enumerate(location_info["all_locations"], start=1)}
 
-TOTAL_BACAP_ADVANCEMENTS = 1200
+TOTAL_BACAP_ADVANCEMENTS = 1112
 BACAP_LOCATION_START_ID = 201
 MAX_BACAP_MILESTONES = 300
 for i in range(1, MAX_BACAP_MILESTONES + 1):
@@ -50,6 +50,38 @@ END_BIOME_NAMES = [
     "Explore Small End Islands", "Explore End Barrens"
 ]
 
+# Classified Biome Categories:
+# Major Biomes: 31 Overworld + 5 Nether = 36 biomes
+MAJOR_BIOME_NAMES = [
+    "Explore Plains", "Explore Snowy Plains", "Explore Desert", "Explore Swamp",
+    "Explore Mangrove Swamp", "Explore Forest", "Explore Birch Forest", "Explore Dappled Forest",
+    "Explore Dark Forest", "Explore Pale Garden", "Explore Old Growth Birch Forest",
+    "Explore Old Growth Pine Taiga", "Explore Old Growth Spruce Taiga", "Explore Taiga",
+    "Explore Snowy Taiga", "Explore Savanna", "Explore Jungle", "Explore Bamboo Jungle",
+    "Explore Badlands", "Explore Wooded Badlands", "Explore Meadow", "Explore Cherry Grove",
+    "Explore Warm Ocean", "Explore Lukewarm Ocean", "Explore Deep Lukewarm Ocean",
+    "Explore Ocean", "Explore Deep Ocean", "Explore Cold Ocean", "Explore Deep Cold Ocean",
+    "Explore Frozen Ocean", "Explore Deep Frozen Ocean",
+    # Nether
+    "Explore Nether Wastes", "Explore Warped Forest", "Explore Crimson Forest",
+    "Explore Soul Sand Valley", "Explore Basalt Deltas"
+]
+
+# Small Biomes: Rivers, Beaches, Shores, Caves, Slopes/Peaks, Micro-variations = 25 biomes
+SMALL_BIOME_NAMES = [
+    "Explore Sunflower Plains", "Explore Flower Forest", "Explore Ice Spikes",
+    "Explore Savanna Plateau", "Explore Windswept Hills", "Explore Windswept Gravelly Hills",
+    "Explore Windswept Forest", "Explore Windswept Savanna", "Explore Sparse Jungle",
+    "Explore Eroded Badlands", "Explore Mushroom Fields",
+    "Explore River", "Explore Frozen River", "Explore Beach", "Explore Snowy Beach",
+    "Explore Stony Shore", "Explore Dripstone Caves", "Explore Lush Caves",
+    "Explore Deep Dark", "Explore Sulfur Caves", "Explore Grove",
+    "Explore Snowy Slopes", "Explore Frozen Peaks", "Explore Jagged Peaks",
+    "Explore Stony Peaks"
+]
+
+ENDGAME_BIOME_NAMES = END_BIOME_NAMES
+
 BIOME_LOCATION_START_ID = 501
 all_biome_names = OVERWORLD_BIOME_NAMES + NETHER_BIOME_NAMES + END_BIOME_NAMES
 for idx, name in enumerate(all_biome_names):
@@ -61,7 +93,7 @@ BIOMES_BY_REGION = {
     "The End": END_BIOME_NAMES
 }
 
-# Exploration Structures (601..621)
+# Exploration Structures (601..622)
 STRUCTURE_REGION_MAPPING = {
     "Explore Village": "Village",
     "Explore Pillager Outpost": "Pillager Outpost",
@@ -83,7 +115,8 @@ STRUCTURE_REGION_MAPPING = {
     "Explore Ruined Portal": "Overworld",
     "Explore Ancient City": "Ancient City",
     "Explore Trail Ruins": "Trail Ruins",
-    "Explore Trial Chambers": "Trial Chambers"
+    "Explore Trial Chambers": "Trial Chambers",
+    "Explore Abandoned Camp": "Overworld"
 }
 
 STRUCTURE_LOCATION_START_ID = 601
@@ -106,6 +139,7 @@ for idx, entry in enumerate(bacap_advancements_info):
 bacap_non_structure_biome_advancements = [
     entry for entry in bacap_advancements_info
     if not entry.get("is_structure_or_biome", False)
+    and not entry.get("is_endgame_or_grind", False)
 ]
 
 exclusion_info = load_data_file("excluded_locations.json")

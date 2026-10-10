@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:apple"
     },
+    "show_toast": false,
     "title": "HP Upgrade 5/7"
   },
   "requirements": [

@@ -54,6 +54,9 @@ public class APStructureTagsProvider extends StructureTagsProvider {
 
         tag(APStructureTags.TRIAL_CHAMBERS)
                 .add(BuiltinStructures.TRIAL_CHAMBERS);
+
+        tag(APStructureTags.STRONGHOLD)
+                .add(BuiltinStructures.STRONGHOLD);
     }
 
 }

@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Iron Helmet (Tier 4, 2 recipes)",
+    "description": "Iron Helmet (Tier 4)",
     "icon": {
       "id": "minecraft:iron_helmet"
     },
+    "show_toast": false,
     "title": "Iron Helmet"
   },
   "requirements": [

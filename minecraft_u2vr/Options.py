@@ -25,12 +25,12 @@ except ImportError:
             self.description = description
 
 
-# === 1. CHECKS OPTIONS ===
+# === 1. MAIN OPTIONS ===
 
 class CheckGoal(Range):
     """Number of checks required to complete the goal.
     Simultaneously counts structure checks, biome checks, and milestone/advancement checks."""
-    display_name = "Check Goal"
+    display_name = "Check Goal (Checks to Complete)"
     range_start = 0
     range_end = 1000
     default = 40
@@ -55,6 +55,73 @@ class BossGoal(Choice):
     @property
     def wither(self):
         return self.value > 1
+
+
+class RecipeUnlockMode(Choice):
+    """Method for unlocking recipes when Recipe Unlock items are obtained (78 items in pool):
+    random_by_bias: Recipes are randomly unlocked based on the tier bias.
+    ticket_mode_skilltree: Recipe Unlocks grant tickets to manually unlock recipes in the Skill Tree GUI."""
+    display_name = "Recipe Unlock Mode (78 recipe items)"
+    option_random_by_bias = 0
+    option_ticket_mode_skilltree = 1
+    default = 0
+
+
+class RecipeTierBias(Range):
+    """Slider controlling recipe tier unlocking bias for the 78 Recipe Unlock items:
+    0 = completely uniform random across all remaining recipe tiers.
+    100 = strictly unlock earlier tiers first.
+    1-99 = weighted bias favoring earlier recipe tiers (70% = strongly favors earlier tiers)."""
+    display_name = "Craft Recipe Tier Bias (78 recipe items)"
+    range_start = 0
+    range_end = 100
+    default = 70
+
+
+class RecipeTierThreshold(Range):
+    """Percentage of recipes in the current tier that must be unlocked before recipes in the next tier can be unlocked (Ticket Mode).
+    Default is 50%."""
+    display_name = "Recipe Tier Unlock Percentage"
+    range_start = 0
+    range_end = 100
+    default = 50
+
+# Backward compatibility alias
+RecipeTierUnlockPercentage = RecipeTierThreshold
+
+
+class StartingSharedChest(DefaultOnToggle):
+    """Start the game with an Archipelago Shared Chest in your inventory.
+    The shared chest synchronizes items with all other players in the room in real time."""
+    display_name = "Starting Shared Chest"
+
+
+class EggShardsRequired(Range):
+    """Number of dragon egg shards to collect to spawn bosses."""
+    display_name = "Egg Shards Required"
+    range_start = 0
+    range_end = 50
+    default = 0
+
+
+class EggShardsAvailable(Range):
+    """Number of dragon egg shards available in the item pool (adds 0 to 50 items)."""
+    display_name = "Egg Shards Available (0-50 items)"
+    range_start = 0
+    range_end = 50
+    default = 0
+
+
+# === 2. CHECKS OPTIONS ===
+
+class WanderingTraderTrades(Range):
+    """Number of Archipelago item trades available from the Wandering Trader (adds 0 to 20 checks).
+    The Wandering Trader sells items from across all games in the multiworld.
+    Setting this to 0 disables Wandering Trader Archipelago trades."""
+    display_name = "Wandering Trader Trades (0-20 checks)"
+    range_start = 0
+    range_end = 20
+    default = 10
 
 
 class HintCost(Range):
@@ -98,11 +165,11 @@ _DISABLED_OPTION = _DisabledOption()
 
 
 class AdvancementType(Choice):
-    """Choose whether to use vanilla advancements, BlazeandCave's Advancements Pack (BACAP) milestone checks, or randomly selected BACAP achievements.
-    vanilla: standard individual vanilla advancements.
-    bacap: checks granted every N completed BACAP advancements (milestones).
-    random_bacap: randomly selects individual BACAP achievements based on required slot count."""
-    display_name = "Advancement Type"
+    """Choose the advancement checks mode:
+    vanilla: standard individual vanilla advancements (max = 138 checks).
+    bacap: milestone checks granted every milestoneStep completed BACAP advancements (max = 1112/milestoneStep checks, up to 300 checks).
+    random_bacap: randomly selected individual BACAP achievements from a balanced pool (max = 524 checks pool, excluding structures, biomes, endgame, and extreme grind)."""
+    display_name = "Advancement Checks Type"
     option_vanilla = 0
     option_bacap = 1
     option_random_bacap = 2
@@ -110,135 +177,68 @@ class AdvancementType(Choice):
 
 
 class BACAPAdvancementStep(Range):
-    """In BACAP mode, number of completed advancements required for each Archipelago check.
-    The number of milestone checks generated will be 1200 divided by this step."""
-    display_name = "BACAP Step (Advancements per Check)"
+    """In BACAP milestone mode, number of completed advancements required for each Archipelago check.
+    The number of milestone checks generated will be 1112 divided by this step (max = 1112/milestoneStep, up to 300 checks)."""
+    display_name = "BACAP Advancement Step"
     range_start = 4
     range_end = 100
     default = 10
 
 
-class BiomeChecks(DefaultOnToggle):
-    """Enables Archipelago checks for discovering unique biomes."""
-    display_name = "Biome Checks"
+class MajorBiomeChecks(DefaultOnToggle):
+    """Enables Archipelago checks for discovering major surface and nether biomes (31 Overworld, 5 Nether = 36 checks)."""
+    display_name = "Major Biome Checks (36 checks)"
+
+
+class SmallBiomeChecks(DefaultOnToggle):
+    """Enables Archipelago checks for discovering small biomes, rivers, beaches, caves, peaks, and micro-variations (25 checks)."""
+    display_name = "Small Biome Checks (25 checks)"
+
+
+class EndGameBiomeChecks(Toggle):
+    """Enables Archipelago checks for discovering the 5 The End dimension biomes (5 checks). Off by default."""
+    display_name = "EndGame Biome Checks (5 checks)"
+
+
+# Backward compatibility alias
+BiomeChecks = MajorBiomeChecks
 
 
 class StructureChecks(DefaultOnToggle):
-    """Enables Archipelago checks for discovering unique structures."""
-    display_name = "Structure Checks"
-
-
-# === 2. MAIN OPTIONS ===
-
-class RecipeTierBias(Range):
-    """Slider controlling recipe tier unlocking bias:
-    0 = completely uniform random across all remaining recipe tiers.
-    100 = strictly unlock earlier tiers first.
-    1-99 = weighted bias favoring earlier recipe tiers (70% = strongly favors earlier tiers)."""
-    display_name = "Craft Recipe Tier Bias"
-    range_start = 0
-    range_end = 100
-    default = 70
-
-
-class RecipeUnlockMode(Choice):
-    """Method for unlocking recipes when Recipe Unlock items are obtained:
-    random_by_bias: Recipes are randomly unlocked based on the tier bias.
-    ticket_mode_skilltree: Recipe Unlocks grant tickets to manually unlock recipes in the Skill Tree GUI."""
-    display_name = "Recipe Unlock Mode"
-    option_random_by_bias = 0
-    option_ticket_mode_skilltree = 1
-    default = 0
-
-
-class RecipeTierThreshold(Range):
-    """Percentage of recipes in the current tier that must be unlocked before recipes in the next tier can be unlocked (Ticket Mode).
-    Default is 50%."""
-    display_name = "Recipe Tier Unlock Percentage"
-    range_start = 0
-    range_end = 100
-    default = 50
-
-# Backward compatibility alias
-RecipeTierUnlockPercentage = RecipeTierThreshold
-
-
-class WanderingTraderTrades(Range):
-    """Number of Archipelago item trades available from the Wandering Trader.
-    The Wandering Trader sells items from across all games in the multiworld.
-    Setting this to 0 disables Wandering Trader Archipelago trades."""
-    display_name = "Wandering Trader Trades"
-    range_start = 0
-    range_end = 20
-    default = 10
-
-
-class StartingSharedChest(DefaultOnToggle):
-    """Start the game with an Archipelago Shared Chest in your inventory.
-    The shared chest synchronizes items with all other players in the room in real time."""
-    display_name = "Starting Shared Chest"
-
-
-class CombatDifficulty(Choice):
-    """Modifies the level of items logically required for exploring dangerous areas and fighting bosses."""
-    display_name = "Combat Difficulty"
-    option_easy = 0
-    option_normal = 1
-    option_hard = 2
-    default = 1
-
-
-class ImmediateRespawn(DefaultOnToggle):
-    """Choose whether to respawn immediately on death, or to be put into the game over screen."""
-    display_name = "Immediate Respawn"
-
-
-class EggShardsRequired(Range):
-    """Number of dragon egg shards to collect to spawn bosses."""
-    display_name = "Egg Shards Required"
-    range_start = 0
-    range_end = 50
-    default = 0
-
-
-class EggShardsAvailable(Range):
-    """Number of dragon egg shards available to collect."""
-    display_name = "Egg Shards Available"
-    range_start = 0
-    range_end = 50
-    default = 0
+    """Enables Archipelago checks for discovering unique structures (22 structures = 22 checks)."""
+    display_name = "Structure Checks (22 checks)"
 
 
 # === 3. UNLOCKABLES OPTIONS ===
 
 class StructureCompasses(DefaultOnToggle):
-    """Adds structure compasses to the item pool, which point to the nearest indicated structure."""
-    display_name = "Structure Compasses"
+    """Adds structure compasses to the item pool (12 items), which point to the nearest indicated structure."""
+    display_name = "Structure Compasses (12 items)"
 
 
 class ReachRestriction(DefaultOnToggle):
-    """Restricts player block mining and entity interaction distance until Reach Upgrades are obtained."""
-    display_name = "Reach Distance Restriction"
+    """Restricts player block mining and entity interaction distance until Reach Upgrades are obtained (adds 3 items)."""
+    display_name = "Reach Distance Restriction (3 items)"
 
 
 class HPRestriction(DefaultOnToggle):
-    """Restricts maximum health to 3 hearts (6 HP) initially. Each HP Upgrade adds +1 heart (+2 HP) up to 10 hearts."""
-    display_name = "HP Restriction"
+    """Restricts maximum health to 3 hearts (6 HP) initially. Each HP Upgrade adds +1 heart (+2 HP) up to 10 hearts (adds 7 items)."""
+    display_name = "HP Restriction (7 items)"
 
 
 class HungerRestriction(DefaultOnToggle):
-    """Restricts maximum food capacity to 4 drumsticks (8 hunger) initially. Each Hunger Upgrade adds +1 drumstick (+2 hunger)."""
-    display_name = "Hunger Restriction"
+    """Restricts maximum food capacity to 4 drumsticks (8 hunger) initially. Each Hunger Upgrade adds +1 drumstick (+2 hunger) (adds 6 items)."""
+    display_name = "Hunger Restriction (6 items)"
 
 
 class WorldBorderRestriction(DefaultOnToggle):
-    """Restricts world size with an expanding world border (1000, 1800, 3000, 6000, and max), requiring World Border Upgrades."""
-    display_name = "World Border Restriction"
+    """Restricts world size with an expanding world border (1000, 1800, 3000, 6000, and max), requiring World Border Upgrades (adds 5 items)."""
+    display_name = "World Border Restriction (5 items)"
 
 
 class StructureRestriction(DefaultOnToggle):
-    """Blocks entry to major structures (Villages, Fortresses, Bastions, Ancient Cities, Trial Chambers, etc.) until unlocked."""
-    display_name = "Structure Restrictions"
+    """Blocks entry to major structures (Villages, Fortresses, Bastions, Ancient Cities, Trial Chambers, etc.) until unlocked (adds 9 items)."""
+    display_name = "Structure Restrictions (9 items)"
 
 
 class StructureUnlockShuffle(Toggle):
@@ -247,20 +247,20 @@ class StructureUnlockShuffle(Toggle):
 
 
 class InventorySlotRestriction(DefaultOnToggle):
-    """Restricts player inventory to only 9 hotbar slots initially. Each Inventory Slot Upgrade unlocks one extra slot."""
-    display_name = "Inventory Slot Restriction"
+    """Restricts player inventory to only 9 hotbar slots initially. Each Inventory Slot Upgrade unlocks one extra slot (adds 27 items)."""
+    display_name = "Inventory Slot Restriction (27 items)"
 
 
 class OffhandRestriction(DefaultOnToggle):
-    """Locks the offhand slot (preventing shield and offhand item usage) until the Offhand Unlock upgrade is obtained."""
-    display_name = "Offhand Restriction"
+    """Locks the offhand slot (preventing shield and offhand item usage) until the Offhand Unlock upgrade is obtained (adds 1 item)."""
+    display_name = "Offhand Restriction (1 item)"
 
 
 # === 4. TRAPS & CURSES ===
 
 class BeeTraps(Range):
     """Replaces a percentage of filler items with random traps."""
-    display_name = "Trap Percentage"
+    display_name = "Trap Percentage (Converts filler items to traps)"
     range_start = 0
     range_end = 100
     default = 5
@@ -278,11 +278,27 @@ MobTrapPercentage = MonsterTrapPercentage
 
 
 class CursesEnabled(DefaultOnToggle):
-    """Enables permanent curses/punishments: monsters do not burn under daylight and can spawn at any light level."""
-    display_name = "Permanent Curse"
+    """Adds 2 permanent curse items to the item pool. When received, they permanently curse the world: monsters will no longer burn under daylight and can spawn at any light level."""
+    display_name = "Permanent Curses (2 items)"
 
 
-# === OTHER / ADVANCED OPTIONS ===
+# === 5. GAME OPTIONS ===
+
+class CombatDifficulty(Choice):
+    """Modifies the level of items logically required for exploring dangerous areas and fighting bosses."""
+    display_name = "Combat Difficulty"
+    option_easy = 0
+    option_normal = 1
+    option_hard = 2
+    default = 1
+
+
+class ImmediateRespawn(DefaultOnToggle):
+    """Choose whether to respawn immediately on death, or to be put into the game over screen."""
+    display_name = "Immediate Respawn"
+
+
+# === 6. OTHER / ADVANCED OPTIONS ===
 
 class ShuffleStructures(DefaultOnToggle):
     """Enables shuffling of villages, outposts, fortresses, bastions, and end cities."""
@@ -341,28 +357,32 @@ class MCPlandoConnections(PlandoConnections):
 # === OPTION GROUPS ===
 
 option_groups: list[OptionGroup] = [
-    OptionGroup("Main", [
+    OptionGroup("Game Options", [
         ProgressionBalancing,
         Accessibility,
-        RecipeTierBias,
-        RecipeUnlockMode,
-        RecipeTierThreshold,
-        WanderingTraderTrades,
-        StartingSharedChest,
         CombatDifficulty,
         ImmediateRespawn,
         DeathLink,
+        StartingItems,
+    ]),
+    OptionGroup("Main", [
+        CheckGoal,
+        BossGoal,
+        RecipeUnlockMode,
+        RecipeTierBias,
+        RecipeTierThreshold,
+        StartingSharedChest,
         EggShardsRequired,
         EggShardsAvailable,
     ]),
     OptionGroup("Checks", [
-        CheckGoal,
-        BossGoal,
-        HintCost,
         AdvancementType,
         BACAPAdvancementStep,
-        BiomeChecks,
+        MajorBiomeChecks,
+        SmallBiomeChecks,
+        EndGameBiomeChecks,
         StructureChecks,
+        WanderingTraderTrades,
     ]),
     OptionGroup("Unlockables", [
         StructureCompasses,
@@ -385,26 +405,30 @@ option_groups: list[OptionGroup] = [
 
 @dataclass
 class MinecraftOptions(PerGameCommonOptions):
-    # Main
-    recipe_tier_bias: RecipeTierBias
-    recipe_unlock_mode: RecipeUnlockMode
-    recipe_tier_threshold: RecipeTierThreshold
-    wandering_trader_trades: WanderingTraderTrades
-    starting_shared_chest: StartingSharedChest
+    # Game Options
     combat_difficulty: CombatDifficulty
     immediate_respawn: ImmediateRespawn
     death_link: DeathLink
+    starting_items: StartingItems
+
+    # Main
+    check_goal: CheckGoal
+    required_bosses: BossGoal
+    recipe_unlock_mode: RecipeUnlockMode
+    recipe_tier_bias: RecipeTierBias
+    recipe_tier_threshold: RecipeTierThreshold
+    starting_shared_chest: StartingSharedChest
     egg_shards_required: EggShardsRequired
     egg_shards_available: EggShardsAvailable
 
     # Checks
-    check_goal: CheckGoal
-    required_bosses: BossGoal
-    hint_cost: HintCost
     advancement_type: AdvancementType
     bacap_advancement_step: BACAPAdvancementStep
-    biome_checks: BiomeChecks
+    major_biome_checks: MajorBiomeChecks
+    small_biome_checks: SmallBiomeChecks
+    endgame_biome_checks: EndGameBiomeChecks
     structure_checks: StructureChecks
+    wandering_trader_trades: WanderingTraderTrades
 
     # Unlockables
     structure_compasses: StructureCompasses
@@ -424,15 +448,22 @@ class MinecraftOptions(PerGameCommonOptions):
 
     # Other options
     plando_connections: MCPlandoConnections
-    starting_items: StartingItems
+
+    @property
+    def biome_checks(self) -> MajorBiomeChecks:
+        return self.major_biome_checks
 
     @property
     def advancement_goal(self) -> CheckGoal:
         return self.check_goal
 
     @property
-    def location_check_points(self) -> HintCost:
-        return self.hint_cost
+    def hint_cost(self) -> _DisabledOption:
+        return _DISABLED_OPTION
+
+    @property
+    def location_check_points(self) -> _DisabledOption:
+        return _DISABLED_OPTION
 
     # Compatibility properties for removed options
     @property

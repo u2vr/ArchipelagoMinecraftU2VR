@@ -1,64 +1,102 @@
 {
   "meta": {
-    "app": "Minecraft Recipe Tree Studio",
-    "total_nodes": 137,
-    "total_links": 136,
-    "generated": "2026-10-01T21:02:38.079Z"
+    "app": "Minecraft 26.3 Mechanics & Recipe Tree Studio",
+    "total_nodes": 139,
+    "total_links": 138,
+    "generated": "2026-10-07T13:54:02.972Z"
+  },
+  "settings": {
+    "hp_restriction": true,
+    "hunger_restriction": true,
+    "offhand_restriction": true,
+    "reach_restriction": true,
+    "inventory_slot_restriction": true,
+    "structure_restriction": true,
+    "world_border_restriction": true,
+    "traps_enabled": true,
+    "curses_enabled": true,
+    "starting_shared_chest": true,
+    "recipe_unlock_mode": "random_by_bias",
+    "recipe_tier_unlock_percentage": 50
   },
   "tree": [
     {
       "id": "node_11",
+      "type": "craft",
       "tier": 0,
-      "item": "minecraft:air",
       "name": "Archipelago",
+      "subtitle": "",
+      "item": "minecraft:air",
+      "station": "crafting_table",
       "recipes": [
-        "minecraft:cobblestone"
+        "minecraft:air"
       ],
+      "checklist": [],
       "children": [
         {
           "id": "node_12",
+          "type": "craft",
           "tier": 3,
-          "item": "minecraft:copper_pickaxe",
           "name": "Copper Pickaxe",
+          "subtitle": "",
+          "item": "minecraft:copper_pickaxe",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:copper_pickaxe"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_13",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:iron_pickaxe",
               "name": "Iron Pickaxe",
+              "subtitle": "",
+              "item": "minecraft:iron_pickaxe",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:iron_pickaxe"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_14",
+                  "type": "craft",
                   "tier": 5,
-                  "item": "minecraft:golden_pickaxe",
                   "name": "Golden Pickaxe",
+                  "subtitle": "",
+                  "item": "minecraft:golden_pickaxe",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:golden_pickaxe"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_15",
+                      "type": "craft",
                       "tier": 6,
-                      "item": "minecraft:diamond_pickaxe",
                       "name": "Diamond Pickaxe",
+                      "subtitle": "",
+                      "item": "minecraft:diamond_pickaxe",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:diamond_pickaxe"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_16",
+                          "type": "craft",
                           "tier": 7,
-                          "item": "minecraft:netherite_pickaxe",
                           "name": "Netherite Pickaxe",
+                          "subtitle": "",
+                          "item": "minecraft:netherite_pickaxe",
+                          "station": "crafting_table",
                           "recipes": [
-                            "minecraft:netherite_pickaxe"
+                            "minecraft:netherite_pickaxe_smithing"
                           ],
+                          "checklist": [],
                           "children": []
                         }
                       ]
@@ -71,89 +109,136 @@
         },
         {
           "id": "node_17",
+          "type": "craft",
           "tier": 3,
-          "item": "minecraft:iron_ingot",
           "name": "Iron Ingot",
+          "subtitle": "",
+          "item": "minecraft:iron_ingot",
+          "station": "crafting_table",
           "recipes": [
-            "minecraft:iron_ingot"
+            "minecraft:iron_ingot_from_nuggets",
+            "minecraft:iron_ingot_from_iron_block",
+            "minecraft:iron_ingot_from_smelting_raw_iron",
+            "minecraft:iron_ingot_from_smelting_iron_ore",
+            "minecraft:iron_ingot_from_smelting_deepslate_iron_ore",
+            "minecraft:iron_ingot_from_blasting_raw_iron",
+            "minecraft:iron_ingot_from_blasting_iron_ore",
+            "minecraft:iron_ingot_from_blasting_deepslate_iron_ore",
+            "minecraft:iron_block",
+            "minecraft:iron_nugget",
+            "minecraft:iron_bars",
+            "minecraft:iron_chain"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_103",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:shears",
               "name": "Shears",
+              "subtitle": "",
+              "item": "minecraft:shears",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:shears"
               ],
+              "checklist": [],
               "children": []
             },
             {
               "id": "node_111",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:minecart",
               "name": "Minecart",
+              "subtitle": "",
+              "item": "minecraft:minecart",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:minecart"
               ],
+              "checklist": [],
               "children": []
             },
             {
               "id": "node_123",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:shield",
               "name": "Shield",
+              "subtitle": "",
+              "item": "minecraft:shield",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:shield"
               ],
+              "checklist": [],
               "children": []
             }
           ]
         },
         {
           "id": "node_36",
+          "type": "craft",
           "tier": 3,
-          "item": "minecraft:copper_axe",
           "name": "Copper Axe",
+          "subtitle": "",
+          "item": "minecraft:copper_axe",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:copper_axe"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_39",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:iron_axe",
               "name": "Iron Axe",
+              "subtitle": "",
+              "item": "minecraft:iron_axe",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:iron_axe"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_38",
+                  "type": "craft",
                   "tier": 5,
-                  "item": "minecraft:golden_axe",
                   "name": "Golden Axe",
+                  "subtitle": "",
+                  "item": "minecraft:golden_axe",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:golden_axe"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_37",
+                      "type": "craft",
                       "tier": 6,
-                      "item": "minecraft:diamond_axe",
                       "name": "Diamond Axe",
+                      "subtitle": "",
+                      "item": "minecraft:diamond_axe",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:diamond_axe"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_40",
+                          "type": "craft",
                           "tier": 7,
-                          "item": "minecraft:netherite_axe",
                           "name": "Netherite Axe",
+                          "subtitle": "",
+                          "item": "minecraft:netherite_axe",
+                          "station": "crafting_table",
                           "recipes": [
-                            "minecraft:netherite_axe"
+                            "minecraft:netherite_axe_smithing"
                           ],
+                          "checklist": [],
                           "children": []
                         }
                       ]
@@ -166,48 +251,68 @@
         },
         {
           "id": "node_47",
+          "type": "craft",
           "tier": 3,
-          "item": "minecraft:copper_shovel",
           "name": "Copper Shovel",
+          "subtitle": "",
+          "item": "minecraft:copper_shovel",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:copper_shovel"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_50",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:iron_shovel",
               "name": "Iron Shovel",
+              "subtitle": "",
+              "item": "minecraft:iron_shovel",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:iron_shovel"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_49",
+                  "type": "craft",
                   "tier": 5,
-                  "item": "minecraft:golden_shovel",
                   "name": "Golden Shovel",
+                  "subtitle": "",
+                  "item": "minecraft:golden_shovel",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:golden_shovel"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_48",
+                      "type": "craft",
                       "tier": 6,
-                      "item": "minecraft:diamond_shovel",
                       "name": "Diamond Shovel",
+                      "subtitle": "",
+                      "item": "minecraft:diamond_shovel",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:diamond_shovel"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_51",
+                          "type": "craft",
                           "tier": 7,
-                          "item": "minecraft:netherite_shovel",
                           "name": "Netherite Shovel",
+                          "subtitle": "",
+                          "item": "minecraft:netherite_shovel",
+                          "station": "crafting_table",
                           "recipes": [
-                            "minecraft:netherite_shovel"
+                            "minecraft:netherite_shovel_smithing"
                           ],
+                          "checklist": [],
                           "children": []
                         }
                       ]
@@ -220,137 +325,201 @@
         },
         {
           "id": "node_70",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:furnace",
           "name": "Furnace",
+          "subtitle": "",
+          "item": "minecraft:furnace",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:furnace"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_71",
+              "type": "craft",
               "tier": 5,
-              "item": "minecraft:blast_furnace",
               "name": "Blast Furnace",
+              "subtitle": "",
+              "item": "minecraft:blast_furnace",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:blast_furnace"
               ],
+              "checklist": [],
               "children": []
             },
             {
               "id": "node_77",
+              "type": "craft",
               "tier": 4,
-              "item": "minecraft:smoker",
               "name": "Smoker",
+              "subtitle": "",
+              "item": "minecraft:smoker",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:smoker"
               ],
+              "checklist": [],
               "children": []
             }
           ]
         },
         {
           "id": "node_75",
+          "type": "craft",
           "tier": 3,
-          "item": "minecraft:bow",
           "name": "Bow",
+          "subtitle": "",
+          "item": "minecraft:bow",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:bow"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_76",
+              "type": "craft",
               "tier": 5,
-              "item": "minecraft:crossbow",
               "name": "Crossbow",
+              "subtitle": "",
+              "item": "minecraft:crossbow",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:crossbow"
               ],
+              "checklist": [],
               "children": []
             }
           ]
         },
         {
           "id": "node_81",
+          "type": "craft",
           "tier": 4,
-          "item": "minecraft:acacia_boat",
           "name": "Boats",
+          "subtitle": "",
+          "item": "minecraft:acacia_boat",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:acacia_boat",
+            "minecraft:acacia_chest_boat",
+            "minecraft:bamboo_raft",
+            "minecraft:bamboo_chest_raft",
             "minecraft:birch_boat",
+            "minecraft:birch_chest_boat",
             "minecraft:cherry_boat",
+            "minecraft:cherry_chest_boat",
             "minecraft:dark_oak_boat",
+            "minecraft:dark_oak_chest_boat",
             "minecraft:jungle_boat",
+            "minecraft:jungle_chest_boat",
             "minecraft:mangrove_boat",
+            "minecraft:mangrove_chest_boat",
             "minecraft:oak_boat",
+            "minecraft:oak_chest_boat",
             "minecraft:pale_oak_boat",
+            "minecraft:pale_oak_chest_boat",
             "minecraft:poplar_boat",
-            "minecraft:spruce_boat"
+            "minecraft:poplar_chest_boat",
+            "minecraft:spruce_boat",
+            "minecraft:spruce_chest_boat"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_83",
+          "type": "craft",
           "tier": 1,
-          "item": "minecraft:wooden_sword",
           "name": "Wooden Sword",
+          "subtitle": "",
+          "item": "minecraft:wooden_sword",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:wooden_sword"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_62",
+              "type": "craft",
               "tier": 2,
-              "item": "minecraft:stone_sword",
               "name": "Stone Sword",
+              "subtitle": "",
+              "item": "minecraft:stone_sword",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:stone_sword"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_57",
+                  "type": "craft",
                   "tier": 3,
-                  "item": "minecraft:copper_sword",
                   "name": "Copper Sword",
+                  "subtitle": "",
+                  "item": "minecraft:copper_sword",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:copper_sword"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_60",
+                      "type": "craft",
                       "tier": 4,
-                      "item": "minecraft:iron_sword",
                       "name": "Iron Sword",
+                      "subtitle": "",
+                      "item": "minecraft:iron_sword",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:iron_sword"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_59",
+                          "type": "craft",
                           "tier": 5,
-                          "item": "minecraft:golden_sword",
                           "name": "Golden Sword",
+                          "subtitle": "",
+                          "item": "minecraft:golden_sword",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:golden_sword"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_58",
+                              "type": "craft",
                               "tier": 6,
-                              "item": "minecraft:diamond_sword",
                               "name": "Diamond Sword",
+                              "subtitle": "",
+                              "item": "minecraft:diamond_sword",
+                              "station": "crafting_table",
                               "recipes": [
                                 "minecraft:diamond_sword"
                               ],
+                              "checklist": [],
                               "children": [
                                 {
                                   "id": "node_61",
+                                  "type": "craft",
                                   "tier": 7,
-                                  "item": "minecraft:netherite_sword",
                                   "name": "Netherite Sword",
+                                  "subtitle": "",
+                                  "item": "minecraft:netherite_sword",
+                                  "station": "crafting_table",
                                   "recipes": [
-                                    "minecraft:netherite_sword"
+                                    "minecraft:netherite_sword_smithing"
                                   ],
+                                  "checklist": [],
                                   "children": []
                                 }
                               ]
@@ -367,66 +536,94 @@
         },
         {
           "id": "node_86",
+          "type": "craft",
           "tier": 1,
-          "item": "minecraft:wooden_hoe",
           "name": "Wooden Hoe",
+          "subtitle": "",
+          "item": "minecraft:wooden_hoe",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:wooden_hoe"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_18",
+              "type": "craft",
               "tier": 2,
-              "item": "minecraft:stone_hoe",
               "name": "Stone Hoe",
+              "subtitle": "",
+              "item": "minecraft:stone_hoe",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:stone_hoe"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_22",
+                  "type": "craft",
                   "tier": 3,
-                  "item": "minecraft:copper_hoe",
                   "name": "Copper Hoe",
+                  "subtitle": "",
+                  "item": "minecraft:copper_hoe",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:copper_hoe"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_25",
+                      "type": "craft",
                       "tier": 4,
-                      "item": "minecraft:iron_hoe",
                       "name": "Iron Hoe",
+                      "subtitle": "",
+                      "item": "minecraft:iron_hoe",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:iron_hoe"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_23",
+                          "type": "craft",
                           "tier": 5,
-                          "item": "minecraft:golden_hoe",
                           "name": "Golden Hoe",
+                          "subtitle": "",
+                          "item": "minecraft:golden_hoe",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:golden_hoe"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_24",
+                              "type": "craft",
                               "tier": 6,
-                              "item": "minecraft:diamond_hoe",
                               "name": "Diamond Hoe",
+                              "subtitle": "",
+                              "item": "minecraft:diamond_hoe",
+                              "station": "crafting_table",
                               "recipes": [
                                 "minecraft:diamond_hoe"
                               ],
+                              "checklist": [],
                               "children": [
                                 {
                                   "id": "node_26",
+                                  "type": "craft",
                                   "tier": 7,
-                                  "item": "minecraft:netherite_hoe",
                                   "name": "Netherite Hoe",
+                                  "subtitle": "",
+                                  "item": "minecraft:netherite_hoe",
+                                  "station": "crafting_table",
                                   "recipes": [
-                                    "minecraft:netherite_hoe"
+                                    "minecraft:netherite_hoe_smithing"
                                   ],
+                                  "checklist": [],
                                   "children": []
                                 }
                               ]
@@ -443,66 +640,94 @@
         },
         {
           "id": "node_89",
+          "type": "craft",
           "tier": 1,
-          "item": "minecraft:wooden_spear",
           "name": "Wooden Spear",
+          "subtitle": "",
+          "item": "minecraft:wooden_spear",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:wooden_spear"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_90",
+              "type": "craft",
               "tier": 2,
-              "item": "minecraft:stone_spear",
               "name": "Stone Spear",
+              "subtitle": "",
+              "item": "minecraft:stone_spear",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:stone_spear"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_91",
+                  "type": "craft",
                   "tier": 3,
-                  "item": "minecraft:copper_spear",
                   "name": "Copper Spear",
+                  "subtitle": "",
+                  "item": "minecraft:copper_spear",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:copper_spear"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_92",
+                      "type": "craft",
                       "tier": 4,
-                      "item": "minecraft:iron_spear",
                       "name": "Iron Spear",
+                      "subtitle": "",
+                      "item": "minecraft:iron_spear",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:iron_spear"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_93",
+                          "type": "craft",
                           "tier": 5,
-                          "item": "minecraft:golden_spear",
                           "name": "Golden Spear",
+                          "subtitle": "",
+                          "item": "minecraft:golden_spear",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:golden_spear"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_94",
+                              "type": "craft",
                               "tier": 6,
-                              "item": "minecraft:diamond_spear",
                               "name": "Diamond Spear",
+                              "subtitle": "",
+                              "item": "minecraft:diamond_spear",
+                              "station": "crafting_table",
                               "recipes": [
                                 "minecraft:diamond_spear"
                               ],
+                              "checklist": [],
                               "children": [
                                 {
                                   "id": "node_95",
+                                  "type": "craft",
                                   "tier": 7,
-                                  "item": "minecraft:netherite_spear",
                                   "name": "Netherite Spear",
+                                  "subtitle": "",
+                                  "item": "minecraft:netherite_spear",
+                                  "station": "crafting_table",
                                   "recipes": [
-                                    "minecraft:netherite_spear"
+                                    "minecraft:netherite_spear_smithing"
                                   ],
+                                  "checklist": [],
                                   "children": []
                                 }
                               ]
@@ -519,174 +744,230 @@
         },
         {
           "id": "node_105",
+          "type": "craft",
           "tier": 6,
-          "item": "minecraft:flint_and_steel",
           "name": "Flint And Steel",
+          "subtitle": "",
+          "item": "minecraft:flint_and_steel",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:flint_and_steel"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_107",
+          "type": "craft",
           "tier": 6,
-          "item": "minecraft:bucket",
           "name": "Bucket",
+          "subtitle": "",
+          "item": "minecraft:bucket",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:bucket"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_109",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:fishing_rod",
           "name": "Fishing Rod",
+          "subtitle": "",
+          "item": "minecraft:fishing_rod",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:fishing_rod"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_114",
+          "type": "craft",
           "tier": 1,
+          "name": "Doors and Trapdoors",
+          "subtitle": "",
           "item": "minecraft:acacia_door",
-          "name": "Doors, Trapdoors and Fence Gates",
+          "station": "crafting_table",
           "recipes": [
-            "minecraft:acacia_door",
-            "minecraft:acacia_fence_gate",
-            "minecraft:acacia_trapdoor",
-            "minecraft:bamboo_door",
-            "minecraft:bamboo_fence_gate",
-            "minecraft:bamboo_trapdoor",
-            "minecraft:birch_door",
-            "minecraft:birch_fence_gate",
-            "minecraft:birch_trapdoor",
-            "minecraft:cherry_door",
-            "minecraft:cherry_fence_gate",
-            "minecraft:cherry_trapdoor",
-            "minecraft:copper_door",
-            "minecraft:copper_trapdoor",
-            "minecraft:crimson_fence_gate",
-            "minecraft:dark_oak_door",
-            "minecraft:dark_oak_fence_gate",
-            "minecraft:dark_oak_trapdoor",
-            "minecraft:exposed_copper_door",
-            "minecraft:exposed_copper_trapdoor",
-            "minecraft:jungle_door",
-            "minecraft:jungle_fence_gate",
-            "minecraft:jungle_trapdoor",
-            "minecraft:mangrove_door",
-            "minecraft:mangrove_fence_gate",
-            "minecraft:mangrove_trapdoor",
             "minecraft:oak_door",
-            "minecraft:oak_fence_gate",
-            "minecraft:oak_trapdoor",
-            "minecraft:oxidized_copper_door",
-            "minecraft:oxidized_copper_trapdoor",
-            "minecraft:pale_oak_door",
-            "minecraft:pale_oak_fence_gate",
-            "minecraft:pale_oak_trapdoor",
-            "minecraft:poplar_door",
-            "minecraft:poplar_trapdoor",
             "minecraft:spruce_door",
-            "minecraft:spruce_fence_gate",
+            "minecraft:birch_door",
+            "minecraft:jungle_door",
+            "minecraft:acacia_door",
+            "minecraft:dark_oak_door",
+            "minecraft:mangrove_door",
+            "minecraft:cherry_door",
+            "minecraft:bamboo_door",
+            "minecraft:crimson_door",
+            "minecraft:warped_door",
+            "minecraft:pale_oak_door",
+            "minecraft:poplar_door",
+            "minecraft:iron_door",
+            "minecraft:copper_door",
+            "minecraft:waxed_copper_door_from_honeycomb",
+            "minecraft:waxed_exposed_copper_door_from_honeycomb",
+            "minecraft:waxed_weathered_copper_door_from_honeycomb",
+            "minecraft:waxed_oxidized_copper_door_from_honeycomb",
+            "minecraft:oak_trapdoor",
             "minecraft:spruce_trapdoor",
+            "minecraft:birch_trapdoor",
+            "minecraft:jungle_trapdoor",
+            "minecraft:acacia_trapdoor",
+            "minecraft:dark_oak_trapdoor",
+            "minecraft:mangrove_trapdoor",
+            "minecraft:cherry_trapdoor",
+            "minecraft:bamboo_trapdoor",
+            "minecraft:crimson_trapdoor",
+            "minecraft:warped_trapdoor",
+            "minecraft:pale_oak_trapdoor",
+            "minecraft:poplar_trapdoor",
+            "minecraft:iron_trapdoor",
+            "minecraft:copper_trapdoor",
+            "minecraft:waxed_copper_trapdoor_from_honeycomb",
+            "minecraft:waxed_exposed_copper_trapdoor_from_honeycomb",
+            "minecraft:waxed_weathered_copper_trapdoor_from_honeycomb",
+            "minecraft:waxed_oxidized_copper_trapdoor_from_honeycomb",
+            "minecraft:oak_fence_gate",
+            "minecraft:spruce_fence_gate",
+            "minecraft:birch_fence_gate",
+            "minecraft:jungle_fence_gate",
+            "minecraft:acacia_fence_gate",
+            "minecraft:dark_oak_fence_gate",
+            "minecraft:mangrove_fence_gate",
+            "minecraft:cherry_fence_gate",
+            "minecraft:bamboo_fence_gate",
+            "minecraft:crimson_fence_gate",
             "minecraft:warped_fence_gate",
-            "minecraft:waxed_oxidized_copper_door",
-            "minecraft:waxed_oxidized_copper_trapdoor",
-            "minecraft:waxed_weathered_copper_door",
-            "minecraft:waxed_weathered_copper_trapdoor",
-            "minecraft:weathered_copper_door",
-            "minecraft:weathered_copper_trapdoor"
+            "minecraft:pale_oak_fence_gate",
+            "minecraft:poplar_fence_gate"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_116",
+          "type": "craft",
           "tier": 6,
-          "item": "minecraft:enchanting_table",
           "name": "Enchanting Table",
+          "subtitle": "",
+          "item": "minecraft:enchanting_table",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:enchanting_table"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_74",
+          "type": "craft",
           "tier": 4,
-          "item": "minecraft:blaze_powder",
           "name": "Blaze Powder",
+          "subtitle": "",
+          "item": "minecraft:blaze_powder",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:blaze_powder"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_121",
+              "type": "craft",
               "tier": 7,
-              "item": "minecraft:ender_eye",
               "name": "Ender Eye",
+              "subtitle": "",
+              "item": "minecraft:ender_eye",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:ender_eye"
               ],
+              "checklist": [],
               "children": []
             }
           ]
         },
         {
           "id": "node_130",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:leather_helmet",
           "name": "Leather Helmet",
+          "subtitle": "",
+          "item": "minecraft:leather_helmet",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:leather_helmet"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_126",
+              "type": "craft",
               "tier": 3,
-              "item": "minecraft:copper_helmet",
               "name": "Copper Helmet",
+              "subtitle": "",
+              "item": "minecraft:copper_helmet",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:copper_helmet"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_129",
+                  "type": "craft",
                   "tier": 4,
-                  "item": "minecraft:iron_helmet",
                   "name": "Iron Helmet",
+                  "subtitle": "",
+                  "item": "minecraft:iron_helmet",
+                  "station": "crafting_table",
                   "recipes": [
-                    "minecraft:iron_helmet",
-                    "minecraft:chainmail_helmet"
+                    "minecraft:iron_helmet"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_128",
+                      "type": "craft",
                       "tier": 5,
-                      "item": "minecraft:golden_helmet",
                       "name": "Golden Helmet",
+                      "subtitle": "",
+                      "item": "minecraft:golden_helmet",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:golden_helmet"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_127",
+                          "type": "craft",
                           "tier": 6,
-                          "item": "minecraft:diamond_helmet",
                           "name": "Diamond Helmet",
+                          "subtitle": "",
+                          "item": "minecraft:diamond_helmet",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:diamond_helmet"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_131",
+                              "type": "craft",
                               "tier": 7,
-                              "item": "minecraft:netherite_helmet",
                               "name": "Netherite Helmet",
+                              "subtitle": "",
+                              "item": "minecraft:netherite_helmet",
+                              "station": "crafting_table",
                               "recipes": [
-                                "minecraft:netherite_helmet"
+                                "minecraft:netherite_helmet_smithing"
                               ],
+                              "checklist": [],
                               "children": []
                             }
                           ]
@@ -701,58 +982,81 @@
         },
         {
           "id": "node_162",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:leather_leggings",
           "name": "Leather Leggings",
+          "subtitle": "",
+          "item": "minecraft:leather_leggings",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:leather_leggings"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_158",
+              "type": "craft",
               "tier": 3,
-              "item": "minecraft:copper_leggings",
               "name": "Copper Leggings",
+              "subtitle": "",
+              "item": "minecraft:copper_leggings",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:copper_leggings"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_161",
+                  "type": "craft",
                   "tier": 4,
-                  "item": "minecraft:iron_leggings",
                   "name": "Iron Leggings",
+                  "subtitle": "",
+                  "item": "minecraft:iron_leggings",
+                  "station": "crafting_table",
                   "recipes": [
-                    "minecraft:iron_leggings",
-                    "minecraft:chainmail_leggings"
+                    "minecraft:iron_leggings"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_160",
+                      "type": "craft",
                       "tier": 5,
-                      "item": "minecraft:golden_leggings",
                       "name": "Golden Leggings",
+                      "subtitle": "",
+                      "item": "minecraft:golden_leggings",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:golden_leggings"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_159",
+                          "type": "craft",
                           "tier": 6,
-                          "item": "minecraft:diamond_leggings",
                           "name": "Diamond Leggings",
+                          "subtitle": "",
+                          "item": "minecraft:diamond_leggings",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:diamond_leggings"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_163",
+                              "type": "craft",
                               "tier": 7,
-                              "item": "minecraft:netherite_leggings",
                               "name": "Netherite Leggings",
+                              "subtitle": "",
+                              "item": "minecraft:netherite_leggings",
+                              "station": "crafting_table",
                               "recipes": [
-                                "minecraft:netherite_leggings"
+                                "minecraft:netherite_leggings_smithing"
                               ],
+                              "checklist": [],
                               "children": []
                             }
                           ]
@@ -767,58 +1071,81 @@
         },
         {
           "id": "node_150",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:leather_chestplate",
           "name": "Leather Chestplate",
+          "subtitle": "",
+          "item": "minecraft:leather_chestplate",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:leather_chestplate"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_146",
+              "type": "craft",
               "tier": 3,
-              "item": "minecraft:copper_chestplate",
               "name": "Copper Chestplate",
+              "subtitle": "",
+              "item": "minecraft:copper_chestplate",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:copper_chestplate"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_149",
+                  "type": "craft",
                   "tier": 4,
-                  "item": "minecraft:iron_chestplate",
                   "name": "Iron Chestplate",
+                  "subtitle": "",
+                  "item": "minecraft:iron_chestplate",
+                  "station": "crafting_table",
                   "recipes": [
-                    "minecraft:iron_chestplate",
-                    "minecraft:chainmail_chestplate"
+                    "minecraft:iron_chestplate"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_148",
+                      "type": "craft",
                       "tier": 5,
-                      "item": "minecraft:golden_chestplate",
                       "name": "Golden Chestplate",
+                      "subtitle": "",
+                      "item": "minecraft:golden_chestplate",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:golden_chestplate"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_147",
+                          "type": "craft",
                           "tier": 6,
-                          "item": "minecraft:diamond_chestplate",
                           "name": "Diamond Chestplate",
+                          "subtitle": "",
+                          "item": "minecraft:diamond_chestplate",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:diamond_chestplate"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_151",
+                              "type": "craft",
                               "tier": 7,
-                              "item": "minecraft:netherite_chestplate",
                               "name": "Netherite Chestplate",
+                              "subtitle": "",
+                              "item": "minecraft:netherite_chestplate",
+                              "station": "crafting_table",
                               "recipes": [
-                                "minecraft:netherite_chestplate"
+                                "minecraft:netherite_chestplate_smithing"
                               ],
+                              "checklist": [],
                               "children": []
                             }
                           ]
@@ -833,58 +1160,81 @@
         },
         {
           "id": "node_169",
+          "type": "craft",
           "tier": 2,
-          "item": "minecraft:leather_boots",
           "name": "Leather Boots",
+          "subtitle": "",
+          "item": "minecraft:leather_boots",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:leather_boots"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_165",
+              "type": "craft",
               "tier": 3,
-              "item": "minecraft:copper_boots",
               "name": "Copper Boots",
+              "subtitle": "",
+              "item": "minecraft:copper_boots",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:copper_boots"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_168",
+                  "type": "craft",
                   "tier": 4,
-                  "item": "minecraft:iron_boots",
                   "name": "Iron Boots",
+                  "subtitle": "",
+                  "item": "minecraft:iron_boots",
+                  "station": "crafting_table",
                   "recipes": [
-                    "minecraft:iron_boots",
-                    "minecraft:chainmail_boots"
+                    "minecraft:iron_boots"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_167",
+                      "type": "craft",
                       "tier": 5,
-                      "item": "minecraft:golden_boots",
                       "name": "Golden Boots",
+                      "subtitle": "",
+                      "item": "minecraft:golden_boots",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:golden_boots"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_166",
+                          "type": "craft",
                           "tier": 6,
-                          "item": "minecraft:diamond_boots",
                           "name": "Diamond Boots",
+                          "subtitle": "",
+                          "item": "minecraft:diamond_boots",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:diamond_boots"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_170",
+                              "type": "craft",
                               "tier": 7,
-                              "item": "minecraft:netherite_boots",
                               "name": "Netherite Boots",
+                              "subtitle": "",
+                              "item": "minecraft:netherite_boots",
+                              "station": "crafting_table",
                               "recipes": [
-                                "minecraft:netherite_boots"
+                                "minecraft:netherite_boots_smithing"
                               ],
+                              "checklist": [],
                               "children": []
                             }
                           ]
@@ -899,66 +1249,94 @@
         },
         {
           "id": "node_186",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "HP",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_187",
+              "type": "mechanic",
               "tier": 0,
-              "item": "minecraft:air",
               "name": "HP",
+              "subtitle": "",
+              "item": "minecraft:air",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_188",
+                  "type": "mechanic",
                   "tier": 0,
-                  "item": "minecraft:air",
                   "name": "HP",
+                  "subtitle": "",
+                  "item": "minecraft:air",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:air"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_191",
+                      "type": "mechanic",
                       "tier": 0,
-                      "item": "minecraft:air",
                       "name": "HP",
+                      "subtitle": "",
+                      "item": "minecraft:air",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:air"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_190",
+                          "type": "mechanic",
                           "tier": 0,
-                          "item": "minecraft:air",
                           "name": "HP",
+                          "subtitle": "",
+                          "item": "minecraft:air",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:air"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_189",
+                              "type": "mechanic",
                               "tier": 0,
-                              "item": "minecraft:air",
                               "name": "HP",
+                              "subtitle": "",
+                              "item": "minecraft:air",
+                              "station": "crafting_table",
                               "recipes": [
                                 "minecraft:air"
                               ],
+                              "checklist": [],
                               "children": [
                                 {
                                   "id": "node_192",
+                                  "type": "mechanic",
                                   "tier": 0,
-                                  "item": "minecraft:air",
                                   "name": "HP",
+                                  "subtitle": "",
+                                  "item": "minecraft:air",
+                                  "station": "crafting_table",
                                   "recipes": [
                                     "minecraft:air"
                                   ],
+                                  "checklist": [],
                                   "children": []
                                 }
                               ]
@@ -975,57 +1353,81 @@
         },
         {
           "id": "node_204",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "Hunger",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_207",
+              "type": "mechanic",
               "tier": 0,
-              "item": "minecraft:air",
               "name": "Hunger",
+              "subtitle": "",
+              "item": "minecraft:air",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_205",
+                  "type": "mechanic",
                   "tier": 0,
-                  "item": "minecraft:air",
                   "name": "Hunger",
+                  "subtitle": "",
+                  "item": "minecraft:air",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:air"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_206",
+                      "type": "mechanic",
                       "tier": 0,
-                      "item": "minecraft:air",
                       "name": "Hunger",
+                      "subtitle": "",
+                      "item": "minecraft:air",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:air"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_213",
+                          "type": "mechanic",
                           "tier": 0,
-                          "item": "minecraft:air",
                           "name": "Hunger",
+                          "subtitle": "",
+                          "item": "minecraft:air",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:air"
                           ],
+                          "checklist": [],
                           "children": [
                             {
                               "id": "node_212",
+                              "type": "mechanic",
                               "tier": 0,
-                              "item": "minecraft:air",
                               "name": "Hunger",
+                              "subtitle": "",
+                              "item": "minecraft:air",
+                              "station": "crafting_table",
                               "recipes": [
                                 "minecraft:air"
                               ],
+                              "checklist": [],
                               "children": []
                             }
                           ]
@@ -1040,30 +1442,42 @@
         },
         {
           "id": "node_216",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "Hand Length",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_218",
+              "type": "mechanic",
               "tier": 0,
-              "item": "minecraft:air",
               "name": "Hand Length",
+              "subtitle": "",
+              "item": "minecraft:air",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_217",
+                  "type": "mechanic",
                   "tier": 0,
-                  "item": "minecraft:air",
                   "name": "Hand Length",
+                  "subtitle": "",
+                  "item": "minecraft:air",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:air"
                   ],
+                  "checklist": [],
                   "children": []
                 }
               ]
@@ -1072,48 +1486,68 @@
         },
         {
           "id": "node_222",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "World Border",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_226",
+              "type": "mechanic",
               "tier": 0,
-              "item": "minecraft:air",
               "name": "World Border",
+              "subtitle": "",
+              "item": "minecraft:air",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
                   "id": "node_224",
+                  "type": "mechanic",
                   "tier": 0,
-                  "item": "minecraft:air",
                   "name": "World Border",
+                  "subtitle": "",
+                  "item": "minecraft:air",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:air"
                   ],
+                  "checklist": [],
                   "children": [
                     {
                       "id": "node_225",
+                      "type": "mechanic",
                       "tier": 0,
-                      "item": "minecraft:air",
                       "name": "World Border",
+                      "subtitle": "",
+                      "item": "minecraft:air",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:air"
                       ],
+                      "checklist": [],
                       "children": [
                         {
                           "id": "node_223",
+                          "type": "mechanic",
                           "tier": 0,
-                          "item": "minecraft:air",
                           "name": "World Border",
+                          "subtitle": "",
+                          "item": "minecraft:air",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:air"
                           ],
+                          "checklist": [],
                           "children": []
                         }
                       ]
@@ -1126,76 +1560,130 @@
         },
         {
           "id": "node_232",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "Village",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_236",
+              "type": "mechanic",
               "tier": 0,
-              "item": "minecraft:air",
               "name": "Pillager Outpost",
+              "subtitle": "",
+              "item": "minecraft:air",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
-                  "id": "node_235",
+                  "id": "node_238",
+                  "type": "mechanic",
                   "tier": 0,
+                  "name": "Trial Chambers",
+                  "subtitle": "",
                   "item": "minecraft:air",
-                  "name": "Fortress",
+                  "station": "crafting_table",
                   "recipes": [
                     "minecraft:air"
                   ],
+                  "checklist": [],
                   "children": [
                     {
-                      "id": "node_234",
+                      "id": "node_235",
+                      "type": "mechanic",
                       "tier": 0,
+                      "name": "Fortress",
+                      "subtitle": "",
                       "item": "minecraft:air",
-                      "name": "Bastion",
+                      "station": "crafting_table",
                       "recipes": [
                         "minecraft:air"
                       ],
+                      "checklist": [],
                       "children": [
                         {
-                          "id": "node_238",
+                          "id": "node_234",
+                          "type": "mechanic",
                           "tier": 0,
+                          "name": "Bastion",
+                          "subtitle": "",
                           "item": "minecraft:air",
-                          "name": "Trial Chambers",
+                          "station": "crafting_table",
                           "recipes": [
                             "minecraft:air"
                           ],
+                          "checklist": [],
                           "children": [
                             {
-                              "id": "node_237",
-                              "tier": 0,
+                              "id": "node_320",
+                              "type": "mechanic",
+                              "tier": 1,
+                              "name": "Stronghold",
+                              "subtitle": "",
                               "item": "minecraft:air",
-                              "name": "Ancient City",
-                              "recipes": [
-                                "minecraft:air"
+                              "station": "crafting_table",
+                              "recipes": [],
+                              "checklist": [
+                                {
+                                  "text": "Подготовить ресурсы",
+                                  "done": false
+                                },
+                                {
+                                  "text": "Выполнить действие",
+                                  "done": false
+                                }
                               ],
                               "children": [
                                 {
-                                  "id": "node_233",
+                                  "id": "node_237",
+                                  "type": "mechanic",
                                   "tier": 0,
+                                  "name": "Ancient City",
+                                  "subtitle": "",
                                   "item": "minecraft:air",
-                                  "name": "Ocean Monument",
+                                  "station": "crafting_table",
                                   "recipes": [
                                     "minecraft:air"
                                   ],
+                                  "checklist": [],
                                   "children": [
                                     {
-                                      "id": "node_239",
+                                      "id": "node_233",
+                                      "type": "mechanic",
                                       "tier": 0,
+                                      "name": "Ocean Monument",
+                                      "subtitle": "",
                                       "item": "minecraft:air",
-                                      "name": "End City",
+                                      "station": "crafting_table",
                                       "recipes": [
                                         "minecraft:air"
                                       ],
-                                      "children": []
+                                      "checklist": [],
+                                      "children": [
+                                        {
+                                          "id": "node_239",
+                                          "type": "mechanic",
+                                          "tier": 0,
+                                          "name": "End City",
+                                          "subtitle": "",
+                                          "item": "minecraft:air",
+                                          "station": "crafting_table",
+                                          "recipes": [
+                                            "minecraft:air"
+                                          ],
+                                          "checklist": [],
+                                          "children": []
+                                        }
+                                      ]
                                     }
                                   ]
                                 }
@@ -1213,255 +1701,542 @@
         },
         {
           "id": "node_245",
+          "type": "mechanic",
           "tier": 0,
-          "item": "minecraft:air",
           "name": "Second Hand",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_240",
+          "type": "mechanic",
           "tier": 0,
+          "name": "Inventory Slot",
+          "subtitle": "",
           "item": "minecraft:air",
-          "name": "Inventory Slot 1",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": [
             {
               "id": "node_242",
+              "type": "mechanic",
               "tier": 0,
+              "name": "Inventory Slot",
+              "subtitle": "",
               "item": "minecraft:air",
-              "name": "Inventory Slot 2",
+              "station": "crafting_table",
               "recipes": [
                 "minecraft:air"
               ],
+              "checklist": [],
               "children": [
                 {
-                  "id": "node_slot_3",
-                  "tier": 0,
+                  "id": "node_268",
+                  "type": "mechanic",
+                  "tier": 1,
+                  "name": "Inventory Slot (Шаг 3)",
+                  "subtitle": "",
                   "item": "minecraft:air",
-                  "name": "Inventory Slot 3",
-                  "recipes": [
-                    "minecraft:air"
+                  "station": "crafting_table",
+                  "recipes": [],
+                  "checklist": [
+                    {
+                      "text": "Подготовить ресурсы",
+                      "done": false
+                    },
+                    {
+                      "text": "Выполнить действие",
+                      "done": false
+                    }
                   ],
                   "children": [
                     {
-                      "id": "node_slot_4",
-                      "tier": 0,
+                      "id": "node_270",
+                      "type": "mechanic",
+                      "tier": 2,
+                      "name": "Inventory Slot (Шаг 3) (Шаг 2)",
+                      "subtitle": "",
                       "item": "minecraft:air",
-                      "name": "Inventory Slot 4",
-                      "recipes": [
-                        "minecraft:air"
+                      "station": "crafting_table",
+                      "recipes": [],
+                      "checklist": [
+                        {
+                          "text": "Подготовить ресурсы",
+                          "done": false
+                        },
+                        {
+                          "text": "Выполнить действие",
+                          "done": false
+                        }
                       ],
                       "children": [
                         {
-                          "id": "node_slot_5",
-                          "tier": 0,
+                          "id": "node_272",
+                          "type": "mechanic",
+                          "tier": 3,
+                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2)",
+                          "subtitle": "",
                           "item": "minecraft:air",
-                          "name": "Inventory Slot 5",
-                          "recipes": [
-                            "minecraft:air"
+                          "station": "crafting_table",
+                          "recipes": [],
+                          "checklist": [
+                            {
+                              "text": "Подготовить ресурсы",
+                              "done": false
+                            },
+                            {
+                              "text": "Выполнить действие",
+                              "done": false
+                            }
                           ],
                           "children": [
                             {
-                              "id": "node_slot_6",
-                              "tier": 0,
+                              "id": "node_274",
+                              "type": "mechanic",
+                              "tier": 4,
+                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2)",
+                              "subtitle": "",
                               "item": "minecraft:air",
-                              "name": "Inventory Slot 6",
-                              "recipes": [
-                                "minecraft:air"
+                              "station": "crafting_table",
+                              "recipes": [],
+                              "checklist": [
+                                {
+                                  "text": "Подготовить ресурсы",
+                                  "done": false
+                                },
+                                {
+                                  "text": "Выполнить действие",
+                                  "done": false
+                                }
                               ],
                               "children": [
                                 {
-                                  "id": "node_slot_7",
-                                  "tier": 0,
+                                  "id": "node_276",
+                                  "type": "mechanic",
+                                  "tier": 5,
+                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                  "subtitle": "",
                                   "item": "minecraft:air",
-                                  "name": "Inventory Slot 7",
-                                  "recipes": [
-                                    "minecraft:air"
+                                  "station": "crafting_table",
+                                  "recipes": [],
+                                  "checklist": [
+                                    {
+                                      "text": "Подготовить ресурсы",
+                                      "done": false
+                                    },
+                                    {
+                                      "text": "Выполнить действие",
+                                      "done": false
+                                    }
                                   ],
                                   "children": [
                                     {
-                                      "id": "node_slot_8",
-                                      "tier": 0,
+                                      "id": "node_278",
+                                      "type": "mechanic",
+                                      "tier": 6,
+                                      "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                      "subtitle": "",
                                       "item": "minecraft:air",
-                                      "name": "Inventory Slot 8",
-                                      "recipes": [
-                                        "minecraft:air"
+                                      "station": "crafting_table",
+                                      "recipes": [],
+                                      "checklist": [
+                                        {
+                                          "text": "Подготовить ресурсы",
+                                          "done": false
+                                        },
+                                        {
+                                          "text": "Выполнить действие",
+                                          "done": false
+                                        }
                                       ],
                                       "children": [
                                         {
-                                          "id": "node_slot_9",
-                                          "tier": 0,
+                                          "id": "node_280",
+                                          "type": "mechanic",
+                                          "tier": 7,
+                                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                          "subtitle": "",
                                           "item": "minecraft:air",
-                                          "name": "Inventory Slot 9",
-                                          "recipes": [
-                                            "minecraft:air"
+                                          "station": "crafting_table",
+                                          "recipes": [],
+                                          "checklist": [
+                                            {
+                                              "text": "Подготовить ресурсы",
+                                              "done": false
+                                            },
+                                            {
+                                              "text": "Выполнить действие",
+                                              "done": false
+                                            }
                                           ],
                                           "children": [
                                             {
-                                              "id": "node_slot_10",
-                                              "tier": 0,
+                                              "id": "node_282",
+                                              "type": "mechanic",
+                                              "tier": 8,
+                                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                              "subtitle": "",
                                               "item": "minecraft:air",
-                                              "name": "Inventory Slot 10",
-                                              "recipes": [
-                                                "minecraft:air"
+                                              "station": "crafting_table",
+                                              "recipes": [],
+                                              "checklist": [
+                                                {
+                                                  "text": "Подготовить ресурсы",
+                                                  "done": false
+                                                },
+                                                {
+                                                  "text": "Выполнить действие",
+                                                  "done": false
+                                                }
                                               ],
                                               "children": [
                                                 {
-                                                  "id": "node_slot_11",
-                                                  "tier": 0,
+                                                  "id": "node_284",
+                                                  "type": "mechanic",
+                                                  "tier": 9,
+                                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                  "subtitle": "",
                                                   "item": "minecraft:air",
-                                                  "name": "Inventory Slot 11",
-                                                  "recipes": [
-                                                    "minecraft:air"
+                                                  "station": "crafting_table",
+                                                  "recipes": [],
+                                                  "checklist": [
+                                                    {
+                                                      "text": "Подготовить ресурсы",
+                                                      "done": false
+                                                    },
+                                                    {
+                                                      "text": "Выполнить действие",
+                                                      "done": false
+                                                    }
                                                   ],
                                                   "children": [
                                                     {
-                                                      "id": "node_slot_12",
-                                                      "tier": 0,
+                                                      "id": "node_286",
+                                                      "type": "mechanic",
+                                                      "tier": 10,
+                                                      "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                      "subtitle": "",
                                                       "item": "minecraft:air",
-                                                      "name": "Inventory Slot 12",
-                                                      "recipes": [
-                                                        "minecraft:air"
+                                                      "station": "crafting_table",
+                                                      "recipes": [],
+                                                      "checklist": [
+                                                        {
+                                                          "text": "Подготовить ресурсы",
+                                                          "done": false
+                                                        },
+                                                        {
+                                                          "text": "Выполнить действие",
+                                                          "done": false
+                                                        }
                                                       ],
                                                       "children": [
                                                         {
-                                                          "id": "node_slot_13",
-                                                          "tier": 0,
+                                                          "id": "node_288",
+                                                          "type": "mechanic",
+                                                          "tier": 11,
+                                                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                          "subtitle": "",
                                                           "item": "minecraft:air",
-                                                          "name": "Inventory Slot 13",
-                                                          "recipes": [
-                                                            "minecraft:air"
+                                                          "station": "crafting_table",
+                                                          "recipes": [],
+                                                          "checklist": [
+                                                            {
+                                                              "text": "Подготовить ресурсы",
+                                                              "done": false
+                                                            },
+                                                            {
+                                                              "text": "Выполнить действие",
+                                                              "done": false
+                                                            }
                                                           ],
                                                           "children": [
                                                             {
-                                                              "id": "node_slot_14",
-                                                              "tier": 0,
+                                                              "id": "node_290",
+                                                              "type": "mechanic",
+                                                              "tier": 12,
+                                                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                              "subtitle": "",
                                                               "item": "minecraft:air",
-                                                              "name": "Inventory Slot 14",
-                                                              "recipes": [
-                                                                "minecraft:air"
+                                                              "station": "crafting_table",
+                                                              "recipes": [],
+                                                              "checklist": [
+                                                                {
+                                                                  "text": "Подготовить ресурсы",
+                                                                  "done": false
+                                                                },
+                                                                {
+                                                                  "text": "Выполнить действие",
+                                                                  "done": false
+                                                                }
                                                               ],
                                                               "children": [
                                                                 {
-                                                                  "id": "node_slot_15",
-                                                                  "tier": 0,
+                                                                  "id": "node_292",
+                                                                  "type": "mechanic",
+                                                                  "tier": 13,
+                                                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                  "subtitle": "",
                                                                   "item": "minecraft:air",
-                                                                  "name": "Inventory Slot 15",
-                                                                  "recipes": [
-                                                                    "minecraft:air"
+                                                                  "station": "crafting_table",
+                                                                  "recipes": [],
+                                                                  "checklist": [
+                                                                    {
+                                                                      "text": "Подготовить ресурсы",
+                                                                      "done": false
+                                                                    },
+                                                                    {
+                                                                      "text": "Выполнить действие",
+                                                                      "done": false
+                                                                    }
                                                                   ],
                                                                   "children": [
                                                                     {
-                                                                      "id": "node_slot_16",
-                                                                      "tier": 0,
+                                                                      "id": "node_294",
+                                                                      "type": "mechanic",
+                                                                      "tier": 14,
+                                                                      "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                      "subtitle": "",
                                                                       "item": "minecraft:air",
-                                                                      "name": "Inventory Slot 16",
-                                                                      "recipes": [
-                                                                        "minecraft:air"
+                                                                      "station": "crafting_table",
+                                                                      "recipes": [],
+                                                                      "checklist": [
+                                                                        {
+                                                                          "text": "Подготовить ресурсы",
+                                                                          "done": false
+                                                                        },
+                                                                        {
+                                                                          "text": "Выполнить действие",
+                                                                          "done": false
+                                                                        }
                                                                       ],
                                                                       "children": [
                                                                         {
-                                                                          "id": "node_slot_17",
-                                                                          "tier": 0,
+                                                                          "id": "node_296",
+                                                                          "type": "mechanic",
+                                                                          "tier": 15,
+                                                                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                          "subtitle": "",
                                                                           "item": "minecraft:air",
-                                                                          "name": "Inventory Slot 17",
-                                                                          "recipes": [
-                                                                            "minecraft:air"
+                                                                          "station": "crafting_table",
+                                                                          "recipes": [],
+                                                                          "checklist": [
+                                                                            {
+                                                                              "text": "Подготовить ресурсы",
+                                                                              "done": false
+                                                                            },
+                                                                            {
+                                                                              "text": "Выполнить действие",
+                                                                              "done": false
+                                                                            }
                                                                           ],
                                                                           "children": [
                                                                             {
-                                                                              "id": "node_slot_18",
-                                                                              "tier": 0,
+                                                                              "id": "node_298",
+                                                                              "type": "mechanic",
+                                                                              "tier": 16,
+                                                                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                              "subtitle": "",
                                                                               "item": "minecraft:air",
-                                                                              "name": "Inventory Slot 18",
-                                                                              "recipes": [
-                                                                                "minecraft:air"
+                                                                              "station": "crafting_table",
+                                                                              "recipes": [],
+                                                                              "checklist": [
+                                                                                {
+                                                                                  "text": "Подготовить ресурсы",
+                                                                                  "done": false
+                                                                                },
+                                                                                {
+                                                                                  "text": "Выполнить действие",
+                                                                                  "done": false
+                                                                                }
                                                                               ],
                                                                               "children": [
                                                                                 {
-                                                                                  "id": "node_slot_19",
-                                                                                  "tier": 0,
+                                                                                  "id": "node_300",
+                                                                                  "type": "mechanic",
+                                                                                  "tier": 17,
+                                                                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                  "subtitle": "",
                                                                                   "item": "minecraft:air",
-                                                                                  "name": "Inventory Slot 19",
-                                                                                  "recipes": [
-                                                                                    "minecraft:air"
+                                                                                  "station": "crafting_table",
+                                                                                  "recipes": [],
+                                                                                  "checklist": [
+                                                                                    {
+                                                                                      "text": "Подготовить ресурсы",
+                                                                                      "done": false
+                                                                                    },
+                                                                                    {
+                                                                                      "text": "Выполнить действие",
+                                                                                      "done": false
+                                                                                    }
                                                                                   ],
                                                                                   "children": [
                                                                                     {
-                                                                                      "id": "node_slot_20",
-                                                                                      "tier": 0,
+                                                                                      "id": "node_302",
+                                                                                      "type": "mechanic",
+                                                                                      "tier": 18,
+                                                                                      "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                      "subtitle": "",
                                                                                       "item": "minecraft:air",
-                                                                                      "name": "Inventory Slot 20",
-                                                                                      "recipes": [
-                                                                                        "minecraft:air"
+                                                                                      "station": "crafting_table",
+                                                                                      "recipes": [],
+                                                                                      "checklist": [
+                                                                                        {
+                                                                                          "text": "Подготовить ресурсы",
+                                                                                          "done": false
+                                                                                        },
+                                                                                        {
+                                                                                          "text": "Выполнить действие",
+                                                                                          "done": false
+                                                                                        }
                                                                                       ],
                                                                                       "children": [
                                                                                         {
-                                                                                          "id": "node_slot_21",
-                                                                                          "tier": 0,
+                                                                                          "id": "node_304",
+                                                                                          "type": "mechanic",
+                                                                                          "tier": 19,
+                                                                                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                          "subtitle": "",
                                                                                           "item": "minecraft:air",
-                                                                                          "name": "Inventory Slot 21",
-                                                                                          "recipes": [
-                                                                                            "minecraft:air"
+                                                                                          "station": "crafting_table",
+                                                                                          "recipes": [],
+                                                                                          "checklist": [
+                                                                                            {
+                                                                                              "text": "Подготовить ресурсы",
+                                                                                              "done": false
+                                                                                            },
+                                                                                            {
+                                                                                              "text": "Выполнить действие",
+                                                                                              "done": false
+                                                                                            }
                                                                                           ],
                                                                                           "children": [
                                                                                             {
-                                                                                              "id": "node_slot_22",
-                                                                                              "tier": 0,
+                                                                                              "id": "node_306",
+                                                                                              "type": "mechanic",
+                                                                                              "tier": 20,
+                                                                                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                              "subtitle": "",
                                                                                               "item": "minecraft:air",
-                                                                                              "name": "Inventory Slot 22",
-                                                                                              "recipes": [
-                                                                                                "minecraft:air"
+                                                                                              "station": "crafting_table",
+                                                                                              "recipes": [],
+                                                                                              "checklist": [
+                                                                                                {
+                                                                                                  "text": "Подготовить ресурсы",
+                                                                                                  "done": false
+                                                                                                },
+                                                                                                {
+                                                                                                  "text": "Выполнить действие",
+                                                                                                  "done": false
+                                                                                                }
                                                                                               ],
                                                                                               "children": [
                                                                                                 {
-                                                                                                  "id": "node_slot_23",
-                                                                                                  "tier": 0,
+                                                                                                  "id": "node_308",
+                                                                                                  "type": "mechanic",
+                                                                                                  "tier": 21,
+                                                                                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                                  "subtitle": "",
                                                                                                   "item": "minecraft:air",
-                                                                                                  "name": "Inventory Slot 23",
-                                                                                                  "recipes": [
-                                                                                                    "minecraft:air"
+                                                                                                  "station": "crafting_table",
+                                                                                                  "recipes": [],
+                                                                                                  "checklist": [
+                                                                                                    {
+                                                                                                      "text": "Подготовить ресурсы",
+                                                                                                      "done": false
+                                                                                                    },
+                                                                                                    {
+                                                                                                      "text": "Выполнить действие",
+                                                                                                      "done": false
+                                                                                                    }
                                                                                                   ],
                                                                                                   "children": [
                                                                                                     {
-                                                                                                      "id": "node_slot_24",
-                                                                                                      "tier": 0,
+                                                                                                      "id": "node_310",
+                                                                                                      "type": "mechanic",
+                                                                                                      "tier": 22,
+                                                                                                      "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                                      "subtitle": "",
                                                                                                       "item": "minecraft:air",
-                                                                                                      "name": "Inventory Slot 24",
-                                                                                                      "recipes": [
-                                                                                                        "minecraft:air"
+                                                                                                      "station": "crafting_table",
+                                                                                                      "recipes": [],
+                                                                                                      "checklist": [
+                                                                                                        {
+                                                                                                          "text": "Подготовить ресурсы",
+                                                                                                          "done": false
+                                                                                                        },
+                                                                                                        {
+                                                                                                          "text": "Выполнить действие",
+                                                                                                          "done": false
+                                                                                                        }
                                                                                                       ],
                                                                                                       "children": [
                                                                                                         {
-                                                                                                          "id": "node_slot_25",
-                                                                                                          "tier": 0,
+                                                                                                          "id": "node_312",
+                                                                                                          "type": "mechanic",
+                                                                                                          "tier": 23,
+                                                                                                          "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                                          "subtitle": "",
                                                                                                           "item": "minecraft:air",
-                                                                                                          "name": "Inventory Slot 25",
-                                                                                                          "recipes": [
-                                                                                                            "minecraft:air"
+                                                                                                          "station": "crafting_table",
+                                                                                                          "recipes": [],
+                                                                                                          "checklist": [
+                                                                                                            {
+                                                                                                              "text": "Подготовить ресурсы",
+                                                                                                              "done": false
+                                                                                                            },
+                                                                                                            {
+                                                                                                              "text": "Выполнить действие",
+                                                                                                              "done": false
+                                                                                                            }
                                                                                                           ],
                                                                                                           "children": [
                                                                                                             {
-                                                                                                              "id": "node_slot_26",
-                                                                                                              "tier": 0,
+                                                                                                              "id": "node_314",
+                                                                                                              "type": "mechanic",
+                                                                                                              "tier": 24,
+                                                                                                              "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                                              "subtitle": "",
                                                                                                               "item": "minecraft:air",
-                                                                                                              "name": "Inventory Slot 26",
-                                                                                                              "recipes": [
-                                                                                                                "minecraft:air"
+                                                                                                              "station": "crafting_table",
+                                                                                                              "recipes": [],
+                                                                                                              "checklist": [
+                                                                                                                {
+                                                                                                                  "text": "Подготовить ресурсы",
+                                                                                                                  "done": false
+                                                                                                                },
+                                                                                                                {
+                                                                                                                  "text": "Выполнить действие",
+                                                                                                                  "done": false
+                                                                                                                }
                                                                                                               ],
                                                                                                               "children": [
                                                                                                                 {
-                                                                                                                  "id": "node_241",
-                                                                                                                  "tier": 0,
+                                                                                                                  "id": "node_316",
+                                                                                                                  "type": "mechanic",
+                                                                                                                  "tier": 25,
+                                                                                                                  "name": "Inventory Slot (Шаг 3) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2) (Шаг 2)",
+                                                                                                                  "subtitle": "",
                                                                                                                   "item": "minecraft:air",
-                                                                                                                  "name": "Inventory Slot 27",
-                                                                                                                  "recipes": [
-                                                                                                                    "minecraft:air"
+                                                                                                                  "station": "crafting_table",
+                                                                                                                  "recipes": [],
+                                                                                                                  "checklist": [
+                                                                                                                    {
+                                                                                                                      "text": "Подготовить ресурсы",
+                                                                                                                      "done": false
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                      "text": "Выполнить действие",
+                                                                                                                      "done": false
+                                                                                                                    }
                                                                                                                   ],
                                                                                                                   "children": []
                                                                                                                 }
@@ -1519,39 +2294,72 @@
         },
         {
           "id": "node_261",
+          "type": "mechanic",
           "tier": 5,
-          "item": "minecraft:air",
           "name": "Disable Day Monster Ignition",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
           ],
+          "checklist": [],
           "children": []
         },
         {
           "id": "node_260",
+          "type": "mechanic",
           "tier": 5,
-          "item": "minecraft:air",
           "name": "Disable Light Check for Monster Spawn",
+          "subtitle": "",
+          "item": "minecraft:air",
+          "station": "crafting_table",
           "recipes": [
             "minecraft:air"
+          ],
+          "checklist": [],
+          "children": []
+        },
+        {
+          "id": "node_318",
+          "type": "craft",
+          "tier": 1,
+          "name": "Beds",
+          "subtitle": "",
+          "item": "minecraft:white_bed",
+          "station": "crafting_table",
+          "recipes": [
+            "minecraft:black_bed",
+            "minecraft:blue_bed",
+            "minecraft:brown_bed",
+            "minecraft:cyan_bed",
+            "minecraft:gray_bed",
+            "minecraft:green_bed",
+            "minecraft:light_blue_bed",
+            "minecraft:light_gray_bed",
+            "minecraft:lime_bed",
+            "minecraft:magenta_bed",
+            "minecraft:orange_bed",
+            "minecraft:pink_bed",
+            "minecraft:purple_bed",
+            "minecraft:red_bed",
+            "minecraft:white_bed",
+            "minecraft:straw_bed",
+            "minecraft:yellow_bed"
+          ],
+          "checklist": [
+            {
+              "text": "Подготовить ресурсы",
+              "done": false
+            },
+            {
+              "text": "Выполнить действие",
+              "done": false
+            }
           ],
           "children": []
         }
       ]
     }
-  ],
-  "settings": {
-    "hp_restriction": true,
-    "hunger_restriction": true,
-    "offhand_restriction": true,
-    "reach_restriction": true,
-    "inventory_slot_restriction": true,
-    "structure_restriction": true,
-    "world_border_restriction": true,
-    "traps_enabled": true,
-    "curses_enabled": true,
-    "starting_shared_chest": true,
-    "recipe_unlock_mode": "random_by_bias",
-    "recipe_tier_unlock_percentage": 50
-  }
+  ]
 }

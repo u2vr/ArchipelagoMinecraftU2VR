@@ -4,7 +4,7 @@
     "received": {
       "conditions": {
         "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 7
+        "tier": 5
       },
       "trigger": "aprandomizer:received_item"
     }
@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:gilded_blackstone"
     },
+    "show_toast": false,
     "title": "Bastion Remnant Access"
   },
   "requirements": [

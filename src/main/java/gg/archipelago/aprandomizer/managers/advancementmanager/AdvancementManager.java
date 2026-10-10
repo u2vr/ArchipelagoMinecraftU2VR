@@ -343,8 +343,11 @@ public class AdvancementManager {
     }
 
     public void resendAdvancements() {
-        APClient apClient = getAP(); // TODO
-        if (apClient == null) return;
+        resendAdvancements(getAP());
+    }
+
+    public void resendAdvancements(APClient apClient) {
+        if (apClient == null || !apClient.isConnected()) return;
         for (long earnedAdvancement : earnedAdvancements) {
             apClient.checkLocation(earnedAdvancement);
         }

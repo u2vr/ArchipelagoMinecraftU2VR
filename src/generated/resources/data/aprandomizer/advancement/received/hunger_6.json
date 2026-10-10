@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:golden_carrot"
     },
+    "show_toast": false,
     "title": "Hunger Upgrade 6/6 (Max)"
   },
   "requirements": [

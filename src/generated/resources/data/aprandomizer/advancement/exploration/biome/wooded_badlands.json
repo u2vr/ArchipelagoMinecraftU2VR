@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/overworld_biomes",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "minecraft:wooded_badlands"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Visit the Wooded Badlands biome",
     "icon": {
-      "id": "minecraft:orange_terracotta"
+      "id": "minecraft:coarse_dirt"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Wooded Badlands"
   },
   "requirements": [

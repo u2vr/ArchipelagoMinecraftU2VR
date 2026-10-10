@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:blast_furnace"
     },
+    "show_toast": false,
     "title": "Blast Furnace"
   },
   "requirements": [

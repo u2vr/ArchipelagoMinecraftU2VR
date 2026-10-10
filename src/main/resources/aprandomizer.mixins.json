@@ -13,7 +13,8 @@
     "MixinCrafterBlock",
     "MixinSlot",
     "MixinInventory",
-    "MixinSpider"
+    "MixinSpider",
+    "MixinAdvancementVisibilityEvaluator"
   ],
   "client": [
     "MixinAbstractContainerScreen",

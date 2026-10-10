@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/structures",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "ocean_monument"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Discover the Ocean Monument structure",
     "icon": {
       "id": "minecraft:prismarine_bricks"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Ocean Monument"
   },
   "requirements": [

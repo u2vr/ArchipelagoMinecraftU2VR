@@ -38,14 +38,14 @@ public class APStructureSets {
                 new StructureSet(
                         List.of(
                                 StructureSet.entry(structures.getOrThrow(APStructures.END_CITY_NETHER_STRUCTURE))),
-                        new RandomSpreadStructurePlacement(27, 4, RandomSpreadType.LINEAR, 30084232)));
+                        new RandomSpreadStructurePlacement(19, 3, RandomSpreadType.LINEAR, 30084232)));
 
         Holder.Reference<StructureSet> village_nether =
                 context.register(VILLAGE_NETHER,
                 new StructureSet(
                         List.of(
                                 StructureSet.entry(structures.getOrThrow(APStructures.VILLAGE_NETHER_STRUCTURE))),
-                        new RandomSpreadStructurePlacement(27, 4, RandomSpreadType.LINEAR, 10387312)));
+                        new RandomSpreadStructurePlacement(24, 6, RandomSpreadType.LINEAR, 10387312)));
 
         context.register(PILLAGER_OUTPOST_NETHER,
                 new StructureSet(
@@ -54,10 +54,10 @@ public class APStructureSets {
                         new RandomSpreadStructurePlacement(
                                 Vec3i.ZERO,
                                 AbstractSpreadingStructurePlacement.FrequencyReductionMethod.LEGACY_TYPE_1,
-                                0.2F,
+                                0.4F,
                                 165745296,
                                 Optional.of(new AbstractSpreadingStructurePlacement.ExclusionZone(village_nether, 10)),
-                                27, 4, RandomSpreadType.LINEAR)));
+                                23, 6, RandomSpreadType.LINEAR)));
 
     }
 }

@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:enchanting_table"
     },
+    "show_toast": false,
     "title": "Enchanting Table"
   },
   "requirements": [

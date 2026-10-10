@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.data.WorldData;
+import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -31,7 +32,12 @@ public record RecipeReward(ResourceKey<Recipe<?>> recipe) implements APReward {
 
     @Override
     public void give(ServerPlayer player) {
-        player.awardRecipesByKey(List.of(recipe));
+        ItemManager itemManager = APRandomizer.getItemManager();
+        if (itemManager != null) {
+            itemManager.grantAllInitialRecipes(player);
+        } else {
+            player.awardRecipesByKey(List.of(recipe));
+        }
     }
 
     @Override

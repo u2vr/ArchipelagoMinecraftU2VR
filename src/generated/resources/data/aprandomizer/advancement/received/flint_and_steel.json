@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:flint_and_steel"
     },
+    "show_toast": false,
     "title": "Flint And Steel"
   },
   "requirements": [

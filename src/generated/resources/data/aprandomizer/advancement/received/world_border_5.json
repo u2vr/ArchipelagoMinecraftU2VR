@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:map"
     },
+    "show_toast": false,
     "title": "World Border Upgrade 5/5 (Max)"
   },
   "requirements": [

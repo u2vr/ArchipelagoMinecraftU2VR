@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:diamond_helmet"
     },
+    "show_toast": false,
     "title": "Diamond Helmet"
   },
   "requirements": [

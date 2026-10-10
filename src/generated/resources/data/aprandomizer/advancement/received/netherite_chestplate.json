@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:netherite_chestplate"
     },
+    "show_toast": false,
     "title": "Netherite Chestplate"
   },
   "requirements": [

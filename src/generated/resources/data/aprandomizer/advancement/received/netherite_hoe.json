@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:netherite_hoe"
     },
+    "show_toast": false,
     "title": "Netherite Hoe"
   },
   "requirements": [

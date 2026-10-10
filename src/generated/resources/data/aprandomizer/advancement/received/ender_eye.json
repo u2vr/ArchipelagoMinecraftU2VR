@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:ender_eye"
     },
+    "show_toast": false,
     "title": "Ender Eye"
   },
   "requirements": [

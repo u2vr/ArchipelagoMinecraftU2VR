@@ -151,16 +151,34 @@ public class APCommand {
                 )
                 .then(Commands.literal("sync")
                         .executes(ctx -> {
+                            var server = ctx.getSource().getServer();
                             var apClient = APRandomizer.getAP();
+                            var am = APRandomizer.getAdvancementManager();
                             if (apClient != null && apClient.isConnected()) {
+                                Utils.sendMessageToAll("§6[Archipelago] §fСинхронизация с сервером Archipelago...");
                                 apClient.sync();
+                                if (am != null) {
+                                    am.resendAdvancements(apClient);
+                                }
                             }
                             ItemManager itemManager = APRandomizer.getItemManager();
                             if (itemManager != null) {
-                                itemManager.catchUp(ctx.getSource().getServer());
+                                itemManager.catchUp(server);
                                 itemManager.syncAllPlayerAdvancements();
                             }
-                            ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Advancements and items synchronized!"), true);
+                            if (am != null) {
+                                am.syncAllAdvancements();
+                            }
+                            gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager.syncStateToAll(server);
+                            for (var player : server.getPlayerList().getPlayers()) {
+                                gg.archipelago.aprandomizer.exploration.ExplorationManager.syncPlayerExploration(player);
+                            }
+                            var goalManager = APRandomizer.getGoalManager();
+                            if (goalManager != null) {
+                                goalManager.updateGoal(true);
+                                goalManager.updateInfoBar();
+                            }
+                            ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Все достижения, чеки, предметы и рецепты успешно синхронизированы!"), true);
                             return 1;
                         })
                 )

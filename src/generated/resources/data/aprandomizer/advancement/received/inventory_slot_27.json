@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:ender_chest"
     },
+    "show_toast": false,
     "title": "Inventory Slot 27/27 (Full Inventory)"
   },
   "requirements": [

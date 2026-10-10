@@ -1,10 +1,10 @@
 {
-  "parent": "aprandomizer:received/structure_bastion",
+  "parent": "aprandomizer:received/structure_ocean_monument",
   "criteria": {
     "received": {
       "conditions": {
         "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 8
+        "tier": 9
       },
       "trigger": "aprandomizer:received_item"
     }
@@ -16,6 +16,7 @@
     "icon": {
       "id": "minecraft:purpur_block"
     },
+    "show_toast": false,
     "title": "End City Access"
   },
   "requirements": [

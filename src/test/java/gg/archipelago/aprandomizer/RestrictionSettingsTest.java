@@ -228,6 +228,18 @@ public class RestrictionSettingsTest {
         // ArchipelagoTraderSpawner can be instantiated
         gg.archipelago.aprandomizer.managers.trademanager.ArchipelagoTraderSpawner spawner = new gg.archipelago.aprandomizer.managers.trademanager.ArchipelagoTraderSpawner();
         assertNotNull(spawner);
+
+        // Test that all trades 1..20 produce valid non-null cost definitions
+        for (int i = 1; i <= 20; i++) {
+            gg.archipelago.aprandomizer.managers.trademanager.WanderingTraderManager.TradeCostDef def =
+                    gg.archipelago.aprandomizer.managers.trademanager.WanderingTraderManager.getTradeCostDef(i);
+            assertNotNull(def);
+            assertNotNull(def.itemA());
+            assertTrue(def.countA() > 0);
+            if (def.itemB() != null) {
+                assertTrue(def.countB() > 0);
+            }
+        }
     }
 
     @Test
@@ -429,7 +441,7 @@ public class RestrictionSettingsTest {
     @Test
     public void testExplorationDataCatalog() {
         assertEquals(66, ExplorationData.BIOMES.size());
-        assertEquals(21, ExplorationData.STRUCTURES.size());
+        assertEquals(22, ExplorationData.STRUCTURES.size());
 
         java.util.Set<Long> seenLocationIds = new java.util.HashSet<>();
         java.util.Set<String> seenPaths = new java.util.HashSet<>();
@@ -455,7 +467,7 @@ public class RestrictionSettingsTest {
         }
 
         for (ExplorationData.StructureCheckEntry structure : ExplorationData.STRUCTURES) {
-            assertTrue(structure.locationId() >= 601L && structure.locationId() <= 621L, "Structure loc ID out of range: " + structure.locationId());
+            assertTrue(structure.locationId() >= 601L && structure.locationId() <= 622L, "Structure loc ID out of range: " + structure.locationId());
             assertTrue(seenLocationIds.add(structure.locationId()), "Duplicate location ID: " + structure.locationId());
             assertTrue(seenPaths.add(structure.path()), "Duplicate structure path: " + structure.path());
             assertNotNull(structure.displayName());
@@ -857,6 +869,29 @@ public class RestrictionSettingsTest {
             freshUnlocked.addAll(t1.recipes());
         }
         assertTrue(RecipeTreeManager.canUnlockInTierProgression(sampleT2, freshUnlocked, 50));
+
+        // Test cumulative threshold for Tier 3:
+        var t3Nodes = RecipeTreeManager.getNodesByTier(3);
+        assertFalse(t3Nodes.isEmpty());
+        var sampleT3 = t3Nodes.get(0);
+
+        int totalBeforeT3 = RecipeTreeManager.getTotalNodesBeforeTier(3);
+        assertEquals(t1Nodes.size() + t2Nodes.size(), totalBeforeT3);
+        int reqBeforeT3 = (int) Math.ceil(totalBeforeT3 * 0.5);
+
+        // Currently only T1 nodes are unlocked. If T1 < reqBeforeT3, T3 should not be unlockable yet
+        if (t1Nodes.size() < reqBeforeT3) {
+            assertFalse(RecipeTreeManager.canUnlockInTierProgression(sampleT3, freshUnlocked, 50));
+        }
+
+        // Unlock additional T2 nodes until we reach reqBeforeT3
+        int currentUnlocked = t1Nodes.size();
+        for (var t2 : t2Nodes) {
+            if (currentUnlocked >= reqBeforeT3) break;
+            freshUnlocked.addAll(t2.recipes());
+            currentUnlocked++;
+        }
+        assertTrue(RecipeTreeManager.canUnlockInTierProgression(sampleT3, freshUnlocked, 50));
     }
 
     @Test
@@ -913,6 +948,127 @@ public class RestrictionSettingsTest {
         } finally {
             RecipeTreeManager.setTicketMode(false);
         }
+    }
+
+    @Test
+    public void testBiomeCheckCategories() {
+        assertEquals(66, ExplorationData.BIOMES.size());
+
+        long majorCount = ExplorationData.BIOMES.stream().filter(b -> b.group() == ExplorationData.BiomeCheckGroup.MAJOR).count();
+        long smallCount = ExplorationData.BIOMES.stream().filter(b -> b.group() == ExplorationData.BiomeCheckGroup.SMALL).count();
+        long endgameCount = ExplorationData.BIOMES.stream().filter(b -> b.group() == ExplorationData.BiomeCheckGroup.ENDGAME).count();
+
+        assertEquals(36, majorCount, "Major biomes count must be 36");
+        assertEquals(25, smallCount, "Small biomes count must be 25");
+        assertEquals(5, endgameCount, "EndGame biomes count must be 5");
+
+        Gson gson = new Gson();
+
+        // Default behavior (no biome options)
+        SlotData defaultSlot = new SlotData();
+        assertFalse(defaultSlot.isMajorBiomeChecksEnabled());
+        assertFalse(defaultSlot.isSmallBiomeChecksEnabled());
+        assertFalse(defaultSlot.isEndGameBiomeChecksEnabled());
+        assertFalse(defaultSlot.isBiomeChecksEnabled());
+
+        APMCData defaultApmc = new APMCData();
+        assertFalse(defaultApmc.isMajorBiomeChecksEnabled());
+        assertFalse(defaultApmc.isSmallBiomeChecksEnabled());
+        assertFalse(defaultApmc.isEndGameBiomeChecksEnabled());
+        assertFalse(defaultApmc.isBiomeChecksEnabled());
+
+        // Deserialization with new distinct toggles
+        String jsonCustom = """
+        {
+            "major_biome_checks": true,
+            "small_biome_checks": false,
+            "endgame_biome_checks": true
+        }
+        """;
+        SlotData customSlot = gson.fromJson(jsonCustom, SlotData.class);
+        assertTrue(customSlot.isMajorBiomeChecksEnabled());
+        assertFalse(customSlot.isSmallBiomeChecksEnabled());
+        assertTrue(customSlot.isEndGameBiomeChecksEnabled());
+        assertTrue(customSlot.isBiomeChecksEnabled());
+
+        APMCData customApmc = gson.fromJson(jsonCustom, APMCData.class);
+        assertTrue(customApmc.isMajorBiomeChecksEnabled());
+        assertFalse(customApmc.isSmallBiomeChecksEnabled());
+        assertTrue(customApmc.isEndGameBiomeChecksEnabled());
+        assertTrue(customApmc.isBiomeChecksEnabled());
+
+        // Legacy biome_checks fallback
+        String jsonLegacy = """
+        {
+            "biome_checks": true
+        }
+        """;
+        SlotData legacySlot = gson.fromJson(jsonLegacy, SlotData.class);
+        assertTrue(legacySlot.isMajorBiomeChecksEnabled());
+        assertTrue(legacySlot.isSmallBiomeChecksEnabled());
+        assertFalse(legacySlot.isEndGameBiomeChecksEnabled()); // EndGame is default off even on legacy
+        assertTrue(legacySlot.isBiomeChecksEnabled());
+
+        APMCData legacyApmc = gson.fromJson(jsonLegacy, APMCData.class);
+        assertTrue(legacyApmc.isMajorBiomeChecksEnabled());
+        assertTrue(legacyApmc.isSmallBiomeChecksEnabled());
+        assertFalse(legacyApmc.isEndGameBiomeChecksEnabled());
+        assertTrue(legacyApmc.isBiomeChecksEnabled());
+    }
+
+    @Test
+    public void testExplorationAdvancementVisibility() {
+        APMCData apmc = APRandomizer.getApmcData();
+        apmc.major_biome_checks = true;
+        apmc.small_biome_checks = false;
+        apmc.endgame_biome_checks = false;
+        apmc.structure_checks = true;
+
+        // Major biomes enabled
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/plains")));
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/nether_wastes")));
+
+        // Small biomes disabled
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/sunflower_plains")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/dripstone_caves")));
+
+        // End biomes disabled
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/the_end")));
+
+        // Categories
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/overworld_biomes")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/caves_biomes")));
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/nether_biomes")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/end_biomes")));
+
+        // Structures enabled
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/structures")));
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/structure/village")));
+
+        // Root
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/root")));
+
+        // When everything is disabled
+        apmc.major_biome_checks = false;
+        apmc.structure_checks = false;
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/overworld_biomes")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/structures")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/root")));
     }
 }
 

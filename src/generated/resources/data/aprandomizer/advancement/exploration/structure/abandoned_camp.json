@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/structures",
+  "criteria": {
+    "visited": {
+      "conditions": {
+        "id": "abandoned_camp"
+      },
+      "trigger": "aprandomizer:exploration"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Discover the Abandoned Camp structure",
+    "icon": {
+      "id": "minecraft:campfire"
+    },
+    "show_toast": false,
+    "title": "Abandoned Camp"
+  },
+  "requirements": [
+    [
+      "visited"
+    ]
+  ]
+}

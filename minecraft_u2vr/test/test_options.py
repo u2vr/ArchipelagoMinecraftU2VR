@@ -30,7 +30,7 @@ class StructureRestrictionTestBase(MCTestBase):
 
     def test_structures_in_pool(self):
         item_names = [item.name for item in self.multiworld.itempool]
-        assert item_names.count("Structure Unlock") == 8
+        assert item_names.count("Structure Unlock") == 9
 
 
 class RestrictionsTestBase(MCTestBase):
@@ -51,7 +51,7 @@ class RestrictionsTestBase(MCTestBase):
         assert item_names.count("Hunger Upgrade") == 6
         assert item_names.count("Reach Upgrade") == 3
         assert item_names.count("World Border Upgrade") == 5
-        assert item_names.count("Structure Unlock") == 8
+        assert item_names.count("Structure Unlock") == 9
         assert item_names.count("Inventory Slot Upgrade") == 27
         assert item_names.count("Offhand Unlock") == 1
         assert item_names.count("Disable Day Monster Ignition") == 1

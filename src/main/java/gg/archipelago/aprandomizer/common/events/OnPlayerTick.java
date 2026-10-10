@@ -13,11 +13,7 @@ public class OnPlayerTick {
 
     @SubscribeEvent
     public static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (!(event.getEntity() instanceof ServerPlayer player))
-            return;
-
-        Holder<Biome> biome = player.level().getBiome(player.blockPosition());
-        player.getData(APAttachmentTypes.AP_PLAYER).getVisitedBiomes().add(biome.getKey());
+        // Biome tracking is handled centrally by ExplorationManager
     }
 
 }

@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:wooden_spear"
     },
+    "show_toast": false,
     "title": "Wooden Spear"
   },
   "requirements": [

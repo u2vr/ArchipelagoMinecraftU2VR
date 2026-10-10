@@ -47,7 +47,7 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(cat.getDisplayName()),
                             Component.literal("Explore biomes in " + cat.getDisplayName()),
                             AdvancementType.TASK,
-                            true,
+                            false,
                             false,
                             false)
                     .addCriterion("visited", ExplorationCriteria.TriggerInstance.explored(cat.getPath()))
@@ -62,7 +62,7 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
                         Component.literal("Structures"),
                         Component.literal("Discover unique structures across the world"),
                         AdvancementType.TASK,
-                        true,
+                        false,
                         false,
                         false)
                 .addCriterion("visited", ExplorationCriteria.TriggerInstance.explored("structures"))
@@ -78,8 +78,8 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(biome.displayName()),
                             Component.literal("Visit the " + biome.displayName() + " biome"),
                             AdvancementType.TASK,
-                            true,
-                            true,
+                            false,
+                            false,
                             false)
                     .addCriterion("visited", ExplorationCriteria.TriggerInstance.explored(biome.id()))
                     .save(output, biome.getAdvancementId());
@@ -94,8 +94,8 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(structure.displayName()),
                             Component.literal("Discover the " + structure.displayName() + " structure"),
                             AdvancementType.TASK,
-                            true,
-                            true,
+                            false,
+                            false,
                             false)
                     .addCriterion("visited", ExplorationCriteria.TriggerInstance.explored(structure.id()))
                     .save(output, structure.getAdvancementId());

@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/structures",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "ruined_portal"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Discover the Ruined Portal structure",
     "icon": {
       "id": "minecraft:crying_obsidian"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Ruined Portal"
   },
   "requirements": [

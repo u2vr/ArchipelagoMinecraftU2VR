@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:copper_pickaxe"
     },
+    "show_toast": false,
     "title": "Copper Pickaxe"
   },
   "requirements": [

@@ -21,15 +21,12 @@ public abstract class MixinPauseScreen extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void aprandomizer$addRecipeTreeButton(CallbackInfo ci) {
-        int tickets = ClientRecipeManager.getTickets();
-        boolean ticketMode = ClientRecipeManager.isTicketMode();
-
-        Component buttonText;
-        if (ticketMode) {
-            buttonText = Component.literal("✦ Рецепты [🎟 " + tickets + "]");
-        } else {
-            buttonText = Component.literal("✦ Древо рецептов");
+        if (!ClientRecipeManager.isTicketMode()) {
+            return;
         }
+
+        int tickets = ClientRecipeManager.getTickets();
+        Component buttonText = Component.literal("✦ Рецепты [🎟 " + tickets + "]");
 
         int btnWidth = 124;
         int btnHeight = 20;

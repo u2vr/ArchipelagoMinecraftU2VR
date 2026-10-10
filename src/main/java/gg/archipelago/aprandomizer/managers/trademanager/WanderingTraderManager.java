@@ -13,7 +13,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,13 +22,17 @@ import net.minecraft.world.item.component.ItemLore;
 import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
+import net.minecraft.world.level.ItemLike;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 public class WanderingTraderManager {
 
@@ -39,6 +42,157 @@ public class WanderingTraderManager {
     public static final int MAX_TRADES = 20;
 
     private static final Map<Long, NetworkItem> SCOUTED_ITEMS = new ConcurrentHashMap<>();
+
+    public record TradeCost(ItemCost costA, Optional<ItemCost> costB) {}
+
+    public record TradeCostDef(Supplier<ItemLike> itemA, int countA, Supplier<ItemLike> itemB, int countB) {
+        public TradeCostDef(Supplier<ItemLike> itemA, int countA) {
+            this(itemA, countA, null, 0);
+        }
+
+        public TradeCost createCost() {
+            ItemCost costA = new ItemCost(itemA.get().asItem(), countA);
+            Optional<ItemCost> costB = (itemB != null && countB > 0)
+                    ? Optional.of(new ItemCost(itemB.get().asItem(), countB))
+                    : Optional.empty();
+            return new TradeCost(costA, costB);
+        }
+    }
+
+    // Tier 1 (Trades 1-5): Non-basic tools, mechanisms, crafted items, stackable resources
+    private static final List<TradeCostDef> TIER_1_COSTS = List.of(
+            new TradeCostDef(() -> Items.IRON_PICKAXE, 1),
+            new TradeCostDef(() -> Items.IRON_SWORD, 1, () -> Items.EMERALD, 3),
+            new TradeCostDef(() -> Items.IRON_AXE, 1, () -> Items.LAPIS_LAZULI, 4),
+            new TradeCostDef(() -> Items.IRON_CHESTPLATE, 1),
+            new TradeCostDef(() -> Items.SHIELD, 1, () -> Items.IRON_INGOT, 4),
+            new TradeCostDef(() -> Items.BOW, 1, () -> Items.ARROW, 16),
+            new TradeCostDef(() -> Items.SHEARS, 1, () -> Items.IRON_INGOT, 6),
+            new TradeCostDef(() -> Items.FLINT_AND_STEEL, 1, () -> Items.IRON_INGOT, 8),
+            new TradeCostDef(() -> Items.COMPASS, 1, () -> Items.REDSTONE, 8),
+            new TradeCostDef(() -> Items.CLOCK, 1),
+            new TradeCostDef(() -> Items.SPYGLASS, 1),
+            new TradeCostDef(() -> Items.FISHING_ROD, 1, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.LEAD, 2, () -> Items.EMERALD, 3),
+            new TradeCostDef(() -> Items.NAME_TAG, 1, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.PISTON, 2, () -> Items.REDSTONE, 8),
+            new TradeCostDef(() -> Items.CAULDRON, 1, () -> Items.IRON_INGOT, 4),
+            new TradeCostDef(() -> Items.BOOKSHELF, 2, () -> Items.LAPIS_LAZULI, 6),
+            new TradeCostDef(() -> Items.IRON_INGOT, 12),
+            new TradeCostDef(() -> Items.GOLD_INGOT, 8),
+            new TradeCostDef(() -> Items.COPPER_BLOCK.weathering().unaffected(), 4, () -> Items.IRON_INGOT, 4),
+            new TradeCostDef(() -> Items.EMERALD, 8),
+            new TradeCostDef(() -> Items.LAPIS_LAZULI, 16),
+            new TradeCostDef(() -> Items.REDSTONE, 24),
+            new TradeCostDef(() -> Items.GOLDEN_APPLE, 1, () -> Items.GOLD_INGOT, 4),
+            new TradeCostDef(() -> Items.HONEY_BOTTLE, 4),
+            new TradeCostDef(() -> Items.HONEYCOMB, 6, () -> Items.EMERALD, 2),
+            new TradeCostDef(() -> Items.TNT, 4, () -> Items.REDSTONE, 8),
+            new TradeCostDef(() -> Items.AMETHYST_SHARD, 8, () -> Items.EMERALD, 3),
+            new TradeCostDef(() -> Items.SADDLE, 1, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.PUMPKIN_PIE, 4, () -> Items.EMERALD, 3),
+            new TradeCostDef(() -> Items.CAKE, 1, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.TARGET, 2, () -> Items.REDSTONE, 6),
+            new TradeCostDef(() -> Items.NOTE_BLOCK, 4, () -> Items.REDSTONE, 8),
+            new TradeCostDef(() -> Items.CHISELED_BOOKSHELF, 2, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.LECTERN, 1, () -> Items.BOOK, 2)
+    );
+
+    // Tier 2 (Trades 6-12): Diamond tools, mid-game mechanisms, nether materials, rare drops
+    private static final List<TradeCostDef> TIER_2_COSTS = List.of(
+            new TradeCostDef(() -> Items.DIAMOND_SWORD, 1),
+            new TradeCostDef(() -> Items.DIAMOND_PICKAXE, 1, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.DIAMOND_AXE, 1, () -> Items.LAPIS_LAZULI, 8),
+            new TradeCostDef(() -> Items.DIAMOND_SHOVEL, 1, () -> Items.DIAMOND, 1),
+            new TradeCostDef(() -> Items.DIAMOND_HELMET, 1),
+            new TradeCostDef(() -> Items.DIAMOND_BOOTS, 1),
+            new TradeCostDef(() -> Items.CROSSBOW, 1, () -> Items.FIREWORK_ROCKET, 8),
+            new TradeCostDef(() -> Items.HOPPER, 2, () -> Items.IRON_INGOT, 8),
+            new TradeCostDef(() -> Items.DISPENSER, 2, () -> Items.REDSTONE, 12),
+            new TradeCostDef(() -> Items.OBSERVER, 3, () -> Items.QUARTZ, 6),
+            new TradeCostDef(() -> Items.STICKY_PISTON, 3, () -> Items.SLIME_BALL, 3),
+            new TradeCostDef(() -> Items.CRAFTER, 1, () -> Items.REDSTONE, 8),
+            new TradeCostDef(() -> Items.BREWING_STAND, 1, () -> Items.BLAZE_POWDER, 4),
+            new TradeCostDef(() -> Items.ANVIL, 1),
+            new TradeCostDef(() -> Items.DAYLIGHT_DETECTOR, 2, () -> Items.QUARTZ, 6),
+            new TradeCostDef(() -> Items.JUKEBOX, 1, () -> Items.DIAMOND, 1),
+            new TradeCostDef(() -> Items.DIAMOND, 3, () -> Items.EMERALD, 6),
+            new TradeCostDef(() -> Items.IRON_BLOCK, 3),
+            new TradeCostDef(() -> Items.GOLD_BLOCK, 2, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.EMERALD_BLOCK, 2),
+            new TradeCostDef(() -> Items.ENDER_PEARL, 4, () -> Items.BLAZE_POWDER, 4),
+            new TradeCostDef(() -> Items.BLAZE_ROD, 4, () -> Items.NETHER_BRICK, 8),
+            new TradeCostDef(() -> Items.QUARTZ_BLOCK, 6, () -> Items.GOLD_INGOT, 6),
+            new TradeCostDef(() -> Items.MAGMA_CREAM, 4, () -> Items.BLAZE_ROD, 2),
+            new TradeCostDef(() -> Items.FIRE_CHARGE, 8, () -> Items.GUNPOWDER, 6),
+            new TradeCostDef(() -> Items.OBSIDIAN, 8, () -> Items.DIAMOND, 1),
+            new TradeCostDef(() -> Items.NAUTILUS_SHELL, 1, () -> Items.PRISMARINE_SHARD, 8),
+            new TradeCostDef(() -> Items.PRISMARINE_CRYSTALS, 8, () -> Items.PRISMARINE_SHARD, 8),
+            new TradeCostDef(() -> Items.GOLDEN_CARROT, 8, () -> Items.GOLD_INGOT, 6),
+            new TradeCostDef(() -> Items.GLISTERING_MELON_SLICE, 8, () -> Items.GOLD_INGOT, 6),
+            new TradeCostDef(() -> Items.FERMENTED_SPIDER_EYE, 4, () -> Items.SUGAR, 8),
+            new TradeCostDef(() -> Items.SLIME_BALL, 6, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.PHANTOM_MEMBRANE, 4, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.TURTLE_SCUTE, 2, () -> Items.EMERALD, 4),
+            new TradeCostDef(() -> Items.RABBIT_FOOT, 2, () -> Items.GOLD_INGOT, 6),
+            new TradeCostDef(() -> Items.AMETHYST_BLOCK, 4, () -> Items.DIAMOND, 1),
+            new TradeCostDef(() -> Items.TRIAL_KEY, 1, () -> Items.COPPER_BLOCK.weathering().unaffected(), 4),
+            new TradeCostDef(() -> Items.WIND_CHARGE, 12, () -> Items.BREEZE_ROD, 1)
+    );
+
+    // Tier 3 (Trades 13-20): Diamond armor, high-end artifacts, rare exploration/boss drops
+    private static final List<TradeCostDef> TIER_3_COSTS = List.of(
+            new TradeCostDef(() -> Items.DIAMOND_CHESTPLATE, 1, () -> Items.EMERALD, 6),
+            new TradeCostDef(() -> Items.DIAMOND_LEGGINGS, 1, () -> Items.EMERALD, 6),
+            new TradeCostDef(() -> Items.DIAMOND_BLOCK, 1, () -> Items.EMERALD_BLOCK, 2),
+            new TradeCostDef(() -> Items.GHAST_TEAR, 2, () -> Items.QUARTZ_BLOCK, 4),
+            new TradeCostDef(() -> Items.HEART_OF_THE_SEA, 1, () -> Items.NAUTILUS_SHELL, 2),
+            new TradeCostDef(() -> Items.WITHER_SKELETON_SKULL, 1, () -> Items.DIAMOND, 2),
+            new TradeCostDef(() -> Items.CRYING_OBSIDIAN, 6, () -> Items.ENDER_PEARL, 4),
+            new TradeCostDef(() -> Items.SEA_LANTERN, 4, () -> Items.PRISMARINE_CRYSTALS, 8),
+            new TradeCostDef(() -> Items.ENDER_EYE, 4, () -> Items.DIAMOND, 2),
+            new TradeCostDef(() -> Items.RECOVERY_COMPASS, 1, () -> Items.ECHO_SHARD, 2),
+            new TradeCostDef(() -> Items.ECHO_SHARD, 3, () -> Items.AMETHYST_BLOCK, 2),
+            new TradeCostDef(() -> Items.BREEZE_ROD, 2, () -> Items.OMINOUS_TRIAL_KEY, 1),
+            new TradeCostDef(() -> Items.OMINOUS_TRIAL_KEY, 1, () -> Items.DIAMOND, 2),
+            new TradeCostDef(() -> Items.TRIDENT, 1, () -> Items.HEART_OF_THE_SEA, 1),
+            new TradeCostDef(() -> Items.MUSIC_DISC_CAT, 1, () -> Items.DIAMOND, 2),
+            new TradeCostDef(() -> Items.MUSIC_DISC_PIGSTEP, 1, () -> Items.GOLD_BLOCK, 2),
+            new TradeCostDef(() -> Items.MUSIC_DISC_RELIC, 1, () -> Items.EMERALD_BLOCK, 2),
+            new TradeCostDef(() -> Items.MUSIC_DISC_OTHERSIDE, 1, () -> Items.DIAMOND, 2),
+            new TradeCostDef(() -> Items.CHIPPED_ANVIL, 1, () -> Items.IRON_BLOCK, 4),
+            new TradeCostDef(() -> Items.GOLDEN_APPLE, 3, () -> Items.DIAMOND, 3),
+            new TradeCostDef(() -> Items.GLOWSTONE, 8, () -> Items.GOLD_BLOCK, 3),
+            new TradeCostDef(() -> Items.REDSTONE_BLOCK, 6, () -> Items.LAPIS_LAZULI, 24),
+            new TradeCostDef(() -> Items.DIAMOND, 6, () -> Items.EMERALD, 12),
+            new TradeCostDef(() -> Items.QUARTZ, 24, () -> Items.BLAZE_ROD, 4),
+            new TradeCostDef(() -> Items.HONEY_BLOCK, 4, () -> Items.SLIME_BALL, 6)
+    );
+
+    public static TradeCostDef getTradeCostDef(int tradeIndex) {
+        long seed = 0L;
+        if (APRandomizer.getApmcData() != null) {
+            seed = APRandomizer.getApmcData().world_seed;
+        }
+
+        long tradeSeed = seed ^ ((long) tradeIndex * 0x9E3779B97F4A7C15L + 0xBF58476D1CE4E5B9L);
+        Random rand = new Random(tradeSeed);
+
+        List<TradeCostDef> pool;
+        if (tradeIndex <= 5) {
+            pool = TIER_1_COSTS;
+        } else if (tradeIndex <= 12) {
+            pool = TIER_2_COSTS;
+        } else {
+            pool = TIER_3_COSTS;
+        }
+
+        return pool.get(rand.nextInt(pool.size()));
+    }
+
+    public static TradeCost getTradeCost(int tradeIndex) {
+        return getTradeCostDef(tradeIndex).createCost();
+    }
 
     public static long getTraderLocationId(int tradeIndex) {
         return 138L + tradeIndex;
@@ -151,14 +305,15 @@ public class WanderingTraderManager {
                 }
             }
 
-            int emeraldCost = Math.min(i, 10);
+            TradeCost tradeCost = getTradeCost(i);
             ItemStack resultStack = createArchipelagoTradeStack(locId, i);
 
             if (existingIndex >= 0) {
                 MerchantOffer existing = offers.get(existingIndex);
                 if (existing.getUses() < existing.getMaxUses()) {
                     MerchantOffer updated = new MerchantOffer(
-                            new ItemCost(Items.EMERALD, emeraldCost),
+                            tradeCost.costA(),
+                            tradeCost.costB(),
                             resultStack,
                             1, 1, 0.0f
                     );
@@ -166,7 +321,8 @@ public class WanderingTraderManager {
                 }
             } else {
                 MerchantOffer newOffer = new MerchantOffer(
-                        new ItemCost(Items.EMERALD, emeraldCost),
+                        tradeCost.costA(),
+                        tradeCost.costB(),
                         resultStack,
                         1, 1, 0.0f
                 );
@@ -240,7 +396,7 @@ public class WanderingTraderManager {
 
             List<Component> lore = new ArrayList<>();
             lore.add(Component.literal("Multiworld Item Check").withStyle(ChatFormatting.YELLOW));
-            lore.add(Component.literal("Trade emeralds to check this location.").withStyle(ChatFormatting.GRAY));
+            lore.add(Component.literal("Trade requested items to check this location.").withStyle(ChatFormatting.GRAY));
             lore.add(Component.literal("Trade Location: Wandering Trader #" + tradeIndex).withStyle(ChatFormatting.DARK_GRAY));
             lore.add(Component.literal("Archipelago Multiworld").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
             stack.set(DataComponents.LORE, new ItemLore(lore));

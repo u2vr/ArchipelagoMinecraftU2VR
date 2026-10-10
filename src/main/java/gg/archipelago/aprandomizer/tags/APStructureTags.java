@@ -17,4 +17,5 @@ public class APStructureTags {
     public static final TagKey<Structure> ANCIENT_CITY = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "ancient_city"));
     public static final TagKey<Structure> TRAIL_RUINS = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "trail_ruins"));
     public static final TagKey<Structure> TRIAL_CHAMBERS = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "trial_chambers"));
+    public static final TagKey<Structure> STRONGHOLD = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "stronghold"));
 }

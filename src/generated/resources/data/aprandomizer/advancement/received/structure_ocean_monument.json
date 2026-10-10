@@ -4,7 +4,7 @@
     "received": {
       "conditions": {
         "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 5
+        "tier": 8
       },
       "trigger": "aprandomizer:received_item"
     }
@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:prismarine_shard"
     },
+    "show_toast": false,
     "title": "Ocean Monument Access"
   },
   "requirements": [

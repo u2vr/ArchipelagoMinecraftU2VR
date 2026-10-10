@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:netherite_shovel"
     },
+    "show_toast": false,
     "title": "Netherite Shovel"
   },
   "requirements": [

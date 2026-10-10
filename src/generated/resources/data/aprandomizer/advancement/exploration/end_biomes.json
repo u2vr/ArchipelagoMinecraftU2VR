@@ -2,10 +2,10 @@
   "parent": "aprandomizer:exploration/root",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "end_biomes"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
@@ -14,7 +14,7 @@
     "icon": {
       "id": "minecraft:end_stone"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "The End Biomes"
   },
   "requirements": [

@@ -9,6 +9,7 @@ import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.advancements.APCriteriaTriggers;
 import gg.archipelago.aprandomizer.common.Utils.Utils;
 import gg.archipelago.aprandomizer.data.WorldData;
+import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import gg.archipelago.aprandomizer.network.SyncRecipeStatePayload;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -137,6 +138,7 @@ public class RecipeTreeManager {
     public static String getRecipeAdvancementPath(String nodeId, Identifier itemIdent) {
         if ("node_81".equals(nodeId)) return "boats";
         if ("node_114".equals(nodeId)) return "doors_and_trapdoors";
+        if ("node_318".equals(nodeId)) return "beds";
         return itemIdent.getPath();
     }
 
@@ -337,16 +339,17 @@ public class RecipeTreeManager {
         }
 
         // Apply unlock
-        List<ResourceKey<Recipe<?>>> toAward = new ArrayList<>();
         for (ResourceKey<Recipe<?>> key : chosen.recipes()) {
-            if (!unlocked.contains(key)) {
-                worldData.addUnlockedRecipe(key);
-                toAward.add(key);
-            }
+            worldData.addUnlockedRecipe(key);
         }
 
+        ItemManager itemManager = APRandomizer.getItemManager();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            player.awardRecipesByKey(toAward);
+            if (itemManager != null) {
+                itemManager.grantAllInitialRecipes(player);
+            } else {
+                player.awardRecipesByKey(chosen.recipes());
+            }
             APCriteriaTriggers.RECIPE_NODE.get().trigger(player, chosen.id());
             try {
                 player.getAdvancements().save();
@@ -465,6 +468,28 @@ public class RecipeTreeManager {
         return parent.isUnlocked(unlocked);
     }
 
+    public static int getTotalNodesBeforeTier(int tier) {
+        ensureLoaded();
+        int total = 0;
+        for (int t = 1; t < tier; t++) {
+            total += getNodesByTier(t).size();
+        }
+        return total;
+    }
+
+    public static int getUnlockedNodesBeforeTier(int tier, Set<ResourceKey<Recipe<?>>> unlocked) {
+        ensureLoaded();
+        int count = 0;
+        for (int t = 1; t < tier; t++) {
+            for (RecipeTreeNode node : getNodesByTier(t)) {
+                if (node.isUnlocked(unlocked)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public static boolean canUnlockInTierProgression(RecipeTreeNode node, Set<ResourceKey<Recipe<?>>> unlocked, int thresholdPct) {
         if (thresholdPct <= 0) {
             return true;
@@ -474,21 +499,13 @@ public class RecipeTreeManager {
             return true;
         }
 
-        for (int t = 1; t < tier; t++) {
-            List<RecipeTreeNode> tierNodes = getNodesByTier(t);
-            if (tierNodes.isEmpty()) continue;
-            int unlockedCount = 0;
-            for (RecipeTreeNode tn : tierNodes) {
-                if (tn.isUnlocked(unlocked)) {
-                    unlockedCount++;
-                }
-            }
-            int requiredCount = (int) Math.ceil(tierNodes.size() * (thresholdPct / 100.0));
-            if (unlockedCount < requiredCount) {
-                return false;
-            }
+        int totalBefore = getTotalNodesBeforeTier(tier);
+        if (totalBefore == 0) {
+            return true;
         }
-        return true;
+        int requiredCount = (int) Math.ceil(totalBefore * (thresholdPct / 100.0));
+        int unlockedCount = getUnlockedNodesBeforeTier(tier, unlocked);
+        return unlockedCount >= requiredCount;
     }
 
     public enum UnlockStatus {
@@ -540,16 +557,19 @@ public class RecipeTreeManager {
         RecipeTreeNode node = getNodeById(nodeId);
         if (node == null) {
             LOGGER.warn("Attempted to unlock non-existent recipe node: {}", nodeId);
+            syncStateToAll(server);
             return false;
         }
 
         Set<ResourceKey<Recipe<?>>> unlocked = new HashSet<>(worldData.getUnlockedRecipes());
         if (node.isUnlocked(unlocked)) {
+            syncStateToAll(server);
             return false;
         }
 
         if (worldData.getRecipeTickets() <= 0) {
             Utils.sendMessageToAll("§c[Archipelago] Недостаточно талонов для разблокировки рецепта!");
+            syncStateToAll(server);
             return false;
         }
 
@@ -557,12 +577,14 @@ public class RecipeTreeManager {
             RecipeTreeNode parent = getNodeById(node.parentId());
             String parentName = parent != null ? parent.name() : node.parentId();
             Utils.sendMessageToAll("§c[Archipelago] Нельзя разблокировать " + node.name() + ": сначала разблокируйте «" + parentName + "»!");
+            syncStateToAll(server);
             return false;
         }
 
         int threshold = getRecipeTierUnlockPercentage();
         if (!canUnlockInTierProgression(node, unlocked, threshold)) {
             Utils.sendMessageToAll("§c[Archipelago] Нельзя разблокировать " + node.name() + ": откройте больше рецептов предыдущих тиров (требуется " + threshold + "%)!");
+            syncStateToAll(server);
             return false;
         }
 
@@ -570,16 +592,17 @@ public class RecipeTreeManager {
         worldData.addRecipeTickets(-1);
 
         // Apply unlock
-        List<ResourceKey<Recipe<?>>> toAward = new ArrayList<>();
         for (ResourceKey<Recipe<?>> key : node.recipes()) {
-            if (!unlocked.contains(key)) {
-                worldData.addUnlockedRecipe(key);
-                toAward.add(key);
-            }
+            worldData.addUnlockedRecipe(key);
         }
 
+        ItemManager itemManager = APRandomizer.getItemManager();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-            player.awardRecipesByKey(toAward);
+            if (itemManager != null) {
+                itemManager.grantAllInitialRecipes(player);
+            } else {
+                player.awardRecipesByKey(node.recipes());
+            }
             APCriteriaTriggers.RECIPE_NODE.get().trigger(player, node.id());
             try {
                 player.getAdvancements().save();

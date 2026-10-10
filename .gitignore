@@ -1,33 +1,16 @@
-# Forge
-.cache/
-
-
-
-# User-specific stuff
-.idea/
-
-*.iml
-*.ipr
-*.iws
-
-# IntelliJ
+# ==========================================
+# Gradle & Java
+# ==========================================
+.gradle/
+build/
+**/build/
 out/
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Compiled class file
+bin/
 *.class
+.gradletasknamecache
+gradle-app.setting
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Package Files #
+# Packages (preserve Gradle wrapper jar)
 *.jar
 *.war
 *.nar
@@ -35,36 +18,93 @@ atlassian-ide-plugin.xml
 *.zip
 *.tar.gz
 *.rar
+!gradle/wrapper/gradle-wrapper.jar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs
 hs_err_pid*
 
+# ==========================================
+# Minecraft & NeoForge Dev
+# ==========================================
+run/
+runs/
+.cache/
+logs/
+*.log
+*.log.gz
+src/generated/resources/.cache/
+
+# ==========================================
+# IDEs & Editors
+# ==========================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# BlueJ
+*.ctxt
+
+# ==========================================
+# Python (Archipelago custom world)
+# ==========================================
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+**/pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+dist/
+
+# ==========================================
+# Temporary & Scratch Files
+# ==========================================
 *~
-
-# temporary files which can be created if a process still has a handle open of a deleted file
+*.swp
+*.swo
+*.bak
+*.tmp
+recipe_tree_*.json
 .fuse_hidden*
-
-# KDE directory preferences
 .directory
-
-# Linux trash folder which might appear on any partition or disk
 .Trash-*
-
-# .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+*.stackdump
 
-# General
+# ==========================================
+# OS Generated Files
+# ==========================================
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Icon must end with two \r
 Icon
-
-# Thumbnails
 ._*
-
-# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -72,53 +112,22 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-# Windows thumbnail cache files
+# Windows
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
-
-# Dump file
-*.stackdump
-
-# Folder config file
 [Dd]esktop.ini
-
-# Recycle Bin used on file shares
 $RECYCLE.BIN/
-
-# Windows Installer files
 *.cab
 *.msi
 *.msix
 *.msm
 *.msp
-
-# Windows shortcuts
 *.lnk
-
-.gradle
-build/
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Cache of project
-.gradletasknamecache
-
-**/build/
-
-# Common working directory
-run/
-runs/
-
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar

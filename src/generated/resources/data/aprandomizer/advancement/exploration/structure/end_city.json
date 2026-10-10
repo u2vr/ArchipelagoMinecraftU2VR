@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/structures",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "end_city"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Discover the End City structure",
     "icon": {
       "id": "minecraft:purpur_block"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "End City"
   },
   "requirements": [

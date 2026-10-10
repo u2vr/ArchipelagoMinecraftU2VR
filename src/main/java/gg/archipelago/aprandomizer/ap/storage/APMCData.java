@@ -89,6 +89,15 @@ public class APMCData {
     @SerializedName(value = "starting_shared_chest", alternate = {"starting_chest", "give_shared_chest", "start_with_shared_chest"})
     public Object starting_shared_chest;
 
+    @SerializedName(value = "major_biome_checks", alternate = {"major_biomes", "enable_major_biome_checks"})
+    public Object major_biome_checks;
+
+    @SerializedName(value = "small_biome_checks", alternate = {"small_biomes", "enable_small_biome_checks"})
+    public Object small_biome_checks;
+
+    @SerializedName(value = "endgame_biome_checks", alternate = {"end_biome_checks", "endgame_biomes", "enable_endgame_biome_checks"})
+    public Object endgame_biome_checks;
+
     @SerializedName(value = "biome_checks", alternate = {"enable_biome_checks", "check_biomes"})
     public Object biome_checks;
 
@@ -98,8 +107,29 @@ public class APMCData {
     @SerializedName(value = "hint_cost", alternate = {"hintCost", "location_check_points", "hint_points_per_check", "check_points", "points_per_check"})
     public Object hint_cost = 10;
 
-    public boolean isBiomeChecks() {
+    public boolean isMajorBiomeChecksEnabled() {
+        if (major_biome_checks != null) {
+            return gg.archipelago.aprandomizer.SlotData.parseBoolean(major_biome_checks, false);
+        }
         return gg.archipelago.aprandomizer.SlotData.parseBoolean(biome_checks, false);
+    }
+
+    public boolean isSmallBiomeChecksEnabled() {
+        if (small_biome_checks != null) {
+            return gg.archipelago.aprandomizer.SlotData.parseBoolean(small_biome_checks, false);
+        }
+        return gg.archipelago.aprandomizer.SlotData.parseBoolean(biome_checks, false);
+    }
+
+    public boolean isEndGameBiomeChecksEnabled() {
+        if (endgame_biome_checks != null) {
+            return gg.archipelago.aprandomizer.SlotData.parseBoolean(endgame_biome_checks, false);
+        }
+        return false;
+    }
+
+    public boolean isBiomeChecks() {
+        return isMajorBiomeChecksEnabled() || isSmallBiomeChecksEnabled() || isEndGameBiomeChecksEnabled();
     }
 
     public boolean isBiomeChecksEnabled() {

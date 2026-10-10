@@ -101,6 +101,15 @@ public class SlotData {
     @SerializedName(value = "starting_shared_chest", alternate = {"starting_chest", "give_shared_chest", "start_with_shared_chest"})
     public Object startingSharedChest;
 
+    @SerializedName(value = "major_biome_checks", alternate = {"major_biomes", "enable_major_biome_checks"})
+    public Object majorBiomeChecks;
+
+    @SerializedName(value = "small_biome_checks", alternate = {"small_biomes", "enable_small_biome_checks"})
+    public Object smallBiomeChecks;
+
+    @SerializedName(value = "endgame_biome_checks", alternate = {"end_biome_checks", "endgame_biomes", "enable_endgame_biome_checks"})
+    public Object endgameBiomeChecks;
+
     @SerializedName(value = "biome_checks", alternate = {"enable_biome_checks", "check_biomes"})
     public Object biomeChecks;
 
@@ -202,8 +211,29 @@ public class SlotData {
         return parseBoolean(startingSharedChest, true);
     }
 
-    public boolean isBiomeChecks() {
+    public boolean isMajorBiomeChecksEnabled() {
+        if (majorBiomeChecks != null) {
+            return parseBoolean(majorBiomeChecks, false);
+        }
         return parseBoolean(biomeChecks, false);
+    }
+
+    public boolean isSmallBiomeChecksEnabled() {
+        if (smallBiomeChecks != null) {
+            return parseBoolean(smallBiomeChecks, false);
+        }
+        return parseBoolean(biomeChecks, false);
+    }
+
+    public boolean isEndGameBiomeChecksEnabled() {
+        if (endgameBiomeChecks != null) {
+            return parseBoolean(endgameBiomeChecks, false);
+        }
+        return false;
+    }
+
+    public boolean isBiomeChecks() {
+        return isMajorBiomeChecksEnabled() || isSmallBiomeChecksEnabled() || isEndGameBiomeChecksEnabled();
     }
 
     public boolean isBiomeChecksEnabled() {

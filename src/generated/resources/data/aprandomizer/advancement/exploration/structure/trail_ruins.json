@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/structures",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "trail_ruins"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Discover the Trail Ruins structure",
     "icon": {
       "id": "minecraft:brush"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Trail Ruins"
   },
   "requirements": [

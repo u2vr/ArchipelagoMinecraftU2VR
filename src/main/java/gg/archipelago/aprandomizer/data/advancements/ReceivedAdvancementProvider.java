@@ -132,7 +132,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     Component.literal("Second Hand Access"),
                                     Component.literal("Unlocks use of offhand slot"),
                                     AdvancementType.TASK,
-                                    true,
+                                    false,
                                     false,
                                     false)
                             .parent(rootId)
@@ -153,7 +153,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     Component.literal("Curse: Day Monsters"),
                                     Component.literal("Monsters no longer burn in the daylight!"),
                                     AdvancementType.CHALLENGE,
-                                    true,
+                                    false,
                                     false,
                                     false)
                             .parent(rootId)
@@ -170,7 +170,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     Component.literal("Curse: Lightless Spawning"),
                                     Component.literal("Monsters can spawn at any light level!"),
                                     AdvancementType.CHALLENGE,
-                                    true,
+                                    false,
                                     false,
                                     false)
                             .parent(rootId)
@@ -215,7 +215,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                         Component.literal(name),
                         description,
                         frame,
-                        true,
+                        false,
                         false,
                         false)
                 .parent(parentAdvId)
@@ -235,6 +235,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
     private String getRecipeAdvancementPath(String nodeId, Identifier itemIdent) {
         if ("node_81".equals(nodeId)) return "boats";
         if ("node_114".equals(nodeId)) return "doors_and_trapdoors";
+        if ("node_318".equals(nodeId)) return "beds";
         return itemIdent.getPath();
     }
 
@@ -263,7 +264,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(titleText),
                             Component.literal(descText),
                             frame,
-                            true,
+                            false,
                             false,
                             false)
                     .parent(parentId)
@@ -286,9 +287,10 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
         List<StructureDef> structures = List.of(
                 new StructureDef("structure_village", Items.EMERALD, "Village Access", "Unlocks access to Villages"),
                 new StructureDef("structure_pillager_outpost", Items.CROSSBOW, "Pillager Outpost Access", "Unlocks access to Pillager Outposts"),
+                new StructureDef("structure_trial_chambers", Items.TRIAL_KEY, "Trial Chambers Access", "Unlocks access to Trial Chambers"),
                 new StructureDef("structure_fortress", Items.BLAZE_ROD, "Nether Fortress Access", "Unlocks access to Nether Fortresses"),
                 new StructureDef("structure_bastion", Items.GILDED_BLACKSTONE, "Bastion Remnant Access", "Unlocks access to Bastion Remnants"),
-                new StructureDef("structure_trial_chambers", Items.TRIAL_KEY, "Trial Chambers Access", "Unlocks access to Trial Chambers"),
+                new StructureDef("structure_stronghold", Items.ENDER_EYE, "Stronghold Access", "Unlocks access to Strongholds"),
                 new StructureDef("structure_ancient_city", Items.ECHO_SHARD, "Ancient City Access", "Unlocks access to Ancient Cities"),
                 new StructureDef("structure_ocean_monument", Items.PRISMARINE_SHARD, "Ocean Monument Access", "Unlocks access to Ocean Monuments"),
                 new StructureDef("structure_end_city", Items.PURPUR_BLOCK, "End City Access", "Unlocks access to End Cities")
@@ -314,7 +316,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(def.title()),
                             Component.literal(def.description()),
                             frame,
-                            true,
+                            false,
                             false,
                             false)
                     .parent(parentId)
@@ -356,7 +358,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                             Component.literal(title),
                             Component.literal(desc),
                             frame,
-                            true,
+                            false,
                             false,
                             false)
                     .parent(parentId)

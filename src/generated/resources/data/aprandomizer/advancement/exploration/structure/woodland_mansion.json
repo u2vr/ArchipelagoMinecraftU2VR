@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/structures",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "woodland_mansion"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Discover the Woodland Mansion structure",
     "icon": {
       "id": "minecraft:totem_of_undying"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Woodland Mansion"
   },
   "requirements": [

@@ -456,12 +456,20 @@ public class ItemManager {
 
         if (pos.isPresent()) {
             lore.addFirst("Location X: " + pos.get().getX() + (compassReward.target().includeY() ? ", Y: " + pos.get().getY() : "") + ", Z: " + pos.get().getZ());
+            List<String> extraLore = compassReward.target().getExtraLore(player.level(), pos.get(), player);
+            if (!extraLore.isEmpty()) {
+                lore.addAll(1, extraLore);
+            }
         } else {
             displayName = Component.empty()
                     .append("Structure Compass (")
                     .append(compassReward.name())
                     .append(") Not Found")
                     .withStyle(ChatFormatting.YELLOW);
+            List<String> notFoundLore = compassReward.target().getNotFoundLore(player.level(), player);
+            if (!notFoundLore.isEmpty()) {
+                lore.addAll(0, notFoundLore);
+            }
         }
 
         //update the nbt data with our new structure.

@@ -28,8 +28,8 @@ def build_item_pool(world: "MinecraftWorld") -> List[Item]:
 	itempool = []
 	total_location_count = len(multiworld.get_unfilled_locations(player))
 
-	# 1. Base recipe unlocks (77 recipe nodes in the U2VR recipe tree)
-	recipe_unlock_count = 77
+	# 1. Base recipe unlocks (78 recipe nodes in the U2VR recipe tree)
+	recipe_unlock_count = 78
 	itempool += [world.create_item("Recipe Unlock") for _ in range(recipe_unlock_count)]
 
 	# 2. HP Restriction: 7 upgrades (+1 heart each, from 3 hearts to 10 hearts)
@@ -48,9 +48,9 @@ def build_item_pool(world: "MinecraftWorld") -> List[Item]:
 	if world.options.world_border_restriction:
 		itempool += [world.create_item("World Border Upgrade") for _ in range(5)]
 
-	# 6. Structure Restriction: 8 structure unlocks
+	# 6. Structure Restriction: 9 structure unlocks
 	if world.options.structure_restriction:
-		itempool += [world.create_item("Structure Unlock") for _ in range(8)]
+		itempool += [world.create_item("Structure Unlock") for _ in range(9)]
 
 	# 7. Offhand Restriction: 1 offhand unlock
 	if world.options.offhand_restriction:

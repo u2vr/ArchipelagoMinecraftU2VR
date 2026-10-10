@@ -57,7 +57,7 @@ public class RecipeSkillTreeScreen extends Screen {
             "node_130", "node_150", "node_162", "node_169"
     );
     private static final List<String> UTILITY_ROOTS = List.of(
-            "node_70", "node_17", "node_114", "node_81", "node_105", "node_107", "node_116", "node_74"
+            "node_70", "node_17", "node_114", "node_318", "node_81", "node_105", "node_107", "node_116", "node_74"
     );
 
     private final Map<Integer, Map<String, NodePos>> tabLayouts = new HashMap<>();
@@ -80,6 +80,22 @@ public class RecipeSkillTreeScreen extends Screen {
         allRoots.addAll(TOOLS_WEAPONS_ROOTS);
         allRoots.addAll(ARMOR_ROOTS);
         allRoots.addAll(UTILITY_ROOTS);
+
+        // Safety fallback: if there are any top-level craft nodes not included in predefined lists, include them
+        Set<String> knownRoots = new HashSet<>(allRoots);
+        List<RecipeTreeNode> allNodes = RecipeTreeManager.getAllNodes();
+        for (RecipeTreeNode node : allNodes) {
+            if (node.tier() > 0 && !"minecraft:air".equals(node.item())) {
+                String parentId = node.parentId();
+                RecipeTreeNode parent = parentId != null ? RecipeTreeManager.getNodeById(parentId) : null;
+                boolean isRootNode = parent == null || parent.tier() == 0 || "minecraft:air".equals(parent.item());
+                if (isRootNode && !knownRoots.contains(node.id())) {
+                    allRoots.add(node.id());
+                    knownRoots.add(node.id());
+                }
+            }
+        }
+
         tabLayouts.put(3, computeLayoutForRoots(allRoots));
     }
 
@@ -481,16 +497,13 @@ public class RecipeSkillTreeScreen extends Screen {
         }
 
         if (node.tier() > 1 && threshold > 0) {
-            int prevTier = node.tier() - 1;
-            List<RecipeTreeNode> prevNodes = RecipeTreeManager.getNodesByTier(prevTier);
-            int prevUnlocked = 0;
-            for (RecipeTreeNode pn : prevNodes) {
-                if (pn.isUnlocked(unlocked)) prevUnlocked++;
-            }
-            int required = (int) Math.ceil(prevNodes.size() * (threshold / 100.0));
-            boolean tierMet = prevUnlocked >= required;
-            tip.add(Component.literal("§7Порог Т" + prevTier + " (" + threshold + "%): "
-                    + (tierMet ? "§a" : "§c") + prevUnlocked + "/" + required + " (всего " + prevNodes.size() + ")"));
+            int totalBefore = RecipeTreeManager.getTotalNodesBeforeTier(node.tier());
+            int unlockedBefore = RecipeTreeManager.getUnlockedNodesBeforeTier(node.tier(), unlocked);
+            int required = (int) Math.ceil(totalBefore * (threshold / 100.0));
+            boolean tierMet = unlockedBefore >= required;
+            String tierRange = (node.tier() == 2) ? "Т1" : ("Т1-Т" + (node.tier() - 1));
+            tip.add(Component.literal("§7Порог " + tierRange + " (" + threshold + "%): "
+                    + (tierMet ? "§a" : "§c") + unlockedBefore + "/" + required + " §7(всего " + totalBefore + ")"));
         }
 
         tip.add(Component.empty());
@@ -499,7 +512,10 @@ public class RecipeSkillTreeScreen extends Screen {
             case AVAILABLE -> tip.add(Component.literal("§a► Нажмите ЛКМ, чтобы открыть за 1 талон!"));
             case NO_TICKETS -> tip.add(Component.literal("§6✖ Нет доступных талонов (нужен 1 талон)"));
             case LOCKED_TREE -> tip.add(Component.literal("§c✖ Сначала откройте предыдущий рецепт в древе"));
-            case LOCKED_TIER -> tip.add(Component.literal("§c✖ Откройте больше рецептов предыдущего тира"));
+            case LOCKED_TIER -> {
+                String tierRange = (node.tier() == 2) ? "Т1" : ("Т1-Т" + (node.tier() - 1));
+                tip.add(Component.literal("§c✖ Откройте больше рецептов тиров " + tierRange));
+            }
         }
 
         graphics.setComponentTooltipForNextFrame(this.font, tip, mouseX, mouseY);
@@ -554,9 +570,6 @@ public class RecipeSkillTreeScreen extends Screen {
                     if (status == RecipeTreeManager.UnlockStatus.AVAILABLE) {
                         if (this.minecraft != null) {
                             this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.PLAYER_LEVELUP, 1.2F));
-                            if (this.minecraft.player != null) {
-                                this.minecraft.player.sendSystemMessage(Component.literal("§a[Archipelago] Открывается рецепт: §e" + clicked.name() + "§a..."));
-                            }
                         }
                         ClientRecipeManager.requestUnlock(clicked.id());
                         return true;
@@ -591,7 +604,12 @@ public class RecipeSkillTreeScreen extends Screen {
                             this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 0.4F));
                             if (this.minecraft.player != null) {
                                 int thresh = ClientRecipeManager.getTierThreshold();
-                                this.minecraft.player.sendSystemMessage(Component.literal("§c[Archipelago] Откройте больше рецептов предыдущего тира (нужно " + thresh + "%)!"));
+                                int totalBefore = RecipeTreeManager.getTotalNodesBeforeTier(clicked.tier());
+                                int required = (int) Math.ceil(totalBefore * (thresh / 100.0));
+                                Set<ResourceKey<Recipe<?>>> unlocked = ClientRecipeManager.getUnlockedRecipeKeys();
+                                int unlockedBefore = RecipeTreeManager.getUnlockedNodesBeforeTier(clicked.tier(), unlocked);
+                                String tierRange = (clicked.tier() == 2) ? "Т1" : ("Т1-Т" + (clicked.tier() - 1));
+                                this.minecraft.player.sendSystemMessage(Component.literal("§c[Archipelago] Откройте больше рецептов тиров " + tierRange + " (открыто " + unlockedBefore + "/" + required + ", нужно " + thresh + "%)!"));
                             }
                         }
                         return true;

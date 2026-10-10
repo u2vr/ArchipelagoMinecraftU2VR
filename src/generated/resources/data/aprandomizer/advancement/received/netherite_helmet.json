@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:netherite_helmet"
     },
+    "show_toast": false,
     "title": "Netherite Helmet"
   },
   "requirements": [

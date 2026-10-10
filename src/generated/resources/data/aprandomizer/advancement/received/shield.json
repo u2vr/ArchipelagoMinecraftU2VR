@@ -14,6 +14,7 @@
     "icon": {
       "id": "minecraft:shield"
     },
+    "show_toast": false,
     "title": "Shield"
   },
   "requirements": [

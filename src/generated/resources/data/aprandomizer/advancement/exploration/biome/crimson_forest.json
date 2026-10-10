@@ -2,19 +2,19 @@
   "parent": "aprandomizer:exploration/nether_biomes",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "minecraft:crimson_forest"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
-    "announce_to_chat": true,
+    "announce_to_chat": false,
     "description": "Visit the Crimson Forest biome",
     "icon": {
       "id": "minecraft:crimson_fungus"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Crimson Forest"
   },
   "requirements": [

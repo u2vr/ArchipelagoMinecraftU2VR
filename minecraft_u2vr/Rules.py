@@ -94,18 +94,22 @@ def overworld_villager(world: "MinecraftWorld", state: CollectionState, player: 
 
 
 def enter_stronghold(world: "MinecraftWorld", state: CollectionState, player: int) -> bool:
-    return state.has('Blaze Rods', player) and recipe_count(state, player) >= 15
+    res = state.has('Blaze Rods', player) and recipe_count(state, player) >= 15
+    if world.options.structure_restriction:
+        res = res and state.has("Structure Unlock", player, STRUCTURE_ORDER["Stronghold"])
+    return res
 
 
 STRUCTURE_ORDER = {
     "Village": 1,
     "Pillager Outpost": 2,
-    "Nether Fortress": 3,
-    "Bastion Remnant": 4,
-    "Trial Chambers": 5,
-    "Ancient City": 6,
-    "Ocean Monument": 7,
-    "End City": 8
+    "Trial Chambers": 3,
+    "Nether Fortress": 4,
+    "Bastion Remnant": 5,
+    "Stronghold": 6,
+    "Ancient City": 7,
+    "Ocean Monument": 8,
+    "End City": 9
 }
 
 
@@ -575,7 +579,7 @@ def get_rules_lookup(world, player: int):
     rules_lookup["locations"]["Explore Mineshaft"] = lambda state: basic_combat(world, state, player)
     for struct_name in ("Explore Desert Pyramid", "Explore Jungle Temple", "Explore Swamp Hut",
                         "Explore Igloo", "Explore Shipwreck", "Explore Ocean Ruin",
-                        "Explore Buried Treasure", "Explore Ruined Portal"):
+                        "Explore Buried Treasure", "Explore Ruined Portal", "Explore Abandoned Camp"):
         rules_lookup["locations"][struct_name] = lambda state: True
 
     for combat_struct in ("Explore Ocean Monument", "Explore Woodland Mansion", "Explore Ancient City",

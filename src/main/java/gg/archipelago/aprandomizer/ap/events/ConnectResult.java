@@ -52,6 +52,7 @@ public class ConnectResult {
             }
 
             advancementManager.setCheckedAdvancements(new LongOpenHashSet(APClient.getLocationManager().getCheckedLocations()));
+            advancementManager.resendAdvancements(APClient);
 
             // ensure server is synced
             goalManager.updateGoal(true);

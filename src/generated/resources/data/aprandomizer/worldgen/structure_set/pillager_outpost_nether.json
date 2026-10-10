@@ -5,11 +5,11 @@
       "chunk_count": 10,
       "other_set": "aprandomizer:village_nether"
     },
-    "frequency": 0.2,
+    "frequency": 0.4,
     "frequency_reduction_method": "legacy_type_1",
     "salt": 165745296,
-    "separation": 4,
-    "spacing": 27
+    "separation": 6,
+    "spacing": 23
   },
   "structures": [
     {

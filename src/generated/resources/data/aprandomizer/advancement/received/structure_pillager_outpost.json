@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:crossbow"
     },
+    "show_toast": false,
     "title": "Pillager Outpost Access"
   },
   "requirements": [

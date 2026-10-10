@@ -58,6 +58,7 @@ public class OnJoin {
         advancementManager.syncAllAdvancements();
         goalManager.updateInfoBar();
         itemManager.catchUpPlayer(player);
+        gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager.syncStateToPlayer(player);
 
         if (APRandomizer.getApmcData().isBacapMilestones()) {
             WorldData wd = APRandomizer.getWorldData();

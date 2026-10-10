@@ -221,10 +221,13 @@ class MinecraftWorld(World):
             'advancement_type': self.options.advancement_type.current_key,
             'bacap_advancement_step': int(self.options.bacap_advancement_step.value),
             'bacap_check_count': self._get_bacap_milestone_count(),
-            'biome_checks': bool(self.options.biome_checks.value),
+            'major_biome_checks': bool(self.options.major_biome_checks.value),
+            'small_biome_checks': bool(self.options.small_biome_checks.value),
+            'endgame_biome_checks': bool(self.options.endgame_biome_checks.value),
+            'biome_checks': bool(self.options.major_biome_checks.value or self.options.small_biome_checks.value or self.options.endgame_biome_checks.value),
             'structure_checks': bool(self.options.structure_checks.value),
-            'hint_cost': int(self.options.hint_cost.value),
-            'location_check_points': int(self.options.hint_cost.value),
+            'hint_cost': 10,
+            'location_check_points': 10,
             'selected_bacap_advancements': getattr(self, "selected_bacap_advancements", []),
             'selected_bacap_map': getattr(self, "selected_bacap_map", {}),
 
@@ -239,9 +242,6 @@ class MinecraftWorld(World):
         }
 
     def generate_early(self: "MinecraftWorld") -> None:
-        if hasattr(self.multiworld, "hint_cost"):
-            self.multiworld.hint_cost[self.player] = int(self.options.hint_cost.value)
-
         re_gen_passthrough = getattr(self.multiworld, "re_gen_passthrough", {})
         if re_gen_passthrough and self.game in re_gen_passthrough:
             self.using_ut = True
@@ -251,10 +251,6 @@ class MinecraftWorld(World):
             self.options.egg_shards_required.value = self.passthrough["egg_shards_required"]
             self.options.egg_shards_available.value = self.passthrough["egg_shards_available"]
             self.options.required_bosses.value = self.passthrough["bosses_to_defeat"]
-            if "hint_cost" in self.passthrough:
-                self.options.hint_cost.value = self.passthrough["hint_cost"]
-            elif "location_check_points" in self.passthrough:
-                self.options.hint_cost.value = self.passthrough["location_check_points"]
             self.options.structure_compasses.value = self.passthrough["structure_compasses"]
             self.options.combat_difficulty.value = self.passthrough["combat_difficulty"]
             self.options.death_link.value = self.passthrough["death_link"]
@@ -297,8 +293,19 @@ class MinecraftWorld(World):
                 self.options.advancement_type.value = self.passthrough["advancement_type"]
             if "bacap_advancement_step" in self.passthrough:
                 self.options.bacap_advancement_step.value = self.passthrough["bacap_advancement_step"]
-            if "biome_checks" in self.passthrough:
-                self.options.biome_checks.value = self.passthrough["biome_checks"]
+            if "major_biome_checks" in self.passthrough:
+                self.options.major_biome_checks.value = self.passthrough["major_biome_checks"]
+            if "small_biome_checks" in self.passthrough:
+                self.options.small_biome_checks.value = self.passthrough["small_biome_checks"]
+            if "endgame_biome_checks" in self.passthrough:
+                self.options.endgame_biome_checks.value = self.passthrough["endgame_biome_checks"]
+            elif "end_biome_checks" in self.passthrough:
+                self.options.endgame_biome_checks.value = self.passthrough["end_biome_checks"]
+            elif "biome_checks" in self.passthrough:
+                val = bool(self.passthrough["biome_checks"])
+                self.options.major_biome_checks.value = val
+                self.options.small_biome_checks.value = val
+                self.options.endgame_biome_checks.value = False
             if "structure_checks" in self.passthrough:
                 self.options.structure_checks.value = self.passthrough["structure_checks"]
             if "selected_bacap_advancements" in self.passthrough:
@@ -332,7 +339,7 @@ class MinecraftWorld(World):
         return item
 
     def _calculate_total_needed_slots(self) -> int:
-        total_locked_slots = 77  # Recipe Unlocks
+        total_locked_slots = 78  # Recipe Unlocks
         if self.options.hp_restriction:
             total_locked_slots += 7
         if self.options.hunger_restriction:
@@ -342,7 +349,7 @@ class MinecraftWorld(World):
         if self.options.world_border_restriction:
             total_locked_slots += 5
         if self.options.structure_restriction:
-            total_locked_slots += 8
+            total_locked_slots += 9
         if self.options.offhand_restriction:
             total_locked_slots += 1
         if self.options.inventory_slot_restriction:
@@ -362,8 +369,12 @@ class MinecraftWorld(World):
 
     def _get_other_check_tasks(self) -> int:
         other_check_tasks = self.options.wandering_trader_trades.value
-        if self.options.biome_checks.value:
-            other_check_tasks += len(Constants.all_biome_names)
+        if self.options.major_biome_checks.value:
+            other_check_tasks += len(Constants.MAJOR_BIOME_NAMES)
+        if self.options.small_biome_checks.value:
+            other_check_tasks += len(Constants.SMALL_BIOME_NAMES)
+        if self.options.endgame_biome_checks.value:
+            other_check_tasks += len(Constants.ENDGAME_BIOME_NAMES)
         if self.options.structure_checks.value:
             other_check_tasks += len(Constants.STRUCTURE_REGION_MAPPING)
         return other_check_tasks
@@ -443,13 +454,22 @@ class MinecraftWorld(World):
             overworld_region.locations.append(loc)
 
         # Add exploration biome locations
-        if self.options.biome_checks.value:
+        active_biome_names = set()
+        if self.options.major_biome_checks.value:
+            active_biome_names.update(Constants.MAJOR_BIOME_NAMES)
+        if self.options.small_biome_checks.value:
+            active_biome_names.update(Constants.SMALL_BIOME_NAMES)
+        if self.options.endgame_biome_checks.value:
+            active_biome_names.update(Constants.ENDGAME_BIOME_NAMES)
+
+        if active_biome_names:
             for region_name, biome_locs in Constants.BIOMES_BY_REGION.items():
                 region = self.multiworld.get_region(region_name, self.player)
                 for loc_name in biome_locs:
-                    loc = MinecraftLocation(self.player, loc_name,
-                        self.location_name_to_id.get(loc_name, None), region)
-                    region.locations.append(loc)
+                    if loc_name in active_biome_names:
+                        loc = MinecraftLocation(self.player, loc_name,
+                            self.location_name_to_id.get(loc_name, None), region)
+                        region.locations.append(loc)
 
         # Add exploration structure locations
         if self.options.structure_checks.value:

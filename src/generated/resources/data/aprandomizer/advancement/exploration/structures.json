@@ -2,10 +2,10 @@
   "parent": "aprandomizer:exploration/root",
   "criteria": {
     "visited": {
-      "trigger": "aprandomizer:exploration",
       "conditions": {
         "id": "structures"
-      }
+      },
+      "trigger": "aprandomizer:exploration"
     }
   },
   "display": {
@@ -14,7 +14,7 @@
     "icon": {
       "id": "minecraft:chiseled_stone_bricks"
     },
-    "show_toast": true,
+    "show_toast": false,
     "title": "Structures"
   },
   "requirements": [

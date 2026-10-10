@@ -10,10 +10,11 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Iron Chestplate (Tier 4, 2 recipes)",
+    "description": "Iron Chestplate (Tier 4)",
     "icon": {
       "id": "minecraft:iron_chestplate"
     },
+    "show_toast": false,
     "title": "Iron Chestplate"
   },
   "requirements": [

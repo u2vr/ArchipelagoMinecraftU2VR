@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:skeleton_skull"
     },
+    "show_toast": false,
     "title": "Curse: Day Monsters"
   },
   "requirements": [

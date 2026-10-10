@@ -1,10 +1,10 @@
 {
-  "parent": "aprandomizer:received/structure_ocean_monument",
+  "parent": "aprandomizer:received/structure_trial_chambers",
   "criteria": {
     "received": {
       "conditions": {
         "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 6
+        "tier": 4
       },
       "trigger": "aprandomizer:received_item"
     }
@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:blaze_rod"
     },
+    "show_toast": false,
     "title": "Nether Fortress Access"
   },
   "requirements": [

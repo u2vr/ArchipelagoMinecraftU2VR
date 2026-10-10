@@ -15,6 +15,7 @@
     "icon": {
       "id": "minecraft:trial_key"
     },
+    "show_toast": false,
     "title": "Trial Chambers Access"
   },
   "requirements": [
