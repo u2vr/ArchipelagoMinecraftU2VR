@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/windswept_forest",
+    "name": "Windswept Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:windswept_forest"
+    }
+  }
+}

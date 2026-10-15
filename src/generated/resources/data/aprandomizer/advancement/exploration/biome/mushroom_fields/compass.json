@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/mushroom_fields",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/mushroom_fields"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Mushroom Fields Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Mushroom Fields"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

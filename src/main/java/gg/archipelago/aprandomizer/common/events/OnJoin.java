@@ -55,6 +55,11 @@ public class OnJoin {
             Utils.sendMessageToAll("Supplied APMC file does not match world loaded. something went very wrong here.");
             return;
         }
+
+        if (!APRandomizer.isConnected()) {
+            APRandomizer.connectToArchipelago();
+        }
+
         advancementManager.syncAllAdvancements();
         goalManager.updateInfoBar();
         itemManager.catchUpPlayer(player);

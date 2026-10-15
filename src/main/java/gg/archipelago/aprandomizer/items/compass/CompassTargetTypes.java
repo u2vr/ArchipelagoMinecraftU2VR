@@ -15,5 +15,6 @@ public class CompassTargetTypes {
     public static final DeferredHolder<MapCodec<? extends CompassTarget>, MapCodec<StructureTarget>> STRUCTURE = REGISTER.register("structure", () -> StructureTarget.CODEC);
     public static final DeferredHolder<MapCodec<? extends CompassTarget>, MapCodec<ConstantBiomeTarget>> BIOME = REGISTER.register("biome", () -> ConstantBiomeTarget.CODEC);
     public static final DeferredHolder<MapCodec<? extends CompassTarget>, MapCodec<UnvisitedBiomeTarget>> UNVISITED_BIOME = REGISTER.register("unvisited_biome", () -> UnvisitedBiomeTarget.CODEC);
+    public static final DeferredHolder<MapCodec<? extends CompassTarget>, MapCodec<UnvisitedStructureTarget>> UNVISITED_STRUCTURE = REGISTER.register("unvisited_structure", () -> UnvisitedStructureTarget.CODEC);
 
 }

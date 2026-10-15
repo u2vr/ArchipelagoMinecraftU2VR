@@ -131,3 +131,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+# Root loose image
+/Archipelago.png

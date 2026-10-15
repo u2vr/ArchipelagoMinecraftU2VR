@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/river",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/river"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the River Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: River"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

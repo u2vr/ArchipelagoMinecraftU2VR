@@ -41,7 +41,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
         // 1. Root advancement
         AdvancementHolder root = Advancement.Builder.recipeAdvancement()
                 .rootDisplay(
-                        Items.STRUCTURE_BLOCK,
+                        gg.archipelago.aprandomizer.APBlocks.ARCHIPELAGO_ICON.get(),
                         Component.literal("Received Items & Recipes"),
                         Component.literal("Track all unlocked recipes, upgrades and items from Archipelago"),
                         Identifier.withDefaultNamespace("block/basalt_side"),
@@ -82,6 +82,40 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
         boolean offhandEnabled = isSettingEnabled(settingsObj, "offhand_restriction", true);
         boolean invEnabled = isSettingEnabled(settingsObj, "inventory_slot_restriction", true);
         boolean cursesEnabled = isSettingEnabled(settingsObj, "curses_enabled", true);
+        boolean extraAbilitiesEnabled = isSettingEnabled(settingsObj, "extra_abilities", true);
+        if (APRandomizer.getApmcData() != null && APRandomizer.getApmcData().extra_abilities != null) {
+            extraAbilitiesEnabled = APRandomizer.getApmcData().isExtraAbilitiesEnabled();
+        }
+
+        // Crafts Group Root (Crafting Table)
+        Identifier craftsRootId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/crafts_root");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.CRAFTING_TABLE,
+                        Component.literal("Crafting Recipes"),
+                        Component.literal("Crafting recipes and equipment unlocked from Archipelago"),
+                        AdvancementType.GOAL,
+                        false,
+                        false,
+                        false)
+                .parent(rootId)
+                .addCriterion("auto", PlayerTrigger.TriggerInstance.tick())
+                .save(output, craftsRootId);
+
+        // Vanilla Abilities / Upgrades Group Root (Heart)
+        Identifier vanillaAbilitiesRootId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/vanilla_abilities");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.HEART_OF_THE_SEA,
+                        Component.literal("Vanilla Upgrades"),
+                        Component.literal("Core player attributes and mechanics: Health, Hunger, Reach, Offhand, and Inventory"),
+                        AdvancementType.GOAL,
+                        false,
+                        false,
+                        false)
+                .parent(rootId)
+                .addCriterion("auto", PlayerTrigger.TriggerInstance.tick())
+                .save(output, vanillaAbilitiesRootId);
 
         // 3. Process all branches from root
         for (JsonElement childEl : rootChildren) {
@@ -93,35 +127,33 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
             String id = childObj.has("id") ? childObj.get("id").getAsString() : "";
 
             if (!"minecraft:air".equals(item) && tier > 0) {
-                // Recipe tree branch
-                generateRecipeSubtree(childObj, rootId, nodeToAdvId);
+                // Recipe tree branch -> groups under craftsRootId
+                generateRecipeSubtree(childObj, craftsRootId, nodeToAdvId);
             } else if (name.startsWith("HP")) {
                 if (hpEnabled) {
-                    generateLinearChain(childObj, rootId, "hp", APItems.HP_UPGRADE, 7,
+                    generateLinearChain(childObj, vanillaAbilitiesRootId, "hp", APItems.HP_UPGRADE, 7,
                             "HP Upgrade", "+1 Heart",
                             Items.APPLE, Items.ENCHANTED_GOLDEN_APPLE, AdvancementType.GOAL, nodeToAdvId);
                 }
             } else if (name.startsWith("Hunger")) {
                 if (hungerEnabled) {
-                    generateLinearChain(childObj, rootId, "hunger", APItems.HUNGER_UPGRADE, 6,
+                    generateLinearChain(childObj, vanillaAbilitiesRootId, "hunger", APItems.HUNGER_UPGRADE, 6,
                             "Hunger Upgrade", "+1 Hunger Bar",
                             Items.COOKED_BEEF, Items.GOLDEN_CARROT, AdvancementType.GOAL, nodeToAdvId);
                 }
             } else if (name.startsWith("Hand Length")) {
                 if (reachEnabled) {
-                    generateLinearChain(childObj, rootId, "reach", APItems.REACH_UPGRADE, 3,
+                    generateLinearChain(childObj, vanillaAbilitiesRootId, "reach", APItems.REACH_UPGRADE, 3,
                             "Reach Upgrade", "+1 Block Reach",
                             Items.FISHING_ROD, Items.FISHING_ROD, AdvancementType.GOAL, nodeToAdvId);
                 }
             } else if (name.startsWith("World Border")) {
                 if (borderEnabled) {
-                    generateLinearChain(childObj, rootId, "world_border", APItems.WORLD_BORDER_UPGRADE, 5,
-                            "World Border Upgrade", "Expand World Border",
-                            Items.MAP, Items.MAP, AdvancementType.GOAL, nodeToAdvId);
+                    generateWorldBorderChain(childObj, vanillaAbilitiesRootId, nodeToAdvId);
                 }
             } else if ("Village".equals(name) || "node_232".equals(id)) {
                 if (structEnabled) {
-                    generateStructuresChain(childObj, rootId, nodeToAdvId);
+                    generateStructuresChain(childObj, vanillaAbilitiesRootId, nodeToAdvId);
                 }
             } else if ("Second Hand".equals(name) || "node_245".equals(id)) {
                 if (offhandEnabled) {
@@ -135,14 +167,14 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     false,
                                     false,
                                     false)
-                            .parent(rootId)
+                            .parent(vanillaAbilitiesRootId)
                             .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.OFFHAND_UNLOCK, 1))
                             .save(output, advId);
                     nodeToAdvId.put(id, advId);
                 }
             } else if (name.startsWith("Inventory Slot") || "node_240".equals(id)) {
                 if (invEnabled) {
-                    generateInventorySlotChain(childObj, rootId, nodeToAdvId);
+                    generateInventorySlotChain(childObj, vanillaAbilitiesRootId, nodeToAdvId);
                 }
             } else if ("Disable Day Monster Ignition".equals(name) || "node_261".equals(id)) {
                 if (cursesEnabled) {
@@ -156,7 +188,7 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     false,
                                     false,
                                     false)
-                            .parent(rootId)
+                            .parent(vanillaAbilitiesRootId)
                             .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.MONSTER_SUN_BURNING_DISABLED, 1))
                             .save(output, advId);
                     nodeToAdvId.put(id, advId);
@@ -173,13 +205,153 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                                     false,
                                     false,
                                     false)
-                            .parent(rootId)
+                            .parent(vanillaAbilitiesRootId)
                             .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.MONSTER_SPAWN_LIGHT_DISABLED, 1))
                             .save(output, advId);
                     nodeToAdvId.put(id, advId);
                 }
             }
         }
+
+        // 4. Extra Abilities branch (only generated if enabled)
+        if (extraAbilitiesEnabled) {
+            generateExtraAbilities(rootId, nodeToAdvId);
+        }
+    }
+
+    private void generateExtraAbilities(Identifier rootId, Map<String, Identifier> nodeToAdvId) {
+        Identifier branchRoot = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/extra_abilities");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.NETHER_STAR,
+                        Component.literal("Extra Abilities"),
+                        Component.literal("Special gameplay bonuses and convenience upgrades"),
+                        AdvancementType.GOAL,
+                        false,
+                        false,
+                        false)
+                .parent(rootId)
+                .addCriterion("auto", PlayerTrigger.TriggerInstance.tick())
+                .save(output, branchRoot);
+
+        // 1. Progressive Mining (5 tiers)
+        Identifier parentMining = branchRoot;
+        Item[] pickaxes = { Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE, Items.NETHERITE_PICKAXE };
+        String[] miningShapes = { "2×1×1", "2×3×1", "3×3×1", "3×3×2", "3×3×3" };
+        for (int i = 1; i <= 5; i++) {
+            Identifier advId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_mining_" + i);
+            AdvancementType frame = (i == 5) ? AdvancementType.CHALLENGE : AdvancementType.TASK;
+            Advancement.Builder.recipeAdvancement()
+                    .display(
+                            pickaxes[i - 1],
+                            Component.literal("Progressive Mining (" + miningShapes[i - 1] + ")"),
+                            Component.literal("Breaks blocks in a " + miningShapes[i - 1] + " shape without breaking tools"),
+                            frame,
+                            false,
+                            false,
+                            false)
+                    .parent(parentMining)
+                    .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.PROGRESSIVE_MINING, i))
+                    .save(output, advId);
+            parentMining = advId;
+        }
+
+        // 2. Tree Feller
+        Identifier fellerId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_tree_feller");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.DIAMOND_AXE,
+                        Component.literal("Tree Feller"),
+                        Component.literal("Chops down whole trees and leaves with an axe"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .parent(branchRoot)
+                .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.TREE_FELLER, 1))
+                .save(output, fellerId);
+
+        // 3. Progressive Jump (2 tiers)
+        Identifier parentJump = branchRoot;
+        Item[] jumpIcons = { Items.FEATHER, Items.RABBIT_FOOT };
+        String[] jumpNames = { "Double Jump", "Triple Jump" };
+        String[] jumpDescs = { "Perform a mid-air jump canceling fall momentum", "Perform a third mid-air jump" };
+        for (int i = 1; i <= 2; i++) {
+            Identifier advId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_jump_" + i);
+            Advancement.Builder.recipeAdvancement()
+                    .display(
+                            jumpIcons[i - 1],
+                            Component.literal(jumpNames[i - 1]),
+                            Component.literal(jumpDescs[i - 1]),
+                            AdvancementType.TASK,
+                            false,
+                            false,
+                            false)
+                    .parent(parentJump)
+                    .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.PROGRESSIVE_JUMP, i))
+                    .save(output, advId);
+            parentJump = advId;
+        }
+
+        // 4. Item Magnet
+        Identifier magnetId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_item_magnet");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.IRON_INGOT,
+                        Component.literal("Item Magnet"),
+                        Component.literal("Attracts dropped items and experience within 10 blocks"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .parent(branchRoot)
+                .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.ITEM_MAGNET, 1))
+                .save(output, magnetId);
+
+        // 5. Step Assist
+        Identifier stepId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_step_assist");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.LADDER,
+                        Component.literal("Step Assist"),
+                        Component.literal("Smoothly step up 1 block without jumping"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .parent(branchRoot)
+                .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.STEP_ASSIST, 1))
+                .save(output, stepId);
+
+        // 6. Trash Can
+        Identifier trashId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_trash_can");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.CAULDRON,
+                        Component.literal("Trash Can"),
+                        Component.literal("Extra inventory slot to destroy unwanted items (Alt+Click)"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .parent(branchRoot)
+                .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.TRASH_CAN, 1))
+                .save(output, trashId);
+
+        // 7. Light Holder
+        Identifier lightId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/ability_light_holder");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.LANTERN,
+                        Component.literal("Light Holder"),
+                        Component.literal("Slot for light-emitting blocks attached to chest (LambDynamicLights)"),
+                        AdvancementType.TASK,
+                        false,
+                        false,
+                        false)
+                .parent(branchRoot)
+                .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.LIGHT_HOLDER, 1))
+                .save(output, lightId);
     }
 
     private void generateRecipeSubtree(JsonObject nodeObj, Identifier parentAdvId, Map<String, Identifier> nodeToAdvId) {
@@ -269,6 +441,54 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                             false)
                     .parent(parentId)
                     .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(itemKey, i))
+                    .save(output, advId);
+
+            parentId = advId;
+            JsonArray children = curr.has("children") ? curr.getAsJsonArray("children") : null;
+            if (children != null && !children.isEmpty()) {
+                curr = children.get(0).getAsJsonObject();
+            } else {
+                curr = null;
+            }
+        }
+    }
+
+    private record WorldBorderDef(int size, String title, String description) {}
+
+    private void generateWorldBorderChain(JsonObject startNode, Identifier rootId, Map<String, Identifier> nodeToAdvId) {
+        List<WorldBorderDef> defs = List.of(
+                new WorldBorderDef(1800, "World Border 1/5 (1800 блоков)", "Расширяет границу мира до 1800 блоков (1800×1800, ±900 от спавна)"),
+                new WorldBorderDef(3000, "World Border 2/5 (3000 блоков)", "Расширяет границу мира до 3000 блоков (3000×3000, ±1500 от спавна)"),
+                new WorldBorderDef(5000, "World Border 3/5 (5000 блоков)", "Расширяет границу мира до 5000 блоков (5000×5000, ±2500 от спавна)"),
+                new WorldBorderDef(8000, "World Border 4/5 (8000 блоков)", "Расширяет границу мира до 8000 блоков (8000×8000, ±4000 от спавна)"),
+                new WorldBorderDef(60000000, "World Border 5/5 (Макс / Без ограничений)", "Снимает ограничения границы мира (максимальный размер, 60M×60M блоков)")
+        );
+
+        JsonObject curr = startNode;
+        Identifier parentId = rootId;
+
+        for (int i = 1; i <= defs.size() && curr != null; i++) {
+            WorldBorderDef def = defs.get(i - 1);
+            String nodeId = curr.has("id") ? curr.get("id").getAsString() : "";
+            Identifier advId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/world_border_" + i);
+            if (!nodeId.isEmpty()) {
+                nodeToAdvId.put(nodeId, advId);
+            }
+
+            boolean isLast = (i == defs.size());
+            AdvancementType frame = isLast ? AdvancementType.CHALLENGE : AdvancementType.GOAL;
+
+            Advancement.Builder.recipeAdvancement()
+                    .display(
+                            Items.MAP,
+                            Component.literal(def.title()),
+                            Component.literal(def.description()),
+                            frame,
+                            false,
+                            false,
+                            false)
+                    .parent(parentId)
+                    .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.WORLD_BORDER_UPGRADE, i))
                     .save(output, advId);
 
             parentId = advId;

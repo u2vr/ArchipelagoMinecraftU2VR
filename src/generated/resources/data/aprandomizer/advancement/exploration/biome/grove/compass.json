@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/grove",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/grove"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Grove Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Grove"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

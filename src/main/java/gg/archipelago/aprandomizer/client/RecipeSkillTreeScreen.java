@@ -677,7 +677,11 @@ public class RecipeSkillTreeScreen extends Screen {
     @Override
     public void onClose() {
         if (this.minecraft != null) {
-            this.minecraft.gui.setScreen(this.parent);
+            if (this.parent instanceof net.minecraft.client.gui.screens.inventory.InventoryScreen && this.minecraft.player != null) {
+                this.minecraft.gui.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(this.minecraft.player));
+            } else {
+                this.minecraft.gui.setScreen(this.parent);
+            }
         }
     }
 

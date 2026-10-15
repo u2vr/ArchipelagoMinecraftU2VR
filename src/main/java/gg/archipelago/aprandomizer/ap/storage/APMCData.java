@@ -11,10 +11,10 @@ import java.util.Map;
 public class APMCData {
 
     @SerializedName(value = "game", alternate = {"game_name"})
-    public String game = "minecraft_u2vr";
+    public String game = "Minecraft with BACAP";
 
     public String getGame() {
-        return (game != null && !game.isBlank()) ? game : "minecraft_u2vr";
+        return (game != null && !game.isBlank()) ? game : "Minecraft with BACAP";
     }
 
     @SerializedName("world_seed")
@@ -77,6 +77,9 @@ public class APMCData {
     @SerializedName(value = "world_border_restriction", alternate = {"world_border_shuffle", "level_size_restriction", "limit_world_border"})
     public Object world_border_restriction;
 
+    @SerializedName(value = "recipe_restriction", alternate = {"recipe_shuffle", "item_restriction", "restrict_recipes", "restrict_items"})
+    public Object recipe_restriction;
+
     @SerializedName(value = "traps_enabled", alternate = {"traps_shuffle", "include_traps", "enable_traps", "traps"})
     public Object traps_enabled;
 
@@ -106,6 +109,13 @@ public class APMCData {
 
     @SerializedName(value = "hint_cost", alternate = {"hintCost", "location_check_points", "hint_points_per_check", "check_points", "points_per_check"})
     public Object hint_cost = 10;
+
+    @SerializedName(value = "extra_abilities", alternate = {"abilities", "enable_extra_abilities"})
+    public Object extra_abilities;
+
+    public boolean isExtraAbilitiesEnabled() {
+        return gg.archipelago.aprandomizer.SlotData.parseBoolean(extra_abilities, false);
+    }
 
     public boolean isMajorBiomeChecksEnabled() {
         if (major_biome_checks != null) {
@@ -171,6 +181,10 @@ public class APMCData {
 
     public boolean isWorldBorderRestrictionEnabled() {
         return gg.archipelago.aprandomizer.SlotData.parseBoolean(world_border_restriction, true);
+    }
+
+    public boolean isRecipeRestrictionEnabled() {
+        return gg.archipelago.aprandomizer.SlotData.parseBoolean(recipe_restriction, true);
     }
 
     public boolean isTrapsEnabled() {
@@ -290,6 +304,10 @@ public class APMCData {
 
     @SerializedName("port")
     public int port;
+
+    @SerializedName(value = "password", alternate = {"server_password", "room_password"})
+    @Nullable
+    public String password;
 
     public State state = State.VALID;
 

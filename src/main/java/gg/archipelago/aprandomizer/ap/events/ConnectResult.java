@@ -6,6 +6,7 @@ import gg.archipelago.aprandomizer.ap.APClient;
 import gg.archipelago.aprandomizer.common.Utils.Utils;
 import gg.archipelago.aprandomizer.managers.GoalManager;
 import gg.archipelago.aprandomizer.managers.advancementmanager.AdvancementManager;
+import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import io.github.archipelagomw.events.ArchipelagoEventListener;
 import io.github.archipelagomw.events.ConnectionResultEvent;
 import io.github.archipelagomw.network.ConnectionResult;
@@ -53,6 +54,12 @@ public class ConnectResult {
 
             advancementManager.setCheckedAdvancements(new LongOpenHashSet(APClient.getLocationManager().getCheckedLocations()));
             advancementManager.resendAdvancements(APClient);
+
+            // reconcile all received items, abilities, restrictions, and compasses
+            ItemManager itemManager = APRandomizer.getItemManager();
+            if (itemManager != null) {
+                itemManager.reconcileReceivedItems(APRandomizer.getServer());
+            }
 
             // ensure server is synced
             goalManager.updateGoal(true);

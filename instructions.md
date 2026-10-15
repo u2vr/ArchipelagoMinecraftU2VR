@@ -262,7 +262,6 @@
   - Рецепт 2: Сундук Края + Жемчуг Края (`recipe/shared_chest_from_ender_chest.json`).
   - Оба рецепта автоматически открываются игрокам при входе в мир.
   - Команда `/ap chest`: выдает 1 сундук Архипелага игроку.
-  - Команда `/ap open_chest`: открывает общий сундук напрямую.
 
 ### 6.2. Товары Архипелага у Бродячего торговца ([`WanderingTraderManager`](file:///D:/SYNC/Work/Minecraft/Mods/ArchipelagoU2VR/src/main/java/gg/archipelago/aprandomizer/managers/trademanager/WanderingTraderManager.java))
 - Торговец продает чеки Архипелага из всех игр мультимира за изумруды.

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/deep_cold_ocean",
+    "name": "Deep Cold Ocean",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:deep_cold_ocean"
+    }
+  }
+}

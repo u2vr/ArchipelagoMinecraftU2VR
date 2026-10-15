@@ -24,6 +24,15 @@ public abstract class MixinSlot {
         if (this.container instanceof Inventory) {
             if (RestrictionManager.isSlotRestricted(this.slot)) {
                 cir.setReturnValue(false);
+                return;
+            }
+            if (this.slot >= 36 && this.slot <= 39 && RestrictionManager.isItemLocked(stack)) {
+                cir.setReturnValue(false);
+                return;
+            }
+            if (this.slot == 40 && RestrictionManager.isItemLocked(stack)) {
+                cir.setReturnValue(false);
+                return;
             }
         }
     }

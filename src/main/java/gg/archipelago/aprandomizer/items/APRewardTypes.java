@@ -31,4 +31,5 @@ public class APRewardTypes {
     public static final DeferredHolder<MapCodec<? extends APReward>, MapCodec<RandomTrapReward>> RANDOM_TRAP = REGISTER.register("random_trap", () -> RandomTrapReward.MAP_CODEC);
     public static final DeferredHolder<MapCodec<? extends APReward>, MapCodec<MonsterSunBurningReward>> MONSTER_SUN_BURNING = REGISTER.register("monster_sun_burning", () -> MonsterSunBurningReward.MAP_CODEC);
     public static final DeferredHolder<MapCodec<? extends APReward>, MapCodec<MonsterSpawnLightReward>> MONSTER_SPAWN_LIGHT = REGISTER.register("monster_spawn_light", () -> MonsterSpawnLightReward.MAP_CODEC);
+    public static final DeferredHolder<MapCodec<? extends APReward>, MapCodec<AbilityReward>> ABILITY = REGISTER.register("ability", () -> AbilityReward.MAP_CODEC);
 }

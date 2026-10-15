@@ -1,0 +1,11 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Structures",
+    "id": "aprandomizer:unvisited_structures",
+    "name": "Unvisited Structures",
+    "target": {
+      "type": "aprandomizer:unvisited_structure"
+    }
+  }
+}

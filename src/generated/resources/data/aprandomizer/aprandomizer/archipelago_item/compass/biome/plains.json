@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/plains",
+    "name": "Plains",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:plains"
+    }
+  }
+}

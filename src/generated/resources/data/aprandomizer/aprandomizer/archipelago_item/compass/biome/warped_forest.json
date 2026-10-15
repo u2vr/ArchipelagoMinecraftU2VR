@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Nether Biomes",
+    "id": "aprandomizer:biome/warped_forest",
+    "name": "Warped Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:warped_forest"
+    }
+  }
+}

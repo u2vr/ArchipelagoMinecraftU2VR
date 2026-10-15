@@ -9,12 +9,15 @@ import io.github.archipelagomw.parts.NetworkItem;
 import io.github.archipelagomw.parts.NetworkSlot;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
@@ -274,25 +277,71 @@ public class WanderingTraderManager {
         return -1L;
     }
 
+    public static boolean isForbiddenItemStack(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return false;
+        Item item = stack.getItem();
+        if (item instanceof BucketItem || item == Items.MILK_BUCKET) {
+            return true;
+        }
+        String path = BuiltInRegistries.ITEM.getKey(item).getPath().toLowerCase();
+        if (path.contains("bucket") || path.contains("trap") || path.contains("curse")) {
+            return true;
+        }
+        String name = stack.getHoverName().getString().toLowerCase();
+        return name.contains("bucket") || name.contains("trap") || name.contains("curse");
+    }
+
+    public static boolean isForbiddenArchipelagoItem(NetworkItem scout) {
+        if (scout == null) return false;
+        if ((scout.flags & io.github.archipelagomw.flags.NetworkItem.TRAP) != 0) {
+            return true;
+        }
+        if (scout.itemName != null) {
+            String name = scout.itemName.toLowerCase();
+            if (name.contains("trap") || name.contains("curse") || name.contains("bucket")) {
+                return true;
+            }
+            if ("Disable Day Monster Ignition".equalsIgnoreCase(scout.itemName)
+                    || "Disable Light Check for Monster Spawn".equalsIgnoreCase(scout.itemName)
+                    || "Random Trap".equalsIgnoreCase(scout.itemName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void attachArchipelagoTrades(WanderingTrader trader, Player player) {
         if (trader.level().isClientSide()) return;
-
-        int configuredCount = getConfiguredTradesCount();
-        if (configuredCount <= 0) return;
 
         AdvancementManager advManager = APRandomizer.getAdvancementManager();
         MerchantOffers offers = trader.getOffers();
 
-        // Remove any offers that are already earned/checked
+        // Remove any offers that are already earned/checked, or forbidden (buckets, traps, curses)
         offers.removeIf(offer -> {
             long locId = getOfferLocationId(offer);
-            return locId > 0 && advManager != null && advManager.hasAdvancement(locId);
+            if (locId > 0) {
+                if (advManager != null && advManager.hasAdvancement(locId)) {
+                    return true;
+                }
+                NetworkItem scout = SCOUTED_ITEMS.get(locId);
+                return scout != null && isForbiddenArchipelagoItem(scout);
+            } else {
+                return isForbiddenItemStack(offer.getResult());
+            }
         });
+
+        int configuredCount = getConfiguredTradesCount();
+        if (configuredCount <= 0) return;
 
         int insertIndex = 0;
         for (int i = 1; i <= configuredCount; i++) {
             long locId = getTraderLocationId(i);
             if (advManager != null && advManager.hasAdvancement(locId)) {
+                continue;
+            }
+
+            NetworkItem scout = SCOUTED_ITEMS.get(locId);
+            if (scout != null && isForbiddenArchipelagoItem(scout)) {
                 continue;
             }
 

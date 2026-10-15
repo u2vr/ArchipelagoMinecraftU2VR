@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/item_magnet"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Attracts dropped items and experience within 10 blocks",
+    "icon": {
+      "id": "minecraft:iron_ingot"
+    },
+    "show_toast": false,
+    "title": "Item Magnet"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

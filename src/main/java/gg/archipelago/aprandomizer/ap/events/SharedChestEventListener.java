@@ -15,23 +15,11 @@ public class SharedChestEventListener {
 
     @ArchipelagoEventListener
     public void onRetrieved(RetrievedEvent event) {
-        if (event.containsKey(SharedChestManager.STORAGE_KEY)) {
-            Object value = event.getObject(SharedChestManager.STORAGE_KEY);
-            server.execute(() -> SharedChestManager.handleArchipelagoUpdate(value));
-        }
-        if (event.containsKey(SharedChestManager.LOCK_KEY)) {
-            Object value = event.getObject(SharedChestManager.LOCK_KEY);
-            server.execute(() -> SharedChestManager.handleLockRetrieved(value));
-        }
+        server.execute(() -> SharedChestManager.handleArchipelagoRetrieved(event));
     }
 
     @ArchipelagoEventListener
     public void onSetReply(SetReplyEvent event) {
-        if (SharedChestManager.STORAGE_KEY.equals(event.key)) {
-            Object value = event.value;
-            server.execute(() -> SharedChestManager.handleArchipelagoUpdate(value));
-        } else if (SharedChestManager.LOCK_KEY.equals(event.key)) {
-            server.execute(() -> SharedChestManager.handleLockSetReply(event));
-        }
+        server.execute(() -> SharedChestManager.handleArchipelagoSetReply(event));
     }
 }

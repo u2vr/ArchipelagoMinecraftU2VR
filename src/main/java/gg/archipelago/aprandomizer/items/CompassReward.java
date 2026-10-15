@@ -38,9 +38,9 @@ public record CompassReward(Identifier id, CompassTarget target, Component name,
 
     public static final Codec<CompassReward> CODEC = MAP_CODEC.codec();
 
-    private static final ItemStackTemplate DEFAULT_COMPASS = new ItemStackTemplate(BuiltInRegistries.ITEM.wrapAsHolder(Items.COMPASS), 1, DataComponentPatch.builder()
+    public static final ItemStackTemplate DEFAULT_COMPASS = new ItemStackTemplate(BuiltInRegistries.ITEM.wrapAsHolder(Items.COMPASS), 1, DataComponentPatch.builder()
             .set(DataComponents.LODESTONE_TRACKER, new LodestoneTracker(Optional.empty(), false))
-            .set(DataComponents.ITEM_NAME, Component.literal("uninitialized structure compass"))
+            .set(DataComponents.ITEM_NAME, Component.literal("uninitialized compass"))
             .set(DataComponents.LORE, new ItemLore(List.of(
                     Component.literal("oops, this compass is broken."),
                     Component.literal("right click with compass in hand to fix."),
@@ -58,12 +58,24 @@ public record CompassReward(Identifier id, CompassTarget target, Component name,
         Map<Identifier, CompassReward> compassRewards = player.getData(APAttachmentTypes.AP_PLAYER).getUnlockedCompassRewards();
         compassRewards.put(id, this);
 
-        ItemStack compass = DEFAULT_COMPASS.create().copy();
-        ItemManager.updateCompassLocation(this, player, compass);
-        CompoundTag tag = compass.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        tag.putInt("index", compassRewards.size() - 1);
-        compass.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-        Utils.giveItemToPlayer(player, compass);
+        ItemStack existingCompass = ItemStack.EMPTY;
+        for (ItemStack item : player.getInventory()) {
+            if (item.is(Items.COMPASS)) {
+                existingCompass = item;
+                break;
+            }
+        }
+
+        if (existingCompass.isEmpty()) {
+            ItemStack compass = DEFAULT_COMPASS.create().copy();
+            ItemManager.updateCompassLocation(this, player, compass);
+            CompoundTag tag = compass.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+            tag.putInt("index", compassRewards.size() - 1);
+            compass.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+            Utils.giveItemToPlayer(player, compass);
+        } else {
+            ItemManager.updateCompassLocation(this, player, existingCompass);
+        }
         ItemManager.cleanCompasses(player);
     }
 

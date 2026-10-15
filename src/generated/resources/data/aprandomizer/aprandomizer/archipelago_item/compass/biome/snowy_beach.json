@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/snowy_beach",
+    "name": "Snowy Beach",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:snowy_beach"
+    }
+  }
+}

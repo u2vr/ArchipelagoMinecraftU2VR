@@ -16,6 +16,8 @@
     "traps_enabled": true,
     "curses_enabled": true,
     "starting_shared_chest": true,
+    "recipe_restriction": true,
+    "extra_abilities": true,
     "recipe_unlock_mode": "random_by_bias",
     "recipe_tier_unlock_percentage": 50
   },

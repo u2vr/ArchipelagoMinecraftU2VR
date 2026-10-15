@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/ice_spikes",
+    "name": "Ice Spikes",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:ice_spikes"
+    }
+  }
+}

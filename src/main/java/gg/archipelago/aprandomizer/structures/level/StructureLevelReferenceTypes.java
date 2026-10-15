@@ -14,4 +14,5 @@ public class StructureLevelReferenceTypes {
 
     public static final DeferredHolder<MapCodec<? extends StructureLevelReference>, MapCodec<ConstantLevel>> CONSTANT = REGISTER.register("constant", () -> ConstantLevel.CODEC);
     public static final DeferredHolder<MapCodec<? extends StructureLevelReference>, MapCodec<RandomizedStructureLevel>> RANDOMIZED_STRUCTURE_LEVEL = REGISTER.register("randomized_structure_level", () -> RandomizedStructureLevel.CODEC);
+    public static final DeferredHolder<MapCodec<? extends StructureLevelReference>, MapCodec<CurrentLevel>> CURRENT = REGISTER.register("current", () -> CurrentLevel.CODEC);
 }

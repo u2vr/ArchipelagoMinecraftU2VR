@@ -8,7 +8,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
 public class SharedChestContainer extends SimpleContainer {
-    public static final int CONTAINER_SIZE = 1;
+    public static final int RECEIVE_SLOTS = 18;
+    public static final int SEND_SLOT = 18;
+    public static final int CONTAINER_SIZE = 19;
 
     public SharedChestContainer() {
         super(CONTAINER_SIZE);
@@ -34,9 +36,6 @@ public class SharedChestContainer extends SimpleContainer {
 
     @Override
     public boolean stillValid(Player player) {
-        if (player == null) {
-            return true;
-        }
-        return SharedChestManager.isPlayerLockHolder(player);
+        return true;
     }
 }

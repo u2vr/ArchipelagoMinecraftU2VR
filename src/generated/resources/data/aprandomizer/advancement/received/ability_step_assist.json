@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/step_assist"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Smoothly step up 1 block without jumping",
+    "icon": {
+      "id": "minecraft:ladder"
+    },
+    "show_toast": false,
+    "title": "Step Assist"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

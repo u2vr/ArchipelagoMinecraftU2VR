@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/ocean",
+    "name": "Ocean",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:ocean"
+    }
+  }
+}

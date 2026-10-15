@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/birch_forest",
+    "name": "Birch Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:birch_forest"
+    }
+  }
+}

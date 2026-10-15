@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/sunflower_plains",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/sunflower_plains"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Sunflower Plains Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Sunflower Plains"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

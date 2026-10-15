@@ -71,13 +71,33 @@ public class ClientRecipeManager {
     }
 
     public static synchronized boolean isNodeUnlocked(RecipeTreeNode node) {
-        if (node == null) return false;
+        if (!RecipeTreeManager.isRecipeRestrictionEnabled()) return true;
+        if (node == null || node.tier() <= 0) return true;
         WorldData worldData = APRandomizer.getWorldData();
         if (worldData != null) {
             Set<ResourceKey<Recipe<?>>> unlocked = new HashSet<>(worldData.getUnlockedRecipes());
             if (node.isUnlocked(unlocked)) return true;
         }
         return UNLOCKED_NODE_IDS.contains(node.id());
+    }
+
+    public static synchronized boolean isItemLocked(net.minecraft.world.item.ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return false;
+        return isItemLocked(stack.getItem());
+    }
+
+    public static synchronized boolean isItemLocked(net.minecraft.world.item.Item item) {
+        if (!RecipeTreeManager.isRecipeRestrictionEnabled()) return false;
+        RecipeTreeNode node = RecipeTreeManager.getNodeForItem(item);
+        if (node == null) return false;
+        return !isNodeUnlocked(node);
+    }
+
+    public static synchronized boolean isItemLocked(net.minecraft.resources.Identifier id) {
+        if (!RecipeTreeManager.isRecipeRestrictionEnabled()) return false;
+        RecipeTreeNode node = RecipeTreeManager.getNodeForIdentifier(id);
+        if (node == null) return false;
+        return !isNodeUnlocked(node);
     }
 
     public static synchronized RecipeTreeManager.UnlockStatus getUnlockStatus(RecipeTreeNode node) {

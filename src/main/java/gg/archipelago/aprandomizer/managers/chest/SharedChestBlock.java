@@ -88,13 +88,27 @@ public class SharedChestBlock extends Block implements SimpleWaterloggedBlock, E
     }
 
     @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        SharedChestManager.dropChestContents(level, pos);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
+    }
+
+    @Override
+    public void destroy(net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockState state) {
+        if (level instanceof Level l && !l.isClientSide()) {
+            SharedChestManager.dropChestContents(l, pos);
+        }
+        super.destroy(level, pos, state);
+    }
+
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
 
         if (player instanceof ServerPlayer serverPlayer) {
-            SharedChestManager.tryOpenChest(serverPlayer, pos);
+            SharedChestManager.openChest(serverPlayer, pos);
         }
         return InteractionResult.CONSUME;
     }

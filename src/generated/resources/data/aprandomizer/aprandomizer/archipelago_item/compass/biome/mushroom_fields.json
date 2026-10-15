@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/mushroom_fields",
+    "name": "Mushroom Fields",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:mushroom_fields"
+    }
+  }
+}

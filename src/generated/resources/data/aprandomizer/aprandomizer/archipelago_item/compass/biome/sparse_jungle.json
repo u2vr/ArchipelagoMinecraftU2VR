@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/sparse_jungle",
+    "name": "Sparse Jungle",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:sparse_jungle"
+    }
+  }
+}

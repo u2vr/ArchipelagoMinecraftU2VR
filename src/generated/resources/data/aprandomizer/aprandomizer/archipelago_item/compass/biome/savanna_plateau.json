@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/savanna_plateau",
+    "name": "Savanna Plateau",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:savanna_plateau"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/plains",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/plains"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Plains Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Plains"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

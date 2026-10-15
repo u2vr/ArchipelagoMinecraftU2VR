@@ -1,5 +1,5 @@
 {
-  "parent": "aprandomizer:received/root",
+  "parent": "aprandomizer:received/vanilla_abilities",
   "criteria": {
     "received": {
       "conditions": {
@@ -10,12 +10,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Expand World Border",
+    "description": "Расширяет границу мира до 1800 блоков (1800×1800, ±900 от спавна)",
+    "frame": "goal",
     "icon": {
       "id": "minecraft:map"
     },
     "show_toast": false,
-    "title": "World Border Upgrade 1/5"
+    "title": "World Border 1/5 (1800 блоков)"
   },
   "requirements": [
     [

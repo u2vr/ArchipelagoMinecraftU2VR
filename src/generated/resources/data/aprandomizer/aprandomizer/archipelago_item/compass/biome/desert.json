@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/desert",
+    "name": "Desert",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:desert"
+    }
+  }
+}

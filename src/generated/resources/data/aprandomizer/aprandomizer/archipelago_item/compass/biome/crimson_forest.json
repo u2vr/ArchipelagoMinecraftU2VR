@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Nether Biomes",
+    "id": "aprandomizer:biome/crimson_forest",
+    "name": "Crimson Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:crimson_forest"
+    }
+  }
+}

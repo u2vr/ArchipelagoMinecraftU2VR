@@ -16,8 +16,10 @@ public class SharedChestTest {
     @Test
     public void testSharedChestContainerDefaults() {
         SharedChestContainer container = new SharedChestContainer();
-        assertEquals(1, SharedChestContainer.CONTAINER_SIZE);
-        assertEquals(1, container.getContainerSize());
+        assertEquals(19, SharedChestContainer.CONTAINER_SIZE);
+        assertEquals(18, SharedChestContainer.RECEIVE_SLOTS);
+        assertEquals(18, SharedChestContainer.SEND_SLOT);
+        assertEquals(19, container.getContainerSize());
         assertTrue(container.isEmpty());
         assertTrue(container.stillValid(null));
     }
@@ -25,6 +27,11 @@ public class SharedChestTest {
     @Test
     public void testStorageKey() {
         assertEquals("mc_shared_chest", SharedChestManager.STORAGE_KEY);
+        assertEquals("mc_chest_online_", SharedChestManager.ONLINE_KEY_PREFIX);
+        assertEquals("mc_chest_tx_", SharedChestManager.TRANSFER_KEY_PREFIX);
+        assertEquals("mc_chest_ack_", SharedChestManager.ACK_KEY_PREFIX);
+        assertEquals(15000L, SharedChestManager.ONLINE_TIMEOUT_MS);
+        assertEquals(4000L, SharedChestManager.TRANSFER_TIMEOUT_MS);
     }
 
     @Test

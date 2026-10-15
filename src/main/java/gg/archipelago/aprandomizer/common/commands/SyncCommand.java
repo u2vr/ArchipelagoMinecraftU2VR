@@ -49,6 +49,7 @@ public class SyncCommand {
         gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager.syncStateToAll(server);
 
         for (var player : server.getPlayerList().getPlayers()) {
+            ItemManager.ensurePlayerHasCompasses(player);
             gg.archipelago.aprandomizer.exploration.ExplorationManager.syncPlayerExploration(player);
         }
 

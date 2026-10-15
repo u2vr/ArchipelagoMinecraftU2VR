@@ -2,6 +2,7 @@ package gg.archipelago.aprandomizer.mixin;
 
 import gg.archipelago.aprandomizer.client.ClientRecipeManager;
 import gg.archipelago.aprandomizer.client.RecipeSkillTreeScreen;
+import gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.PauseScreen;
@@ -21,12 +22,11 @@ public abstract class MixinPauseScreen extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void aprandomizer$addRecipeTreeButton(CallbackInfo ci) {
-        if (!ClientRecipeManager.isTicketMode()) {
-            return;
-        }
-
         int tickets = ClientRecipeManager.getTickets();
-        Component buttonText = Component.literal("✦ Рецепты [🎟 " + tickets + "]");
+        boolean ticketMode = ClientRecipeManager.isTicketMode();
+        Component buttonText = ticketMode
+                ? Component.literal("✦ Рецепты [🎟 " + tickets + "]")
+                : Component.literal("✦ Древо рецептов");
 
         int btnWidth = 124;
         int btnHeight = 20;
@@ -40,4 +40,3 @@ public abstract class MixinPauseScreen extends Screen {
         }).bounds(btnX, btnY, btnWidth, btnHeight).build());
     }
 }
-

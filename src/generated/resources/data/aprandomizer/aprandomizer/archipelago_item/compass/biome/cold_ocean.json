@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/cold_ocean",
+    "name": "Cold Ocean",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:cold_ocean"
+    }
+  }
+}

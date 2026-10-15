@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/old_growth_spruce_taiga",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/old_growth_spruce_taiga"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Old Growth Spruce Taiga Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Old Growth Spruce Taiga"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

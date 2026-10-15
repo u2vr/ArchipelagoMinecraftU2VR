@@ -11,12 +11,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Expand World Border",
+    "description": "Расширяет границу мира до 3000 блоков (3000×3000, ±1500 от спавна)",
+    "frame": "goal",
     "icon": {
       "id": "minecraft:map"
     },
     "show_toast": false,
-    "title": "World Border Upgrade 2/5"
+    "title": "World Border 2/5 (3000 блоков)"
   },
   "requirements": [
     [

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/warm_ocean",
+    "name": "Warm Ocean",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:warm_ocean"
+    }
+  }
+}

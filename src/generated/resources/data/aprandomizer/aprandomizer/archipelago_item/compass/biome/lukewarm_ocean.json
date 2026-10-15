@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/lukewarm_ocean",
+    "name": "Lukewarm Ocean",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:lukewarm_ocean"
+    }
+  }
+}

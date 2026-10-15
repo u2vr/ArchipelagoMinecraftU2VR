@@ -58,11 +58,16 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import it.unimi.dsi.fastutil.longs.LongSet;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.util.TriState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
@@ -213,8 +218,82 @@ public class RestrictionManager {
         return false;
     }
 
+    public static boolean isExtraAbilitiesEnabled() {
+        if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
+            var sd = APRandomizer.getAP().getSlotData();
+            if (sd.extraAbilities != null) return sd.isExtraAbilitiesEnabled();
+        }
+        if (APRandomizer.getApmcData() != null && APRandomizer.getApmcData().extra_abilities != null) {
+            return APRandomizer.getApmcData().isExtraAbilitiesEnabled();
+        }
+        return RecipeTreeManager.isSettingEnabled("extra_abilities", false);
+    }
+
     public static boolean isStartingSharedChestEnabled() {
         return gg.archipelago.aprandomizer.managers.chest.SharedChestManager.isStartingSharedChestEnabled();
+    }
+
+    public static boolean isRecipeRestrictionEnabled() {
+        return RecipeTreeManager.isRecipeRestrictionEnabled();
+    }
+
+    public static boolean isItemLocked(ItemStack stack) {
+        return RecipeTreeManager.isItemLocked(stack);
+    }
+
+    public static boolean isItemLocked(net.minecraft.world.item.Item item) {
+        return RecipeTreeManager.isItemLocked(item);
+    }
+
+    private static final Map<UUID, Long> LAST_ITEM_WARN_TIME = new HashMap<>();
+
+    public static void warnItemLocked(ServerPlayer player, ItemStack stack) {
+        if (player == null || stack == null || stack.isEmpty()) return;
+        long now = player.level().getGameTime();
+        Long last = LAST_ITEM_WARN_TIME.get(player.getUUID());
+        if (last == null || now - last > 15) {
+            LAST_ITEM_WARN_TIME.put(player.getUUID(), now);
+            String name = stack.getHoverName().getString();
+            player.sendSystemMessage(Component.literal("§c[!] Предмет «" + name + "» заблокирован в Архипелаге!"), true);
+            if (player.level() instanceof ServerLevel sLevel) {
+                sLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 0.8f, 1.0f);
+            }
+        }
+    }
+
+    public static void warnBlockLocked(ServerPlayer player, String blockName) {
+        if (player == null) return;
+        long now = player.level().getGameTime();
+        Long last = LAST_ITEM_WARN_TIME.get(player.getUUID());
+        if (last == null || now - last > 15) {
+            LAST_ITEM_WARN_TIME.put(player.getUUID(), now);
+            player.sendSystemMessage(Component.literal("§c[!] Блок «" + blockName + "» заблокирован в Архипелаге!"), true);
+            if (player.level() instanceof ServerLevel sLevel) {
+                sLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
+                        SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 0.8f, 1.0f);
+            }
+        }
+    }
+
+    public static boolean isNodeLockedForBlock(BlockState state) {
+        if (state == null) return false;
+        if (state.getBlock() instanceof BedBlock || state.is(BlockTags.BEDS)) {
+            return RecipeTreeManager.isNodeLocked(RecipeTreeManager.getNodeById("node_318"));
+        }
+        if (state.is(Blocks.FURNACE)) {
+            return RecipeTreeManager.isNodeLocked(RecipeTreeManager.getNodeById("node_70"));
+        }
+        if (state.is(Blocks.BLAST_FURNACE)) {
+            return RecipeTreeManager.isNodeLocked(RecipeTreeManager.getNodeById("node_71"));
+        }
+        if (state.is(Blocks.SMOKER)) {
+            return RecipeTreeManager.isNodeLocked(RecipeTreeManager.getNodeById("node_77"));
+        }
+        if (state.is(Blocks.ENCHANTING_TABLE)) {
+            return RecipeTreeManager.isNodeLocked(RecipeTreeManager.getNodeById("node_116"));
+        }
+        return false;
     }
 
     public static boolean isStructureUnlocked(StructureEntry entry) {
@@ -439,7 +518,11 @@ public class RestrictionManager {
     }
 
     // --- World Border ---
-    private static final double[] WORLD_BORDER_SIZES = { 1000.0, 1800.0, 3000.0, 6000.0, 60000000.0 };
+    private static final double[] WORLD_BORDER_SIZES = gg.archipelago.aprandomizer.data.RestrictionsData.WORLD_BORDER_SIZES;
+
+    public static double[] getWorldBorderSizes() {
+        return WORLD_BORDER_SIZES.clone();
+    }
 
     public static double getWorldBorderSize() {
         if (!isWorldBorderRestrictionEnabled()) return 60000000.0;
@@ -981,6 +1064,24 @@ public class RestrictionManager {
                 enforceInventory(player);
             }
         }
+
+        // 5. Enforce locked armor and offhand item
+        for (EquipmentSlot eqSlot : List.of(EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)) {
+            ItemStack equipped = player.getItemBySlot(eqSlot);
+            if (!equipped.isEmpty() && isItemLocked(equipped)) {
+                player.setItemSlot(eqSlot, ItemStack.EMPTY);
+                Utils.giveItemToPlayer(player, equipped);
+                warnItemLocked(player, equipped);
+                player.containerMenu.broadcastChanges();
+            }
+        }
+        if (!player.getOffhandItem().isEmpty() && isItemLocked(player.getOffhandItem())) {
+            ItemStack offhand = player.getOffhandItem();
+            player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+            Utils.giveItemToPlayer(player, offhand);
+            warnItemLocked(player, offhand);
+            player.containerMenu.broadcastChanges();
+        }
     }
 
     @SubscribeEvent
@@ -1050,6 +1151,14 @@ public class RestrictionManager {
             event.setCancellationResult(InteractionResult.FAIL);
             return;
         }
+        if (isItemLocked(event.getItemStack())) {
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.FAIL);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnItemLocked(player, event.getItemStack());
+            }
+            return;
+        }
         if (event.getSide().isClient()) return;
         if (event.getHand() == InteractionHand.OFF_HAND && !isOffhandUnlocked()) {
             event.setCanceled(true);
@@ -1060,10 +1169,84 @@ public class RestrictionManager {
     }
 
     @SubscribeEvent
+    public static void onPlayerBlockInteract(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getEntity().isSpectator()) return;
+        if (isItemLocked(event.getItemStack())) {
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.FAIL);
+            event.setUseItem(TriState.FALSE);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnItemLocked(player, event.getItemStack());
+            }
+            return;
+        }
+        BlockState targetState = event.getLevel().getBlockState(event.getHitVec().getBlockPos());
+        if (isNodeLockedForBlock(targetState)) {
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.FAIL);
+            event.setUseBlock(TriState.FALSE);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnBlockLocked(player, targetState.getBlock().getName().getString());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.getEntity().isSpectator()) return;
+        if (isItemLocked(event.getItemStack())) {
+            event.setCanceled(true);
+            event.setCancellationResult(InteractionResult.FAIL);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnItemLocked(player, event.getItemStack());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        if (event.getEntity().isSpectator()) return;
+        if (isItemLocked(event.getItemStack())) {
+            event.setCanceled(true);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnItemLocked(player, event.getItemStack());
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
+        if (event.getEntity().isSpectator()) return;
+        if (isItemLocked(event.getEntity().getMainHandItem())) {
+            event.setCanceled(true);
+            event.setNewSpeed(0.0f);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAttackEntity(AttackEntityEvent event) {
+        if (event.getEntity().isSpectator()) return;
+        ItemStack held = event.getEntity().getMainHandItem();
+        if (isItemLocked(held)) {
+            event.setCanceled(true);
+            if (event.getEntity() instanceof ServerPlayer player) {
+                warnItemLocked(player, held);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onUseItemStart(LivingEntityUseItemEvent.Start event) {
         if (event.getEntity() instanceof Player player) {
             if (isEatingBlocked(player, event.getItem())) {
                 event.setCanceled(true);
+                return;
+            }
+            if (isItemLocked(event.getItem())) {
+                event.setCanceled(true);
+                if (player instanceof ServerPlayer sPlayer) {
+                    warnItemLocked(sPlayer, event.getItem());
+                }
             }
         }
     }
@@ -1072,6 +1255,10 @@ public class RestrictionManager {
     public static void onUseItemTick(LivingEntityUseItemEvent.Tick event) {
         if (event.getEntity() instanceof Player player) {
             if (isEatingBlocked(player, event.getItem())) {
+                event.setCanceled(true);
+                return;
+            }
+            if (isItemLocked(event.getItem())) {
                 event.setCanceled(true);
             }
         }
@@ -1129,6 +1316,12 @@ public class RestrictionManager {
         if (server == null) return;
         Set<net.minecraft.resources.Identifier> toRemove = new HashSet<>();
 
+        if (!isRecipeRestrictionEnabled()) {
+            toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/crafts_root"));
+        }
+        if (!isExtraAbilitiesEnabled()) {
+            toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/extra_abilities"));
+        }
         if (!isHpRestrictionEnabled()) {
             toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/hp_1"));
         }
@@ -1153,6 +1346,11 @@ public class RestrictionManager {
         if (!isCursesEnabled()) {
             toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/curse_monster_sun_burning"));
             toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/curse_monster_spawn_light"));
+        }
+        if (!isHpRestrictionEnabled() && !isHungerRestrictionEnabled() && !isReachRestrictionEnabled()
+                && !isWorldBorderRestrictionEnabled() && !isStructureRestrictionEnabled()
+                && !isOffhandRestrictionEnabled() && !isInventorySlotRestrictionEnabled() && !isCursesEnabled()) {
+            toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/vanilla_abilities"));
         }
 
         if (!toRemove.isEmpty()) {
@@ -1181,6 +1379,7 @@ public class RestrictionManager {
 
     @SubscribeEvent
     public static void onServerStarting(ServerStartingEvent event) {
+        RecipeTreeManager.updateServerRecipeOutputs(event.getServer());
         applyAllRestrictions(event.getServer());
     }
 }

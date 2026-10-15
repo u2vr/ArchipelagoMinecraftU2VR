@@ -76,6 +76,10 @@ public class ExplorationData {
             return Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/" + path);
         }
 
+        public Identifier getCompassAdvancementId() {
+            return Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/" + path + "/compass");
+        }
+
         public String getLocationName() {
             return "Explore " + displayName;
         }
@@ -226,20 +230,20 @@ public class ExplorationData {
         ), APStructureTags.VILLAGE, 601L, "village", "Village", () -> Items.EMERALD);
 
         registerStructure("pillager_outpost", List.of(BuiltinStructures.PILLAGER_OUTPOST), APStructureTags.PILLAGER_OUTPOST, 602L, "pillager_outpost", "Pillager Outpost", () -> Items.CROSSBOW);
-        registerStructure("mineshaft", List.of(BuiltinStructures.MINESHAFT, BuiltinStructures.MINESHAFT_MESA), null, 603L, "mineshaft", "Mineshaft", () -> Items.CHEST_MINECART);
+        registerStructure("mineshaft", List.of(BuiltinStructures.MINESHAFT, BuiltinStructures.MINESHAFT_MESA), APStructureTags.MINESHAFT, 603L, "mineshaft", "Mineshaft", () -> Items.CHEST_MINECART);
         registerStructure("woodland_mansion", List.of(BuiltinStructures.WOODLAND_MANSION), APStructureTags.WOODLAND_MANSION, 604L, "woodland_mansion", "Woodland Mansion", () -> Items.TOTEM_OF_UNDYING);
-        registerStructure("jungle_temple", List.of(BuiltinStructures.JUNGLE_TEMPLE), null, 605L, "jungle_temple", "Jungle Temple", () -> Items.CHISELED_STONE_BRICKS);
-        registerStructure("desert_pyramid", List.of(BuiltinStructures.DESERT_PYRAMID), null, 606L, "desert_pyramid", "Desert Pyramid", () -> Items.CHISELED_SANDSTONE);
-        registerStructure("igloo", List.of(BuiltinStructures.IGLOO), null, 607L, "igloo", "Igloo", () -> Items.SNOW_BLOCK);
-        registerStructure("shipwreck", List.of(BuiltinStructures.SHIPWRECK, BuiltinStructures.SHIPWRECK_BEACHED), null, 608L, "shipwreck", "Shipwreck", () -> Items.OAK_BOAT);
-        registerStructure("swamp_hut", List.of(BuiltinStructures.SWAMP_HUT), null, 609L, "swamp_hut", "Swamp Hut", () -> Items.CAULDRON);
-        registerStructure("stronghold", List.of(BuiltinStructures.STRONGHOLD), null, 610L, "stronghold", "Stronghold", () -> Items.ENDER_EYE);
+        registerStructure("jungle_temple", List.of(BuiltinStructures.JUNGLE_TEMPLE), APStructureTags.JUNGLE_TEMPLE, 605L, "jungle_temple", "Jungle Temple", () -> Items.CHISELED_STONE_BRICKS);
+        registerStructure("desert_pyramid", List.of(BuiltinStructures.DESERT_PYRAMID), APStructureTags.DESERT_PYRAMID, 606L, "desert_pyramid", "Desert Pyramid", () -> Items.CHISELED_SANDSTONE);
+        registerStructure("igloo", List.of(BuiltinStructures.IGLOO), APStructureTags.IGLOO, 607L, "igloo", "Igloo", () -> Items.SNOW_BLOCK);
+        registerStructure("shipwreck", List.of(BuiltinStructures.SHIPWRECK, BuiltinStructures.SHIPWRECK_BEACHED), APStructureTags.SHIPWRECK, 608L, "shipwreck", "Shipwreck", () -> Items.OAK_BOAT);
+        registerStructure("swamp_hut", List.of(BuiltinStructures.SWAMP_HUT), APStructureTags.SWAMP_HUT, 609L, "swamp_hut", "Swamp Hut", () -> Items.CAULDRON);
+        registerStructure("stronghold", List.of(BuiltinStructures.STRONGHOLD), APStructureTags.STRONGHOLD, 610L, "stronghold", "Stronghold", () -> Items.ENDER_EYE);
         registerStructure("ocean_monument", List.of(BuiltinStructures.OCEAN_MONUMENT), APStructureTags.OCEAN_MONUMENT, 611L, "ocean_monument", "Ocean Monument", () -> Items.PRISMARINE_BRICKS);
-        registerStructure("ocean_ruin", List.of(BuiltinStructures.OCEAN_RUIN_COLD, BuiltinStructures.OCEAN_RUIN_WARM), null, 612L, "ocean_ruin", "Ocean Ruin", () -> Items.PRISMARINE);
+        registerStructure("ocean_ruin", List.of(BuiltinStructures.OCEAN_RUIN_COLD, BuiltinStructures.OCEAN_RUIN_WARM), APStructureTags.OCEAN_RUIN, 612L, "ocean_ruin", "Ocean Ruin", () -> Items.PRISMARINE);
         registerStructure("nether_fortress", List.of(BuiltinStructures.FORTRESS), APStructureTags.FORTRESS, 613L, "nether_fortress", "Nether Fortress", () -> Items.NETHER_BRICKS);
-        registerStructure("nether_fossil", List.of(BuiltinStructures.NETHER_FOSSIL), null, 614L, "nether_fossil", "Nether Fossil", () -> Items.BONE_BLOCK);
+        registerStructure("nether_fossil", List.of(BuiltinStructures.NETHER_FOSSIL), APStructureTags.NETHER_FOSSIL, 614L, "nether_fossil", "Nether Fossil", () -> Items.BONE_BLOCK);
         registerStructure("end_city", List.of(BuiltinStructures.END_CITY), APStructureTags.END_CITY, 615L, "end_city", "End City", () -> Items.PURPUR_BLOCK);
-        registerStructure("buried_treasure", List.of(BuiltinStructures.BURIED_TREASURE), null, 616L, "buried_treasure", "Buried Treasure", () -> Items.HEART_OF_THE_SEA);
+        registerStructure("buried_treasure", List.of(BuiltinStructures.BURIED_TREASURE), APStructureTags.BURIED_TREASURE, 616L, "buried_treasure", "Buried Treasure", () -> Items.HEART_OF_THE_SEA);
         registerStructure("bastion_remnant", List.of(BuiltinStructures.BASTION_REMNANT), APStructureTags.BASTION_REMNANT, 617L, "bastion_remnant", "Bastion Remnant", () -> Items.GILDED_BLACKSTONE);
         registerStructure("ruined_portal", List.of(
                 BuiltinStructures.RUINED_PORTAL_STANDARD,
@@ -249,7 +253,7 @@ public class ExplorationData {
                 BuiltinStructures.RUINED_PORTAL_MOUNTAIN,
                 BuiltinStructures.RUINED_PORTAL_OCEAN,
                 BuiltinStructures.RUINED_PORTAL_NETHER
-        ), null, 618L, "ruined_portal", "Ruined Portal", () -> Items.CRYING_OBSIDIAN);
+        ), APStructureTags.RUINED_PORTAL, 618L, "ruined_portal", "Ruined Portal", () -> Items.CRYING_OBSIDIAN);
         registerStructure("ancient_city", List.of(BuiltinStructures.ANCIENT_CITY), APStructureTags.ANCIENT_CITY, 619L, "ancient_city", "Ancient City", () -> Items.ECHO_SHARD);
         registerStructure("trail_ruins", List.of(BuiltinStructures.TRAIL_RUINS), APStructureTags.TRAIL_RUINS, 620L, "trail_ruins", "Trail Ruins", () -> Items.BRUSH);
         registerStructure("trial_chambers", List.of(BuiltinStructures.TRIAL_CHAMBERS), APStructureTags.TRIAL_CHAMBERS, 621L, "trial_chambers", "Trial Chambers", () -> Items.TRIAL_KEY);
@@ -272,7 +276,7 @@ public class ExplorationData {
                 BuiltinStructures.ABANDONED_CAMP_TAIGA,
                 BuiltinStructures.ABANDONED_CAMP_WINDSWEPT_FOREST,
                 BuiltinStructures.ABANDONED_CAMP_WOODED_BADLANDS
-        ), StructureTags.ABANDONED_CAMP, 622L, "abandoned_camp", "Abandoned Camp", () -> Items.CAMPFIRE);
+        ), APStructureTags.ABANDONED_CAMP, 622L, "abandoned_camp", "Abandoned Camp", () -> Items.CAMPFIRE);
     }
 
     public static boolean isKnownBiome(String id) {

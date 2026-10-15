@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/pale_garden",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/pale_garden"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Pale Garden Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Pale Garden"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "rewards": {
+    "type": "aprandomizer:ability",
+    "ability_type": "progressive_jump"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Caves",
+    "id": "aprandomizer:biome/deep_dark",
+    "name": "Deep Dark",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:deep_dark"
+    }
+  }
+}

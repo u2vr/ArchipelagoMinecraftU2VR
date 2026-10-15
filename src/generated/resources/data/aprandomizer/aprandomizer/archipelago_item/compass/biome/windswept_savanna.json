@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/windswept_savanna",
+    "name": "Windswept Savanna",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:windswept_savanna"
+    }
+  }
+}

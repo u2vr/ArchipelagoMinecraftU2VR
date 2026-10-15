@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "End Biomes",
+    "id": "aprandomizer:biome/the_end",
+    "name": "The End",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:the_end"
+    }
+  }
+}

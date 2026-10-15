@@ -23,7 +23,7 @@ displayURL="https://github.com/qixils/NeoForgeAP/releases" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
 iconFile="archipelago.png" #optional
 # A text field displayed in the mod UI
-#credits="" #optional
+credits="${mod_credits}" #optional
 # A text field displayed in the mod UI
 authors="${mod_authors}" #optional
 

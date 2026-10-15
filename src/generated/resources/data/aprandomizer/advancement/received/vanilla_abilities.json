@@ -1,0 +1,23 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Core player attributes and mechanics: Health, Hunger, Reach, Offhand, and Inventory",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:heart_of_the_sea"
+    },
+    "show_toast": false,
+    "title": "Vanilla Upgrades"
+  },
+  "requirements": [
+    [
+      "auto"
+    ]
+  ]
+}

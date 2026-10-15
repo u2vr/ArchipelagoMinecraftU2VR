@@ -26,7 +26,7 @@ public class APClient extends Client {
         this.goalManager = goalManager;
 
         APMCData apmcData = APRandomizer.getApmcData();
-        String gameName = (apmcData != null) ? apmcData.getGame() : "minecraft_u2vr";
+        String gameName = (apmcData != null) ? apmcData.getGame() : "Minecraft with BACAP";
         this.setGame(gameName);
         this.setItemsHandlingFlags(ItemsHandling.SEND_ITEMS | ItemsHandling.SEND_OWN_ITEMS | ItemsHandling.SEND_STARTING_INVENTORY);
         //give the advancement manager the list of checked achievements

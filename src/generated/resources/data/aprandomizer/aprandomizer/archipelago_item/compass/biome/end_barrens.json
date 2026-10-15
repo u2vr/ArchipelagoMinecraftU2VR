@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "End Biomes",
+    "id": "aprandomizer:biome/end_barrens",
+    "name": "End Barrens",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:end_barrens"
+    }
+  }
+}

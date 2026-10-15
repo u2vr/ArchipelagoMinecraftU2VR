@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/deep_dark",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/deep_dark"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Deep Dark Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Deep Dark"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

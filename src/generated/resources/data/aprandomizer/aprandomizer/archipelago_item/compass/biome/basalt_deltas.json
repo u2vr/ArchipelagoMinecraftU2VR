@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Nether Biomes",
+    "id": "aprandomizer:biome/basalt_deltas",
+    "name": "Basalt Deltas",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:basalt_deltas"
+    }
+  }
+}

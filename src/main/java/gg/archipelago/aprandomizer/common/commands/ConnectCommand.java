@@ -56,12 +56,17 @@ public class ConnectCommand {
 
     private static int connectToAPServer(CommandContext<CommandSourceStack> commandContext, String hostname, int port, String password) {
         APMCData data = APRandomizer.getApmcData();
-        if(hostname == null) {
-            hostname = data.server;
-            port = data.port;
+        if (hostname == null || hostname.isBlank()) {
+            hostname = (data != null && data.server != null && !data.server.isBlank()) ? data.server.trim() : null;
+            if (port <= 0 && data != null) {
+                port = data.port;
+            }
         }
-        if (hostname == null)
-            Utils.sendMessageToAll("APMC did not supply a server address; please supply manually");
+        if (password == null && data != null && data.password != null && !data.password.isBlank()) {
+            password = data.password.trim();
+        }
+        if (hostname == null || hostname.isBlank())
+            Utils.sendMessageToAll("APMC did not supply a server address; please supply manually: /connect <address> [port] [password]");
         else if (data.state == APMCData.State.VALID) {
 
             APClient APClient = APRandomizer.getAP();

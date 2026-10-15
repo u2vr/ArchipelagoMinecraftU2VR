@@ -1,6 +1,8 @@
 # Minecraft Randomizer Setup Guide
 
-NeoForge Rewrite by qixils (Lexi), coehlrich, MrRedstone54 (Red), U2VR
+Mod-Rework by U2VR, MjKey
+
+NeoForge Rewrite by qixils (Lexi), coehlrich, MrRedstone54 (Red)
 
 Original (Forge) Implementation by KonoTyran.
 

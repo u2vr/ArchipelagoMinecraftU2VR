@@ -200,8 +200,53 @@ public class APRandomizer {
                 return APMCData.createInvalid();
             }
 
-            if (apmc.server == null && metadata != null) {
-                apmc.server = metadata.server();
+            if (apmc.server != null && apmc.server.isBlank()) {
+                apmc.server = null;
+            }
+            if (apmc.password != null && apmc.password.isBlank()) {
+                apmc.password = null;
+            }
+
+            if (metadata != null) {
+                if (apmc.server == null && metadata.server() != null && !metadata.server().isBlank()) {
+                    apmc.server = metadata.server().trim();
+                }
+                if (apmc.password == null && metadata.password() != null && !metadata.password().isBlank()) {
+                    apmc.password = metadata.password().trim();
+                }
+            }
+
+            Path metadataJsonFile = apDataDir.resolve("metadata.json");
+            if (!Files.exists(metadataJsonFile)) {
+                metadataJsonFile = apDataDir.resolve("archipelago.json");
+            }
+            if (!Files.exists(metadataJsonFile)) {
+                metadataJsonFile = Paths.get("metadata.json");
+            }
+            if (!Files.exists(metadataJsonFile)) {
+                metadataJsonFile = Paths.get("archipelago.json");
+            }
+            if (Files.exists(metadataJsonFile)) {
+                try {
+                    String jsonString = Files.readString(metadataJsonFile, StandardCharsets.UTF_8).trim();
+                    APMCMetaData externalMeta = gson.fromJson(jsonString, APMCMetaData.class);
+                    if (externalMeta != null) {
+                        if (apmc.server == null && externalMeta.server() != null && !externalMeta.server().isBlank()) {
+                            apmc.server = externalMeta.server().trim();
+                        }
+                        if (apmc.password == null && externalMeta.password() != null && !externalMeta.password().isBlank()) {
+                            apmc.password = externalMeta.password().trim();
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("Could not read external metadata JSON", e);
+                }
+            }
+
+            if (apmc.server != null) {
+                LOGGER.info("APMC server resolved to: {}", apmc.server);
+            } else {
+                LOGGER.info("APMC server not specified in .apmc or metadata");
             }
 
             LOGGER.info("Finished APMC initialization");
@@ -246,6 +291,7 @@ public class APRandomizer {
         if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
             gg.archipelago.aprandomizer.client.ClientKeyHandler.init(modEventBus);
             gg.archipelago.aprandomizer.client.ClientToastHandler.init();
+            gg.archipelago.aprandomizer.client.DynamicLightIntegration.init();
         }
     }
 
@@ -280,12 +326,83 @@ public class APRandomizer {
 
 
 
+        registrar.playToServer(
+                gg.archipelago.aprandomizer.network.SendChestItemPayload.TYPE,
+                gg.archipelago.aprandomizer.network.SendChestItemPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (context.player() instanceof net.minecraft.server.level.ServerPlayer player) {
+                        gg.archipelago.aprandomizer.managers.chest.SharedChestManager.handleSendItem(player, payload.targetSlotId());
+                    }
+                })
+        );
+
         registrar.playToClient(
                 gg.archipelago.aprandomizer.network.SyncRecipeStatePayload.TYPE,
                 gg.archipelago.aprandomizer.network.SyncRecipeStatePayload.STREAM_CODEC,
                 (payload, context) -> context.enqueueWork(() -> {
                     if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
                         gg.archipelago.aprandomizer.client.ClientRecipeManager.handleSync(payload);
+                    }
+                })
+        );
+
+        registrar.playToClient(
+                gg.archipelago.aprandomizer.network.SyncChestRecipientsPayload.TYPE,
+                gg.archipelago.aprandomizer.network.SyncChestRecipientsPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
+                        gg.archipelago.aprandomizer.client.SharedChestScreen.updateClientRecipients(payload.recipients());
+                    }
+                })
+        );
+
+        // Extra Abilities payloads
+        registrar.playToServer(
+                gg.archipelago.aprandomizer.network.ToggleAbilityPayload.TYPE,
+                gg.archipelago.aprandomizer.network.ToggleAbilityPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (context.player() instanceof net.minecraft.server.level.ServerPlayer player) {
+                        gg.archipelago.aprandomizer.managers.AbilityManager.handleToggle(player, payload.action());
+                    }
+                })
+        );
+
+        registrar.playToServer(
+                gg.archipelago.aprandomizer.network.PerformMultiJumpPayload.TYPE,
+                gg.archipelago.aprandomizer.network.PerformMultiJumpPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (context.player() instanceof net.minecraft.server.level.ServerPlayer player) {
+                        gg.archipelago.aprandomizer.managers.AbilityManager.handleMultiJump(player, payload.jumpNumber());
+                    }
+                })
+        );
+
+        registrar.playToServer(
+                gg.archipelago.aprandomizer.network.UpdateAbilitySlotPayload.TYPE,
+                gg.archipelago.aprandomizer.network.UpdateAbilitySlotPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (context.player() instanceof net.minecraft.server.level.ServerPlayer player) {
+                        gg.archipelago.aprandomizer.managers.AbilityManager.handleUpdateSlot(player, payload.slotType(), payload.stack());
+                    }
+                })
+        );
+
+        registrar.playToServer(
+                gg.archipelago.aprandomizer.network.AltTrashItemPayload.TYPE,
+                gg.archipelago.aprandomizer.network.AltTrashItemPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (context.player() instanceof net.minecraft.server.level.ServerPlayer player) {
+                        gg.archipelago.aprandomizer.managers.AbilityManager.handleAltTrash(player, payload.containerSlotId());
+                    }
+                })
+        );
+
+        registrar.playToClient(
+                gg.archipelago.aprandomizer.network.SyncAbilitiesPayload.TYPE,
+                gg.archipelago.aprandomizer.network.SyncAbilitiesPayload.STREAM_CODEC,
+                (payload, context) -> context.enqueueWork(() -> {
+                    if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
+                        gg.archipelago.aprandomizer.client.ClientAbilityManager.handleSync(payload);
                     }
                 })
         );
@@ -400,7 +517,7 @@ public class APRandomizer {
             LOGGER.error("NO APMC FILE FOUND. PLEASE PLACE A VALID APMC FILE IN THE APDATA FOLDER.");
             return;
         }
-        if (server == null) server = event.getServer();
+        server = event.getServer();
         ServerLevel overworld = server.getLevel(Level.OVERWORLD);
         if (overworld == null){
             LOGGER.error("THE SERVER COULD NOT GET Level.OVERWORLD.");
@@ -431,9 +548,9 @@ public class APRandomizer {
         }
 
         //set up managers
-        if (advancementManager == null) advancementManager = new AdvancementManager(worldData);
-        if (goalManager == null) goalManager = new GoalManager(server, apmcData, advancementManager, worldData);
-        if (itemManager == null) itemManager = new ItemManager(server, goalManager, worldData);
+        advancementManager = new AdvancementManager(worldData);
+        goalManager = new GoalManager(server, apmcData, advancementManager, worldData);
+        itemManager = new ItemManager(server, goalManager, worldData);
 
         advancementManager.setCheckedAdvancements(worldData.getLocations());
 
@@ -487,23 +604,37 @@ public class APRandomizer {
             overworld.getGameRules().set(GameRules.SPAWN_WANDERING_TRADERS, true, server);
         }
 
-        if (apmcData.state == APMCData.State.VALID && apmcData.server != null) {
+        connectToArchipelago();
+    }
 
-            APClient APClient = getAP();
-            if (APClient != null) {
-                APClient.setName(apmcData.player_name);
+    public static boolean connectToArchipelago() {
+        if (isConnected()) return true;
+        if (apmcData == null || apmcData.state != APMCData.State.VALID) return false;
+        if (apmcData.server == null || apmcData.server.isBlank()) return false;
 
-                String address = apmcData.server;
-                if (apmcData.port > 0 && !address.contains(":")) address += ":" + apmcData.port;
+        APClient client = getAP();
+        if (client == null) return false;
 
-                Utils.sendMessageToAll("Connecting to Archipelago server at " + address);
+        client.setName(apmcData.player_name);
+        if (apmcData.password != null && !apmcData.password.isBlank()) {
+            client.setPassword(apmcData.password.trim());
+        }
 
-                try {
-                    APClient.connect(address);
-                } catch (URISyntaxException e) {
-                    Utils.sendMessageToAll("unable to connect");
-                }
-            }
+        String address = apmcData.server.trim();
+        if (apmcData.port > 0 && !address.contains(":")) {
+            address += ":" + apmcData.port;
+        }
+
+        LOGGER.info("Connecting to Archipelago server at {}", address);
+        Utils.sendMessageToAll("Connecting to Archipelago server at " + address);
+
+        try {
+            client.connect(address);
+            return true;
+        } catch (URISyntaxException e) {
+            LOGGER.error("Unable to connect to Archipelago server at {}", address, e);
+            Utils.sendMessageToAll("unable to connect: malformed address " + address);
+            return false;
         }
     }
 
@@ -517,5 +648,10 @@ public class APRandomizer {
     public void onServerStopped(ServerStoppedEvent event) {
         if (APClient != null)
             APClient.close();
+        server = null;
+        worldData = null;
+        itemManager = null;
+        goalManager = null;
+        advancementManager = null;
     }
 }

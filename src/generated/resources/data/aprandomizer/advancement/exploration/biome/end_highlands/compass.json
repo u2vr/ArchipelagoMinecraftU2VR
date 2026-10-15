@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/end_highlands",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/end_highlands"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the End Highlands Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: End Highlands"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

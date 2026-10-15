@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/deep_ocean",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/deep_ocean"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Deep Ocean Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Deep Ocean"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

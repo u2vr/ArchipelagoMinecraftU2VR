@@ -11,12 +11,16 @@ import gg.archipelago.aprandomizer.common.Utils.Utils;
 import gg.archipelago.aprandomizer.data.WorldData;
 import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import gg.archipelago.aprandomizer.network.SyncRecipeStatePayload;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.slf4j.Logger;
@@ -38,6 +42,8 @@ public class RecipeTreeManager {
     private static final Map<Integer, List<RecipeTreeNode>> NODES_BY_TIER = new HashMap<>();
     private static final Map<Identifier, Integer> ADVANCEMENT_TIER_MAP = new HashMap<>();
     private static final Map<Identifier, RecipeTreeNode> ADVANCEMENT_NODE_MAP = new HashMap<>();
+    private static final Map<Identifier, RecipeTreeNode> ITEM_ID_TO_NODE_MAP = new HashMap<>();
+    private static final Map<Item, RecipeTreeNode> ITEM_TO_NODE_MAP = new HashMap<>();
     private static JsonObject settingsObj = null;
     private static boolean loaded = false;
 
@@ -54,6 +60,8 @@ public class RecipeTreeManager {
         NODES_BY_TIER.clear();
         ADVANCEMENT_TIER_MAP.clear();
         ADVANCEMENT_NODE_MAP.clear();
+        ITEM_ID_TO_NODE_MAP.clear();
+        ITEM_TO_NODE_MAP.clear();
         settingsObj = null;
         loadRecipeTree();
         loaded = true;
@@ -109,6 +117,8 @@ public class RecipeTreeManager {
 
             LOGGER.info("Successfully loaded {} recipe nodes with {} total recipe keys from recipe_tree.json",
                     ALL_NODES.size(), ALL_RECIPES.size());
+
+            populateItemMap();
 
         } catch (Exception e) {
             LOGGER.error("Error loading recipe tree: ", e);
@@ -259,6 +269,17 @@ public class RecipeTreeManager {
         }
     }
 
+    public static boolean isRecipeRestrictionEnabled() {
+        if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
+            var sd = APRandomizer.getAP().getSlotData();
+            if (sd.recipeRestriction != null) return sd.isRecipeRestrictionEnabled();
+        }
+        if (APRandomizer.getApmcData() != null && APRandomizer.getApmcData().recipe_restriction != null) {
+            return APRandomizer.getApmcData().isRecipeRestrictionEnabled();
+        }
+        return isSettingEnabled("recipe_restriction", true);
+    }
+
     public static RecipeTreeNode unlockNextRecipeNode(MinecraftServer server) {
         ensureLoaded();
         WorldData worldData = APRandomizer.getWorldData();
@@ -345,10 +366,9 @@ public class RecipeTreeManager {
 
         ItemManager itemManager = APRandomizer.getItemManager();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            player.awardRecipesByKey(chosen.recipes());
             if (itemManager != null) {
                 itemManager.grantAllInitialRecipes(player);
-            } else {
-                player.awardRecipesByKey(chosen.recipes());
             }
             APCriteriaTriggers.RECIPE_NODE.get().trigger(player, chosen.id());
             try {
@@ -598,10 +618,9 @@ public class RecipeTreeManager {
 
         ItemManager itemManager = APRandomizer.getItemManager();
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            player.awardRecipesByKey(node.recipes());
             if (itemManager != null) {
                 itemManager.grantAllInitialRecipes(player);
-            } else {
-                player.awardRecipesByKey(node.recipes());
             }
             APCriteriaTriggers.RECIPE_NODE.get().trigger(player, node.id());
             try {
@@ -661,6 +680,160 @@ public class RecipeTreeManager {
             PacketDistributor.sendToAllPlayers(createSyncPayload());
         } catch (Exception e) {
             LOGGER.warn("Failed to sync recipe state to all players: {}", e.getMessage());
+        }
+    }
+
+    public static synchronized void populateItemMap() {
+        ITEM_ID_TO_NODE_MAP.clear();
+        ITEM_TO_NODE_MAP.clear();
+        for (RecipeTreeNode node : ALL_NODES) {
+            if (node.tier() <= 0) continue;
+
+            // 1. Map node.item()
+            if (node.item() != null && !node.item().isBlank() && !"minecraft:air".equals(node.item())) {
+                try {
+                    Identifier id = Identifier.parse(node.item());
+                    ITEM_ID_TO_NODE_MAP.put(id, node);
+                } catch (Exception ignored) {}
+            }
+
+            // 2. Map all recipes whose key corresponds directly to an Item
+            for (ResourceKey<Recipe<?>> rKey : node.recipes()) {
+                Identifier rId = rKey.identifier();
+                ITEM_ID_TO_NODE_MAP.putIfAbsent(rId, node);
+            }
+
+            // 3. Bucket variants for node_107
+            if ("node_107".equals(node.id()) || "minecraft:bucket".equals(node.item())) {
+                for (String bucketId : List.of(
+                        "minecraft:bucket",
+                        "minecraft:water_bucket",
+                        "minecraft:lava_bucket",
+                        "minecraft:powder_snow_bucket",
+                        "minecraft:milk_bucket",
+                        "minecraft:axolotl_bucket",
+                        "minecraft:cod_bucket",
+                        "minecraft:pufferfish_bucket",
+                        "minecraft:salmon_bucket",
+                        "minecraft:tropical_fish_bucket",
+                        "minecraft:tadpole_bucket")) {
+                    ITEM_ID_TO_NODE_MAP.put(Identifier.parse(bucketId), node);
+                }
+            }
+        }
+
+        // Try populating ITEM_TO_NODE_MAP if Minecraft is bootstrapped
+        try {
+            for (Map.Entry<Identifier, RecipeTreeNode> entry : ITEM_ID_TO_NODE_MAP.entrySet()) {
+                BuiltInRegistries.ITEM.getOptional(entry.getKey()).ifPresent(it -> {
+                    if (it != Items.AIR) {
+                        ITEM_TO_NODE_MAP.put(it, entry.getValue());
+                    }
+                });
+            }
+        } catch (Throwable ignored) {
+            // Not bootstrapped (e.g. running in unit test)
+        }
+    }
+
+    public static void updateServerRecipeOutputs(MinecraftServer server) {
+        if (server == null) return;
+        ensureLoaded();
+    }
+
+    public static RecipeTreeNode getNodeForItem(Item item) {
+        ensureLoaded();
+        if (item == null) return null;
+        RecipeTreeNode node = ITEM_TO_NODE_MAP.get(item);
+        if (node != null) return node;
+        try {
+            Identifier id = BuiltInRegistries.ITEM.getKey(item);
+            if (id != null) {
+                node = ITEM_ID_TO_NODE_MAP.get(id);
+                if (node != null) {
+                    ITEM_TO_NODE_MAP.put(item, node);
+                    return node;
+                }
+            }
+        } catch (Throwable ignored) {}
+        return null;
+    }
+
+    public static RecipeTreeNode getNodeForIdentifier(Identifier itemId) {
+        ensureLoaded();
+        if (itemId == null) return null;
+        return ITEM_ID_TO_NODE_MAP.get(itemId);
+    }
+
+    public static RecipeTreeNode getNodeForItem(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) return null;
+        return getNodeForItem(stack.getItem());
+    }
+
+    public static boolean isItemLocked(ItemStack stack) {
+        return isItemLocked(stack, APRandomizer.getWorldData());
+    }
+
+    public static boolean isItemLocked(ItemStack stack, WorldData worldData) {
+        if (stack == null || stack.isEmpty()) return false;
+        return isItemLocked(stack.getItem(), worldData);
+    }
+
+    public static boolean isItemLocked(Item item) {
+        return isItemLocked(item, APRandomizer.getWorldData());
+    }
+
+    public static boolean isItemLocked(Item item, WorldData worldData) {
+        if (!isRecipeRestrictionEnabled()) {
+            return false;
+        }
+        ensureLoaded();
+        RecipeTreeNode node = getNodeForItem(item);
+        if (node == null) {
+            return false;
+        }
+        return isNodeLocked(node, worldData);
+    }
+
+    public static boolean isItemLocked(Identifier itemId) {
+        return isItemLocked(itemId, APRandomizer.getWorldData());
+    }
+
+    public static boolean isItemLocked(Identifier itemId, WorldData worldData) {
+        if (!isRecipeRestrictionEnabled()) {
+            return false;
+        }
+        ensureLoaded();
+        RecipeTreeNode node = getNodeForIdentifier(itemId);
+        if (node == null) {
+            return false;
+        }
+        return isNodeLocked(node, worldData);
+    }
+
+    public static boolean isNodeLocked(RecipeTreeNode node) {
+        return isNodeLocked(node, APRandomizer.getWorldData());
+    }
+
+    public static boolean isNodeLocked(RecipeTreeNode node, WorldData worldData) {
+        if (node == null || node.tier() <= 0) return false;
+        if (!isSettingEnabled("recipe_restriction", true)) return false;
+
+        if (worldData != null) {
+            Set<ResourceKey<Recipe<?>>> unlocked = new HashSet<>(worldData.getUnlockedRecipes());
+            return !node.isUnlocked(unlocked);
+        }
+
+        if (net.neoforged.fml.loading.FMLEnvironment.getDist().isClient()) {
+            return !ClientHook.isNodeUnlocked(node);
+        }
+
+        return false;
+    }
+
+    private static class ClientHook {
+        private static boolean isNodeUnlocked(RecipeTreeNode node) {
+            return gg.archipelago.aprandomizer.client.ClientRecipeManager.isNodeUnlocked(node);
         }
     }
 }

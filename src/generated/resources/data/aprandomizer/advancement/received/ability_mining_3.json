@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/ability_mining_2",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/progressive_mining",
+        "tier": 3
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Breaks blocks in a 3×3×1 shape without breaking tools",
+    "icon": {
+      "id": "minecraft:diamond_pickaxe"
+    },
+    "show_toast": false,
+    "title": "Progressive Mining (3×3×1)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

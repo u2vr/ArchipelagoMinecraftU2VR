@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/ability_mining_3",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/progressive_mining",
+        "tier": 4
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Breaks blocks in a 3×3×2 shape without breaking tools",
+    "icon": {
+      "id": "minecraft:netherite_pickaxe"
+    },
+    "show_toast": false,
+    "title": "Progressive Mining (3×3×2)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

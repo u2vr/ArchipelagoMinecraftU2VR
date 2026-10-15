@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/progressive_mining"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Breaks blocks in a 2×1×1 shape without breaking tools",
+    "icon": {
+      "id": "minecraft:iron_pickaxe"
+    },
+    "show_toast": false,
+    "title": "Progressive Mining (2×1×1)"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

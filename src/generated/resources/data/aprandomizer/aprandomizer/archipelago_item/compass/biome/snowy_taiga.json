@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/snowy_taiga",
+    "name": "Snowy Taiga",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:snowy_taiga"
+    }
+  }
+}

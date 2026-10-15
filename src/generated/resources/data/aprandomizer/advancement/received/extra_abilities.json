@@ -1,0 +1,23 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Special gameplay bonuses and convenience upgrades",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "show_toast": false,
+    "title": "Extra Abilities"
+  },
+  "requirements": [
+    [
+      "auto"
+    ]
+  ]
+}

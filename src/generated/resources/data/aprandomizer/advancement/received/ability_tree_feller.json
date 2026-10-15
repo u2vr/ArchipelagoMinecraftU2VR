@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/tree_feller"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Chops down whole trees and leaves with an axe",
+    "icon": {
+      "id": "minecraft:diamond_axe"
+    },
+    "show_toast": false,
+    "title": "Tree Feller"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

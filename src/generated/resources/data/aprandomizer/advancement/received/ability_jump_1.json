@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/progressive_jump"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Perform a mid-air jump canceling fall momentum",
+    "icon": {
+      "id": "minecraft:feather"
+    },
+    "show_toast": false,
+    "title": "Double Jump"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

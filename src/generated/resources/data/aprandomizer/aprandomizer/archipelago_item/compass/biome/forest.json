@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/forest",
+    "name": "Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:forest"
+    }
+  }
+}

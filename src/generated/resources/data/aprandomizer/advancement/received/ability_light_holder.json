@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/light_holder"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Slot for light-emitting blocks attached to chest (LambDynamicLights)",
+    "icon": {
+      "id": "minecraft:lantern"
+    },
+    "show_toast": false,
+    "title": "Light Holder"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

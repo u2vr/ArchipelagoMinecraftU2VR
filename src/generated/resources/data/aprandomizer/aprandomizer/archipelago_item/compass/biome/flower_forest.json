@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/flower_forest",
+    "name": "Flower Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:flower_forest"
+    }
+  }
+}

@@ -92,6 +92,9 @@ public class ExplorationManager {
 
         if (path.startsWith("exploration/biome/")) {
             String biomePath = path.substring("exploration/biome/".length());
+            if (biomePath.endsWith("/compass")) {
+                biomePath = biomePath.substring(0, biomePath.length() - "/compass".length());
+            }
             for (ExplorationData.BiomeEntry biome : ExplorationData.BIOMES) {
                 if (biome.path().equals(biomePath)) {
                     return isBiomeCheckEnabled(biome);
@@ -205,6 +208,10 @@ public class ExplorationManager {
             }
         }
 
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            gg.archipelago.aprandomizer.managers.itemmanager.ItemManager.refreshCompasses(p);
+        }
+
         String msg = "§6[Archipelago] §aDiscovered new biome: §f" + biome.displayName() + "!" + (checksEnabled ? " §e[Location Checked]" : "");
         server.getPlayerList().broadcastSystemMessage(Component.literal(msg), true);
     }
@@ -228,6 +235,10 @@ public class ExplorationManager {
             if (am != null && !am.hasAdvancement(structure.locationId())) {
                 am.addAdvancement(structure.locationId());
             }
+        }
+
+        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+            gg.archipelago.aprandomizer.managers.itemmanager.ItemManager.refreshCompasses(p);
         }
 
         String msg = "§6[Archipelago] §aDiscovered structure: §f" + structure.displayName() + "!" + (checksEnabled ? " §e[Location Checked]" : "");

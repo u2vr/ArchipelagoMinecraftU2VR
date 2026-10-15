@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/sunflower_plains",
+    "name": "Sunflower Plains",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:sunflower_plains"
+    }
+  }
+}

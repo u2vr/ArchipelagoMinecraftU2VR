@@ -1,7 +1,9 @@
 package gg.archipelago.aprandomizer.data.advancements;
 
 import gg.archipelago.aprandomizer.advancements.ExplorationCriteria;
+import gg.archipelago.aprandomizer.advancements.ReceivedItemCriteria;
 import gg.archipelago.aprandomizer.exploration.ExplorationData;
+import gg.archipelago.aprandomizer.items.APItems;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementType;
@@ -71,7 +73,7 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
         // 3. Child biomes
         for (ExplorationData.BiomeEntry biome : ExplorationData.BIOMES) {
             AdvancementHolder parent = catHolders.get(biome.category());
-            Advancement.Builder.recipeAdvancement()
+            AdvancementHolder biomeHolder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
                     .display(
                             biome.icon(),
@@ -83,6 +85,20 @@ public class ExplorationAdvancementProvider extends AdvancementSubProvider {
                             false)
                     .addCriterion("visited", ExplorationCriteria.TriggerInstance.explored(biome.id()))
                     .save(output, biome.getAdvancementId());
+
+            // Biome Compass child advancement
+            Advancement.Builder.recipeAdvancement()
+                    .parent(biomeHolder)
+                    .display(
+                            Items.COMPASS,
+                            Component.literal("Compass: " + biome.displayName()),
+                            Component.literal("Receive the " + biome.displayName() + " Biome Compass from Archipelago"),
+                            AdvancementType.TASK,
+                            false,
+                            false,
+                            false)
+                    .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.biomeCompassKey(biome.path()), 1))
+                    .save(output, biome.getCompassAdvancementId());
         }
 
         // 4. Child structures

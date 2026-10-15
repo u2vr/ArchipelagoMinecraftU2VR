@@ -25,12 +25,15 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.Color;
 
 @EventBusSubscriber
 public class GoalManager {
+
+    public static final long COMPLETION_DISPLAY_DURATION_MS = 5 * 60 * 1000L; // 5 минут
 
     int advancementsRequired;
     int dragonEggShardsRequired;
@@ -80,10 +83,13 @@ public class GoalManager {
 
         if (isGameCompleted()) {
             gameCompletedAnnounced = true;
+            if (worldData != null && worldData.getGoalCompletedTime() <= 0) {
+                worldData.setGoalCompletedTime(1L);
+            }
         }
 
         updateInfoBar();
-        advancementInfoBar.setVisible(true);
+        advancementInfoBar.setVisible(isGameCompleted() ? isCompletionTextVisible() : true);
         eggInfoBar.setVisible(dragonEggShardsRequired > 0 && currentEggShards() < dragonEggShardsRequired);
         connectionInfoBar.setVisible(true);
     }
@@ -108,9 +114,20 @@ public class GoalManager {
         return true;
     }
 
+    public boolean isCompletionTextVisible() {
+        if (!isGameCompleted()) {
+            return false;
+        }
+        long completedTime = (worldData != null) ? worldData.getGoalCompletedTime() : 0L;
+        if (completedTime <= 0) {
+            return true;
+        }
+        return (System.currentTimeMillis() - completedTime) < COMPLETION_DISPLAY_DURATION_MS;
+    }
+
     public String getAdvancementRemainingString() {
         if (isGameCompleted()) {
-            return "Игра пройдена";
+            return isCompletionTextVisible() ? "Игра пройдена" : "";
         }
         if (!isChecksDone()) {
             return String.format("Чеки: %d / %d", advancementManager.getFinishedAmount(), advancementsRequired);
@@ -171,12 +188,16 @@ public class GoalManager {
         }
 
         if (isGameCompleted()) {
-            advancementInfoBar.setName(Component.literal("Игра пройдена").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
-            advancementInfoBar.setColor(BossEvent.BossBarColor.GREEN);
-            advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
-            advancementInfoBar.setMax(1);
-            advancementInfoBar.setValue(1);
-            advancementInfoBar.setVisible(true);
+            if (isCompletionTextVisible()) {
+                advancementInfoBar.setName(Component.literal("Игра пройдена").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                advancementInfoBar.setColor(BossEvent.BossBarColor.GREEN);
+                advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
+                advancementInfoBar.setMax(1);
+                advancementInfoBar.setValue(1);
+                advancementInfoBar.setVisible(true);
+            } else {
+                advancementInfoBar.setVisible(false);
+            }
         } else if (!isChecksDone()) {
             advancementInfoBar.setName(Component.literal(String.format("Чеки: %d / %d", advancementManager.getFinishedAmount(), advancementsRequired)));
             advancementInfoBar.setColor(BossEvent.BossBarColor.BLUE);
@@ -226,6 +247,11 @@ public class GoalManager {
     public void checkGoalCompletion() {
         if (!isGameCompleted())
             return;
+
+        if (worldData != null && worldData.getGoalCompletedTime() <= 0) {
+            worldData.setGoalCompletedTime(System.currentTimeMillis());
+            updateInfoBar();
+        }
 
         if (!gameCompletedAnnounced) {
             gameCompletedAnnounced = true;
@@ -317,5 +343,16 @@ public class GoalManager {
         if (boss == APMCData.Bosses.NONE) return false;
         // if both bosses are required, and you didn't ask about none, return true;
         return required == APMCData.Bosses.BOTH;
+    }
+
+    @SubscribeEvent
+    public static void onServerTick(ServerTickEvent.Post event) {
+        GoalManager goalManager = APRandomizer.getGoalManager();
+        if (goalManager != null && goalManager.isGameCompleted()) {
+            CustomBossEvent bar = goalManager.advancementInfoBar;
+            if (bar != null && bar.isVisible() && !goalManager.isCompletionTextVisible()) {
+                bar.setVisible(false);
+            }
+        }
     }
 }

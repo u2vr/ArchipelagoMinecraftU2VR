@@ -1,0 +1,16 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Structures",
+    "id": "aprandomizer:nether_fossil",
+    "name": "Nether Fossil",
+    "target": {
+      "type": "aprandomizer:structure",
+      "level": {
+        "type": "aprandomizer:constant",
+        "level": "minecraft:the_nether"
+      },
+      "structures": "#aprandomizer:nether_fossil"
+    }
+  }
+}

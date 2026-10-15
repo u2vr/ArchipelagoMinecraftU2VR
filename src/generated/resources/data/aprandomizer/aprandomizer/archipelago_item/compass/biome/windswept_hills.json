@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/windswept_hills",
+    "name": "Windswept Hills",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:windswept_hills"
+    }
+  }
+}

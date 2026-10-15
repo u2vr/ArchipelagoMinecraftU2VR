@@ -19,6 +19,7 @@ public record RestrictionsData(
         List<String> unlockedStructureIds,
         int recipeTickets
 ) {
+    public static final double[] WORLD_BORDER_SIZES = { 1000.0, 1800.0, 3000.0, 5000.0, 8000.0, 60000000.0 };
     public static final RestrictionsData DEFAULT = new RestrictionsData(0, 0, 0, 0, 0, false, 0, false, false, 0, List.of(), 0);
 
     public RestrictionsData(int hpUpgrades, int hungerUpgrades, int reachUpgrades, int worldBorderUpgrades, int structureUpgrades, boolean offhandUnlocked, int inventorySlotUpgrades, boolean monsterSunBurningDisabled, boolean ignoreLightSpawningEnabled, int recipeUnlockTier, List<String> unlockedStructureIds) {

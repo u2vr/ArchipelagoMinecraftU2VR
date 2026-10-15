@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/pale_garden",
+    "name": "Pale Garden",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:pale_garden"
+    }
+  }
+}

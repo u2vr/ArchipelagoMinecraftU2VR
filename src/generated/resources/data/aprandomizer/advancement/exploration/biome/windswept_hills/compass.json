@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/windswept_hills",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/windswept_hills"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Windswept Hills Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Windswept Hills"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

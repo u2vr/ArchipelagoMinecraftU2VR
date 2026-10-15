@@ -1,0 +1,26 @@
+{
+  "parent": "aprandomizer:received/ability_jump_1",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/progressive_jump",
+        "tier": 2
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Perform a third mid-air jump",
+    "icon": {
+      "id": "minecraft:rabbit_foot"
+    },
+    "show_toast": false,
+    "title": "Triple Jump"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

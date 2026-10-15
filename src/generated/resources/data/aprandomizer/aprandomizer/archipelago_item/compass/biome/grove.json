@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/grove",
+    "name": "Grove",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:grove"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/cherry_grove",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/cherry_grove"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Cherry Grove Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Cherry Grove"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

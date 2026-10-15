@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/dark_forest",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/dark_forest"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Dark Forest Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Dark Forest"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

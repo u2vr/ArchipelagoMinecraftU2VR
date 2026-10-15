@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Mountain Peaks",
+    "id": "aprandomizer:biome/stony_peaks",
+    "name": "Stony Peaks",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:stony_peaks"
+    }
+  }
+}

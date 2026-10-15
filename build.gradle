@@ -165,6 +165,7 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
+            mod_credits            : mod_credits,
             mod_description        : mod_description
     ]
     inputs.properties replaceProperties
@@ -207,16 +208,16 @@ idea {
 
 // Packaging Archipelago APWorld
 var packageApworld = tasks.register("packageApworld", Zip) {
-    archiveFileName = "minecraft_u2vr.apworld"
+    archiveFileName = "Minecraft with BACAP.apworld"
     destinationDirectory = layout.buildDirectory.dir("libs")
 
-    into("minecraft_u2vr") {
-        from(layout.projectDirectory.dir("minecraft_u2vr")) {
+    into("minecraft_with_bacap") {
+        from(layout.projectDirectory.dir("minecraft_with_bacap")) {
             exclude "**/__pycache__/**"
             exclude "**/*.pyc"
         }
     }
-    from(layout.projectDirectory.file("minecraft_u2vr/archipelago.json"))
+    from(layout.projectDirectory.file("minecraft_with_bacap/archipelago.json"))
 }
 
 var copyArtifactsToLib = tasks.register("copyArtifactsToLib", Copy) {

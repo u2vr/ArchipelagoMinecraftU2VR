@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/swamp",
+    "name": "Swamp",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:swamp"
+    }
+  }
+}

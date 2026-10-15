@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Cold Biomes",
+    "id": "aprandomizer:biome/frozen_river",
+    "name": "Frozen River",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:frozen_river"
+    }
+  }
+}

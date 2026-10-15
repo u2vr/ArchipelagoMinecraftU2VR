@@ -35,6 +35,7 @@ public class APBlocks {
     );
 
     public static final DeferredItem<BlockItem> SHARED_CHEST_ITEM = ITEMS.registerSimpleBlockItem("shared_chest", SHARED_CHEST);
+    public static final DeferredItem<net.minecraft.world.item.Item> ARCHIPELAGO_ICON = ITEMS.registerSimpleItem("archipelago");
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SharedChestBlockEntity>> SHARED_CHEST_BLOCK_ENTITY =
             BLOCK_ENTITY_TYPES.register("shared_chest", () -> new BlockEntityType<>(SharedChestBlockEntity::new, Set.of(SHARED_CHEST.get())));
@@ -42,6 +43,7 @@ public class APBlocks {
     public static void buildCreativeTabContents(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS || event.getTabKey() == CreativeModeTabs.OP_BLOCKS) {
             event.accept(SHARED_CHEST_ITEM.get());
+            event.accept(ARCHIPELAGO_ICON.get());
         }
     }
 }

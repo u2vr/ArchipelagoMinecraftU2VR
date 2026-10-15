@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:received/extra_abilities",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:ability/trash_can"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Extra inventory slot to destroy unwanted items (Alt+Click)",
+    "icon": {
+      "id": "minecraft:cauldron"
+    },
+    "show_toast": false,
+    "title": "Trash Can"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

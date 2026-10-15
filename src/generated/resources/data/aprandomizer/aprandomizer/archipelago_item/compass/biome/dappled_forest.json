@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/dappled_forest",
+    "name": "Dappled Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:dappled_forest"
+    }
+  }
+}

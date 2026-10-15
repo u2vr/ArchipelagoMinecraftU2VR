@@ -8,14 +8,25 @@ import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.SlotData;
 import gg.archipelago.aprandomizer.common.Utils.TitleQueue;
 import gg.archipelago.aprandomizer.common.Utils.Utils;
+import gg.archipelago.aprandomizer.attachments.APAttachmentTypes;
+import gg.archipelago.aprandomizer.data.WorldData;
+import gg.archipelago.aprandomizer.items.CompassReward;
 import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+
+import java.util.Map;
 
 @EventBusSubscriber
 public class APCommand {
@@ -141,14 +152,6 @@ public class APCommand {
                             return 1;
                         })
                 )
-                .then(Commands.literal("open_chest")
-                        .executes(ctx -> {
-                            if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
-                                gg.archipelago.aprandomizer.managers.chest.SharedChestManager.openChest(player);
-                            }
-                            return 1;
-                        })
-                )
                 .then(Commands.literal("sync")
                         .executes(ctx -> {
                             var server = ctx.getSource().getServer();
@@ -171,6 +174,7 @@ public class APCommand {
                             }
                             gg.archipelago.aprandomizer.managers.recipemanager.RecipeTreeManager.syncStateToAll(server);
                             for (var player : server.getPlayerList().getPlayers()) {
+                                ItemManager.ensurePlayerHasCompasses(player);
                                 gg.archipelago.aprandomizer.exploration.ExplorationManager.syncPlayerExploration(player);
                             }
                             var goalManager = APRandomizer.getGoalManager();
@@ -179,6 +183,122 @@ public class APCommand {
                                 goalManager.updateInfoBar();
                             }
                             ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Все достижения, чеки, предметы и рецепты успешно синхронизированы!"), true);
+                            return 1;
+                        })
+                )
+                .then(Commands.literal("give")
+                        .then(Commands.argument("itemId", com.mojang.brigadier.arguments.LongArgumentType.longArg(1))
+                                .executes(ctx -> {
+                                    long id = com.mojang.brigadier.arguments.LongArgumentType.getLong(ctx, "itemId");
+                                    var im = APRandomizer.getItemManager();
+                                    var wd = APRandomizer.getWorldData();
+                                    if (im != null && wd != null) {
+                                        int nextIdx = Math.max(im.getIndex(), wd.getItemIndex()) + 1;
+                                        boolean success = im.giveItemToAll(id, nextIdx);
+                                        if (success) {
+                                            ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Successfully gave item ID " + id), true);
+                                        } else {
+                                            ctx.getSource().sendFailure(Component.literal("§c[Archipelago] Failed to give item ID " + id + " (not found in DEFAULT_ITEMS or already received)"));
+                                        }
+                                    }
+                                    return 1;
+                                })
+                        )
+                )
+                .then(Commands.literal("ability")
+                        .executes(ctx -> {
+                            var wd = APRandomizer.getWorldData();
+                            if (wd == null) {
+                                ctx.getSource().sendFailure(Component.literal("World data not loaded."));
+                                return 0;
+                            }
+                            ctx.getSource().sendSuccess(() -> Component.literal("§6=== Archipelago Abilities ==="), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eProgressive Mining: §f" + wd.getMiningLevel() + "/5"), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eTree Feller: §f" + (wd.isTreeFellerUnlocked() ? "§aUnlocked" : "§cLocked")), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eProgressive Jump: §f" + wd.getJumpLevel() + "/2"), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eItem Magnet: §f" + (wd.isItemMagnetUnlocked() ? "§aUnlocked" : "§cLocked")), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eStep Assist: §f" + (wd.isStepAssistUnlocked() ? "§aUnlocked" : "§cLocked")), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eTrash Can: §f" + (wd.isTrashCanUnlocked() ? "§aUnlocked" : "§cLocked")), false);
+                            ctx.getSource().sendSuccess(() -> Component.literal("§eLight Holder: §f" + (wd.isLightHolderUnlocked() ? "§aUnlocked" : "§cLocked")), false);
+                            return 1;
+                        })
+                        .then(Commands.literal("jump")
+                                .executes(ctx -> setAbilityLevel(ctx.getSource(), "jump", 1))
+                                .then(Commands.argument("level", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0, 2))
+                                        .executes(ctx -> setAbilityLevel(ctx.getSource(), "jump", com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "level")))
+                                )
+                        )
+                        .then(Commands.literal("mining")
+                                .executes(ctx -> setAbilityLevel(ctx.getSource(), "mining", 5))
+                                .then(Commands.argument("level", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0, 5))
+                                        .executes(ctx -> setAbilityLevel(ctx.getSource(), "mining", com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "level")))
+                                )
+                        )
+                        .then(Commands.literal("treefeller")
+                                .executes(ctx -> toggleAbility(ctx.getSource(), "treefeller"))
+                        )
+                        .then(Commands.literal("magnet")
+                                .executes(ctx -> toggleAbility(ctx.getSource(), "magnet"))
+                        )
+                        .then(Commands.literal("stepassist")
+                                .executes(ctx -> toggleAbility(ctx.getSource(), "stepassist"))
+                        )
+                        .then(Commands.literal("trashcan")
+                                .executes(ctx -> toggleAbility(ctx.getSource(), "trashcan"))
+                        )
+                        .then(Commands.literal("lightholder")
+                                .executes(ctx -> toggleAbility(ctx.getSource(), "lightholder"))
+                        )
+                        .then(Commands.literal("sync")
+                                .executes(ctx -> {
+                                    var server = ctx.getSource().getServer();
+                                    var im = APRandomizer.getItemManager();
+                                    if (im != null) {
+                                        im.reconcileReceivedItems(server);
+                                    }
+                                    ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Abilities reconciled with received items!"), true);
+                                    return 1;
+                                })
+                        )
+                )
+                .then(Commands.literal("compass")
+                        .executes(ctx -> {
+                            if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
+                                giveCompassToPlayer(ctx.getSource(), player, null);
+                            } else {
+                                ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                            }
+                            return 1;
+                        })
+                        .then(Commands.literal("give")
+                                .executes(ctx -> {
+                                    if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
+                                        giveCompassToPlayer(ctx.getSource(), player, null);
+                                    } else {
+                                        ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                                    }
+                                    return 1;
+                                })
+                        )
+                        .then(Commands.argument("target", com.mojang.brigadier.arguments.StringArgumentType.greedyString())
+                                .executes(ctx -> {
+                                    if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
+                                        String target = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "target");
+                                        giveCompassToPlayer(ctx.getSource(), player, target);
+                                    } else {
+                                        ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                                    }
+                                    return 1;
+                                })
+                        )
+                )
+                .then(Commands.literal("give_compass")
+                        .executes(ctx -> {
+                            if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
+                                giveCompassToPlayer(ctx.getSource(), player, null);
+                            } else {
+                                ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                            }
                             return 1;
                         })
                 )
@@ -200,6 +320,38 @@ public class APCommand {
 
         );
 
+        dispatcher.register(
+                Commands.literal("compass")
+                        .executes(ctx -> {
+                            if (ctx.getSource().getEntity() instanceof ServerPlayer player) {
+                                giveCompassToPlayer(ctx.getSource(), player, null);
+                            } else {
+                                ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                            }
+                            return 1;
+                        })
+                        .then(Commands.literal("give")
+                                .executes(ctx -> {
+                                    if (ctx.getSource().getEntity() instanceof ServerPlayer player) {
+                                        giveCompassToPlayer(ctx.getSource(), player, null);
+                                    } else {
+                                        ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                                    }
+                                    return 1;
+                                })
+                        )
+                        .then(Commands.argument("target", com.mojang.brigadier.arguments.StringArgumentType.greedyString())
+                                .executes(ctx -> {
+                                    if (ctx.getSource().getEntity() instanceof ServerPlayer player) {
+                                        String target = com.mojang.brigadier.arguments.StringArgumentType.getString(ctx, "target");
+                                        giveCompassToPlayer(ctx.getSource(), player, target);
+                                    } else {
+                                        ctx.getSource().sendFailure(Component.literal("Only players can execute this command."));
+                                    }
+                                    return 1;
+                                })
+                        )
+        );
     }
 
     private static int queryRecipeBias(CommandContext<CommandSourceStack> source) {
@@ -249,6 +401,137 @@ public class APCommand {
 
         String enabled = (slotData.deathlink) ? "enabled" : "disabled";
         source.getSource().sendSuccess(() -> Component.literal("DeathLink is now " + enabled), false);
+        return 1;
+    }
+
+    private static void giveCompassToPlayer(CommandSourceStack source, ServerPlayer player, @org.jetbrains.annotations.Nullable String targetName) {
+        Map<Identifier, CompassReward> unlocked = player.getData(APAttachmentTypes.AP_PLAYER).getUnlockedCompassRewards();
+
+        CompassReward chosenReward = null;
+        if (targetName != null && !targetName.isBlank()) {
+            if (unlocked.isEmpty()) {
+                source.sendFailure(Component.literal("§c[Archipelago] У вас пока нет открытых целей для компаса."));
+                return;
+            }
+            String search = targetName.trim().toLowerCase();
+            for (CompassReward reward : unlocked.values()) {
+                String nameStr = reward.name().getString().toLowerCase();
+                String idStr = reward.id().toString().toLowerCase();
+                String pathStr = reward.id().getPath().toLowerCase();
+                if (nameStr.contains(search) || idStr.contains(search) || pathStr.contains(search)) {
+                    chosenReward = reward;
+                    break;
+                }
+            }
+            if (chosenReward == null) {
+                source.sendFailure(Component.literal("§c[Archipelago] Не найдено открытой цели компаса по запросу: " + targetName));
+                return;
+            }
+        } else if (!unlocked.isEmpty()) {
+            for (CompassReward reward : unlocked.values()) {
+                chosenReward = reward;
+            }
+        }
+
+        ItemStack existingCompass = ItemStack.EMPTY;
+        for (ItemStack item : player.getInventory()) {
+            if (ItemManager.isArchipelagoCompass(item, player)) {
+                existingCompass = item;
+                break;
+            }
+        }
+
+        if (existingCompass.isEmpty()) {
+            ItemStack compass = CompassReward.DEFAULT_COMPASS.create().copy();
+            if (chosenReward != null) {
+                ItemManager.updateCompassLocation(chosenReward, player, compass);
+                CompoundTag tag = compass.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+                tag.putInt("index", unlocked.size() - 1);
+                compass.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+                Utils.giveItemToPlayer(player, compass);
+                final String targetTitle = chosenReward.name().getString();
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Выдан компас Архипелага (" + targetTitle + ")"), false);
+            } else {
+                Utils.giveItemToPlayer(player, compass);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Выдан компас Архипелага (цели еще не открыты)"), false);
+            }
+        } else {
+            if (chosenReward != null) {
+                ItemManager.updateCompassLocation(chosenReward, player, existingCompass);
+                final String targetTitle = chosenReward.name().getString();
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Компас перенаправлен на " + targetTitle), false);
+            } else {
+                source.sendSuccess(() -> Component.literal("§e[Archipelago] Компас Архипелага уже находится в вашем инвентаре."), false);
+            }
+        }
+        ItemManager.cleanCompasses(player);
+    }
+
+    private static int setAbilityLevel(CommandSourceStack source, String ability, int level) {
+        WorldData wd = APRandomizer.getWorldData();
+        if (wd == null) {
+            source.sendFailure(Component.literal("World data not loaded."));
+            return 0;
+        }
+        var server = source.getServer();
+        var im = APRandomizer.getItemManager();
+
+        if ("jump".equalsIgnoreCase(ability)) {
+            wd.setJumpLevel(level);
+            source.sendSuccess(() -> Component.literal("§a[Archipelago] Progressive Jump level set to " + level + "/2"), true);
+        } else if ("mining".equalsIgnoreCase(ability)) {
+            wd.setMiningLevel(level);
+            source.sendSuccess(() -> Component.literal("§a[Archipelago] Progressive Mining level set to " + level + "/5"), true);
+        }
+
+        gg.archipelago.aprandomizer.managers.AbilityManager.syncToAll(server);
+        if (im != null) {
+            im.syncAllPlayerAdvancements();
+        }
+        return 1;
+    }
+
+    private static int toggleAbility(CommandSourceStack source, String ability) {
+        WorldData wd = APRandomizer.getWorldData();
+        if (wd == null) {
+            source.sendFailure(Component.literal("World data not loaded."));
+            return 0;
+        }
+        var server = source.getServer();
+        var im = APRandomizer.getItemManager();
+
+        switch (ability.toLowerCase()) {
+            case "treefeller" -> {
+                boolean state = !wd.isTreeFellerUnlocked();
+                wd.setTreeFellerUnlocked(state);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Tree Feller " + (wd.isTreeFellerUnlocked() ? "§aunlocked" : "§clocked")), true);
+            }
+            case "magnet" -> {
+                boolean state = !wd.isItemMagnetUnlocked();
+                wd.setItemMagnetUnlocked(state);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Item Magnet " + (wd.isItemMagnetUnlocked() ? "§aunlocked" : "§clocked")), true);
+            }
+            case "stepassist" -> {
+                boolean state = !wd.isStepAssistUnlocked();
+                wd.setStepAssistUnlocked(state);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Step Assist " + (wd.isStepAssistUnlocked() ? "§aunlocked" : "§clocked")), true);
+            }
+            case "trashcan" -> {
+                boolean state = !wd.isTrashCanUnlocked();
+                wd.setTrashCanUnlocked(state);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Trash Can " + (wd.isTrashCanUnlocked() ? "§aunlocked" : "§clocked")), true);
+            }
+            case "lightholder" -> {
+                boolean state = !wd.isLightHolderUnlocked();
+                wd.setLightHolderUnlocked(state);
+                source.sendSuccess(() -> Component.literal("§a[Archipelago] Light Holder " + (wd.isLightHolderUnlocked() ? "§aunlocked" : "§clocked")), true);
+            }
+        }
+
+        gg.archipelago.aprandomizer.managers.AbilityManager.syncToAll(server);
+        if (im != null) {
+            im.syncAllPlayerAdvancements();
+        }
         return 1;
     }
 

@@ -18,4 +18,15 @@ public class APStructureTags {
     public static final TagKey<Structure> TRAIL_RUINS = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "trail_ruins"));
     public static final TagKey<Structure> TRIAL_CHAMBERS = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "trial_chambers"));
     public static final TagKey<Structure> STRONGHOLD = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "stronghold"));
+    public static final TagKey<Structure> MINESHAFT = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "mineshaft"));
+    public static final TagKey<Structure> DESERT_PYRAMID = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "desert_pyramid"));
+    public static final TagKey<Structure> JUNGLE_TEMPLE = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "jungle_temple"));
+    public static final TagKey<Structure> SWAMP_HUT = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "swamp_hut"));
+    public static final TagKey<Structure> IGLOO = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "igloo"));
+    public static final TagKey<Structure> SHIPWRECK = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "shipwreck"));
+    public static final TagKey<Structure> OCEAN_RUIN = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "ocean_ruin"));
+    public static final TagKey<Structure> BURIED_TREASURE = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "buried_treasure"));
+    public static final TagKey<Structure> NETHER_FOSSIL = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "nether_fossil"));
+    public static final TagKey<Structure> RUINED_PORTAL = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "ruined_portal"));
+    public static final TagKey<Structure> ABANDONED_CAMP = TagKey.create(Registries.STRUCTURE, Identifier.fromNamespaceAndPath(APRandomizer.MODID, "abandoned_camp"));
 }

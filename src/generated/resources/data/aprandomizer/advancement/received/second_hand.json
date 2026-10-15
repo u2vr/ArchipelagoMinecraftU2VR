@@ -1,5 +1,5 @@
 {
-  "parent": "aprandomizer:received/root",
+  "parent": "aprandomizer:received/vanilla_abilities",
   "criteria": {
     "received": {
       "conditions": {

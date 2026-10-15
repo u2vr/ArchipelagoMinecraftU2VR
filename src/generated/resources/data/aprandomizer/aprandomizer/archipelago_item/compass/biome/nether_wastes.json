@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Nether Biomes",
+    "id": "aprandomizer:biome/nether_wastes",
+    "name": "Nether Wastes",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:nether_wastes"
+    }
+  }
+}

@@ -25,9 +25,6 @@ public class SharedChestBlockEntity extends BlockEntity implements MenuProvider 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-        if (!SharedChestManager.isPlayerLockHolder(player)) {
-            return null;
-        }
         return new SharedChestMenu(containerId, playerInventory, SharedChestManager.getContainer());
     }
 }

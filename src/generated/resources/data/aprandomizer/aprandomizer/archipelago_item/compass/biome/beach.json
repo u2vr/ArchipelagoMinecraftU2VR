@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/beach",
+    "name": "Beach",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:beach"
+    }
+  }
+}

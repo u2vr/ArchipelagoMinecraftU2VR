@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/frozen_river",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/frozen_river"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Frozen River Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Frozen River"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

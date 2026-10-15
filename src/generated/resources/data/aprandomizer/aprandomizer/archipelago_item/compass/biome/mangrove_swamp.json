@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/mangrove_swamp",
+    "name": "Mangrove Swamp",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:mangrove_swamp"
+    }
+  }
+}

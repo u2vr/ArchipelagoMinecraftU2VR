@@ -12,9 +12,12 @@ import io.github.archipelagomw.parts.NetworkSlot;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.server.MinecraftServer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ReceiveItem {
 
+    private static final Logger LOGGER = LogManager.getLogger();
     private final MinecraftServer server;
     private final ItemManager itemManager;
 
@@ -47,6 +50,9 @@ public class ReceiveItem {
         server.execute(() -> {
             NetworkItem item = event.getItem();
             String senderSlot = getSenderSlotName(item);
+
+            LOGGER.info("Received Archipelago item: id={}, name='{}', index={}, sender='{}'",
+                    item.itemID, item.itemName, event.getIndex(), senderSlot);
 
             boolean newItem = itemManager.giveItemToAll(item.itemID, (int) event.getIndex(), senderSlot);
             if (!newItem) return;

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/stony_shore",
+    "name": "Stony Shore",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:stony_shore"
+    }
+  }
+}

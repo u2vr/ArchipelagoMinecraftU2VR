@@ -1,5 +1,5 @@
 {
-  "parent": "aprandomizer:received/root",
+  "parent": "aprandomizer:received/crafts_root",
   "criteria": {
     "received": {
       "conditions": {

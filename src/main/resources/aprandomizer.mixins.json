@@ -18,9 +18,11 @@
   ],
   "client": [
     "MixinAbstractContainerScreen",
+    "MixinAbstractRecipeBookScreen",
     "MixinHud",
     "MixinAdvancementWidget",
-    "MixinPauseScreen"
+    "MixinPauseScreen",
+    "MixinAvatarRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

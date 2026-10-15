@@ -123,10 +123,10 @@ public class RestrictionSettingsTest {
         assertFalse(apmcData.isTrapsEnabled());
         assertFalse(apmcData.isCursesEnabled());
         assertTrue(apmcData.isStructureUnlockShuffle());
-        assertEquals("minecraft_u2vr", apmcData.getGame());
+        assertEquals("Minecraft with BACAP", apmcData.getGame());
 
         APMCData defaultApmc = new APMCData();
-        assertEquals("minecraft_u2vr", defaultApmc.getGame());
+        assertEquals("Minecraft with BACAP", defaultApmc.getGame());
 
         String jsonCustom = "{\"game\": \"custom_game\"}";
         APMCData customApmc = gson.fromJson(jsonCustom, APMCData.class);
@@ -146,6 +146,7 @@ public class RestrictionSettingsTest {
         assertTrue(RecipeTreeManager.isSettingEnabled("world_border_restriction", false));
         assertTrue(RecipeTreeManager.isSettingEnabled("traps_enabled", false));
         assertTrue(RecipeTreeManager.isSettingEnabled("curses_enabled", false));
+        assertTrue(RecipeTreeManager.isSettingEnabled("recipe_restriction", false));
 
         // Non-existent key should return fallback
         assertFalse(RecipeTreeManager.isSettingEnabled("non_existent_key", false));
@@ -164,6 +165,7 @@ public class RestrictionSettingsTest {
         assertTrue(defaultSlotData.isWorldBorderRestrictionEnabled());
         assertTrue(defaultSlotData.isTrapsEnabled());
         assertTrue(defaultSlotData.isCursesEnabled());
+        assertTrue(defaultSlotData.isRecipeRestrictionEnabled());
         assertFalse(defaultSlotData.isStructureUnlockShuffle());
 
         APMCData defaultApmcData = new APMCData();
@@ -176,6 +178,7 @@ public class RestrictionSettingsTest {
         assertTrue(defaultApmcData.isWorldBorderRestrictionEnabled());
         assertTrue(defaultApmcData.isTrapsEnabled());
         assertTrue(defaultApmcData.isCursesEnabled());
+        assertTrue(defaultApmcData.isRecipeRestrictionEnabled());
         assertFalse(defaultApmcData.isStructureUnlockShuffle());
         assertEquals(10, defaultSlotData.getWanderingTraderTrades());
         assertEquals(10, defaultApmcData.getWanderingTraderTrades());
@@ -1060,15 +1063,247 @@ public class RestrictionSettingsTest {
         assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
                 Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/root")));
 
+        // Biome compass child advancement follows biome check visibility
+        assertTrue(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/plains/compass")));
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/sunflower_plains/compass")));
+
         // When everything is disabled
         apmc.major_biome_checks = false;
         apmc.structure_checks = false;
+        assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
+                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/biome/plains/compass")));
         assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
                 Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/overworld_biomes")));
         assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
                 Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/structures")));
         assertFalse(gg.archipelago.aprandomizer.exploration.ExplorationManager.isExplorationAdvancementEnabled(
                 Identifier.fromNamespaceAndPath(APRandomizer.MODID, "exploration/root")));
+    }
+
+    @Test
+    public void testGenerateAndVerifyBiomeCompassAdvancements() throws Exception {
+        java.io.File baseDir = new java.io.File("src/generated/resources/data/aprandomizer/advancement/exploration/biome");
+        for (ExplorationData.BiomeEntry biome : ExplorationData.BIOMES) {
+            java.io.File biomeDir = new java.io.File(baseDir, biome.path());
+            biomeDir.mkdirs();
+            java.io.File compassFile = new java.io.File(biomeDir, "compass.json");
+            String json = "{\n" +
+                    "  \"parent\": \"aprandomizer:exploration/biome/" + biome.path() + "\",\n" +
+                    "  \"criteria\": {\n" +
+                    "    \"received\": {\n" +
+                    "      \"conditions\": {\n" +
+                    "        \"item\": \"aprandomizer:compass/biome/" + biome.path() + "\"\n" +
+                    "      },\n" +
+                    "      \"trigger\": \"aprandomizer:received_item\"\n" +
+                    "    }\n" +
+                    "  },\n" +
+                    "  \"display\": {\n" +
+                    "    \"announce_to_chat\": false,\n" +
+                    "    \"description\": \"Receive the " + biome.displayName() + " Biome Compass from Archipelago\",\n" +
+                    "    \"icon\": {\n" +
+                    "      \"id\": \"minecraft:compass\"\n" +
+                    "    },\n" +
+                    "    \"show_toast\": false,\n" +
+                    "    \"title\": \"Compass: " + biome.displayName() + "\"\n" +
+                    "  },\n" +
+                    "  \"requirements\": [\n" +
+                    "    [\n" +
+                    "      \"received\"\n" +
+                    "    ]\n" +
+                    "  ]\n" +
+                    "}";
+            java.nio.file.Files.writeString(compassFile.toPath(), json, java.nio.charset.StandardCharsets.UTF_8);
+            assertTrue(compassFile.exists(), "Compass advancement file should exist: " + compassFile.getPath());
+        }
+    }
+
+    @Test
+    public void testRecipeRestrictionAndItemLocking() {
+        RecipeTreeManager.ensureLoaded();
+
+        // 1. Settings deserialization
+        Gson gson = new Gson();
+        String jsonDisabled = "{\"recipe_restriction\": false}";
+        SlotData slotDisabled = gson.fromJson(jsonDisabled, SlotData.class);
+        assertFalse(slotDisabled.isRecipeRestrictionEnabled());
+
+        APMCData apmcDisabled = gson.fromJson(jsonDisabled, APMCData.class);
+        assertFalse(apmcDisabled.isRecipeRestrictionEnabled());
+
+        String jsonAltDisabled = "{\"restrict_recipes\": 0}";
+        SlotData slotAlt = gson.fromJson(jsonAltDisabled, SlotData.class);
+        assertFalse(slotAlt.isRecipeRestrictionEnabled());
+
+        APMCData apmcAlt = gson.fromJson(jsonAltDisabled, APMCData.class);
+        assertFalse(apmcAlt.isRecipeRestrictionEnabled());
+
+        // 2. Node resolution via Identifier
+        Identifier diamondSwordId = Identifier.withDefaultNamespace("diamond_sword");
+        Identifier diamondChestplateId = Identifier.withDefaultNamespace("diamond_chestplate");
+        Identifier flintAndSteelId = Identifier.withDefaultNamespace("flint_and_steel");
+        Identifier stonePickaxeId = Identifier.withDefaultNamespace("stone_pickaxe");
+        Identifier bucketId = Identifier.withDefaultNamespace("bucket");
+        Identifier waterBucketId = Identifier.withDefaultNamespace("water_bucket");
+        Identifier lavaBucketId = Identifier.withDefaultNamespace("lava_bucket");
+        Identifier milkBucketId = Identifier.withDefaultNamespace("milk_bucket");
+
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(diamondSwordId));
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(diamondChestplateId));
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(flintAndSteelId));
+        assertNull(RecipeTreeManager.getNodeForIdentifier(stonePickaxeId)); // tier 0 / starter, not in tree
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(bucketId));
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(waterBucketId));
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(lavaBucketId));
+        assertNotNull(RecipeTreeManager.getNodeForIdentifier(milkBucketId));
+
+        // Bucket variants point to the bucket node
+        var bucketNode = RecipeTreeManager.getNodeForIdentifier(bucketId);
+        assertSame(bucketNode, RecipeTreeManager.getNodeForIdentifier(waterBucketId));
+        assertSame(bucketNode, RecipeTreeManager.getNodeForIdentifier(lavaBucketId));
+        assertSame(bucketNode, RecipeTreeManager.getNodeForIdentifier(milkBucketId));
+
+        // 3. Locking state with fresh WorldData
+        WorldData worldData = new WorldData();
+
+        assertTrue(RecipeTreeManager.isItemLocked(diamondSwordId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(diamondChestplateId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(flintAndSteelId, worldData));
+        assertFalse(RecipeTreeManager.isItemLocked(stonePickaxeId, worldData)); // stone pickaxe is never locked
+        assertTrue(RecipeTreeManager.isItemLocked(bucketId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(waterBucketId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(lavaBucketId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(milkBucketId, worldData));
+
+        // 4. Unlock diamond sword node
+        var diamondSwordNode = RecipeTreeManager.getNodeForIdentifier(diamondSwordId);
+        assertNotNull(diamondSwordNode);
+        for (var recipeKey : diamondSwordNode.recipes()) {
+            worldData.addUnlockedRecipe(recipeKey);
+        }
+        assertFalse(RecipeTreeManager.isItemLocked(diamondSwordId, worldData));
+        assertTrue(RecipeTreeManager.isItemLocked(diamondChestplateId, worldData)); // other items remain locked
+
+        // 5. Unlock bucket node -> all bucket variants become unlocked
+        for (var recipeKey : bucketNode.recipes()) {
+            worldData.addUnlockedRecipe(recipeKey);
+        }
+        assertFalse(RecipeTreeManager.isItemLocked(bucketId, worldData));
+        assertFalse(RecipeTreeManager.isItemLocked(waterBucketId, worldData));
+        assertFalse(RecipeTreeManager.isItemLocked(lavaBucketId, worldData));
+        assertFalse(RecipeTreeManager.isItemLocked(milkBucketId, worldData));
+
+        // 6. When recipe restriction is disabled, nothing is locked
+        APMCData apmc = APRandomizer.getApmcData();
+        Object originalRecipeRestriction = apmc.recipe_restriction;
+        try {
+            apmc.recipe_restriction = false;
+            assertFalse(RecipeTreeManager.isItemLocked(diamondChestplateId, worldData));
+            assertFalse(RecipeTreeManager.isItemLocked(flintAndSteelId, worldData));
+        } finally {
+            apmc.recipe_restriction = originalRecipeRestriction;
+        }
+    }
+
+    @Test
+    public void testWorldBorderSizesProgression() {
+        double[] sizes = gg.archipelago.aprandomizer.data.RestrictionsData.WORLD_BORDER_SIZES;
+        assertEquals(6, sizes.length, "Should have 6 stages (initial + 5 upgrades)");
+        assertEquals(1000.0, sizes[0], "Stage 0 (start) should be 1000 blocks");
+        assertEquals(1800.0, sizes[1], "Stage 1 (upgrade 1) should be 1800 blocks");
+        assertEquals(3000.0, sizes[2], "Stage 2 (upgrade 2) should be 3000 blocks");
+        assertEquals(5000.0, sizes[3], "Stage 3 (upgrade 3) should be 5000 blocks");
+        assertEquals(8000.0, sizes[4], "Stage 4 (upgrade 4) should be 8000 blocks");
+        assertEquals(60000000.0, sizes[5], "Stage 5 (upgrade 5) should be 60000000 blocks (max)");
+
+        // Test WorldData integration
+        WorldData worldData = new WorldData();
+        assertEquals(0, worldData.getWorldBorderUpgrades());
+
+        // Increment upgrades and verify progression
+        worldData.incrementWorldBorderUpgrades();
+        assertEquals(1, worldData.getWorldBorderUpgrades());
+        worldData.incrementWorldBorderUpgrades();
+        assertEquals(2, worldData.getWorldBorderUpgrades());
+        worldData.incrementWorldBorderUpgrades();
+        assertEquals(3, worldData.getWorldBorderUpgrades());
+        worldData.incrementWorldBorderUpgrades();
+        assertEquals(4, worldData.getWorldBorderUpgrades());
+        worldData.incrementWorldBorderUpgrades();
+        assertEquals(5, worldData.getWorldBorderUpgrades());
+    }
+
+    @Test
+    public void testWorldDataRecipeCodec() {
+        WorldData worldData = new WorldData();
+        ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> furnace =
+                ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        Identifier.withDefaultNamespace("furnace"));
+        ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> woodenSpear =
+                ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        Identifier.withDefaultNamespace("wooden_spear"));
+        worldData.addUnlockedRecipe(furnace);
+        worldData.addUnlockedRecipe(woodenSpear);
+
+        var encoded = WorldData.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, worldData);
+        assertTrue(encoded.isSuccess(), "Encoding should succeed: " + encoded.error());
+
+        var tag = encoded.getOrThrow();
+        var decoded = WorldData.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, tag);
+        assertTrue(decoded.isSuccess(), "Decoding should succeed: " + decoded.error());
+
+        WorldData loaded = decoded.getOrThrow();
+        assertEquals(2, loaded.getUnlockedRecipes().size());
+        assertTrue(loaded.getUnlockedRecipes().contains(furnace));
+        assertTrue(loaded.getUnlockedRecipes().contains(woodenSpear));
+
+        // Test backward compatibility when unlockedRecipes tag is missing entirely
+        if (tag instanceof net.minecraft.nbt.CompoundTag compound) {
+            compound.remove("unlockedRecipes");
+            var decodedWithout = WorldData.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, compound);
+            assertTrue(decodedWithout.isSuccess(), "Decoding without unlockedRecipes tag should succeed");
+            WorldData loadedWithout = decodedWithout.getOrThrow();
+            assertNotNull(loadedWithout.getUnlockedRecipes());
+            assertTrue(loadedWithout.getUnlockedRecipes().isEmpty());
+
+            // Ensure mutating the list doesn't throw UnsupportedOperationException
+            loadedWithout.addUnlockedRecipe(furnace);
+            assertEquals(1, loadedWithout.getUnlockedRecipes().size());
+        }
+    }
+
+    @Test
+    public void testItemManagerUsesLiveWorldDataForLockedRecipes() {
+        RecipeTreeManager.ensureLoaded();
+        WorldData initialWd = new WorldData();
+        APRandomizer.setWorldData(initialWd);
+
+        gg.archipelago.aprandomizer.managers.itemmanager.ItemManager itemManager =
+                new gg.archipelago.aprandomizer.managers.itemmanager.ItemManager(null, null, initialWd);
+
+        ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> furnace =
+                ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        Identifier.withDefaultNamespace("furnace"));
+        ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> woodenSpear =
+                ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE,
+                        Identifier.withDefaultNamespace("wooden_spear"));
+
+        assertTrue(itemManager.getLockedRecipes(null).contains(furnace), "furnace should be locked");
+        assertTrue(itemManager.getLockedRecipes(null).contains(woodenSpear), "wooden_spear should be locked");
+
+        // Simulate reconnecting / reloading world data into APRandomizer
+        WorldData newWd = new WorldData();
+        newWd.addUnlockedRecipe(furnace);
+        newWd.addUnlockedRecipe(woodenSpear);
+        APRandomizer.setWorldData(newWd);
+
+        // Even though itemManager was created with initialWd, it should see unlocks from live APRandomizer.getWorldData()
+        assertFalse(itemManager.getLockedRecipes(null).contains(furnace), "furnace should be unlocked from live WorldData");
+        assertFalse(itemManager.getLockedRecipes(null).contains(woodenSpear), "wooden_spear should be unlocked from live WorldData");
+
+        // Clean up
+        APRandomizer.setWorldData(null);
     }
 }
 

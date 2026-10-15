@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/old_growth_spruce_taiga",
+    "name": "Old Growth Spruce Taiga",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:old_growth_spruce_taiga"
+    }
+  }
+}

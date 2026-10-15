@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Mountain Peaks",
+    "id": "aprandomizer:biome/frozen_peaks",
+    "name": "Frozen Peaks",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:frozen_peaks"
+    }
+  }
+}

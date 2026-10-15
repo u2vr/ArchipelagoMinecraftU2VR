@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/old_growth_birch_forest",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/old_growth_birch_forest"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Old Growth Birch Forest Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Old Growth Birch Forest"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

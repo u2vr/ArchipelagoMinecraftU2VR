@@ -1,0 +1,23 @@
+{
+  "parent": "aprandomizer:received/root",
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Crafting recipes and equipment unlocked from Archipelago",
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:crafting_table"
+    },
+    "show_toast": false,
+    "title": "Crafting Recipes"
+  },
+  "requirements": [
+    [
+      "auto"
+    ]
+  ]
+}

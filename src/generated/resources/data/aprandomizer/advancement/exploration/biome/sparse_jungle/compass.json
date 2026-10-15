@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/sparse_jungle",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/sparse_jungle"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Sparse Jungle Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Sparse Jungle"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "End Biomes",
+    "id": "aprandomizer:biome/small_end_islands",
+    "name": "Small End Islands",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:small_end_islands"
+    }
+  }
+}

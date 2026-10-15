@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/stony_peaks",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/stony_peaks"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Stony Peaks Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Stony Peaks"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

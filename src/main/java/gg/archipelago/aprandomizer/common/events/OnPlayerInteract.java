@@ -2,6 +2,7 @@ package gg.archipelago.aprandomizer.common.events;
 
 import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.attachments.APAttachmentTypes;
+import gg.archipelago.aprandomizer.common.Utils.Utils;
 import gg.archipelago.aprandomizer.items.CompassReward;
 import gg.archipelago.aprandomizer.managers.itemmanager.ItemManager;
 import net.minecraft.core.Holder;
@@ -126,13 +127,26 @@ public class OnPlayerInteract {
         if (!(event.getEntity() instanceof ServerPlayer player))
             return;
 
-        if (!isCompass(event.getItemStack()))
-            return;
+        ItemStack held = event.getItemStack();
+        if (!isCompass(held)) {
+            if (held.is(Items.COMPASS)) {
+                Collection<CompassReward> unlocked = player.getData(APAttachmentTypes.AP_PLAYER).getUnlockedCompassRewards().values();
+                if (!unlocked.isEmpty()) {
+                    ItemManager.updateCompassLocation(unlocked.iterator().next(), player, held);
+                } else {
+                    return;
+                }
+            } else {
+                return;
+            }
+        }
 
-        //fetch our current compass list.
-        Collection<CompassReward> compasses = event.getEntity().getData(APAttachmentTypes.AP_PLAYER).getUnlockedCompassRewards().values();
+        // Fetch all unlocked compass rewards (both structures and biomes)
+        Collection<CompassReward> allCompasses = event.getEntity().getData(APAttachmentTypes.AP_PLAYER).getUnlockedCompassRewards().values();
+        if (allCompasses.isEmpty()) return;
+
         Map<String, Set<CompassReward>> categories = new HashMap<>();
-        for (CompassReward reward : compasses) {
+        for (CompassReward reward : allCompasses) {
             Set<CompassReward> category = categories.computeIfAbsent(reward.category(), name -> new HashSet<>());
             category.add(reward);
         }
@@ -178,16 +192,22 @@ public class OnPlayerInteract {
 
         ItemStack compass = event.getPlayer().getMainHandItem();
         if (!isCompass(compass)) {
-            for (ItemStack stack : event.getPlayer().getInventory()) {
-                if (isCompass(stack)) {
-                    compass = stack;
-                    break;
+            compass = event.getPlayer().getOffhandItem();
+            if (!isCompass(compass)) {
+                compass = ItemStack.EMPTY;
+                for (ItemStack stack : event.getPlayer().getInventory()) {
+                    if (isCompass(stack)) {
+                        compass = stack;
+                        break;
+                    }
                 }
             }
         }
 
-        if (!isCompass(compass))
-            return;
+        if (compass.isEmpty() || !isCompass(compass)) {
+            compass = CompassReward.DEFAULT_COMPASS.create().copy();
+            Utils.giveItemToPlayer(event.getPlayer(), compass);
+        }
 
         ItemManager.updateCompassLocation(compassReward, event.getPlayer(), compass);
     }

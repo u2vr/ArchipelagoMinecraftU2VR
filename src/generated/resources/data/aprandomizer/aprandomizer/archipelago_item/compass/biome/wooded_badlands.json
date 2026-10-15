@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/wooded_badlands",
+    "name": "Wooded Badlands",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:wooded_badlands"
+    }
+  }
+}

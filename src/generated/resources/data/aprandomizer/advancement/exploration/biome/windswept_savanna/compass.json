@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/windswept_savanna",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/windswept_savanna"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Windswept Savanna Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Windswept Savanna"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

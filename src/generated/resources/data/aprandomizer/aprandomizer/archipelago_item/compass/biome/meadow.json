@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/meadow",
+    "name": "Meadow",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:meadow"
+    }
+  }
+}

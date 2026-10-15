@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/small_end_islands",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/small_end_islands"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Small End Islands Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Small End Islands"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

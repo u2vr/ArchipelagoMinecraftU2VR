@@ -32,11 +32,10 @@ public record RecipeReward(ResourceKey<Recipe<?>> recipe) implements APReward {
 
     @Override
     public void give(ServerPlayer player) {
+        player.awardRecipesByKey(List.of(recipe));
         ItemManager itemManager = APRandomizer.getItemManager();
         if (itemManager != null) {
             itemManager.grantAllInitialRecipes(player);
-        } else {
-            player.awardRecipesByKey(List.of(recipe));
         }
     }
 

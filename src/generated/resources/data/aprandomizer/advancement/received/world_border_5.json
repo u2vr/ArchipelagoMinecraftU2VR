@@ -11,13 +11,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Expand World Border (Maximum reached!)",
-    "frame": "goal",
+    "description": "Снимает ограничения границы мира (максимальный размер, 60M×60M блоков)",
+    "frame": "challenge",
     "icon": {
       "id": "minecraft:map"
     },
     "show_toast": false,
-    "title": "World Border Upgrade 5/5 (Max)"
+    "title": "World Border 5/5 (Макс / Без ограничений)"
   },
   "requirements": [
     [

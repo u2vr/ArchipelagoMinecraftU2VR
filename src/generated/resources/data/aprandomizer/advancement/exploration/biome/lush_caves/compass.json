@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/lush_caves",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/lush_caves"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Lush Caves Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Lush Caves"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "block.aprandomizer.shared_chest": "Archipelago Chest",
   "item.aprandomizer.shared_chest": "Archipelago Chest",
+  "item.aprandomizer.archipelago": "Archipelago",
   "container.aprandomizer.shared_chest": "Archipelago Shared Chest",
   "key.aprandomizer.recipe_tree": "Archipelago Recipe Tree"
 }

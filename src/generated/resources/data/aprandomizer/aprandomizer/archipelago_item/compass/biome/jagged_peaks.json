@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Mountain Peaks",
+    "id": "aprandomizer:biome/jagged_peaks",
+    "name": "Jagged Peaks",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:jagged_peaks"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/end_midlands",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/end_midlands"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the End Midlands Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: End Midlands"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

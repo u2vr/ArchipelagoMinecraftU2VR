@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/snowy_beach",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/snowy_beach"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Snowy Beach Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Snowy Beach"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

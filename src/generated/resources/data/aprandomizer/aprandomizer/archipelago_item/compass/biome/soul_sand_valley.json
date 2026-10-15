@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Nether Biomes",
+    "id": "aprandomizer:biome/soul_sand_valley",
+    "name": "Soul Sand Valley",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:soul_sand_valley"
+    }
+  }
+}

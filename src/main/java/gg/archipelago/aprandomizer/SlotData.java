@@ -60,6 +60,9 @@ public class SlotData {
     @SerializedName(value = "world_border_restriction", alternate = {"world_border_shuffle", "level_size_restriction", "limit_world_border"})
     public Object worldBorderRestriction;
 
+    @SerializedName(value = "recipe_restriction", alternate = {"recipe_shuffle", "item_restriction", "restrict_recipes", "restrict_items"})
+    public Object recipeRestriction;
+
     @SerializedName(value = "traps_enabled", alternate = {"traps_shuffle", "include_traps", "enable_traps", "traps"})
     public Object trapsEnabled;
 
@@ -135,6 +138,13 @@ public class SlotData {
     @SerializedName(value = "hint_cost", alternate = {"hintCost", "location_check_points", "hint_points_per_check", "check_points", "points_per_check"})
     public Object hintCost = 10;
 
+    @SerializedName(value = "extra_abilities", alternate = {"abilities", "enable_extra_abilities"})
+    public Object extraAbilities;
+
+    public boolean isExtraAbilitiesEnabled() {
+        return parseBoolean(extraAbilities, false);
+    }
+
     @SerializedName("starting_items")
     public String startingItems;
 
@@ -175,6 +185,10 @@ public class SlotData {
 
     public boolean isWorldBorderRestrictionEnabled() {
         return parseBoolean(worldBorderRestriction, true);
+    }
+
+    public boolean isRecipeRestrictionEnabled() {
+        return parseBoolean(recipeRestriction, true);
     }
 
     public boolean isTrapsEnabled() {

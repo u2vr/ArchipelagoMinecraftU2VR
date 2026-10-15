@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Temperate Biomes",
+    "id": "aprandomizer:biome/old_growth_birch_forest",
+    "name": "Old Growth Birch Forest",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:old_growth_birch_forest"
+    }
+  }
+}

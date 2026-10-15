@@ -1,0 +1,25 @@
+{
+  "parent": "aprandomizer:exploration/biome/mangrove_swamp",
+  "criteria": {
+    "received": {
+      "conditions": {
+        "item": "aprandomizer:compass/biome/mangrove_swamp"
+      },
+      "trigger": "aprandomizer:received_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": "Receive the Mangrove Swamp Biome Compass from Archipelago",
+    "icon": {
+      "id": "minecraft:compass"
+    },
+    "show_toast": false,
+    "title": "Compass: Mangrove Swamp"
+  },
+  "requirements": [
+    [
+      "received"
+    ]
+  ]
+}

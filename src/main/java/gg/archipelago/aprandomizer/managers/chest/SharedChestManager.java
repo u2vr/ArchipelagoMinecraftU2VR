@@ -2,6 +2,7 @@ package gg.archipelago.aprandomizer.managers.chest;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -9,8 +10,12 @@ import com.mojang.serialization.JsonOps;
 import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.ap.APClient;
 import gg.archipelago.aprandomizer.data.WorldData;
+import gg.archipelago.aprandomizer.network.RecipientEntry;
+import gg.archipelago.aprandomizer.network.SyncChestRecipientsPayload;
+import io.github.archipelagomw.events.RetrievedEvent;
 import io.github.archipelagomw.events.SetReplyEvent;
 import io.github.archipelagomw.network.client.SetPacket;
+import io.github.archipelagomw.parts.NetworkSlot;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryOps;
@@ -19,35 +24,41 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.ItemStackWithSlot;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.ContainerUser;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @EventBusSubscriber(modid = APRandomizer.MODID)
 public class SharedChestManager {
     private static final Logger LOGGER = LogUtils.getLogger();
+
     public static final String STORAGE_KEY = "mc_shared_chest";
     public static final String LOCK_KEY = "mc_shared_chest_lock";
     public static final long LOCK_EXPIRY_MS = 45_000L;
     public static final long HEARTBEAT_INTERVAL_MS = 15_000L;
     public static final long AFK_TIMEOUT_MS = 120_000L;
     public static final long PENDING_TIMEOUT_MS = 4_000L;
+
+    public static final String ONLINE_KEY_PREFIX = "mc_chest_online_";
+    public static final String TRANSFER_KEY_PREFIX = "mc_chest_tx_";
+    public static final String ACK_KEY_PREFIX = "mc_chest_ack_";
+    public static final long ONLINE_TIMEOUT_MS = 15_000L;
+    public static final long TRANSFER_TIMEOUT_MS = 4_000L;
 
     public static class LockData {
         public String player;
@@ -69,6 +80,14 @@ public class SharedChestManager {
         }
     }
 
+    public record PendingTransfer(
+            String txId,
+            int targetSlotId,
+            String targetName,
+            UUID senderUuid,
+            long startTime
+    ) {}
+
     private static final SharedChestContainer CONTAINER = new SharedChestContainer();
     private static final Gson GSON = new Gson();
 
@@ -76,28 +95,19 @@ public class SharedChestManager {
     private static WorldData worldData;
     private static APClient apClient;
 
-    private static boolean isUpdatingFromArchipelago = false;
-    private static int pendingSyncTicks = 0;
-    private static String lastKnownArchipelagoJson = "[]";
+    private static final Map<Integer, Long> ONLINE_PLAYERS = new ConcurrentHashMap<>();
+    private static final Set<String> PROCESSED_TX_IDS = Collections.synchronizedSet(new HashSet<>());
+    private static PendingTransfer pendingTransfer = null;
 
-    private static UUID currentLockPlayer = null;
-    private static String currentLockPlayerName = null;
-    private static String currentLockToken = null;
-    private static BlockPos currentOpenPos = null;
-    private static long currentLockTime = 0L;
-    private static long lastHeartbeatTime = 0L;
-    private static long lastInteractionTime = 0L;
-
-    private static UUID pendingLockPlayer = null;
-    private static String pendingLockPlayerName = null;
-    private static String pendingLockToken = null;
-    private static BlockPos pendingLockPos = null;
-    private static long pendingLockStartTime = 0L;
-
-    private static LockData remoteLock = null;
+    private static long lastPresenceTime = 0L;
+    private static int tickCounter = 0;
 
     public static SharedChestContainer getContainer() {
         return CONTAINER;
+    }
+
+    public static boolean isTransferPending() {
+        return pendingTransfer != null;
     }
 
     public static boolean isStartingSharedChestEnabled() {
@@ -117,9 +127,8 @@ public class SharedChestManager {
         if (worldData != null) {
             String savedJson = worldData.getSharedChestJson();
             if (savedJson != null && !savedJson.isBlank() && !savedJson.equals("[]")) {
-                lastKnownArchipelagoJson = savedJson;
                 applyJsonToContainer(savedJson);
-                LOGGER.info("Loaded shared chest from local world data");
+                LOGGER.info("Loaded shared chest from local world data ({} items)", countNonEmpty());
             }
         }
     }
@@ -127,52 +136,43 @@ public class SharedChestManager {
     public static void onConnected(APClient client) {
         apClient = client;
         if (apClient != null && apClient.isConnected()) {
-            LOGGER.info("Registering Archipelago data storage notify & fetch for keys: {}, {}", STORAGE_KEY, LOCK_KEY);
-            apClient.dataStorageSetNotify(List.of(STORAGE_KEY, LOCK_KEY));
-            apClient.dataStorageGet(List.of(STORAGE_KEY, LOCK_KEY));
+            int mySlot = apClient.getSlot();
+            List<String> keys = new ArrayList<>();
+            keys.add(TRANSFER_KEY_PREFIX + mySlot);
+            keys.add(ACK_KEY_PREFIX + mySlot);
+
+            Map<Integer, NetworkSlot> slotInfo = apClient.getSlotInfo();
+            if (slotInfo != null) {
+                for (int slotId : slotInfo.keySet()) {
+                    if (slotId != mySlot) {
+                        keys.add(ONLINE_KEY_PREFIX + slotId);
+                    }
+                }
+            }
+
+            apClient.dataStorageSetNotify(keys);
+            apClient.dataStorageGet(keys);
+            sendPresence();
+            LOGGER.info("Shared chest initialized Archipelago DataStorage keys for slot {}", mySlot);
         }
     }
 
     public static void onContainerChanged() {
-        if (isUpdatingFromArchipelago) {
-            return;
-        }
-        lastInteractionTime = System.currentTimeMillis();
-        pendingSyncTicks = 2;
+        saveWorldData();
     }
 
     public static void onPlayerClosed(ContainerUser user) {
-        LivingEntity entity = user != null ? user.getLivingEntity() : null;
-        if (entity instanceof ServerPlayer player) {
-            if (currentLockPlayer != null && currentLockPlayer.equals(player.getUUID())) {
-                releaseLock();
-            }
-        } else {
-            if (currentLockPlayer != null) {
-                ServerPlayer holder = server != null ? server.getPlayerList().getPlayer(currentLockPlayer) : null;
-                if (holder == null || !isChestMenuOpen(holder)) {
-                    releaseLock();
-                }
-            }
-        }
+        saveWorldData();
     }
 
     public static void onPlayerClosed() {
-        releaseLock();
+        saveWorldData();
     }
 
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player) {
-            if (currentLockPlayer != null && currentLockPlayer.equals(player.getUUID())) {
-                releaseLock();
-            }
-            if (pendingLockPlayer != null && pendingLockPlayer.equals(player.getUUID())) {
-                pendingLockPlayer = null;
-                pendingLockPlayerName = null;
-                pendingLockToken = null;
-                pendingLockPos = null;
-            }
+        if (server != null && server.getPlayerList().getPlayerCount() <= 1) {
+            sendOfflinePresence();
         }
     }
 
@@ -183,47 +183,421 @@ public class SharedChestManager {
 
     public static void tick() {
         long now = System.currentTimeMillis();
+        tickCounter++;
 
-        // Pending lock timeout check
-        if (pendingLockPlayer != null && (now - pendingLockStartTime > PENDING_TIMEOUT_MS)) {
-            ServerPlayer pending = server != null ? server.getPlayerList().getPlayer(pendingLockPlayer) : null;
-            if (pending != null) {
-                pending.sendSystemMessage(Component.literal("§c[!] Таймаут ответа от Архипелага при открытии сундука."), true);
-                pending.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-            }
-            pendingLockPlayer = null;
-            pendingLockPlayerName = null;
-            pendingLockToken = null;
-            pendingLockPos = null;
+        // Send presence heartbeat every 5 seconds (100 ticks)
+        if (now - lastPresenceTime > 5_000L) {
+            lastPresenceTime = now;
+            sendPresence();
         }
 
-        // Active lock holder validation, heartbeat & AFK check
-        if (currentLockPlayer != null) {
-            ServerPlayer holder = server != null ? server.getPlayerList().getPlayer(currentLockPlayer) : null;
-            if (holder == null || !holder.isAlive() || !isChestMenuOpen(holder)) {
-                releaseLock();
-            } else if (now - lastInteractionTime > AFK_TIMEOUT_MS) {
-                holder.closeContainer();
-                holder.sendSystemMessage(Component.literal("§c[!] Общий сундук закрыт из-за бездействия (2 мин)."), true);
-                releaseLock();
-            } else if (now - lastHeartbeatTime > HEARTBEAT_INTERVAL_MS) {
-                lastHeartbeatTime = now;
-                sendHeartbeatToArchipelago();
+        // Check pending transfer timeout
+        if (pendingTransfer != null && (now - pendingTransfer.startTime() > TRANSFER_TIMEOUT_MS)) {
+            PendingTransfer pt = pendingTransfer;
+            pendingTransfer = null;
+
+            if (server != null) {
+                ServerPlayer sender = server.getPlayerList().getPlayer(pt.senderUuid());
+                if (sender != null) {
+                    sender.sendSystemMessage(Component.literal("§6[Общий сундук] §cИгрок §e" + pt.targetName() + " §cне отвечает или вышел из сети!"), true);
+                    sender.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
+                }
             }
         }
 
-        if (pendingSyncTicks > 0) {
-            pendingSyncTicks--;
-            if (pendingSyncTicks == 0) {
-                syncToArchipelago();
+        // Clean expired online players every 2 seconds
+        if (tickCounter % 40 == 0) {
+            boolean changed = false;
+            for (Map.Entry<Integer, Long> entry : ONLINE_PLAYERS.entrySet()) {
+                if (now - entry.getValue() > ONLINE_TIMEOUT_MS) {
+                    ONLINE_PLAYERS.remove(entry.getKey());
+                    changed = true;
+                }
+            }
+            if (changed) {
+                syncRecipientsToAllOpen();
             }
         }
     }
 
-    public static String serializeContainerToJson() {
-        if (server == null) {
-            return "[]";
+    private static void sendPresence() {
+        if (apClient != null && apClient.isConnected()) {
+            int mySlot = apClient.getSlot();
+            String myName = apClient.getAlias() != null && !apClient.getAlias().isBlank() ? apClient.getAlias() : apClient.getMyName();
+            JsonObject obj = new JsonObject();
+            obj.addProperty("slot", mySlot);
+            obj.addProperty("name", myName);
+            obj.addProperty("time", System.currentTimeMillis());
+
+            SetPacket packet = new SetPacket(ONLINE_KEY_PREFIX + mySlot, "");
+            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, GSON.toJson(obj));
+            packet.want_reply = false;
+            apClient.dataStorageSet(packet);
         }
+    }
+
+    private static void sendOfflinePresence() {
+        if (apClient != null && apClient.isConnected()) {
+            int mySlot = apClient.getSlot();
+            SetPacket packet = new SetPacket(ONLINE_KEY_PREFIX + mySlot, "");
+            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, "");
+            packet.want_reply = false;
+            apClient.dataStorageSet(packet);
+        }
+    }
+
+    public static boolean isSlotOnline(int slotId) {
+        Long time = ONLINE_PLAYERS.get(slotId);
+        return time != null && (System.currentTimeMillis() - time <= ONLINE_TIMEOUT_MS);
+    }
+
+    public static List<RecipientEntry> getRecipientEntries() {
+        List<RecipientEntry> list = new ArrayList<>();
+        if (apClient == null || !apClient.isConnected()) {
+            return list;
+        }
+
+        int mySlot = apClient.getSlot();
+        Map<Integer, NetworkSlot> slotInfo = apClient.getSlotInfo();
+        if (slotInfo == null) return list;
+
+        for (Map.Entry<Integer, NetworkSlot> entry : slotInfo.entrySet()) {
+            int slotId = entry.getKey();
+            if (slotId == mySlot) continue;
+
+            NetworkSlot slot = entry.getValue();
+            String name = slot.name != null ? slot.name : ("Slot " + slotId);
+            boolean online = isSlotOnline(slotId);
+            list.add(new RecipientEntry(slotId, name, online));
+        }
+
+        // Sort: online players first, then alphabetically
+        list.sort((a, b) -> {
+            if (a.isOnline() != b.isOnline()) {
+                return a.isOnline() ? -1 : 1;
+            }
+            return a.name().compareToIgnoreCase(b.name());
+        });
+
+        return list;
+    }
+
+    public static void syncRecipientsToPlayer(ServerPlayer player) {
+        if (player != null) {
+            PacketDistributor.sendToPlayer(player, new SyncChestRecipientsPayload(getRecipientEntries()));
+        }
+    }
+
+    public static void syncRecipientsToAllOpen() {
+        if (server == null) return;
+        List<RecipientEntry> entries = getRecipientEntries();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            if (player.containerMenu instanceof SharedChestMenu) {
+                PacketDistributor.sendToPlayer(player, new SyncChestRecipientsPayload(entries));
+            }
+        }
+    }
+
+    public static void openChest(ServerPlayer player, @Nullable BlockPos pos) {
+        if (pos == null || !(player.level().getBlockEntity(pos) instanceof SharedChestBlockEntity be)) {
+            return;
+        }
+
+        player.openMenu(be);
+
+        ServerLevel level = (ServerLevel) player.level();
+        level.playSound(null, pos, SoundEvents.ENDER_CHEST_OPEN, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+        PiglinAi.angerNearbyPiglins(level, player, true);
+
+        syncRecipientsToPlayer(player);
+    }
+
+    public static void dropChestContents(Level level, BlockPos pos) {
+        Containers.dropContents(level, pos, CONTAINER);
+        CONTAINER.clearContent();
+        saveWorldData();
+        refreshOpenMenus();
+    }
+
+    public static void handleSendItem(ServerPlayer player, int targetSlotId) {
+        if (isTransferPending()) {
+            player.sendSystemMessage(Component.literal("§e[!] Предыдущая передача еще обрабатывается..."), true);
+            return;
+        }
+
+        ItemStack sendStack = CONTAINER.getItem(SharedChestContainer.SEND_SLOT);
+        if (sendStack.isEmpty()) {
+            player.sendSystemMessage(Component.literal("§c[!] Слот передачи пуст!"), true);
+            player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
+            return;
+        }
+
+        if (apClient == null || !apClient.isConnected()) {
+            player.sendSystemMessage(Component.literal("§c[!] Нет подключения к Архипелагу!"), true);
+            player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
+            return;
+        }
+
+        int mySlot = apClient.getSlot();
+        if (targetSlotId == mySlot || targetSlotId <= 0) {
+            player.sendSystemMessage(Component.literal("§c[!] Нельзя отправить предмет себе!"), true);
+            return;
+        }
+
+        if (!isSlotOnline(targetSlotId)) {
+            player.sendSystemMessage(Component.literal("§c[!] Получатель не в сети!"), true);
+            player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
+            return;
+        }
+
+        String targetName = "Игрок " + targetSlotId;
+        if (apClient.getSlotInfo() != null && apClient.getSlotInfo().containsKey(targetSlotId)) {
+            targetName = apClient.getSlotInfo().get(targetSlotId).name;
+        }
+
+        String txId = UUID.randomUUID().toString();
+        String itemJson = serializeItemStack(sendStack);
+
+        JsonObject tx = new JsonObject();
+        tx.addProperty("txId", txId);
+        tx.addProperty("fromSlot", mySlot);
+        tx.addProperty("fromName", player.getScoreboardName());
+        tx.addProperty("toSlot", targetSlotId);
+        tx.addProperty("item", itemJson);
+        tx.addProperty("timestamp", System.currentTimeMillis());
+
+        pendingTransfer = new PendingTransfer(txId, targetSlotId, targetName, player.getUUID(), System.currentTimeMillis());
+
+        SetPacket packet = new SetPacket(TRANSFER_KEY_PREFIX + targetSlotId, "");
+        packet.addDataStorageOperation(SetPacket.Operation.REPLACE, GSON.toJson(tx));
+        packet.want_reply = false;
+        apClient.dataStorageSet(packet);
+
+        player.sendSystemMessage(Component.literal("§e[...] Передача предмета игроку " + targetName + "..."), true);
+    }
+
+    public static void handleArchipelagoRetrieved(RetrievedEvent event) {
+        if (event == null || event.data == null) return;
+        long now = System.currentTimeMillis();
+
+        for (Map.Entry<String, Object> entry : event.data.entrySet()) {
+            String key = entry.getKey();
+            Object val = entry.getValue();
+
+            if (key.startsWith(ONLINE_KEY_PREFIX)) {
+                handlePresenceData(key, val, now);
+            } else if (apClient != null && key.equals(TRANSFER_KEY_PREFIX + apClient.getSlot())) {
+                handleIncomingTransfer(val);
+            } else if (apClient != null && key.equals(ACK_KEY_PREFIX + apClient.getSlot())) {
+                handleIncomingAck(val);
+            }
+        }
+        syncRecipientsToAllOpen();
+    }
+
+    public static void handleArchipelagoSetReply(SetReplyEvent event) {
+        if (event == null || event.key == null) return;
+        String key = event.key;
+        Object val = event.value;
+        long now = System.currentTimeMillis();
+
+        if (key.startsWith(ONLINE_KEY_PREFIX)) {
+            handlePresenceData(key, val, now);
+            syncRecipientsToAllOpen();
+        } else if (apClient != null && key.equals(TRANSFER_KEY_PREFIX + apClient.getSlot())) {
+            handleIncomingTransfer(val);
+        } else if (apClient != null && key.equals(ACK_KEY_PREFIX + apClient.getSlot())) {
+            handleIncomingAck(val);
+        }
+    }
+
+    private static void handlePresenceData(String key, Object val, long now) {
+        String slotStr = key.substring(ONLINE_KEY_PREFIX.length());
+        try {
+            int slotId = Integer.parseInt(slotStr);
+            String json = extractJson(val);
+            if (json != null && !json.isBlank() && !json.equals("{}")) {
+                JsonObject obj = JsonParser.parseString(json).getAsJsonObject();
+                long time = obj.has("time") ? obj.get("time").getAsLong() : 0L;
+                if (now - time <= ONLINE_TIMEOUT_MS) {
+                    ONLINE_PLAYERS.put(slotId, time);
+                    return;
+                }
+            }
+            ONLINE_PLAYERS.remove(slotId);
+        } catch (Exception ignored) {}
+    }
+
+    private static void handleIncomingTransfer(Object val) {
+        String json = extractJson(val);
+        if (json == null || json.isBlank() || json.equals("{}")) return;
+
+        try {
+            JsonObject tx = JsonParser.parseString(json).getAsJsonObject();
+            String txId = tx.get("txId").getAsString();
+            int fromSlot = tx.get("fromSlot").getAsInt();
+            String fromName = tx.has("fromName") ? tx.get("fromName").getAsString() : ("Игрок " + fromSlot);
+            int toSlot = tx.get("toSlot").getAsInt();
+
+            if (apClient == null || toSlot != apClient.getSlot()) return;
+
+            if (PROCESSED_TX_IDS.contains(txId)) {
+                sendAck(fromSlot, txId, "OK");
+                return;
+            }
+
+            ItemStack stack = deserializeItemStack(tx.get("item"));
+            if (stack.isEmpty()) return;
+
+            if (!canFitInReceivingSlots(stack)) {
+                sendAck(fromSlot, txId, "FULL");
+                return;
+            }
+
+            insertIntoReceivingSlots(stack);
+            PROCESSED_TX_IDS.add(txId);
+            saveWorldData();
+            refreshOpenMenus();
+            sendAck(fromSlot, txId, "OK");
+
+            if (server != null) {
+                for (ServerPlayer sp : server.getPlayerList().getPlayers()) {
+                    sp.sendSystemMessage(Component.literal("§6[Общий сундук] §aПолучен предмет §f" + stack.getCount() + "x " + stack.getHoverName().getString() + " §aот игрока §e" + fromName + "§a!"), false);
+                    sp.playSound(SoundEvents.PLAYER_LEVELUP, 0.7f, 1.2f);
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to process incoming shared chest transfer", e);
+        }
+    }
+
+    private static void handleIncomingAck(Object val) {
+        String json = extractJson(val);
+        if (json == null || json.isBlank() || json.equals("{}")) return;
+
+        try {
+            JsonObject ack = JsonParser.parseString(json).getAsJsonObject();
+            String txId = ack.get("txId").getAsString();
+            String status = ack.get("status").getAsString();
+
+            if (pendingTransfer != null && pendingTransfer.txId().equals(txId)) {
+                PendingTransfer pt = pendingTransfer;
+                pendingTransfer = null;
+
+                ServerPlayer sender = server != null ? server.getPlayerList().getPlayer(pt.senderUuid()) : null;
+
+                if ("OK".equals(status)) {
+                    // Destroy item in sender's transmission slot
+                    CONTAINER.setItem(SharedChestContainer.SEND_SLOT, ItemStack.EMPTY);
+                    saveWorldData();
+                    refreshOpenMenus();
+
+                    if (sender != null) {
+                        sender.sendSystemMessage(Component.literal("§6[Общий сундук] §aПредмет успешно доставлен игроку §e" + pt.targetName() + "§a!"), true);
+                        sender.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0f, 1.2f);
+                    }
+                } else if ("FULL".equals(status)) {
+                    if (sender != null) {
+                        sender.sendSystemMessage(Component.literal("§6[Общий сундук] §cУ игрока §e" + pt.targetName() + " §cпереполнен инвентарь приёма!"), true);
+                        sender.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to process incoming shared chest ACK", e);
+        }
+    }
+
+    private static void sendAck(int toSlot, String txId, String status) {
+        if (apClient != null && apClient.isConnected()) {
+            JsonObject ack = new JsonObject();
+            ack.addProperty("txId", txId);
+            ack.addProperty("status", status);
+            ack.addProperty("fromSlot", apClient.getSlot());
+            ack.addProperty("timestamp", System.currentTimeMillis());
+
+            SetPacket packet = new SetPacket(ACK_KEY_PREFIX + toSlot, "");
+            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, GSON.toJson(ack));
+            packet.want_reply = false;
+            apClient.dataStorageSet(packet);
+        }
+    }
+
+    public static boolean canFitInReceivingSlots(ItemStack stack) {
+        if (stack.isEmpty()) return true;
+        int remaining = stack.getCount();
+
+        for (int i = 0; i < SharedChestContainer.RECEIVE_SLOTS; i++) {
+            ItemStack slotStack = CONTAINER.getItem(i);
+            if (slotStack.isEmpty()) {
+                return true;
+            } else if (ItemStack.isSameItemSameComponents(slotStack, stack)) {
+                int space = slotStack.getMaxStackSize() - slotStack.getCount();
+                if (space > 0) {
+                    remaining -= space;
+                    if (remaining <= 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void insertIntoReceivingSlots(ItemStack stack) {
+        if (stack.isEmpty()) return;
+        ItemStack toInsert = stack.copy();
+
+        // 1. Try stacking into existing stacks
+        for (int i = 0; i < SharedChestContainer.RECEIVE_SLOTS; i++) {
+            ItemStack slotStack = CONTAINER.getItem(i);
+            if (!slotStack.isEmpty() && ItemStack.isSameItemSameComponents(slotStack, toInsert)) {
+                int space = slotStack.getMaxStackSize() - slotStack.getCount();
+                int add = Math.min(space, toInsert.getCount());
+                if (add > 0) {
+                    slotStack.grow(add);
+                    toInsert.shrink(add);
+                    CONTAINER.setItem(i, slotStack);
+                    if (toInsert.isEmpty()) return;
+                }
+            }
+        }
+
+        // 2. Put into empty slots
+        for (int i = 0; i < SharedChestContainer.RECEIVE_SLOTS; i++) {
+            ItemStack slotStack = CONTAINER.getItem(i);
+            if (slotStack.isEmpty()) {
+                CONTAINER.setItem(i, toInsert.copy());
+                return;
+            }
+        }
+    }
+
+    public static String serializeItemStack(ItemStack stack) {
+        if (server == null || stack.isEmpty()) return "{}";
+        try {
+            RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, server.registryAccess());
+            return ItemStack.CODEC.encodeStart(ops, stack).result().map(GSON::toJson).orElse("{}");
+        } catch (Exception e) {
+            LOGGER.error("Failed to serialize ItemStack", e);
+            return "{}";
+        }
+    }
+
+    public static ItemStack deserializeItemStack(JsonElement element) {
+        if (server == null || element == null || element.isJsonNull()) return ItemStack.EMPTY;
+        try {
+            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                element = JsonParser.parseString(element.getAsString());
+            }
+            RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, server.registryAccess());
+            return ItemStack.CODEC.parse(ops, element).result().orElse(ItemStack.EMPTY);
+        } catch (Exception e) {
+            LOGGER.error("Failed to deserialize ItemStack", e);
+            return ItemStack.EMPTY;
+        }
+    }
+
+    public static String serializeContainerToJson() {
+        if (server == null) return "[]";
         List<ItemStackWithSlot> slots = new ArrayList<>();
         for (int i = 0; i < CONTAINER.getContainerSize(); i++) {
             ItemStack stack = CONTAINER.getItem(i);
@@ -231,82 +605,23 @@ public class SharedChestManager {
                 slots.add(new ItemStackWithSlot(i, stack.copy()));
             }
         }
-        if (slots.isEmpty()) {
-            return "[]";
-        }
+        if (slots.isEmpty()) return "[]";
         try {
             RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, server.registryAccess());
-            DataResult<JsonElement> result = ItemStackWithSlot.CODEC.listOf().encodeStart(ops, slots);
-            return result.result().map(GSON::toJson).orElse("[]");
+            return ItemStackWithSlot.CODEC.listOf().encodeStart(ops, slots).result().map(GSON::toJson).orElse("[]");
         } catch (Exception e) {
             LOGGER.error("Failed to serialize shared chest items to JSON", e);
             return "[]";
         }
     }
 
-    public static void syncToArchipelago() {
-        String json = serializeContainerToJson();
-        if (worldData != null) {
-            worldData.setSharedChestJson(json);
-        }
-        if (json.equals(lastKnownArchipelagoJson)) {
-            return;
-        }
-        lastKnownArchipelagoJson = json;
-
-        if (apClient != null && apClient.isConnected()) {
-            try {
-                SetPacket packet = new SetPacket(STORAGE_KEY, "[]");
-                packet.addDataStorageOperation(SetPacket.Operation.REPLACE, json);
-                packet.want_reply = true;
-                apClient.dataStorageSet(packet);
-                LOGGER.info("Sent updated shared chest contents to Archipelago: {} items", countNonEmpty());
-            } catch (Exception e) {
-                LOGGER.error("Failed to send shared chest SetPacket to Archipelago", e);
-            }
-        }
-    }
-
-    public static void handleArchipelagoUpdate(Object val) {
-        String json = extractJson(val);
-        if (json == null) {
-            return;
-        }
-
-        if ((json.isBlank() || json.equals("[]")) && !isContainerEmpty()) {
-            LOGGER.info("Archipelago shared chest is empty, initializing it with local items");
-            syncToArchipelago();
-            return;
-        }
-
-        if (json.equals(lastKnownArchipelagoJson)) {
-            return;
-        }
-        lastKnownArchipelagoJson = json;
-
-        if (worldData != null) {
-            worldData.setSharedChestJson(json);
-        }
-
-        applyJsonToContainer(json);
-        LOGGER.info("Updated shared chest from Archipelago ({} items)", countNonEmpty());
-    }
-
-    private static void applyJsonToContainer(String json) {
+    public static void applyJsonToContainer(String json) {
         if (json == null || json.isBlank() || json.equals("[]")) {
-            isUpdatingFromArchipelago = true;
-            try {
-                CONTAINER.clearContent();
-            } finally {
-                isUpdatingFromArchipelago = false;
-            }
+            CONTAINER.clearContent();
             refreshOpenMenus();
             return;
         }
-
-        if (server == null) {
-            return;
-        }
+        if (server == null) return;
 
         try {
             JsonElement element = JsonParser.parseString(json);
@@ -314,28 +629,27 @@ public class SharedChestManager {
             DataResult<List<ItemStackWithSlot>> result = ItemStackWithSlot.CODEC.listOf().parse(ops, element);
             List<ItemStackWithSlot> items = result.result().orElse(Collections.emptyList());
 
-            isUpdatingFromArchipelago = true;
-            try {
-                CONTAINER.clearContent();
-                for (ItemStackWithSlot item : items) {
-                    if (item.isValidInContainer(CONTAINER.getContainerSize())) {
-                        CONTAINER.setItem(item.slot(), item.stack());
-                    }
+            CONTAINER.clearContent();
+            for (ItemStackWithSlot item : items) {
+                if (item.isValidInContainer(CONTAINER.getContainerSize())) {
+                    CONTAINER.setItem(item.slot(), item.stack());
                 }
-            } finally {
-                isUpdatingFromArchipelago = false;
             }
-
             refreshOpenMenus();
         } catch (Exception e) {
-            LOGGER.error("Failed to parse shared chest JSON from Archipelago: {}", json, e);
+            LOGGER.error("Failed to parse shared chest JSON: {}", json, e);
         }
     }
 
-    private static void refreshOpenMenus() {
-        if (server == null) {
-            return;
+    public static void saveWorldData() {
+        if (worldData != null) {
+            String json = serializeContainerToJson();
+            worldData.setSharedChestJson(json);
         }
+    }
+
+    public static void refreshOpenMenus() {
+        if (server == null) return;
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (player.containerMenu instanceof SharedChestMenu menu && menu.getContainer() == CONTAINER) {
                 menu.sendAllDataToRemote();
@@ -344,12 +658,8 @@ public class SharedChestManager {
     }
 
     private static String extractJson(Object val) {
-        if (val == null) {
-            return null;
-        }
-        if (val instanceof String s) {
-            return s;
-        }
+        if (val == null) return null;
+        if (val instanceof String s) return s;
         if (val instanceof JsonElement je) {
             if (je.isJsonPrimitive() && je.getAsJsonPrimitive().isString()) {
                 return je.getAsString();
@@ -359,263 +669,12 @@ public class SharedChestManager {
         return GSON.toJson(val);
     }
 
-    public static boolean isContainerEmpty() {
-        return CONTAINER.isEmpty();
-    }
-
     public static int countNonEmpty() {
         int count = 0;
         for (int i = 0; i < CONTAINER.getContainerSize(); i++) {
-            if (!CONTAINER.getItem(i).isEmpty()) {
-                count++;
-            }
+            if (!CONTAINER.getItem(i).isEmpty()) count++;
         }
         return count;
-    }
-
-    public static boolean isPlayerLockHolder(Player player) {
-        if (!APRandomizer.isConnected()) {
-            return false;
-        }
-        if (player == null || currentLockPlayer == null) {
-            return false;
-        }
-        return currentLockPlayer.equals(player.getUUID());
-    }
-
-    public static boolean isChestMenuOpen(ServerPlayer player) {
-        if (player == null) return false;
-        if (player.containerMenu instanceof SharedChestMenu menu) {
-            return menu.getContainer() == CONTAINER;
-        }
-        return false;
-    }
-
-    public static void tryOpenChest(ServerPlayer player, @Nullable BlockPos pos) {
-        if (!APRandomizer.isConnected()) {
-            player.sendSystemMessage(Component.literal("§c[!] Общий сундук недоступен: нет подключения к Архипелагу!"), true);
-            player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-            return;
-        }
-
-        long now = System.currentTimeMillis();
-
-        // 1. Check if locally locked
-        if (currentLockPlayer != null) {
-            if (currentLockPlayer.equals(player.getUUID())) {
-                actuallyOpenChest(player, pos);
-                return;
-            }
-            ServerPlayer holder = server != null ? server.getPlayerList().getPlayer(currentLockPlayer) : null;
-            if (holder != null && holder.isAlive() && isChestMenuOpen(holder)) {
-                player.sendSystemMessage(Component.literal("§c[!] Этот сундук уже открыт игроком " + currentLockPlayerName + "!"), true);
-                player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-                return;
-            } else {
-                forceReleaseLock();
-            }
-        }
-
-        // 2. Check if another opening is pending
-        if (pendingLockPlayer != null) {
-            if (pendingLockPlayer.equals(player.getUUID())) {
-                return;
-            }
-            if (now - pendingLockStartTime < PENDING_TIMEOUT_MS) {
-                player.sendSystemMessage(Component.literal("§c[!] Общий сундук сейчас открывается другим игроком..."), true);
-                player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-                return;
-            } else {
-                pendingLockPlayer = null;
-            }
-        }
-
-        // 3. Check if remotely locked by another client
-        if (remoteLock != null && !remoteLock.isExpired(now)) {
-            player.sendSystemMessage(Component.literal("§c[!] Этот сундук уже открыт игроком " + remoteLock.player + "!"), true);
-            player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-            return;
-        }
-
-        // 4. Request lock from Archipelago
-        String token = UUID.randomUUID().toString();
-        pendingLockPlayer = player.getUUID();
-        pendingLockPlayerName = player.getScoreboardName();
-        pendingLockToken = token;
-        pendingLockStartTime = now;
-        pendingLockPos = pos;
-
-        player.sendSystemMessage(Component.literal("§e[...] Подключение к общему сундуку..."), true);
-
-        if (apClient != null && apClient.isConnected()) {
-            apClient.dataStorageGet(List.of(STORAGE_KEY));
-
-            LockData myLock = new LockData(player.getScoreboardName(), player.getUUID().toString(), token, now);
-            String lockJson = GSON.toJson(myLock);
-            SetPacket packet = new SetPacket(LOCK_KEY, "");
-            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, lockJson);
-            packet.want_reply = true;
-            apClient.dataStorageSet(packet);
-        } else {
-            pendingLockPlayer = null;
-            player.sendSystemMessage(Component.literal("§c[!] Общий сундук недоступен: нет подключения к Архипелагу!"), true);
-        }
-    }
-
-    public static void handleLockSetReply(SetReplyEvent event) {
-        if (!LOCK_KEY.equals(event.key)) {
-            return;
-        }
-        long now = System.currentTimeMillis();
-        LockData replyVal = parseLock(event.value);
-        LockData origVal = parseLock(event.original_value);
-
-        if (pendingLockPlayer != null && pendingLockToken != null) {
-            boolean isOurToken = replyVal != null && pendingLockToken.equals(replyVal.token);
-
-            if (isOurToken) {
-                boolean collision = origVal != null
-                        && !pendingLockToken.equals(origVal.token)
-                        && !origVal.isExpired(now);
-
-                if (collision) {
-                    LOGGER.warn("Shared chest lock collision! Lock already held by {}", origVal.player);
-                    if (apClient != null && apClient.isConnected()) {
-                        SetPacket revertPacket = new SetPacket(LOCK_KEY, "");
-                        revertPacket.addDataStorageOperation(SetPacket.Operation.REPLACE, GSON.toJson(origVal));
-                        revertPacket.want_reply = false;
-                        apClient.dataStorageSet(revertPacket);
-                    }
-
-                    ServerPlayer pending = server != null ? server.getPlayerList().getPlayer(pendingLockPlayer) : null;
-                    if (pending != null) {
-                        pending.sendSystemMessage(Component.literal("§c[!] Этот сундук уже открыт игроком " + origVal.player + "!"), true);
-                        pending.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
-                    }
-                    pendingLockPlayer = null;
-                    pendingLockPlayerName = null;
-                    pendingLockToken = null;
-                    pendingLockPos = null;
-                    return;
-                }
-
-                currentLockPlayer = pendingLockPlayer;
-                currentLockPlayerName = pendingLockPlayerName;
-                currentLockToken = pendingLockToken;
-                currentLockTime = now;
-                currentOpenPos = pendingLockPos;
-                lastHeartbeatTime = now;
-                lastInteractionTime = now;
-                remoteLock = replyVal;
-
-                UUID playerId = pendingLockPlayer;
-                BlockPos pos = pendingLockPos;
-
-                pendingLockPlayer = null;
-                pendingLockPlayerName = null;
-                pendingLockToken = null;
-                pendingLockPos = null;
-
-                ServerPlayer player = server != null ? server.getPlayerList().getPlayer(playerId) : null;
-                if (player == null || !player.isAlive()) {
-                    releaseLock();
-                    return;
-                }
-
-                actuallyOpenChest(player, pos);
-                return;
-            }
-        }
-
-        remoteLock = replyVal;
-    }
-
-    public static void handleLockRetrieved(Object value) {
-        LockData lock = parseLock(value);
-        remoteLock = lock;
-        long now = System.currentTimeMillis();
-
-        if (lock != null && !lock.isExpired(now)) {
-            if (currentLockPlayer != null && !lock.token.equals(currentLockToken)) {
-                LOGGER.warn("Remote lock acquired by {}, force closing local chest", lock.player);
-                forceCloseLocalChest();
-            }
-        }
-    }
-
-    private static void actuallyOpenChest(ServerPlayer player, @Nullable BlockPos pos) {
-        MenuProvider provider = null;
-        if (pos != null && player.level().getBlockEntity(pos) instanceof SharedChestBlockEntity be) {
-            provider = be;
-        } else {
-            provider = new SimpleMenuProvider(
-                    (containerId, inv, p) -> new SharedChestMenu(containerId, inv, CONTAINER),
-                    Component.translatable("container.aprandomizer.shared_chest")
-            );
-        }
-
-        player.openMenu(provider);
-
-        if (pos != null) {
-            ServerLevel level = (ServerLevel) player.level();
-            level.playSound(null, pos, SoundEvents.ENDER_CHEST_OPEN, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
-            PiglinAi.angerNearbyPiglins(level, player, true);
-        } else {
-            player.playSound(SoundEvents.ENDER_CHEST_OPEN, 0.5F, 1.0F);
-        }
-    }
-
-    private static void sendHeartbeatToArchipelago() {
-        if (apClient != null && apClient.isConnected() && currentLockPlayer != null && currentLockToken != null) {
-            LockData heartbeatLock = new LockData(currentLockPlayerName, currentLockPlayer.toString(), currentLockToken, System.currentTimeMillis());
-            SetPacket packet = new SetPacket(LOCK_KEY, "");
-            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, GSON.toJson(heartbeatLock));
-            packet.want_reply = false;
-            apClient.dataStorageSet(packet);
-        }
-    }
-
-    public static void releaseLock() {
-        if (currentLockPlayer == null && pendingLockPlayer == null) {
-            return;
-        }
-
-        syncToArchipelago();
-
-        if (apClient != null && apClient.isConnected()) {
-            SetPacket packet = new SetPacket(LOCK_KEY, "");
-            packet.addDataStorageOperation(SetPacket.Operation.REPLACE, "");
-            packet.want_reply = false;
-            apClient.dataStorageSet(packet);
-        }
-
-        currentLockPlayer = null;
-        currentLockPlayerName = null;
-        currentLockToken = null;
-        currentOpenPos = null;
-        pendingLockPlayer = null;
-        pendingLockPlayerName = null;
-        pendingLockToken = null;
-        pendingLockPos = null;
-        remoteLock = null;
-    }
-
-    public static void forceReleaseLock() {
-        releaseLock();
-    }
-
-    private static void forceCloseLocalChest() {
-        if (currentLockPlayer != null && server != null) {
-            ServerPlayer player = server.getPlayerList().getPlayer(currentLockPlayer);
-            if (player != null && isChestMenuOpen(player)) {
-                player.closeContainer();
-                player.sendSystemMessage(Component.literal("§c[!] Этот сундук был закрыт, так как занят другим игроком."), true);
-            }
-        }
-        currentLockPlayer = null;
-        currentLockPlayerName = null;
-        currentLockToken = null;
-        currentOpenPos = null;
     }
 
     public static LockData parseLock(Object val) {
@@ -628,12 +687,7 @@ public class SharedChestManager {
             if (lock != null && lock.token != null && !lock.token.isBlank()) {
                 return lock;
             }
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         return null;
-    }
-
-    public static void openChest(ServerPlayer player) {
-        tryOpenChest(player, null);
     }
 }

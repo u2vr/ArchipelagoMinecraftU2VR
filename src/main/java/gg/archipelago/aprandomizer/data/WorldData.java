@@ -33,6 +33,8 @@ public class WorldData extends SavedData {
     private HashSet<String> earnedBacapAdvancements = new HashSet<>();
     private HashSet<String> visitedBiomes = new HashSet<>();
     private HashSet<String> visitedStructures = new HashSet<>();
+    private long goalCompletedTime = 0L;
+    private AbilitiesData abilities = AbilitiesData.DEFAULT;
 
     public static final int KILLED = 30;
     public static final int SPAWNED = 20;
@@ -48,12 +50,14 @@ public class WorldData extends SavedData {
                     Codec.LONG_STREAM.<LongSet>xmap(stream -> new LongOpenHashSet(stream.toArray()), LongSet::longStream).fieldOf("locations").forGetter(WorldData::getLocations),
                     Codec.INT.fieldOf("index").forGetter(WorldData::getItemIndex),
                     Codec.INT.optionalFieldOf("dragonEggShards", 0).forGetter(WorldData::getDragonEggShards),
-                    ResourceKey.codec(Registries.RECIPE).listOf().xmap(list -> (List<ResourceKey<Recipe<?>>>) new ArrayList<>(list), Function.identity()).fieldOf("unlockedRecipes").forGetter(WorldData::getUnlockedRecipes),
+                    ResourceKey.codec(Registries.RECIPE).listOf().xmap(list -> (List<ResourceKey<Recipe<?>>>) new ArrayList<>(list), Function.identity()).optionalFieldOf("unlockedRecipes", List.of()).forGetter(WorldData::getUnlockedRecipes),
                     RestrictionsData.CODEC.optionalFieldOf("restrictions", RestrictionsData.DEFAULT).forGetter(WorldData::getRestrictions),
                     Codec.STRING.optionalFieldOf("sharedChestJson", "[]").forGetter(WorldData::getSharedChestJson),
                     Codec.STRING.listOf().xmap(HashSet::new, ArrayList::new).optionalFieldOf("earnedBacapAdvancements", new HashSet<>()).forGetter(WorldData::getEarnedBacapAdvancements),
                     Codec.STRING.listOf().xmap(HashSet::new, ArrayList::new).optionalFieldOf("visitedBiomes", new HashSet<>()).forGetter(WorldData::getVisitedBiomes),
-                    Codec.STRING.listOf().xmap(HashSet::new, ArrayList::new).optionalFieldOf("visitedStructures", new HashSet<>()).forGetter(WorldData::getVisitedStructures))
+                    Codec.STRING.listOf().xmap(HashSet::new, ArrayList::new).optionalFieldOf("visitedStructures", new HashSet<>()).forGetter(WorldData::getVisitedStructures),
+                    Codec.LONG.optionalFieldOf("goalCompletedTime", 0L).forGetter(WorldData::getGoalCompletedTime),
+                    AbilitiesData.CODEC.optionalFieldOf("abilities", AbilitiesData.DEFAULT).forGetter(WorldData::getAbilities))
             .apply(instance, WorldData::new));
 
 
@@ -122,7 +126,7 @@ public class WorldData extends SavedData {
     public WorldData() {
     }
 
-    private WorldData(String seedName, int dragonState, int witherState, boolean jailPlayers, LongSet locations, int itemIndex, int dragonEggShards, List<ResourceKey<Recipe<?>>> unlockedRecipes, RestrictionsData restrictions, String sharedChestJson, HashSet<String> earnedBacapAdvancements, HashSet<String> visitedBiomes, HashSet<String> visitedStructures) {
+    private WorldData(String seedName, int dragonState, int witherState, boolean jailPlayers, LongSet locations, int itemIndex, int dragonEggShards, List<ResourceKey<Recipe<?>>> unlockedRecipes, RestrictionsData restrictions, String sharedChestJson, HashSet<String> earnedBacapAdvancements, HashSet<String> visitedBiomes, HashSet<String> visitedStructures, long goalCompletedTime, AbilitiesData abilities) {
         this.seedName = seedName;
         this.dragonState = dragonState;
         this.witherState = witherState;
@@ -130,12 +134,23 @@ public class WorldData extends SavedData {
         this.locations = locations;
         this.index = itemIndex;
         this.dragonEggShards = dragonEggShards;
-        this.unlockedRecipes = unlockedRecipes;
+        this.unlockedRecipes = unlockedRecipes != null ? new ArrayList<>(unlockedRecipes) : new ArrayList<>();
         this.restrictions = restrictions != null ? restrictions : RestrictionsData.DEFAULT;
         this.sharedChestJson = (sharedChestJson != null && !sharedChestJson.isBlank()) ? sharedChestJson : "[]";
         this.earnedBacapAdvancements = earnedBacapAdvancements != null ? earnedBacapAdvancements : new HashSet<>();
         this.visitedBiomes = visitedBiomes != null ? visitedBiomes : new HashSet<>();
         this.visitedStructures = visitedStructures != null ? visitedStructures : new HashSet<>();
+        this.goalCompletedTime = goalCompletedTime;
+        this.abilities = abilities != null ? abilities : AbilitiesData.DEFAULT;
+    }
+
+    public long getGoalCompletedTime() {
+        return goalCompletedTime;
+    }
+
+    public void setGoalCompletedTime(long goalCompletedTime) {
+        this.goalCompletedTime = goalCompletedTime;
+        this.setDirty();
     }
 
     public HashSet<String> getEarnedBacapAdvancements() {
@@ -209,12 +224,22 @@ public class WorldData extends SavedData {
         this.setDirty();
     }
 
+    public void setHpUpgrades(int count) {
+        this.restrictions = restrictions.withHpUpgrades(Math.max(0, count));
+        this.setDirty();
+    }
+
     public int getHungerUpgrades() {
         return restrictions.hungerUpgrades();
     }
 
     public void incrementHungerUpgrades() {
         this.restrictions = restrictions.withHungerUpgrades(restrictions.hungerUpgrades() + 1);
+        this.setDirty();
+    }
+
+    public void setHungerUpgrades(int count) {
+        this.restrictions = restrictions.withHungerUpgrades(Math.max(0, count));
         this.setDirty();
     }
 
@@ -227,12 +252,22 @@ public class WorldData extends SavedData {
         this.setDirty();
     }
 
+    public void setReachUpgrades(int count) {
+        this.restrictions = restrictions.withReachUpgrades(Math.max(0, count));
+        this.setDirty();
+    }
+
     public int getWorldBorderUpgrades() {
         return restrictions.worldBorderUpgrades();
     }
 
     public void incrementWorldBorderUpgrades() {
         this.restrictions = restrictions.withWorldBorderUpgrades(restrictions.worldBorderUpgrades() + 1);
+        this.setDirty();
+    }
+
+    public void setWorldBorderUpgrades(int count) {
+        this.restrictions = restrictions.withWorldBorderUpgrades(Math.max(0, count));
         this.setDirty();
     }
 
@@ -260,6 +295,11 @@ public class WorldData extends SavedData {
 
     public void incrementInventorySlotUpgrades() {
         this.restrictions = restrictions.withInventorySlotUpgrades(restrictions.inventorySlotUpgrades() + 1);
+        this.setDirty();
+    }
+
+    public void setInventorySlotUpgrades(int count) {
+        this.restrictions = restrictions.withInventorySlotUpgrades(Math.max(0, count));
         this.setDirty();
     }
 
@@ -330,6 +370,11 @@ public class WorldData extends SavedData {
         return dragonEggShards;
     }
 
+    public void setDragonEggShards(int count) {
+        this.dragonEggShards = Math.max(0, count);
+        this.setDirty();
+    }
+
     public List<ResourceKey<Recipe<?>>> getUnlockedRecipes() {
         return unlockedRecipes;
     }
@@ -354,5 +399,112 @@ public class WorldData extends SavedData {
 
     public boolean isStructureUnlocked(String structureId) {
         return restrictions.unlockedStructureIds().contains(structureId);
+    }
+
+    public AbilitiesData getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(AbilitiesData abilities) {
+        this.abilities = abilities != null ? abilities : AbilitiesData.DEFAULT;
+        this.setDirty();
+    }
+
+    public int getMiningLevel() {
+        return abilities.progressiveMiningTier();
+    }
+
+    public void incrementMiningLevel() {
+        this.abilities = abilities.withProgressiveMiningTier(Math.min(5, abilities.progressiveMiningTier() + 1));
+        this.setDirty();
+    }
+
+    public void setMiningLevel(int level) {
+        this.abilities = abilities.withProgressiveMiningTier(Math.max(0, Math.min(5, level)));
+        this.setDirty();
+    }
+
+    public boolean isTreeFellerUnlocked() {
+        return abilities.treeFellerUnlocked();
+    }
+
+    public void unlockTreeFeller() {
+        this.abilities = abilities.withTreeFellerUnlocked(true);
+        this.setDirty();
+    }
+
+    public void setTreeFellerUnlocked(boolean unlocked) {
+        this.abilities = abilities.withTreeFellerUnlocked(unlocked);
+        this.setDirty();
+    }
+
+    public int getJumpLevel() {
+        return abilities.progressiveJumpTier();
+    }
+
+    public void incrementJumpLevel() {
+        this.abilities = abilities.withProgressiveJumpTier(Math.min(2, abilities.progressiveJumpTier() + 1));
+        this.setDirty();
+    }
+
+    public void setJumpLevel(int level) {
+        this.abilities = abilities.withProgressiveJumpTier(Math.max(0, Math.min(2, level)));
+        this.setDirty();
+    }
+
+    public boolean isItemMagnetUnlocked() {
+        return abilities.itemMagnetUnlocked();
+    }
+
+    public void unlockItemMagnet() {
+        this.abilities = abilities.withItemMagnetUnlocked(true);
+        this.setDirty();
+    }
+
+    public void setItemMagnetUnlocked(boolean unlocked) {
+        this.abilities = abilities.withItemMagnetUnlocked(unlocked);
+        this.setDirty();
+    }
+
+    public boolean isStepAssistUnlocked() {
+        return abilities.stepAssistUnlocked();
+    }
+
+    public void unlockStepAssist() {
+        this.abilities = abilities.withStepAssistUnlocked(true);
+        this.setDirty();
+    }
+
+    public void setStepAssistUnlocked(boolean unlocked) {
+        this.abilities = abilities.withStepAssistUnlocked(unlocked);
+        this.setDirty();
+    }
+
+    public boolean isTrashCanUnlocked() {
+        return abilities.trashCanUnlocked();
+    }
+
+    public void unlockTrashCan() {
+        this.abilities = abilities.withTrashCanUnlocked(true);
+        this.setDirty();
+    }
+
+    public void setTrashCanUnlocked(boolean unlocked) {
+        this.abilities = abilities.withTrashCanUnlocked(unlocked);
+        this.setDirty();
+    }
+
+    public boolean isLightHolderUnlocked() {
+        return abilities.lightHolderUnlocked();
+    }
+
+    public void unlockLightHolder() {
+        this.abilities = abilities.withLightHolderUnlocked(true);
+        this.setDirty();
+    }
+
+    public void setLightHolderUnlocked(boolean unlocked) {
+        this.abilities = abilities.withLightHolderUnlocked(unlocked);
+        this.setDirty();
     }
 }

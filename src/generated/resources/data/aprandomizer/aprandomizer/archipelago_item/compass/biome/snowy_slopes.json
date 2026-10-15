@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Mountain Peaks",
+    "id": "aprandomizer:biome/snowy_slopes",
+    "name": "Snowy Slopes",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:snowy_slopes"
+    }
+  }
+}

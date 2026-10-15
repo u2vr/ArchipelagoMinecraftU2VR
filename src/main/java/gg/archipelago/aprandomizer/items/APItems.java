@@ -2,12 +2,15 @@ package gg.archipelago.aprandomizer.items;
 
 import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.APRegistries;
+import gg.archipelago.aprandomizer.exploration.ExplorationData;
 import gg.archipelago.aprandomizer.items.compass.ConstantBiomeTarget;
 import gg.archipelago.aprandomizer.items.compass.StructureTarget;
 import gg.archipelago.aprandomizer.items.compass.UnvisitedBiomeTarget;
+import gg.archipelago.aprandomizer.items.compass.UnvisitedStructureTarget;
 import gg.archipelago.aprandomizer.items.traps.MobTrap;
 import gg.archipelago.aprandomizer.modifiers.APStructureModifiers;
 import gg.archipelago.aprandomizer.structures.level.ConstantLevel;
+import gg.archipelago.aprandomizer.structures.level.CurrentLevel;
 import gg.archipelago.aprandomizer.structures.level.RandomizedStructureLevel;
 import gg.archipelago.aprandomizer.tags.APStructureTags;
 import net.minecraft.core.Holder;
@@ -96,7 +99,58 @@ public class APItems {
     public static final ResourceKey<APItem> COMPASS_TRAIL_RUINS = id("compass/trail_ruins");
     public static final ResourceKey<APItem> COMPASS_TRIAL_CHAMBERS = id("compass/trial_chambers");
     public static final ResourceKey<APItem> COMPASS_UNVISITED_BIOMES = id("compass/unvisited_biomes");
-    public static final ResourceKey<APItem> COMPASS_SULFUR_CAVES = id("compass/sulfur_cave");
+
+    public static ResourceKey<APItem> biomeCompassKey(String path) {
+        return id("compass/biome/" + path);
+    }
+
+    public static final ResourceKey<APItem> COMPASS_SULFUR_CAVES = biomeCompassKey("sulfur_caves");
+
+    // New Structure Compasses
+    public static final ResourceKey<APItem> COMPASS_STRONGHOLD = id("compass/stronghold");
+    public static final ResourceKey<APItem> COMPASS_MINESHAFT = id("compass/mineshaft");
+    public static final ResourceKey<APItem> COMPASS_DESERT_PYRAMID = id("compass/desert_pyramid");
+    public static final ResourceKey<APItem> COMPASS_JUNGLE_TEMPLE = id("compass/jungle_temple");
+    public static final ResourceKey<APItem> COMPASS_SWAMP_HUT = id("compass/swamp_hut");
+    public static final ResourceKey<APItem> COMPASS_IGLOO = id("compass/igloo");
+    public static final ResourceKey<APItem> COMPASS_SHIPWRECK = id("compass/shipwreck");
+    public static final ResourceKey<APItem> COMPASS_OCEAN_RUIN = id("compass/ocean_ruin");
+    public static final ResourceKey<APItem> COMPASS_BURIED_TREASURE = id("compass/buried_treasure");
+    public static final ResourceKey<APItem> COMPASS_NETHER_FOSSIL = id("compass/nether_fossil");
+    public static final ResourceKey<APItem> COMPASS_RUINED_PORTAL = id("compass/ruined_portal");
+    public static final ResourceKey<APItem> COMPASS_ABANDONED_CAMP = id("compass/abandoned_camp");
+    public static final ResourceKey<APItem> COMPASS_UNVISITED_STRUCTURES = id("compass/unvisited_structures");
+
+    public static String getBiomeDisplayCategory(ExplorationData.BiomeEntry entry) {
+        if (entry.category() == ExplorationData.BiomeCategory.NETHER) {
+            return "Nether Biomes";
+        }
+        if (entry.category() == ExplorationData.BiomeCategory.THE_END) {
+            return "End Biomes";
+        }
+        ResourceKey<Biome> key = entry.key();
+        if (key.equals(Biomes.DRIPSTONE_CAVES) || key.equals(Biomes.LUSH_CAVES)
+                || key.equals(Biomes.DEEP_DARK) || key.equals(Biomes.SULFUR_CAVES)) {
+            return "Caves";
+        }
+        if (key.equals(Biomes.SNOWY_SLOPES) || key.equals(Biomes.FROZEN_PEAKS)
+                || key.equals(Biomes.JAGGED_PEAKS) || key.equals(Biomes.STONY_PEAKS)) {
+            return "Mountain Peaks";
+        }
+        if (key.equals(Biomes.DESERT) || key.equals(Biomes.BADLANDS) || key.equals(Biomes.ERODED_BADLANDS)
+                || key.equals(Biomes.WOODED_BADLANDS) || key.equals(Biomes.SAVANNA) || key.equals(Biomes.SAVANNA_PLATEAU)
+                || key.equals(Biomes.WINDSWEPT_SAVANNA) || key.equals(Biomes.JUNGLE) || key.equals(Biomes.SPARSE_JUNGLE)
+                || key.equals(Biomes.BAMBOO_JUNGLE) || key.equals(Biomes.WARM_OCEAN) || key.equals(Biomes.MANGROVE_SWAMP)) {
+            return "Warm Biomes";
+        }
+        if (key.equals(Biomes.SNOWY_PLAINS) || key.equals(Biomes.ICE_SPIKES) || key.equals(Biomes.SNOWY_TAIGA)
+                || key.equals(Biomes.SNOWY_BEACH) || key.equals(Biomes.FROZEN_RIVER) || key.equals(Biomes.COLD_OCEAN)
+                || key.equals(Biomes.DEEP_COLD_OCEAN) || key.equals(Biomes.FROZEN_OCEAN) || key.equals(Biomes.DEEP_FROZEN_OCEAN)
+                || key.equals(Biomes.GROVE)) {
+            return "Cold Biomes";
+        }
+        return "Temperate Biomes";
+    }
 
     // Traps
     public static final ResourceKey<APItem> TRAP_BEES = id("trap/bees");
@@ -115,6 +169,15 @@ public class APItems {
     public static final ResourceKey<APItem> TRAP_ITEM = id("trap/random");
     public static final ResourceKey<APItem> MONSTER_SUN_BURNING_DISABLED = id("modifier/monster_sun_burning");
     public static final ResourceKey<APItem> MONSTER_SPAWN_LIGHT_DISABLED = id("modifier/monster_spawn_light");
+
+    // Extra Abilities
+    public static final ResourceKey<APItem> PROGRESSIVE_MINING = id("ability/progressive_mining");
+    public static final ResourceKey<APItem> TREE_FELLER = id("ability/tree_feller");
+    public static final ResourceKey<APItem> PROGRESSIVE_JUMP = id("ability/progressive_jump");
+    public static final ResourceKey<APItem> ITEM_MAGNET = id("ability/item_magnet");
+    public static final ResourceKey<APItem> STEP_ASSIST = id("ability/step_assist");
+    public static final ResourceKey<APItem> TRASH_CAN = id("ability/trash_can");
+    public static final ResourceKey<APItem> LIGHT_HOLDER = id("ability/light_holder");
 
     private static ResourceKey<APItem> id(String name) {
         return ResourceKey.create(APRegistries.ARCHIPELAGO_ITEM, Identifier.fromNamespaceAndPath(APRandomizer.MODID, name));
@@ -460,13 +523,121 @@ public class APItems {
                                 Component.literal("Unvisited Biomes"),
                                 "Biomes")));
 
-        context.register(COMPASS_SULFUR_CAVES,
+        // New Structure Compasses
+        context.register(COMPASS_STRONGHOLD,
                 APItem.ofReward(
                         new CompassReward(
-                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "sulfur_caves"),
-                                new ConstantBiomeTarget(HolderSet.direct(biomes.getOrThrow(Biomes.SULFUR_CAVES))),
-                                Component.literal("Sulfur Caves"),
-                                "Biomes")));
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "stronghold"),
+                                new StructureTarget(APStructureTags.STRONGHOLD, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Stronghold"),
+                                "Structures")));
+
+        context.register(COMPASS_MINESHAFT,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "mineshaft"),
+                                new StructureTarget(APStructureTags.MINESHAFT, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Mineshaft"),
+                                "Structures")));
+
+        context.register(COMPASS_DESERT_PYRAMID,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "desert_pyramid"),
+                                new StructureTarget(APStructureTags.DESERT_PYRAMID, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Desert Pyramid"),
+                                "Structures")));
+
+        context.register(COMPASS_JUNGLE_TEMPLE,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "jungle_temple"),
+                                new StructureTarget(APStructureTags.JUNGLE_TEMPLE, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Jungle Temple"),
+                                "Structures")));
+
+        context.register(COMPASS_SWAMP_HUT,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "swamp_hut"),
+                                new StructureTarget(APStructureTags.SWAMP_HUT, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Swamp Hut"),
+                                "Structures")));
+
+        context.register(COMPASS_IGLOO,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "igloo"),
+                                new StructureTarget(APStructureTags.IGLOO, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Igloo"),
+                                "Structures")));
+
+        context.register(COMPASS_SHIPWRECK,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "shipwreck"),
+                                new StructureTarget(APStructureTags.SHIPWRECK, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Shipwreck"),
+                                "Structures")));
+
+        context.register(COMPASS_OCEAN_RUIN,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "ocean_ruin"),
+                                new StructureTarget(APStructureTags.OCEAN_RUIN, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Ocean Ruin"),
+                                "Structures")));
+
+        context.register(COMPASS_BURIED_TREASURE,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "buried_treasure"),
+                                new StructureTarget(APStructureTags.BURIED_TREASURE, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Buried Treasure"),
+                                "Structures")));
+
+        context.register(COMPASS_NETHER_FOSSIL,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "nether_fossil"),
+                                new StructureTarget(APStructureTags.NETHER_FOSSIL, new ConstantLevel(Level.NETHER)),
+                                Component.literal("Nether Fossil"),
+                                "Structures")));
+
+        context.register(COMPASS_RUINED_PORTAL,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "ruined_portal"),
+                                new StructureTarget(APStructureTags.RUINED_PORTAL, new CurrentLevel()),
+                                Component.literal("Ruined Portal"),
+                                "Structures")));
+
+        context.register(COMPASS_ABANDONED_CAMP,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "abandoned_camp"),
+                                new StructureTarget(APStructureTags.ABANDONED_CAMP, new ConstantLevel(Level.OVERWORLD)),
+                                Component.literal("Abandoned Camp"),
+                                "Structures")));
+
+        context.register(COMPASS_UNVISITED_STRUCTURES,
+                APItem.ofReward(
+                        new CompassReward(
+                                Identifier.fromNamespaceAndPath(APRandomizer.MODID, "unvisited_structures"),
+                                new UnvisitedStructureTarget(),
+                                Component.literal("Unvisited Structures"),
+                                "Structures")));
+
+        // Biome Compasses
+        for (ExplorationData.BiomeEntry biome : ExplorationData.BIOMES) {
+            context.register(biomeCompassKey(biome.path()),
+                    APItem.ofReward(
+                            new CompassReward(
+                                    Identifier.fromNamespaceAndPath(APRandomizer.MODID, "biome/" + biome.path()),
+                                    new ConstantBiomeTarget(HolderSet.direct(biomes.getOrThrow(biome.key()))),
+                                    Component.literal(biome.displayName()),
+                                    getBiomeDisplayCategory(biome))));
+        }
 
 
         context.register(TRAP_BEES,
@@ -488,6 +659,14 @@ public class APItems {
         context.register(TRAP_ITEM, APItem.ofReward(new RandomTrapReward()));
         context.register(MONSTER_SUN_BURNING_DISABLED, APItem.ofReward(new MonsterSunBurningReward()));
         context.register(MONSTER_SPAWN_LIGHT_DISABLED, APItem.ofReward(new MonsterSpawnLightReward()));
+
+        context.register(PROGRESSIVE_MINING, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.PROGRESSIVE_MINING)));
+        context.register(TREE_FELLER, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.TREE_FELLER)));
+        context.register(PROGRESSIVE_JUMP, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.PROGRESSIVE_JUMP)));
+        context.register(ITEM_MAGNET, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.ITEM_MAGNET)));
+        context.register(STEP_ASSIST, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.STEP_ASSIST)));
+        context.register(TRASH_CAN, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.TRASH_CAN)));
+        context.register(LIGHT_HOLDER, APItem.ofReward(new AbilityReward(AbilityReward.AbilityType.LIGHT_HOLDER)));
     }
 
     private static ItemStackTemplate enchantment(Holder<Enchantment> enchantment, int level) {

@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Caves",
+    "id": "aprandomizer:biome/sulfur_caves",
+    "name": "Sulfur Caves",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:sulfur_caves"
+    }
+  }
+}

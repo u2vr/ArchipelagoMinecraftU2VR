@@ -1,0 +1,12 @@
+{
+  "rewards": {
+    "type": "aprandomizer:compass",
+    "category": "Warm Biomes",
+    "id": "aprandomizer:biome/bamboo_jungle",
+    "name": "Bamboo Jungle",
+    "target": {
+      "type": "aprandomizer:biome",
+      "biomes": "minecraft:bamboo_jungle"
+    }
+  }
+}
