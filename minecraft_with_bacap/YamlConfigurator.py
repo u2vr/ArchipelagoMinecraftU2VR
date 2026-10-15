@@ -1,11 +1,13 @@
 """
 Minecraft with BACAP - YAML Configurator
 Interactive GUI tool for configuring Archipelago YAML settings for Minecraft with BACAP.
-Features dynamic option visibility and live statistics of checks and items.
+Features dynamic option visibility, live statistics of checks and items,
+bilingual support (English & Russian, default English), and folder memory for saving/loading.
 """
 
 import os
 import sys
+import json
 import math
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
@@ -37,13 +39,187 @@ RESTRICTION_ITEMS = {
     "curses_enabled": 2,
 }
 
+CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".minecraft_bacap_configurator.json")
+
+TRANSLATIONS = {
+    "en": {
+        "title": "Minecraft with BACAP - YAML Configurator",
+        "header_title": "Minecraft with BACAP — YAML Configurator",
+        "lang_label": "Language:",
+        "preset_label": "Preset:",
+        "presets": [
+            "BACAP Standard (Recommended)",
+            "Quick Vanilla Game",
+            "Full Hardcore"
+        ],
+        "player_info_grp": " 👤 Player & Base Information ",
+        "player_name": "Player name (name):",
+        "goal_grp": " 🎯 Goals & Bosses ",
+        "check_goal": "Check goal (check_goal):",
+        "required_bosses": "Required bosses (required_bosses):",
+        "egg_shards_req": "Egg shards (required):",
+        "egg_shards_avail": "Egg shards in pool (available):",
+        "adv_grp": " 🏆 Advancements System ",
+        "adv_vanilla": "Vanilla (138 vanilla advancements)",
+        "adv_milestones": "BACAP Milestones (Checks every N pack advancements)",
+        "adv_random": "Random BACAP (Random balanced advancement pool)",
+        "milestone_step": "Milestone step (1-20):",
+        "checks_grp": " 🗺️ World Checks (Checks) ",
+        "biome_checks": "Enable biome exploration checks (biome_checks)",
+        "major_biomes": "Major Overworld & Nether biomes (36 biomes)",
+        "small_biomes": "Small biomes, rivers, caves, mountains (25 biomes)",
+        "endgame_biomes": "The End biomes (5 biomes)",
+        "structure_checks": "World structure checks (22 structures: Villages, Chambers, Fortresses...)",
+        "trader_trades": "Wandering Trader trades (0-20):",
+        "restr_grp": " 🔒 Restrictions & Difficulty Modifiers ",
+        "hp_restr": "HP restriction (start with 3 hearts, 7 upgrades)",
+        "hunger_restr": "Hunger restriction (start with 4 drumsticks, 6 upgrades)",
+        "reach_restr": "Reach distance restriction (start 2.5 blocks, 3 upgrades)",
+        "world_border_restr": "World border (start 1000 blocks, 5 expansions)",
+        "inventory_restr": "Inventory slot locks (start 9 hotbar slots, 27 upgrades)",
+        "offhand_restr": "Offhand slot lock (1 unlock)",
+        "structure_restr": "Structure access locks (9 unlocks)",
+        "structure_shuffle": "Randomized structure unlock order (structure_unlock_shuffle)",
+        "curses": "Permanent curses (monsters don't burn, daylight spawning)",
+        "tier_bias": "Craft tier bias (0=random, 100=strictly by tiers):",
+        "comp_grp": " 🧭 Compasses & Abilities (QoL) ",
+        "unvisited_struct": "Unvisited structures compass (dynamically points to nearest new)",
+        "all_struct": "All individual structure compasses (22 compasses in pool)",
+        "unvisited_biomes": "Unvisited biomes compass (dynamically points to nearest new)",
+        "major_biomes_comp": "Individual major biome compasses (36 compasses)",
+        "minor_biomes_comp": "Individual minor biome compasses (25 compasses)",
+        "extra_abilities": "Extra QoL abilities (12 items: Mining, Tree Feller, Jump, Magnet, Torch...)",
+        "trap_grp": " 🐝 Traps (Traps) ",
+        "traps_pct": "Percentage of traps from remaining slots:",
+        "dash_title": " 📊 Generation Summary (Live Stats) ",
+        "chk_box": " Location Checks (In-Game) ",
+        "chk_adv_vanilla": "Advancements (Vanilla): {count}",
+        "chk_adv_milestones": "BACAP Milestones (step {step}): {count}",
+        "chk_adv_random": "Random BACAP: {count}",
+        "chk_biomes": "Biomes: {count}",
+        "chk_struct": "Structures: {count}",
+        "chk_trader": "Trader trades: {count}",
+        "total_checks": "TOTAL CHECKS: {count}",
+        "itm_box": " Items in Pool (Item Pool) ",
+        "itm_recipes": "Recipes: {count}",
+        "itm_restr": "Restrictions / Upgrades: {count}",
+        "itm_compasses": "Compasses: {count}",
+        "itm_abilities": "Abilities: {count}",
+        "itm_shards": "Egg shards: {count}",
+        "total_prog": "TOTAL PROGRESSION: {count}",
+        "fill_box": " Fillers & Traps ",
+        "traps_count": "Traps: {count}",
+        "junk_count": "Junk / Resources: {count}",
+        "balance_checking": "Checking balance...",
+        "balance_ok": "✅ Balance OK!\nTotal checks: {total_checks} (free: {remaining}).\nProgression items: {total_prog}.",
+        "balance_deficit": "⚠️ Warning: Check deficit!\nNeeded: {total_prog}, available: {total_checks}.\nMissing {deficit} checks! Enable biomes/structures or reduce milestone step.",
+        "btn_save": "💾 Save YAML",
+        "btn_save_as": "📂 Save As...",
+        "btn_load": "📥 Load YAML",
+        "btn_reset": "🔄 Reset to Default",
+        "dialog_save_title": "Save YAML file",
+        "dialog_load_title": "Open YAML file",
+        "msg_save_success_title": "Success",
+        "msg_save_success": "YAML file successfully saved:\n{path}",
+        "msg_save_err_title": "Save Error",
+        "msg_save_err": "Failed to write file:\n{error}",
+        "msg_load_success": "File {filename} loaded successfully!",
+        "msg_load_err_title": "Load Error",
+        "msg_load_err": "Failed to read YAML file:\n{error}",
+    },
+    "ru": {
+        "title": "Minecraft with BACAP — Настройщик YAML",
+        "header_title": "Minecraft with BACAP — Настройщик YAML",
+        "lang_label": "Язык:",
+        "preset_label": "Пресет:",
+        "presets": [
+            "Стандарт BACAP (Рекомендуемый)",
+            "Быстрая игра (Vanilla)",
+            "Максимальный хардкор"
+        ],
+        "player_info_grp": " 👤 Имя игрока и базовая информация ",
+        "player_name": "Имя игрока (name):",
+        "goal_grp": " 🎯 Цели и боссы ",
+        "check_goal": "Цель по чекам (check_goal):",
+        "required_bosses": "Требуемые боссы (required_bosses):",
+        "egg_shards_req": "Осколки яйца (требуется):",
+        "egg_shards_avail": "Осколков в пуле (доступно):",
+        "adv_grp": " 🏆 Система достижений (Advancements) ",
+        "adv_vanilla": "Vanilla (138 ванильных достижений)",
+        "adv_milestones": "BACAP Milestones (Майлстоуны за каждые N достижений пака)",
+        "adv_random": "Random BACAP (Случайный сбалансированный пул достижений)",
+        "milestone_step": "Шаг майлстоунов (1-20):",
+        "checks_grp": " 🗺️ Проверки мира (Чеки) ",
+        "biome_checks": "Включить чеки исследования биомов (biome_checks)",
+        "major_biomes": "Основные биомы суши и Незера (36 биомов)",
+        "small_biomes": "Малые биомы, реки, пещеры, горы (25 биомов)",
+        "endgame_biomes": "Биомы Энда (5 биомов)",
+        "structure_checks": "Чеки структур мира (22 структуры: Деревни, Палаты, Крепости...)",
+        "trader_trades": "Сделки у Бродячего торговца (0-20):",
+        "restr_grp": " 🔒 Ограничения и модификаторы сложности ",
+        "hp_restr": "Ограничение HP (старт с 3 сердец, 7 апгрейдов)",
+        "hunger_restr": "Ограничение сытости (старт с 4 окорочков, 6 апгрейдов)",
+        "reach_restr": "Ограничение дистанции досягаемости (старт 2.5 блока, 3 апгрейда)",
+        "world_border_restr": "Граница мира (старт 1000 блоков, 5 расширений границы)",
+        "inventory_restr": "Блокировка слотов инвентаря (старт 9 слотов хотбара, 27 апгрейдов)",
+        "offhand_restr": "Блокировка слота второй руки (1 разблокировка)",
+        "structure_restr": "Блокировка доступа к структурам (9 разблокировок)",
+        "structure_shuffle": "Случайный порядок открытия структур (structure_unlock_shuffle)",
+        "curses": "Постоянные проклятия (монстры не горят на солнце, спавн на свету)",
+        "tier_bias": "Приоритет тиров рецептов (0=рандом, 100=по тирам):",
+        "comp_grp": " 🧭 Компасы и Способности (QoL) ",
+        "unvisited_struct": "Компас непосещённых структур (динамически указывает на ближайшую новую)",
+        "all_struct": "Все индивидуальные компасы структур (22 компаса в пуле)",
+        "unvisited_biomes": "Компас непосещённых биомов (динамически указывает на ближайший новый)",
+        "major_biomes_comp": "Индивидуальные компасы основных биомов (36 компасов)",
+        "minor_biomes_comp": "Индивидуальные компасы малых биомов (25 компасов)",
+        "extra_abilities": "Экстра-способности QoL (12 предметов: Буры, Дровосек, Прыжки, Магнит, Факел...)",
+        "trap_grp": " 🐝 Ловушки (Traps) ",
+        "traps_pct": "Процент ловушек от оставшихся слотов:",
+        "dash_title": " 📊 Сводка генерации (Live Stats) ",
+        "chk_box": " Чеки (Локации в мире) ",
+        "chk_adv_vanilla": "Достижения (Vanilla): {count}",
+        "chk_adv_milestones": "Майлстоуны BACAP (шаг {step}): {count}",
+        "chk_adv_random": "Случайные BACAP: {count}",
+        "chk_biomes": "Биомы: {count}",
+        "chk_struct": "Структуры: {count}",
+        "chk_trader": "Сделки торговца: {count}",
+        "total_checks": "ВСЕГО ЧЕКОВ: {count}",
+        "itm_box": " Предметы в пуле (Item Pool) ",
+        "itm_recipes": "Рецепты: {count}",
+        "itm_restr": "Ограничения / Апгрейды: {count}",
+        "itm_compasses": "Компасы: {count}",
+        "itm_abilities": "Способности: {count}",
+        "itm_shards": "Осколки яйца: {count}",
+        "total_prog": "ВСЕГО ПРОГРЕССИИ: {count}",
+        "fill_box": " Заполнители и ловушки ",
+        "traps_count": "Ловушки: {count}",
+        "junk_count": "Мусор / Ресурсы: {count}",
+        "balance_checking": "Проверка баланса...",
+        "balance_ok": "✅ Баланс в норме!\nЧеков: {total_checks} (свободно: {remaining}).\nПрогрессионных предметов: {total_prog}.",
+        "balance_deficit": "⚠️ Внимание: Недостаток чеков!\nНужно: {total_prog}, доступно: {total_checks}.\nНе хватает {deficit} чеков! Включите биомы/структуры или уменьшите шаг майлстоунов.",
+        "btn_save": "💾 Сохранить YAML",
+        "btn_save_as": "📂 Сохранить как...",
+        "btn_load": "📥 Загрузить YAML",
+        "btn_reset": "🔄 Сброс к стандарту",
+        "dialog_save_title": "Сохранить YAML файл",
+        "dialog_load_title": "Открыть YAML файл",
+        "msg_save_success_title": "Успех",
+        "msg_save_success": "YAML файл успешно сохранён:\n{path}",
+        "msg_save_err_title": "Ошибка сохранения",
+        "msg_save_err": "Не удалось записать файл:\n{error}",
+        "msg_load_success": "Файл {filename} успешно загружен!",
+        "msg_load_err_title": "Ошибка загрузки",
+        "msg_load_err": "Не удалось прочитать YAML файл:\n{error}",
+    }
+}
+
 
 class YamlConfigurator(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Minecraft with BACAP - YAML Configurator")
-        self.geometry("1020x760")
-        self.minsize(880, 640)
+        self.geometry("1040x780")
+        self.minsize(900, 660)
 
         # Apply ttk styling
         self.style = ttk.Style(self)
@@ -52,10 +228,53 @@ class YamlConfigurator(tk.Tk):
         except Exception:
             pass
 
+        self._load_app_settings()
         self._init_variables()
         self._build_ui()
+        self._apply_language()
         self._update_visibility()
         self._recalculate_stats()
+
+    def _load_app_settings(self):
+        """Loads persistent user settings (language and last saved folder)."""
+        default_dir = r"C:\ProgramData\Archipelago\Players"
+        if not os.path.isdir(default_dir):
+            default_dir = os.path.expanduser("~")
+        self.last_directory = default_dir
+        self.current_lang = "en"  # Default is English
+
+        try:
+            if os.path.isfile(CONFIG_FILE_PATH):
+                with open(CONFIG_FILE_PATH, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    saved_lang = data.get("lang")
+                    if saved_lang in ("en", "ru"):
+                        self.current_lang = saved_lang
+                    saved_dir = data.get("last_directory")
+                    if saved_dir and os.path.isdir(saved_dir):
+                        self.last_directory = saved_dir
+        except Exception:
+            pass
+
+    def _save_app_settings(self):
+        """Saves persistent settings to file."""
+        try:
+            data = {
+                "lang": self.current_lang,
+                "last_directory": self.last_directory
+            }
+            with open(CONFIG_FILE_PATH, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception:
+            pass
+
+    def t(self, key: str, **kwargs) -> str:
+        """Retrieves a translated string for the current language."""
+        lang_dict = TRANSLATIONS.get(self.current_lang, TRANSLATIONS["en"])
+        template = lang_dict.get(key, TRANSLATIONS["en"].get(key, key))
+        if kwargs and isinstance(template, str):
+            return template.format(**kwargs)
+        return template
 
     def _init_variables(self):
         # General
@@ -69,8 +288,7 @@ class YamlConfigurator(tk.Tk):
         self.egg_shards_required = tk.IntVar(value=0)
         self.egg_shards_available = tk.IntVar(value=0)
 
-        # Advancements
-        # 0 = Vanilla, 1 = BACAP Milestones, 2 = Random BACAP
+        # Advancements: 0 = Vanilla, 1 = BACAP Milestones, 2 = Random BACAP
         self.advancement_type = tk.IntVar(value=1)
         self.bacap_advancement_step = tk.IntVar(value=5)
 
@@ -92,7 +310,6 @@ class YamlConfigurator(tk.Tk):
         self.hunger_restriction = tk.BooleanVar(value=True)
         self.world_border_restriction = tk.BooleanVar(value=True)
         self.structure_restriction = tk.BooleanVar(value=True)
-        # 0 = in recipe tree order, 1 = randomized
         self.structure_unlock_shuffle = tk.BooleanVar(value=False)
         self.inventory_slot_restriction = tk.BooleanVar(value=True)
         self.offhand_restriction = tk.BooleanVar(value=True)
@@ -134,26 +351,42 @@ class YamlConfigurator(tk.Tk):
         header = ttk.Frame(self, padding=(12, 8))
         header.pack(fill=tk.X)
 
-        title_lbl = ttk.Label(
+        self.header_title_lbl = ttk.Label(
             header,
-            text="Minecraft with BACAP — Настройщик YAML",
-            font=("Segoe UI", 14, "bold")
+            text="",
+            font=("Segoe UI", 13, "bold")
         )
-        title_lbl.pack(side=tk.LEFT)
+        self.header_title_lbl.pack(side=tk.LEFT)
 
-        preset_frame = ttk.Frame(header)
-        preset_frame.pack(side=tk.RIGHT)
+        header_right = ttk.Frame(header)
+        header_right.pack(side=tk.RIGHT)
 
-        ttk.Label(preset_frame, text="Пресеты: ").pack(side=tk.LEFT)
-        self.preset_combo = ttk.Combobox(
-            preset_frame,
-            values=["Стандарт BACAP (Рекомендуемый)", "Быстрая игра (Vanilla)", "Максимальный хардкор"],
+        # Language selector
+        self.lang_lbl = ttk.Label(header_right, text="Language:")
+        self.lang_lbl.pack(side=tk.LEFT, padx=(6, 2))
+
+        self.lang_combo = ttk.Combobox(
+            header_right,
+            values=["English", "Русский"],
             state="readonly",
-            width=30
+            width=10
         )
-        self.preset_combo.current(0)
+        self.lang_combo.set("English" if self.current_lang == "en" else "Русский")
+        self.lang_combo.bind("<<ComboboxSelected>>", self._on_language_selected)
+        self.lang_combo.pack(side=tk.LEFT, padx=(0, 10))
+
+        # Preset selector
+        self.preset_lbl = ttk.Label(header_right, text="Preset:")
+        self.preset_lbl.pack(side=tk.LEFT, padx=(6, 2))
+
+        self.preset_combo = ttk.Combobox(
+            header_right,
+            values=[],
+            state="readonly",
+            width=28
+        )
+        self.preset_combo.pack(side=tk.LEFT, padx=2)
         self.preset_combo.bind("<<ComboboxSelected>>", self._on_preset_selected)
-        self.preset_combo.pack(side=tk.LEFT, padx=4)
 
         # Main splitter (Options on Left, Live Stats Dashboard on Right)
         main_pane = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
@@ -194,30 +427,33 @@ class YamlConfigurator(tk.Tk):
 
     def _build_options_form(self, parent):
         # 0. Player Info
-        info_grp = ttk.LabelFrame(parent, text=" 👤 Имя игрока и базовая информация ", padding=10)
-        info_grp.pack(fill=tk.X, pady=4)
+        self.info_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.info_grp.pack(fill=tk.X, pady=4)
 
-        row = ttk.Frame(info_grp)
+        row = ttk.Frame(self.info_grp)
         row.pack(fill=tk.X, pady=2)
-        ttk.Label(row, text="Имя игрока (name):", width=22).pack(side=tk.LEFT)
+        self.lbl_player_name = ttk.Label(row, text="", width=24)
+        self.lbl_player_name.pack(side=tk.LEFT)
         ttk.Entry(row, textvariable=self.player_name, width=28).pack(side=tk.LEFT, padx=5)
 
         # 1. Goals & Bosses
-        goal_grp = ttk.LabelFrame(parent, text=" 🎯 Цели и боссы ", padding=10)
-        goal_grp.pack(fill=tk.X, pady=4)
+        self.goal_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.goal_grp.pack(fill=tk.X, pady=4)
 
-        row = ttk.Frame(goal_grp)
+        row = ttk.Frame(self.goal_grp)
         row.pack(fill=tk.X, pady=2)
-        ttk.Label(row, text="Цель по чекам (check_goal):", width=26).pack(side=tk.LEFT)
+        self.lbl_check_goal = ttk.Label(row, text="", width=28)
+        self.lbl_check_goal.pack(side=tk.LEFT)
         self.check_goal_scale = ttk.Scale(row, from_=1, to=100, variable=self.check_goal, orient=tk.HORIZONTAL)
         self.check_goal_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.check_goal_lbl = ttk.Label(row, text=str(self.check_goal.get()), width=4)
         self.check_goal_lbl.pack(side=tk.LEFT)
         self.check_goal.trace_add("write", lambda *_: self.check_goal_lbl.config(text=str(self.check_goal.get())))
 
-        row = ttk.Frame(goal_grp)
+        row = ttk.Frame(self.goal_grp)
         row.pack(fill=tk.X, pady=4)
-        ttk.Label(row, text="Требуемые боссы (required_bosses):", width=26).pack(side=tk.LEFT)
+        self.lbl_required_bosses = ttk.Label(row, text="", width=28)
+        self.lbl_required_bosses.pack(side=tk.LEFT)
         boss_combo = ttk.Combobox(
             row,
             textvariable=self.required_bosses,
@@ -227,29 +463,35 @@ class YamlConfigurator(tk.Tk):
         )
         boss_combo.pack(side=tk.LEFT, padx=6)
 
-        row = ttk.Frame(goal_grp)
+        row = ttk.Frame(self.goal_grp)
         row.pack(fill=tk.X, pady=2)
-        ttk.Label(row, text="Осколки яйца (требуется):", width=26).pack(side=tk.LEFT)
+        self.lbl_egg_shards_req = ttk.Label(row, text="", width=28)
+        self.lbl_egg_shards_req.pack(side=tk.LEFT)
         ttk.Spinbox(row, from_=0, to=50, textvariable=self.egg_shards_required, width=8).pack(side=tk.LEFT, padx=6)
 
-        self.shards_avail_row = ttk.Frame(goal_grp)
+        self.shards_avail_row = ttk.Frame(self.goal_grp)
         self.shards_avail_row.pack(fill=tk.X, pady=2)
-        ttk.Label(self.shards_avail_row, text="Осколков в пуле (доступно):", width=26).pack(side=tk.LEFT)
+        self.lbl_egg_shards_avail = ttk.Label(self.shards_avail_row, text="", width=28)
+        self.lbl_egg_shards_avail.pack(side=tk.LEFT)
         ttk.Spinbox(self.shards_avail_row, from_=0, to=50, textvariable=self.egg_shards_available, width=8).pack(side=tk.LEFT, padx=6)
 
         # 2. Advancements Mode
-        adv_grp = ttk.LabelFrame(parent, text=" 🏆 Система достижений (Advancements) ", padding=10)
-        adv_grp.pack(fill=tk.X, pady=4)
+        self.adv_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.adv_grp.pack(fill=tk.X, pady=4)
 
-        row = ttk.Frame(adv_grp)
+        row = ttk.Frame(self.adv_grp)
         row.pack(fill=tk.X, pady=2)
-        ttk.Radiobutton(row, text="Vanilla (138 ванильных достижений)", value=0, variable=self.advancement_type).pack(anchor="w")
-        ttk.Radiobutton(row, text="BACAP Milestones (Майлстоуны за каждые N достижений пака)", value=1, variable=self.advancement_type).pack(anchor="w")
-        ttk.Radiobutton(row, text="Random BACAP (Случайный сбалансированный пул достижений)", value=2, variable=self.advancement_type).pack(anchor="w")
+        self.radio_adv_vanilla = ttk.Radiobutton(row, text="", value=0, variable=self.advancement_type)
+        self.radio_adv_vanilla.pack(anchor="w")
+        self.radio_adv_milestones = ttk.Radiobutton(row, text="", value=1, variable=self.advancement_type)
+        self.radio_adv_milestones.pack(anchor="w")
+        self.radio_adv_random = ttk.Radiobutton(row, text="", value=2, variable=self.advancement_type)
+        self.radio_adv_random.pack(anchor="w")
 
-        self.milestone_step_row = ttk.Frame(adv_grp)
+        self.milestone_step_row = ttk.Frame(self.adv_grp)
         self.milestone_step_row.pack(fill=tk.X, pady=4)
-        ttk.Label(self.milestone_step_row, text="Шаг майлстоунов (1-20):", width=24).pack(side=tk.LEFT)
+        self.lbl_milestone_step = ttk.Label(self.milestone_step_row, text="", width=24)
+        self.lbl_milestone_step.pack(side=tk.LEFT)
         self.step_scale = ttk.Scale(self.milestone_step_row, from_=1, to=20, variable=self.bacap_advancement_step, orient=tk.HORIZONTAL)
         self.step_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.step_lbl = ttk.Label(self.milestone_step_row, text=str(self.bacap_advancement_step.get()), width=4)
@@ -257,22 +499,28 @@ class YamlConfigurator(tk.Tk):
         self.bacap_advancement_step.trace_add("write", lambda *_: self.step_lbl.config(text=str(self.bacap_advancement_step.get())))
 
         # 3. World Checks (Biomes, Structures, Trades)
-        check_grp = ttk.LabelFrame(parent, text=" 🗺️ Проверки мира (Чеки) ", padding=10)
-        check_grp.pack(fill=tk.X, pady=4)
+        self.check_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.check_grp.pack(fill=tk.X, pady=4)
 
-        ttk.Checkbutton(check_grp, text="Включить чеки исследования биомов (biome_checks)", variable=self.biome_checks).pack(anchor="w")
+        self.chk_biome_checks = ttk.Checkbutton(self.check_grp, text="", variable=self.biome_checks)
+        self.chk_biome_checks.pack(anchor="w")
 
-        self.biomes_subframe = ttk.Frame(check_grp, padding=(18, 2))
+        self.biomes_subframe = ttk.Frame(self.check_grp, padding=(18, 2))
         self.biomes_subframe.pack(fill=tk.X)
-        ttk.Checkbutton(self.biomes_subframe, text="Основные биомы суши и Незера (36 биомов)", variable=self.major_biome_checks).pack(anchor="w")
-        ttk.Checkbutton(self.biomes_subframe, text="Малые биомы, реки, пещеры, горы (25 биомов)", variable=self.small_biome_checks).pack(anchor="w")
-        ttk.Checkbutton(self.biomes_subframe, text="Биомы Энда (5 биомов)", variable=self.endgame_biome_checks).pack(anchor="w")
+        self.chk_major_biomes = ttk.Checkbutton(self.biomes_subframe, text="", variable=self.major_biome_checks)
+        self.chk_major_biomes.pack(anchor="w")
+        self.chk_small_biomes = ttk.Checkbutton(self.biomes_subframe, text="", variable=self.small_biome_checks)
+        self.chk_small_biomes.pack(anchor="w")
+        self.chk_endgame_biomes = ttk.Checkbutton(self.biomes_subframe, text="", variable=self.endgame_biome_checks)
+        self.chk_endgame_biomes.pack(anchor="w")
 
-        ttk.Checkbutton(check_grp, text="Чеки структур мира (22 структуры: Деревни, Палаты, Крепости...)", variable=self.structure_checks).pack(anchor="w", pady=(4, 0))
+        self.chk_structure_checks = ttk.Checkbutton(self.check_grp, text="", variable=self.structure_checks)
+        self.chk_structure_checks.pack(anchor="w", pady=(4, 0))
 
-        row = ttk.Frame(check_grp)
+        row = ttk.Frame(self.check_grp)
         row.pack(fill=tk.X, pady=6)
-        ttk.Label(row, text="Сделки у Бродячего торговца (0-20):", width=30).pack(side=tk.LEFT)
+        self.lbl_trader_trades = ttk.Label(row, text="", width=32)
+        self.lbl_trader_trades.pack(side=tk.LEFT)
         trader_scale = ttk.Scale(row, from_=0, to=20, variable=self.wandering_trader_trades, orient=tk.HORIZONTAL)
         trader_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.trader_lbl = ttk.Label(row, text=str(self.wandering_trader_trades.get()), width=4)
@@ -280,26 +528,37 @@ class YamlConfigurator(tk.Tk):
         self.wandering_trader_trades.trace_add("write", lambda *_: self.trader_lbl.config(text=str(self.wandering_trader_trades.get())))
 
         # 4. Restrictions & Difficulty
-        restr_grp = ttk.LabelFrame(parent, text=" 🔒 Ограничения и модификаторы сложности ", padding=10)
-        restr_grp.pack(fill=tk.X, pady=4)
+        self.restr_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.restr_grp.pack(fill=tk.X, pady=4)
 
-        ttk.Checkbutton(restr_grp, text="Ограничение HP (старт с 3 сердец, 7 апгрейдов)", variable=self.hp_restriction).pack(anchor="w")
-        ttk.Checkbutton(restr_grp, text="Ограничение сытости (старт с 4 окорочков, 6 апгрейдов)", variable=self.hunger_restriction).pack(anchor="w")
-        ttk.Checkbutton(restr_grp, text="Ограничение дистанции досягаемости (старт 2.5 блока, 3 апгрейда)", variable=self.reach_restriction).pack(anchor="w")
-        ttk.Checkbutton(restr_grp, text="Граница мира (старт 1000 блоков, 5 расширений границы)", variable=self.world_border_restriction).pack(anchor="w")
-        ttk.Checkbutton(restr_grp, text="Блокировка слотов инвентаря (старт 9 слотов хотбара, 27 апгрейдов)", variable=self.inventory_slot_restriction).pack(anchor="w")
-        ttk.Checkbutton(restr_grp, text="Блокировка слота второй руки (1 разблокировка)", variable=self.offhand_restriction).pack(anchor="w")
+        self.chk_hp_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.hp_restriction)
+        self.chk_hp_restr.pack(anchor="w")
+        self.chk_hunger_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.hunger_restriction)
+        self.chk_hunger_restr.pack(anchor="w")
+        self.chk_reach_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.reach_restriction)
+        self.chk_reach_restr.pack(anchor="w")
+        self.chk_world_border_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.world_border_restriction)
+        self.chk_world_border_restr.pack(anchor="w")
+        self.chk_inventory_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.inventory_slot_restriction)
+        self.chk_inventory_restr.pack(anchor="w")
+        self.chk_offhand_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.offhand_restriction)
+        self.chk_offhand_restr.pack(anchor="w")
 
-        ttk.Checkbutton(restr_grp, text="Блокировка доступа к структурам (9 разблокировок)", variable=self.structure_restriction).pack(anchor="w", pady=(2, 0))
-        self.struct_shuffle_frame = ttk.Frame(restr_grp, padding=(18, 2))
+        self.chk_structure_restr = ttk.Checkbutton(self.restr_grp, text="", variable=self.structure_restriction)
+        self.chk_structure_restr.pack(anchor="w", pady=(2, 0))
+
+        self.struct_shuffle_frame = ttk.Frame(self.restr_grp, padding=(18, 2))
         self.struct_shuffle_frame.pack(fill=tk.X)
-        ttk.Checkbutton(self.struct_shuffle_frame, text="Случайный порядок открытия структур (structure_unlock_shuffle)", variable=self.structure_unlock_shuffle).pack(anchor="w")
+        self.chk_structure_shuffle = ttk.Checkbutton(self.struct_shuffle_frame, text="", variable=self.structure_unlock_shuffle)
+        self.chk_structure_shuffle.pack(anchor="w")
 
-        ttk.Checkbutton(restr_grp, text="Постоянные проклятия (монстры не горят на солнце, спавн на свету)", variable=self.curses_enabled).pack(anchor="w", pady=(4, 0))
+        self.chk_curses = ttk.Checkbutton(self.restr_grp, text="", variable=self.curses_enabled)
+        self.chk_curses.pack(anchor="w", pady=(4, 0))
 
-        row = ttk.Frame(restr_grp)
+        row = ttk.Frame(self.restr_grp)
         row.pack(fill=tk.X, pady=6)
-        ttk.Label(row, text="Приоритет тиров рецептов (0=рандом, 100=по тирам):", width=42).pack(side=tk.LEFT)
+        self.lbl_tier_bias = ttk.Label(row, text="", width=42)
+        self.lbl_tier_bias.pack(side=tk.LEFT)
         tier_scale = ttk.Scale(row, from_=0, to=100, variable=self.craft_tier_bias, orient=tk.HORIZONTAL)
         tier_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.tier_lbl = ttk.Label(row, text=str(self.craft_tier_bias.get()), width=4)
@@ -307,23 +566,30 @@ class YamlConfigurator(tk.Tk):
         self.craft_tier_bias.trace_add("write", lambda *_: self.tier_lbl.config(text=str(self.craft_tier_bias.get())))
 
         # 5. Compasses & Abilities
-        comp_grp = ttk.LabelFrame(parent, text=" 🧭 Компасы и Способности (QoL) ", padding=10)
-        comp_grp.pack(fill=tk.X, pady=4)
+        self.comp_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.comp_grp.pack(fill=tk.X, pady=4)
 
-        ttk.Checkbutton(comp_grp, text="Компас непосещённых структур (динамически указывает на ближайшую новую)", variable=self.unvisited_structures_compass).pack(anchor="w")
-        ttk.Checkbutton(comp_grp, text="Все индивидуальные компасы структур (22 компаса в пуле)", variable=self.structure_compasses).pack(anchor="w")
-        ttk.Checkbutton(comp_grp, text="Компас непосещённых биомов (динамически указывает на ближайший новый)", variable=self.unvisited_biomes_compass).pack(anchor="w")
-        ttk.Checkbutton(comp_grp, text="Индивидуальные компасы основных биомов (36 компасов)", variable=self.major_biomes_compasses).pack(anchor="w")
-        ttk.Checkbutton(comp_grp, text="Индивидуальные компасы малых биомов (25 компасов)", variable=self.minor_biomes_compasses).pack(anchor="w")
-        ttk.Checkbutton(comp_grp, text="Экстра-способности QoL (12 предметов: Буры, Дровосек, Прыжки, Магнит, Факел...)", variable=self.extra_abilities).pack(anchor="w", pady=(2, 0))
+        self.chk_unvisited_struct = ttk.Checkbutton(self.comp_grp, text="", variable=self.unvisited_structures_compass)
+        self.chk_unvisited_struct.pack(anchor="w")
+        self.chk_all_struct = ttk.Checkbutton(self.comp_grp, text="", variable=self.structure_compasses)
+        self.chk_all_struct.pack(anchor="w")
+        self.chk_unvisited_biomes = ttk.Checkbutton(self.comp_grp, text="", variable=self.unvisited_biomes_compass)
+        self.chk_unvisited_biomes.pack(anchor="w")
+        self.chk_major_biomes_comp = ttk.Checkbutton(self.comp_grp, text="", variable=self.major_biomes_compasses)
+        self.chk_major_biomes_comp.pack(anchor="w")
+        self.chk_minor_biomes_comp = ttk.Checkbutton(self.comp_grp, text="", variable=self.minor_biomes_compasses)
+        self.chk_minor_biomes_comp.pack(anchor="w")
+        self.chk_extra_abilities = ttk.Checkbutton(self.comp_grp, text="", variable=self.extra_abilities)
+        self.chk_extra_abilities.pack(anchor="w", pady=(2, 0))
 
         # 6. Traps
-        trap_grp = ttk.LabelFrame(parent, text=" 🐝 Ловушки (Traps) ", padding=10)
-        trap_grp.pack(fill=tk.X, pady=4)
+        self.trap_grp = ttk.LabelFrame(parent, text="", padding=10)
+        self.trap_grp.pack(fill=tk.X, pady=4)
 
-        row = ttk.Frame(trap_grp)
+        row = ttk.Frame(self.trap_grp)
         row.pack(fill=tk.X, pady=2)
-        ttk.Label(row, text="Процент ловушек от оставшихся слотов:", width=34).pack(side=tk.LEFT)
+        self.lbl_traps_pct = ttk.Label(row, text="", width=36)
+        self.lbl_traps_pct.pack(side=tk.LEFT)
         trap_scale = ttk.Scale(row, from_=0, to=100, variable=self.bee_traps, orient=tk.HORIZONTAL)
         trap_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.trap_lbl = ttk.Label(row, text=f"{self.bee_traps.get()}%", width=5)
@@ -331,66 +597,65 @@ class YamlConfigurator(tk.Tk):
         self.bee_traps.trace_add("write", lambda *_: self.trap_lbl.config(text=f"{self.bee_traps.get()}%"))
 
     def _build_dashboard(self, parent):
-        # Header for Dashboard
-        dash_card = ttk.LabelFrame(parent, text=" 📊 Сводка генерации (Live Stats) ", padding=10)
-        dash_card.pack(fill=tk.BOTH, expand=True, pady=4)
+        self.dash_card = ttk.LabelFrame(parent, text="", padding=10)
+        self.dash_card.pack(fill=tk.BOTH, expand=True, pady=4)
 
         # 1. Checks Box
-        chk_box = ttk.LabelFrame(dash_card, text=" Чеки (Локации в мире) ", padding=8)
-        chk_box.pack(fill=tk.X, pady=4)
+        self.chk_box = ttk.LabelFrame(self.dash_card, text="", padding=8)
+        self.chk_box.pack(fill=tk.X, pady=4)
 
-        self.lbl_chk_adv = ttk.Label(chk_box, text="Достижения: 0", font=("Segoe UI", 9))
+        self.lbl_chk_adv = ttk.Label(self.chk_box, text="", font=("Segoe UI", 9))
         self.lbl_chk_adv.pack(anchor="w")
-        self.lbl_chk_biomes = ttk.Label(chk_box, text="Биомы: 0", font=("Segoe UI", 9))
+        self.lbl_chk_biomes = ttk.Label(self.chk_box, text="", font=("Segoe UI", 9))
         self.lbl_chk_biomes.pack(anchor="w")
-        self.lbl_chk_struct = ttk.Label(chk_box, text="Структуры: 0", font=("Segoe UI", 9))
+        self.lbl_chk_struct = ttk.Label(self.chk_box, text="", font=("Segoe UI", 9))
         self.lbl_chk_struct.pack(anchor="w")
-        self.lbl_chk_trader = ttk.Label(chk_box, text="Сделки торговца: 0", font=("Segoe UI", 9))
+        self.lbl_chk_trader = ttk.Label(self.chk_box, text="", font=("Segoe UI", 9))
         self.lbl_chk_trader.pack(anchor="w")
 
-        ttk.Separator(chk_box, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=4)
+        ttk.Separator(self.chk_box, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=4)
         self.lbl_total_checks = ttk.Label(
-            chk_box, text="ВСЕГО ЧЕКОВ: 0", font=("Segoe UI", 10, "bold"), foreground="#0055bb"
+            self.chk_box, text="", font=("Segoe UI", 10, "bold"), foreground="#0055bb"
         )
         self.lbl_total_checks.pack(anchor="w")
 
         # 2. Items Box
-        itm_box = ttk.LabelFrame(dash_card, text=" Предметы в пуле (Item Pool) ", padding=8)
-        itm_box.pack(fill=tk.X, pady=4)
+        self.itm_box = ttk.LabelFrame(self.dash_card, text="", padding=8)
+        self.itm_box.pack(fill=tk.X, pady=4)
 
-        self.lbl_itm_recipes = ttk.Label(itm_box, text="Рецепты: 78", font=("Segoe UI", 9))
+        self.lbl_itm_recipes = ttk.Label(self.itm_box, text="", font=("Segoe UI", 9))
         self.lbl_itm_recipes.pack(anchor="w")
-        self.lbl_itm_restr = ttk.Label(itm_box, text="Ограничения / Апгрейды: 0", font=("Segoe UI", 9))
+        self.lbl_itm_restr = ttk.Label(self.itm_box, text="", font=("Segoe UI", 9))
         self.lbl_itm_restr.pack(anchor="w")
-        self.lbl_itm_compasses = ttk.Label(itm_box, text="Компасы: 0", font=("Segoe UI", 9))
+        self.lbl_itm_compasses = ttk.Label(self.itm_box, text="", font=("Segoe UI", 9))
         self.lbl_itm_compasses.pack(anchor="w")
-        self.lbl_itm_abilities = ttk.Label(itm_box, text="Способности: 0", font=("Segoe UI", 9))
+        self.lbl_itm_abilities = ttk.Label(self.itm_box, text="", font=("Segoe UI", 9))
         self.lbl_itm_abilities.pack(anchor="w")
-        self.lbl_itm_shards = ttk.Label(itm_box, text="Осколки яйца: 0", font=("Segoe UI", 9))
+        self.lbl_itm_shards = ttk.Label(self.itm_box, text="", font=("Segoe UI", 9))
         self.lbl_itm_shards.pack(anchor="w")
 
-        ttk.Separator(itm_box, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=4)
+        ttk.Separator(self.itm_box, orient=tk.HORIZONTAL).pack(fill=tk.X, pady=4)
         self.lbl_total_prog = ttk.Label(
-            itm_box, text="ВСЕГО ПРОГРЕССИИ: 0", font=("Segoe UI", 10, "bold"), foreground="#773300"
+            self.itm_box, text="", font=("Segoe UI", 10, "bold"), foreground="#773300"
         )
         self.lbl_total_prog.pack(anchor="w")
 
         # 3. Fillers & Traps Box
-        fill_box = ttk.LabelFrame(dash_card, text=" Заполнители и ловушки ", padding=8)
-        fill_box.pack(fill=tk.X, pady=4)
+        self.fill_box = ttk.LabelFrame(self.dash_card, text="", padding=8)
+        self.fill_box.pack(fill=tk.X, pady=4)
 
-        self.lbl_traps = ttk.Label(fill_box, text="Ловушки: 0", font=("Segoe UI", 9))
+        self.lbl_traps = ttk.Label(self.fill_box, text="", font=("Segoe UI", 9))
         self.lbl_traps.pack(anchor="w")
-        self.lbl_junk = ttk.Label(fill_box, text="Мусор / Ресурсы: 0", font=("Segoe UI", 9))
+        self.lbl_junk = ttk.Label(self.fill_box, text="", font=("Segoe UI", 9))
         self.lbl_junk.pack(anchor="w")
 
         # 4. Balance Indicator
-        self.balance_frame = tk.Frame(dash_card, padx=8, pady=8, relief=tk.GROOVE, borderwidth=1)
+        self.balance_frame = tk.Frame(self.dash_card, padx=8, pady=8, relief=tk.GROOVE, borderwidth=1)
         self.balance_frame.pack(fill=tk.X, pady=6)
 
         self.lbl_balance_status = tk.Label(
             self.balance_frame,
-            text="Проверка баланса...",
+            text="",
             font=("Segoe UI", 9, "bold"),
             wraplength=260,
             justify=tk.LEFT
@@ -398,20 +663,103 @@ class YamlConfigurator(tk.Tk):
         self.lbl_balance_status.pack(fill=tk.X)
 
         # 5. Buttons Panel
-        btn_frame = ttk.Frame(dash_card)
+        btn_frame = ttk.Frame(self.dash_card)
         btn_frame.pack(fill=tk.X, side=tk.BOTTOM, pady=4)
 
-        btn_save = ttk.Button(btn_frame, text="💾 Сохранить YAML", command=self.save_yaml)
-        btn_save.pack(fill=tk.X, pady=2)
+        self.btn_save = ttk.Button(btn_frame, text="", command=self.save_yaml)
+        self.btn_save.pack(fill=tk.X, pady=2)
 
-        btn_save_as = ttk.Button(btn_frame, text="📂 Сохранить как...", command=self.save_yaml_as)
-        btn_save_as.pack(fill=tk.X, pady=2)
+        self.btn_save_as = ttk.Button(btn_frame, text="", command=self.save_yaml_as)
+        self.btn_save_as.pack(fill=tk.X, pady=2)
 
-        btn_load = ttk.Button(btn_frame, text="📥 Загрузить YAML", command=self.load_yaml)
-        btn_load.pack(fill=tk.X, pady=2)
+        self.btn_load = ttk.Button(btn_frame, text="", command=self.load_yaml)
+        self.btn_load.pack(fill=tk.X, pady=2)
 
-        btn_reset = ttk.Button(btn_frame, text="🔄 Сброс к стандарту", command=self.reset_to_default)
-        btn_reset.pack(fill=tk.X, pady=2)
+        self.btn_reset = ttk.Button(btn_frame, text="", command=self.reset_to_default)
+        self.btn_reset.pack(fill=tk.X, pady=2)
+
+    def _on_language_selected(self, _):
+        chosen = self.lang_combo.get().strip()
+        new_lang = "ru" if chosen == "Русский" else "en"
+        if new_lang != self.current_lang:
+            self.current_lang = new_lang
+            self._save_app_settings()
+            self._apply_language()
+            self._recalculate_stats()
+
+    def _apply_language(self):
+        """Updates all text in the UI based on the active language."""
+        self.title(self.t("title"))
+        self.header_title_lbl.config(text=self.t("header_title"))
+        self.lang_lbl.config(text=self.t("lang_label"))
+        self.preset_lbl.config(text=self.t("preset_label"))
+
+        # Presets combobox
+        prev_idx = self.preset_combo.current()
+        presets_list = self.t("presets")
+        self.preset_combo.config(values=presets_list)
+        if 0 <= prev_idx < len(presets_list):
+            self.preset_combo.current(prev_idx)
+        else:
+            self.preset_combo.current(0)
+
+        # Groups & Option Labels
+        self.info_grp.config(text=self.t("player_info_grp"))
+        self.lbl_player_name.config(text=self.t("player_name"))
+
+        self.goal_grp.config(text=self.t("goal_grp"))
+        self.lbl_check_goal.config(text=self.t("check_goal"))
+        self.lbl_required_bosses.config(text=self.t("required_bosses"))
+        self.lbl_egg_shards_req.config(text=self.t("egg_shards_req"))
+        self.lbl_egg_shards_avail.config(text=self.t("egg_shards_avail"))
+
+        self.adv_grp.config(text=self.t("adv_grp"))
+        self.radio_adv_vanilla.config(text=self.t("adv_vanilla"))
+        self.radio_adv_milestones.config(text=self.t("adv_milestones"))
+        self.radio_adv_random.config(text=self.t("adv_random"))
+        self.lbl_milestone_step.config(text=self.t("milestone_step"))
+
+        self.check_grp.config(text=self.t("checks_grp"))
+        self.chk_biome_checks.config(text=self.t("biome_checks"))
+        self.chk_major_biomes.config(text=self.t("major_biomes"))
+        self.chk_small_biomes.config(text=self.t("small_biomes"))
+        self.chk_endgame_biomes.config(text=self.t("endgame_biomes"))
+        self.chk_structure_checks.config(text=self.t("structure_checks"))
+        self.lbl_trader_trades.config(text=self.t("trader_trades"))
+
+        self.restr_grp.config(text=self.t("restr_grp"))
+        self.chk_hp_restr.config(text=self.t("hp_restr"))
+        self.chk_hunger_restr.config(text=self.t("hunger_restr"))
+        self.chk_reach_restr.config(text=self.t("reach_restr"))
+        self.chk_world_border_restr.config(text=self.t("world_border_restr"))
+        self.chk_inventory_restr.config(text=self.t("inventory_restr"))
+        self.chk_offhand_restr.config(text=self.t("offhand_restr"))
+        self.chk_structure_restr.config(text=self.t("structure_restr"))
+        self.chk_structure_shuffle.config(text=self.t("structure_shuffle"))
+        self.chk_curses.config(text=self.t("curses"))
+        self.lbl_tier_bias.config(text=self.t("tier_bias"))
+
+        self.comp_grp.config(text=self.t("comp_grp"))
+        self.chk_unvisited_struct.config(text=self.t("unvisited_struct"))
+        self.chk_all_struct.config(text=self.t("all_struct"))
+        self.chk_unvisited_biomes.config(text=self.t("unvisited_biomes"))
+        self.chk_major_biomes_comp.config(text=self.t("major_biomes_comp"))
+        self.chk_minor_biomes_comp.config(text=self.t("minor_biomes_comp"))
+        self.chk_extra_abilities.config(text=self.t("extra_abilities"))
+
+        self.trap_grp.config(text=self.t("trap_grp"))
+        self.lbl_traps_pct.config(text=self.t("traps_pct"))
+
+        # Dashboard & Buttons
+        self.dash_card.config(text=self.t("dash_title"))
+        self.chk_box.config(text=self.t("chk_box"))
+        self.itm_box.config(text=self.t("itm_box"))
+        self.fill_box.config(text=self.t("fill_box"))
+
+        self.btn_save.config(text=self.t("btn_save"))
+        self.btn_save_as.config(text=self.t("btn_save_as"))
+        self.btn_load.config(text=self.t("btn_load"))
+        self.btn_reset.config(text=self.t("btn_reset"))
 
     def _update_visibility(self):
         """Hides or reveals options depending on choices made in other options."""
@@ -450,7 +798,7 @@ class YamlConfigurator(tk.Tk):
     def _recalculate_stats(self):
         """Calculates total checks and total items dynamically."""
         # 1. Progression items
-        total_prog = TOTAL_RECIPES  # 78 base recipe unlocks
+        total_prog = TOTAL_RECIPES
 
         restr_count = 0
         if self.hp_restriction.get():
@@ -502,10 +850,9 @@ class YamlConfigurator(tk.Tk):
 
         structure_checks_count = STRUCTURES_COUNT if self.structure_checks.get() else 0
         trader_checks_count = max(0, min(20, self.wandering_trader_trades.get()))
-
         other_checks = biome_checks_count + structure_checks_count + trader_checks_count
 
-        # Calculate traps from progression items
+        # Traps & Slots
         trap_pct = max(0, min(100, self.bee_traps.get()))
         trap_slots = math.ceil(total_prog * (trap_pct / 100.0)) if trap_pct > 0 else 0
         total_needed_slots = total_prog + trap_slots
@@ -534,30 +881,30 @@ class YamlConfigurator(tk.Tk):
             traps_count = 0
             junk_count = 0
 
-        # Update UI labels
+        # Update UI labels with translations
         if adv_mode == 0:
-            adv_text = f"Достижения (Vanilla): {adv_checks_count}"
+            adv_text = self.t("chk_adv_vanilla", count=adv_checks_count)
         elif adv_mode == 1:
             step = self.bacap_advancement_step.get()
-            adv_text = f"Майлстоуны BACAP (шаг {step}): {adv_checks_count}"
+            adv_text = self.t("chk_adv_milestones", step=step, count=adv_checks_count)
         else:
-            adv_text = f"Случайные BACAP: {adv_checks_count}"
+            adv_text = self.t("chk_adv_random", count=adv_checks_count)
 
         self.lbl_chk_adv.config(text=adv_text)
-        self.lbl_chk_biomes.config(text=f"Биомы: {biome_checks_count}")
-        self.lbl_chk_struct.config(text=f"Структуры: {structure_checks_count}")
-        self.lbl_chk_trader.config(text=f"Сделки торговца: {trader_checks_count}")
-        self.lbl_total_checks.config(text=f"ВСЕГО ЧЕКОВ: {total_checks}")
+        self.lbl_chk_biomes.config(text=self.t("chk_biomes", count=biome_checks_count))
+        self.lbl_chk_struct.config(text=self.t("chk_struct", count=structure_checks_count))
+        self.lbl_chk_trader.config(text=self.t("chk_trader", count=trader_checks_count))
+        self.lbl_total_checks.config(text=self.t("total_checks", count=total_checks))
 
-        self.lbl_itm_recipes.config(text=f"Рецепты: {TOTAL_RECIPES}")
-        self.lbl_itm_restr.config(text=f"Ограничения: {restr_count}")
-        self.lbl_itm_compasses.config(text=f"Компасы: {compass_count}")
-        self.lbl_itm_abilities.config(text=f"Способности: {abilities_count}")
-        self.lbl_itm_shards.config(text=f"Осколки яйца: {shards_count}")
-        self.lbl_total_prog.config(text=f"ВСЕГО ПРОГРЕССИИ: {total_prog}")
+        self.lbl_itm_recipes.config(text=self.t("itm_recipes", count=TOTAL_RECIPES))
+        self.lbl_itm_restr.config(text=self.t("itm_restr", count=restr_count))
+        self.lbl_itm_compasses.config(text=self.t("itm_compasses", count=compass_count))
+        self.lbl_itm_abilities.config(text=self.t("itm_abilities", count=abilities_count))
+        self.lbl_itm_shards.config(text=self.t("itm_shards", count=shards_count))
+        self.lbl_total_prog.config(text=self.t("total_prog", count=total_prog))
 
-        self.lbl_traps.config(text=f"Ловушки: {traps_count}")
-        self.lbl_junk.config(text=f"Мусор / Ресурсы: {junk_count}")
+        self.lbl_traps.config(text=self.t("traps_count", count=traps_count))
+        self.lbl_junk.config(text=self.t("junk_count", count=junk_count))
 
         # Balance indicator
         if total_checks >= total_prog:
@@ -565,7 +912,7 @@ class YamlConfigurator(tk.Tk):
             self.lbl_balance_status.config(
                 bg="#e8f8e8",
                 fg="#155724",
-                text=f"✅ Баланс в норме!\nЧеков: {total_checks} (свободно: {remaining_slots}).\nПрогрессионных предметов: {total_prog}."
+                text=self.t("balance_ok", total_checks=total_checks, remaining=remaining_slots, total_prog=total_prog)
             )
         else:
             deficit = total_prog - total_checks
@@ -573,7 +920,7 @@ class YamlConfigurator(tk.Tk):
             self.lbl_balance_status.config(
                 bg="#f8e8e8",
                 fg="#721c24",
-                text=f"⚠️ Внимание: Недостаток чеков!\nНужно: {total_prog}, доступно: {total_checks}.\nНе хватает {deficit} чеков! Включите биомы/структуры или уменьшите шаг майлстоунов."
+                text=self.t("balance_deficit", total_prog=total_prog, total_checks=total_checks, deficit=deficit)
             )
 
     def _on_preset_selected(self, _):
@@ -666,6 +1013,80 @@ class YamlConfigurator(tk.Tk):
         self.preset_combo.current(0)
         self._on_preset_selected(None)
 
+    def save_yaml(self):
+        """Saves the YAML file, always prompting with file dialog and remembering directory."""
+        self.save_yaml_as()
+
+    def save_yaml_as(self):
+        """Prompts the user to choose save location, remembering the chosen folder."""
+        p_name = self.player_name.get().strip() or "Player"
+        initial_file = f"{p_name}.yaml"
+
+        target_dir = self.last_directory
+        if not os.path.isdir(target_dir):
+            target_dir = os.path.expanduser("~")
+
+        path = filedialog.asksaveasfilename(
+            title=self.t("dialog_save_title"),
+            initialdir=target_dir,
+            initialfile=initial_file,
+            defaultextension=".yaml",
+            filetypes=[("YAML files", "*.yaml *.yml"), ("All files", "*.*")]
+        )
+        if path:
+            self.last_directory = os.path.dirname(os.path.abspath(path))
+            self._save_app_settings()
+            self._write_file(path)
+
+    def _write_file(self, target_path):
+        data = self.generate_yaml_dict()
+        text = self._render_yaml_text(data)
+        try:
+            with open(target_path, "w", encoding="utf-8") as f:
+                f.write(text)
+            messagebox.showinfo(
+                self.t("msg_save_success_title"),
+                self.t("msg_save_success", path=os.path.abspath(target_path))
+            )
+        except Exception as e:
+            messagebox.showerror(
+                self.t("msg_save_err_title"),
+                self.t("msg_save_err", error=str(e))
+            )
+
+    def load_yaml(self):
+        """Loads a YAML file from disk, remembering the chosen folder."""
+        target_dir = self.last_directory
+        if not os.path.isdir(target_dir):
+            target_dir = os.path.expanduser("~")
+
+        path = filedialog.askopenfilename(
+            title=self.t("dialog_load_title"),
+            initialdir=target_dir,
+            filetypes=[("YAML files", "*.yaml *.yml"), ("All files", "*.*")]
+        )
+        if not path:
+            return
+
+        self.last_directory = os.path.dirname(os.path.abspath(path))
+        self._save_app_settings()
+
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                content = f.read()
+
+            parsed = self._parse_yaml_simple(content)
+            self._apply_parsed_yaml(parsed)
+            messagebox.showinfo(
+                self.t("msg_save_success_title"),
+                self.t("msg_load_success", filename=os.path.basename(path))
+            )
+        except Exception as e:
+            messagebox.showerror(
+                self.t("msg_load_err_title"),
+                self.t("msg_load_err", error=str(e))
+            )
+
     def generate_yaml_dict(self) -> dict:
         """Constructs an Archipelago YAML options dictionary for Minecraft with BACAP."""
         opts = {
@@ -748,51 +1169,6 @@ class YamlConfigurator(tk.Tk):
             lines.append(f"  {k}: {val_str}")
 
         return "\n".join(lines) + "\n"
-
-    def save_yaml(self):
-        p_name = self.player_name.get().strip() or "Player"
-        filename = f"{p_name}.yaml"
-        self._write_file(filename)
-
-    def save_yaml_as(self):
-        p_name = self.player_name.get().strip() or "Player"
-        initial_file = f"{p_name}.yaml"
-        path = filedialog.asksaveasfilename(
-            title="Сохранить YAML файл",
-            initialfile=initial_file,
-            defaultextension=".yaml",
-            filetypes=[("YAML files", "*.yaml *.yml"), ("All files", "*.*")]
-        )
-        if path:
-            self._write_file(path)
-
-    def _write_file(self, target_path):
-        data = self.generate_yaml_dict()
-        text = self._render_yaml_text(data)
-        try:
-            with open(target_path, "w", encoding="utf-8") as f:
-                f.write(text)
-            messagebox.showinfo("Успех", f"YAML файл успешно сохранён:\n{os.path.abspath(target_path)}")
-        except Exception as e:
-            messagebox.showerror("Ошибка сохранения", f"Не удалось записать файл:\n{e}")
-
-    def load_yaml(self):
-        path = filedialog.askopenfilename(
-            title="Открыть YAML файл",
-            filetypes=[("YAML files", "*.yaml *.yml"), ("All files", "*.*")]
-        )
-        if not path:
-            return
-
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                content = f.read()
-
-            parsed = self._parse_yaml_simple(content)
-            self._apply_parsed_yaml(parsed)
-            messagebox.showinfo("Успех", f"Файл {os.path.basename(path)} успешно загружен!")
-        except Exception as e:
-            messagebox.showerror("Ошибка загрузки", f"Не удалось прочитать YAML файл:\n{e}")
 
     def _parse_yaml_simple(self, text: str) -> dict:
         """Lightweight parser for Archipelago YAML without requiring PyYAML."""
