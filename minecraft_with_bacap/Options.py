@@ -70,11 +70,11 @@ class RecipeTierBias(Range):
     """Slider controlling recipe tier unlocking bias for the 78 Recipe Unlock items:
     0 = completely uniform random across all remaining recipe tiers.
     100 = strictly unlock earlier tiers first.
-    1-99 = weighted bias favoring earlier recipe tiers (70% = strongly favors earlier tiers)."""
+    1-99 = weighted bias favoring earlier recipe tiers (75% = strongly favors earlier tiers)."""
     display_name = "Craft Recipe Tier Bias (78 recipe items)"
     range_start = 0
     range_end = 100
-    default = 70
+    default = 75
 
 
 class RecipeTierThreshold(Range):
