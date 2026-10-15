@@ -70,28 +70,49 @@ Original (Forge) Implementation by KonoTyran.
 - [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases)
 - [Minecraft with BACAP APWorld](https://github.com/u2vr/ArchipelagoMinecraftU2VR/releases/)
 
+## Installing the APWorld
+
+1. Download `minecraft_with_bacap.apworld` from [Releases](https://github.com/u2vr/ArchipelagoMinecraftU2VR/releases/).
+2. Open the **Archipelago Launcher** and click **"Install APWorld"** (or place the file into your Archipelago `custom_worlds` folder).
+3. Select the downloaded `minecraft_with_bacap.apworld`.
+4. Restart the Archipelago Launcher.
+5. After restarting:
+   - **Minecraft with BACAP yaml configurator** will appear in the Launcher tools list.
+   - **Minecraft with BACAP Client** will appear under the Clients tab (with a custom Minecraft book icon).
+
+### Updating the APWorld
+
+Download the new `.apworld` file and reinstall it using the instructions above.
+
 ## Configuring your YAML file
 
 ### What is a YAML file and why do I need one?
 
-See the guide on setting up a basic YAML at the Archipelago setup
-guide: [Basic Multiworld Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup/en)
+See the guide on setting up a basic YAML at the Archipelago setup guide: [Basic Multiworld Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup/en).
 
-### Where do I get a YAML file?
+### Generating your YAML with the Built-In Configurator (Recommended)
 
-You can generate an YAML file in the Archipelago Launcher. Simply open the Options Creator from the launcher,
-and select Minecraft from the bar on the left. Once you have made your YAML file, you can click "Export Options" to
-select where you want the YAML file to go.
+This APWorld includes a dedicated graphical tool — **Minecraft with BACAP yaml configurator** — directly accessible from the Archipelago Launcher.
 
-## Installing the Minecraft APWorld
-
-When you first download the APWorld, it will not be installed in the Archipelago Launcher. You must open the Archipelago
-Launcher and click "Install APWorld". From there, select the downloaded Minecraft APWorld, and it should install itself.
-Restart the Archipelago Launcher, and it will appear under the Client Tab. It looks like a Minecraft book with gold text on the cover.
-
-### Updating the Minecraft APWorld
-
-Download the new APWorld, and reinstall it using the instructions above.
+1. In the **Archipelago Launcher**, click on **"Minecraft with BACAP yaml configurator"**.
+2. **Select Language**: The tool defaults to English, with full Russian localization available via the `Language` dropdown in the top header.
+3. **Choose a Preset or Customize**:
+   - Use the **Preset** dropdown to quickly load a ready-made profile:
+     - **BACAP Standard (Recommended)**: Balanced experience with BACAP milestone checks (step 5), biome and structure exploration, trader checks, and core progressive restrictions.
+     - **Quick Vanilla Game**: Vanilla 138 advancements with restrictions disabled for a fast, casual playthrough.
+     - **Full Hardcore**: BACAP milestone step 2, End biomes, 20 trader trades, permanent curses, 50% traps, and dragon egg shard hunt.
+   - Or customize every setting individually: Check goal, Required bosses, Dragon Egg shards, Advancement modes, Biomes, Structures, Progressive restrictions (HP, Hunger, Reach, World border, Inventory slots, Offhand, Structure locks), Craft tier bias, Dynamic compasses, 12 Extra abilities, and Traps percentage.
+4. **Interactive Hover Tooltips**: Hover over any setting, slider, or button to see a detailed explanation of the option and its gameplay impact.
+5. **Dynamic Visibility & Live Balance Dashboard**:
+   - Dependent options appear or hide dynamically based on parent selections (e.g., milestone step only displays when BACAP Milestones are enabled; End biomes and structure shuffle only appear when relevant).
+   - The **Live Stats Dashboard** on the right calculates in real time the total checks, progression items, compasses, abilities, traps, and fillers.
+   - The **Balance Indicator** validates that your chosen check count is sufficient for all progression items, preventing generation failures before they happen.
+6. **Save your YAML**:
+   - Click **"💾 Save YAML"** (or **"📂 Save As..."**).
+   - A file dialog will prompt for save location with filename `<PlayerName>.yaml`, defaulting to Archipelago's `Players` folder (`C:\ProgramData\Archipelago\Players`).
+   - The configurator automatically remembers your last selected folder for future saves.
+7. **Load & Edit Existing YAMLs**:
+   - Click **"📥 Load YAML"** to import any previously created YAML file, inspect its live check/item balance, and adjust options.
 
 ## Joining a MultiWorld Game
 
