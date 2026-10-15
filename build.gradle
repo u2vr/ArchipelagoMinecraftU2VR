@@ -208,7 +208,7 @@ idea {
 
 // Packaging Archipelago APWorld
 var packageApworld = tasks.register("packageApworld", Zip) {
-    archiveFileName = "Minecraft with BACAP.apworld"
+    archiveFileName = "minecraft_with_bacap.apworld"
     destinationDirectory = layout.buildDirectory.dir("libs")
 
     into("minecraft_with_bacap") {
@@ -217,7 +217,6 @@ var packageApworld = tasks.register("packageApworld", Zip) {
             exclude "**/*.pyc"
         }
     }
-    from(layout.projectDirectory.file("minecraft_with_bacap/archipelago.json"))
 }
 
 var copyArtifactsToLib = tasks.register("copyArtifactsToLib", Copy) {
