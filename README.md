@@ -2,7 +2,7 @@
 
 # Minecraft Randomizer Setup Guide
 
-Mod-Rework by U2VR, MjKey
+Mod-Rework by U2VR (with AI), MjKey 
 
 NeoForge Rewrite by qixils (Lexi), coehlrich, MrRedstone54 (Red)
 

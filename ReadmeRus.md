@@ -2,7 +2,7 @@
 
 [English version (README.md)](README.md)
 
-Мод-переработка: U2VR, MjKey
+Мод-переработка: U2VR (с использованием ИИ), MjKey
 
 Переписывание на NeoForge: qixils (Lexi), coehlrich, MrRedstone54 (Red)
 
