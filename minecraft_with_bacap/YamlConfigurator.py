@@ -2,7 +2,8 @@
 Minecraft with BACAP - YAML Configurator
 Interactive GUI tool for configuring Archipelago YAML settings for Minecraft with BACAP.
 Features dynamic option visibility, live statistics of checks and items,
-bilingual support (English & Russian, default English), and folder memory for saving/loading.
+bilingual support (English & Russian, default English), interactive hover tooltips,
+and persistent folder memory for saving/loading.
 """
 
 import os
@@ -40,6 +41,90 @@ RESTRICTION_ITEMS = {
 }
 
 CONFIG_FILE_PATH = os.path.join(os.path.expanduser("~"), ".minecraft_bacap_configurator.json")
+
+
+class ToolTip:
+    """Creates a responsive hover tooltip for Tkinter widgets."""
+    def __init__(self, widget, text_func, delay=350):
+        self.widget = widget
+        self.text_func = text_func
+        self.delay = delay
+        self.tip_window = None
+        self.after_id = None
+        self.widget.bind("<Enter>", self.schedule_tip)
+        self.widget.bind("<Leave>", self.hide_tip)
+        self.widget.bind("<ButtonPress>", self.hide_tip)
+
+    def schedule_tip(self, event=None):
+        self.unschedule()
+        self.after_id = self.widget.after(self.delay, self.show_tip)
+
+    def unschedule(self):
+        after_id = self.after_id
+        self.after_id = None
+        if after_id:
+            try:
+                self.widget.after_cancel(after_id)
+            except Exception:
+                pass
+
+    def show_tip(self, event=None):
+        self.hide_tip()
+        text = self.text_func() if callable(self.text_func) else self.text_func
+        if not text:
+            return
+
+        try:
+            x = self.widget.winfo_rootx() + 20
+            y = self.widget.winfo_rooty() + self.widget.winfo_height() + 6
+        except Exception:
+            return
+
+        self.tip_window = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)
+        try:
+            tw.wm_attributes("-topmost", True)
+        except Exception:
+            pass
+
+        label = tk.Label(
+            tw,
+            text=text,
+            justify=tk.LEFT,
+            background="#252526",
+            foreground="#f1f1f1",
+            relief=tk.SOLID,
+            borderwidth=1,
+            font=("Segoe UI", 8),
+            padx=9,
+            pady=6,
+            wraplength=380
+        )
+        label.pack()
+
+        tw.update_idletasks()
+        tip_w = tw.winfo_width()
+        tip_h = tw.winfo_height()
+        screen_w = tw.winfo_screenwidth()
+        screen_h = tw.winfo_screenheight()
+
+        if x + tip_w > screen_w - 12:
+            x = screen_w - tip_w - 12
+        if y + tip_h > screen_h - 12:
+            y = self.widget.winfo_rooty() - tip_h - 6
+
+        tw.wm_geometry(f"+{max(6, x)}+{max(6, y)}")
+
+    def hide_tip(self, event=None):
+        self.unschedule()
+        tw = self.tip_window
+        self.tip_window = None
+        if tw:
+            try:
+                tw.destroy()
+            except Exception:
+                pass
+
 
 TRANSLATIONS = {
     "en": {
@@ -126,6 +211,47 @@ TRANSLATIONS = {
         "msg_load_success": "File {filename} loaded successfully!",
         "msg_load_err_title": "Load Error",
         "msg_load_err": "Failed to read YAML file:\n{error}",
+
+        # Tooltips
+        "tip_player_name": "Your slot name in the Archipelago multiworld room. Must match the player name defined in the room.",
+        "tip_preset": "Quickly load preconfigured settings: BACAP Standard, Quick Vanilla, or Full Hardcore.",
+        "tip_language": "Switch interface language between English and Russian.",
+        "tip_check_goal": "Percentage or count of checks required to complete the game victory condition.",
+        "tip_required_bosses": "Which boss(es) must be defeated to win: None, Ender Dragon, Wither, or Both.",
+        "tip_egg_shards_req": "Dragon Egg Shards required to summon or defeat the Ender Dragon (0 = disabled, standard fight).",
+        "tip_egg_shards_avail": "Total number of Dragon Egg Shards placed into the item pool across the multiworld.",
+        "tip_adv_vanilla": "Only the 138 vanilla Minecraft advancements are included as location checks.",
+        "tip_adv_milestones": "Location checks unlock for every N advancements completed from the BlazeandCave's Advancements Pack (BACAP).",
+        "tip_adv_random": "A balanced, randomized subset of individual BACAP advancements is chosen as location checks.",
+        "tip_milestone_step": "Step size: how many BACAP advancements you must achieve for each milestone check (1 to 20, default 5).",
+        "tip_biome_checks": "Grants Archipelago checks upon entering and exploring unique biomes.",
+        "tip_major_biomes": "Checks for discovering 36 major Overworld and Nether biomes (Plains, Deserts, Nether Wastes...).",
+        "tip_small_biomes": "Checks for discovering 25 rarer, cave, river, and mountain biomes (Dripstone, Badlands, Swamps...).",
+        "tip_endgame_biomes": "Checks for discovering the 5 outer End biomes (End Highlands, End Midlands, Small Islands...).",
+        "tip_structure_checks": "Checks for discovering 22 major world structures (Villages, Trial Chambers, Fortresses, Ancient Cities...).",
+        "tip_trader_trades": "Wandering Trader sells Archipelago items for emeralds (0 to 20 checks).",
+        "tip_hp_restr": "Start with 3 hearts (6 HP). Unlock 7 progressive HP Upgrades to reach full 10 hearts.",
+        "tip_hunger_restr": "Start with 4 drumsticks (8 hunger). Unlock 6 progressive Hunger Upgrades to reach full 10 drumsticks.",
+        "tip_reach_restr": "Start with 2.5 blocks interaction reach. Unlock 3 progressive Reach Upgrades to reach 4.5 blocks.",
+        "tip_world_border_restr": "Limits Overworld border initially to 1000 blocks. 5 Border Upgrades gradually expand the world.",
+        "tip_inventory_restr": "Locks the 27 main inventory slots (start with only 9 hotbar slots). Unlock slots one-by-one with 27 item upgrades.",
+        "tip_offhand_restr": "Prevents holding items in the offhand (shield, torches, food) until obtaining the Offhand Unlock item.",
+        "tip_structure_restr": "A barrier seals access to 9 major world structure types until unlocked with Structure Unlock items.",
+        "tip_structure_shuffle": "Randomizes the order in which structure unlock items appear, instead of following the recipe tree order.",
+        "tip_curses": "Adds permanent curses: monsters do not burn in sunlight and can spawn regardless of light levels.",
+        "tip_tier_bias": "0 = Fully random recipe unlocks; 1-99 = Weighted bias toward basic recipes first; 100 = Strict tier-by-tier order.",
+        "tip_unvisited_struct": "Adds a smart compass that dynamically points to the nearest unexplored world structure.",
+        "tip_all_struct": "Adds 22 individual compasses targeting specific structures (Village Compass, Fortress Compass...).",
+        "tip_unvisited_biomes": "Adds a smart compass that dynamically points to the nearest unexplored biome.",
+        "tip_major_biomes_comp": "Adds 36 individual compasses directly pointing to each major Overworld and Nether biome.",
+        "tip_minor_biomes_comp": "Adds 25 individual compasses pointing to rivers, caves, peaks, and minor biomes.",
+        "tip_extra_abilities": "Adds 12 QoL abilities: Progressive Mining (3x3), Tree Feller, Double/Triple Jump, Magnet, Step Assist, Trash Slot, Torches...",
+        "tip_bee_traps": "Percentage of remaining non-progression filler slots turned into traps (Bees, Skeletons, Zombies, Junk, Sand, Blindness).",
+        "tip_balance_status": "Shows real-time check/item counts. Green means enough checks exist to place all progression items.",
+        "tip_btn_save": "Save YAML configuration to a file (prompts for location and remembers your folder).",
+        "tip_btn_save_as": "Save YAML configuration under a new name or location.",
+        "tip_btn_load": "Open and load an existing Archipelago YAML file to edit its options.",
+        "tip_btn_reset": "Reset all options back to the recommended BACAP standard settings.",
     },
     "ru": {
         "title": "Minecraft with BACAP — Настройщик YAML",
@@ -211,6 +337,47 @@ TRANSLATIONS = {
         "msg_load_success": "Файл {filename} успешно загружен!",
         "msg_load_err_title": "Ошибка загрузки",
         "msg_load_err": "Не удалось прочитать YAML файл:\n{error}",
+
+        # Tooltips
+        "tip_player_name": "Имя вашего слота в комнате Архипелага. Должно точно совпадать с именем при генерации.",
+        "tip_preset": "Быстрая загрузка готовой конфигурации: Стандарт BACAP, Ванилла или Хардкор.",
+        "tip_language": "Переключение языка интерфейса между английским и русским.",
+        "tip_check_goal": "Количество или процент выполненных чеков, необходимых для победы.",
+        "tip_required_bosses": "Каких боссов нужно победить: Никого, Дракона Края, Иссушителя или Обоих.",
+        "tip_egg_shards_req": "Сколько осколков яйца дракона требуется для призыва Дракона Края (0 = выключено, обычный спавн).",
+        "tip_egg_shards_avail": "Общее количество осколков яйца дракона в пуле предметов мультиворлда.",
+        "tip_adv_vanilla": "В качестве чеков используются только 138 стандартных ванильных достижений Minecraft.",
+        "tip_adv_milestones": "Чеки открываются за каждые N любых выполненных достижений из пака BlazeandCave (BACAP).",
+        "tip_adv_random": "Случайный сбалансированный набор конкретных достижений BACAP становится отдельными чеками.",
+        "tip_milestone_step": "Шаг майлстоунов: сколько достижений нужно выполнить для одного чека (от 1 до 20, по умолчанию 5).",
+        "tip_biome_checks": "Выдаёт чеки Архипелага при посещении и открытии новых биомов в мире.",
+        "tip_major_biomes": "Чеки за открытие 36 основных биомов суши и Незера (Равнины, Пустыни, Пустоши Незера...).",
+        "tip_small_biomes": "Чеки за открытие 25 малых, речных, пещерных и горных биомов (Реки, Карстовые пещеры, Болота...).",
+        "tip_endgame_biomes": "Чеки за исследование 5 биомов дальних островов Энда (Высокогорья, Малые острова...).",
+        "tip_structure_checks": "Чеки за обнаружение 22 ключевых структур мира (Деревни, Палаты испытаний, Крепости, Древние города...).",
+        "tip_trader_trades": "Бродячий торговец продаёт предметы Архипелага за изумруды (от 0 до 20 чеков).",
+        "tip_hp_restr": "Старт всего с 3 сердцами (6 HP). 7 апгрейдов здоровья постепенно восстанавливают 10 сердец.",
+        "tip_hunger_restr": "Старт с 4 окорочками сытости. 6 апгрейдов сытости расширяют шкалу голода до 10 окорочков.",
+        "tip_reach_restr": "Старт с укороченной дистанцией копания и ударов (2.5 блока). 3 апгрейда расширяют её до 4.5 блоков.",
+        "tip_world_border_restr": "Ограничивает начальную границу Обычного мира 1000 блоков. 5 расширений открывают весь мир.",
+        "tip_inventory_restr": "Блокирует 27 слотов инвентаря (доступен только хотбар). 27 апгрейдов открывают слоты по одному.",
+        "tip_offhand_restr": "Запрещает использовать вторую руку (щиты, факелы, еду) до нахождения разблокировки второй руки.",
+        "tip_structure_restr": "Барьер блокирует вход в 9 типов ключевых структур мира, пока не будет получен предмет разблокировки.",
+        "tip_structure_shuffle": "Случайный порядок открытия структур вместо фиксированного следования по дереву рецептов.",
+        "tip_curses": "Постоянные проклятия: монстры не горят на солнце и могут спавниться при любом уровне света.",
+        "tip_tier_bias": "0 = Случайное открытие рецептов; 1-99 = Приоритет простых рецептов в начале; 100 = Строго по тирам.",
+        "tip_unvisited_struct": "Умный компас, который автоматически указывает на ближайшую ещё не открытую структуру.",
+        "tip_all_struct": "Добавляет 22 отдельных компаса для каждого типа структур (Компас деревни, Компас крепости...).",
+        "tip_unvisited_biomes": "Умный компас, который автоматически указывает направление к ближайшему новому биому.",
+        "tip_major_biomes_comp": "Добавляет 36 индивидуальных компасов к каждому из основных биомов суши и Незера.",
+        "tip_minor_biomes_comp": "Добавляет 25 индивидуальных компасов к рекам, пещерам, пикам и малым биомам.",
+        "tip_extra_abilities": "12 способностей: Буры (до 3х3х3), Дровосек (рубка дерева целиком), Двойной/Тройной прыжок, Магнит, Автоподъём, Мусорка...",
+        "tip_bee_traps": "Процент свободных слотов, превращаемых в ловушки (Пчёлы, Скелеты, Зомби, Мусор, Песок, Слепота).",
+        "tip_balance_status": "Сводка баланса генерации. Зелёный цвет означает, что чеков достаточно для всех предметов.",
+        "tip_btn_save": "Сохранить YAML файл с выбором места и запоминанием выбранной папки.",
+        "tip_btn_save_as": "Сохранить YAML файл под новым именем или в другую папку.",
+        "tip_btn_load": "Открыть и загрузить существующий YAML файл для редактирования настроек.",
+        "tip_btn_reset": "Сбросить все параметры к рекомендуемым стандартным настройкам BACAP.",
     }
 }
 
@@ -231,6 +398,7 @@ class YamlConfigurator(tk.Tk):
         self._load_app_settings()
         self._init_variables()
         self._build_ui()
+        self._bind_tooltips()
         self._apply_language()
         self._update_visibility()
         self._recalculate_stats()
@@ -275,6 +443,10 @@ class YamlConfigurator(tk.Tk):
         if kwargs and isinstance(template, str):
             return template.format(**kwargs)
         return template
+
+    def _add_tooltip(self, widget, key: str):
+        """Attaches a dynamic localized tooltip to a widget."""
+        ToolTip(widget, lambda: self.t(key))
 
     def _init_variables(self):
         # General
@@ -434,7 +606,8 @@ class YamlConfigurator(tk.Tk):
         row.pack(fill=tk.X, pady=2)
         self.lbl_player_name = ttk.Label(row, text="", width=24)
         self.lbl_player_name.pack(side=tk.LEFT)
-        ttk.Entry(row, textvariable=self.player_name, width=28).pack(side=tk.LEFT, padx=5)
+        self.entry_player_name = ttk.Entry(row, textvariable=self.player_name, width=28)
+        self.entry_player_name.pack(side=tk.LEFT, padx=5)
 
         # 1. Goals & Bosses
         self.goal_grp = ttk.LabelFrame(parent, text="", padding=10)
@@ -454,26 +627,28 @@ class YamlConfigurator(tk.Tk):
         row.pack(fill=tk.X, pady=4)
         self.lbl_required_bosses = ttk.Label(row, text="", width=28)
         self.lbl_required_bosses.pack(side=tk.LEFT)
-        boss_combo = ttk.Combobox(
+        self.combo_bosses = ttk.Combobox(
             row,
             textvariable=self.required_bosses,
             values=["none", "ender_dragon", "wither", "both"],
             state="readonly",
             width=16
         )
-        boss_combo.pack(side=tk.LEFT, padx=6)
+        self.combo_bosses.pack(side=tk.LEFT, padx=6)
 
         row = ttk.Frame(self.goal_grp)
         row.pack(fill=tk.X, pady=2)
         self.lbl_egg_shards_req = ttk.Label(row, text="", width=28)
         self.lbl_egg_shards_req.pack(side=tk.LEFT)
-        ttk.Spinbox(row, from_=0, to=50, textvariable=self.egg_shards_required, width=8).pack(side=tk.LEFT, padx=6)
+        self.spin_shards_req = ttk.Spinbox(row, from_=0, to=50, textvariable=self.egg_shards_required, width=8)
+        self.spin_shards_req.pack(side=tk.LEFT, padx=6)
 
         self.shards_avail_row = ttk.Frame(self.goal_grp)
         self.shards_avail_row.pack(fill=tk.X, pady=2)
         self.lbl_egg_shards_avail = ttk.Label(self.shards_avail_row, text="", width=28)
         self.lbl_egg_shards_avail.pack(side=tk.LEFT)
-        ttk.Spinbox(self.shards_avail_row, from_=0, to=50, textvariable=self.egg_shards_available, width=8).pack(side=tk.LEFT, padx=6)
+        self.spin_shards_avail = ttk.Spinbox(self.shards_avail_row, from_=0, to=50, textvariable=self.egg_shards_available, width=8)
+        self.spin_shards_avail.pack(side=tk.LEFT, padx=6)
 
         # 2. Advancements Mode
         self.adv_grp = ttk.LabelFrame(parent, text="", padding=10)
@@ -521,8 +696,8 @@ class YamlConfigurator(tk.Tk):
         row.pack(fill=tk.X, pady=6)
         self.lbl_trader_trades = ttk.Label(row, text="", width=32)
         self.lbl_trader_trades.pack(side=tk.LEFT)
-        trader_scale = ttk.Scale(row, from_=0, to=20, variable=self.wandering_trader_trades, orient=tk.HORIZONTAL)
-        trader_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
+        self.trader_scale = ttk.Scale(row, from_=0, to=20, variable=self.wandering_trader_trades, orient=tk.HORIZONTAL)
+        self.trader_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.trader_lbl = ttk.Label(row, text=str(self.wandering_trader_trades.get()), width=4)
         self.trader_lbl.pack(side=tk.LEFT)
         self.wandering_trader_trades.trace_add("write", lambda *_: self.trader_lbl.config(text=str(self.wandering_trader_trades.get())))
@@ -559,8 +734,8 @@ class YamlConfigurator(tk.Tk):
         row.pack(fill=tk.X, pady=6)
         self.lbl_tier_bias = ttk.Label(row, text="", width=42)
         self.lbl_tier_bias.pack(side=tk.LEFT)
-        tier_scale = ttk.Scale(row, from_=0, to=100, variable=self.craft_tier_bias, orient=tk.HORIZONTAL)
-        tier_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
+        self.tier_scale = ttk.Scale(row, from_=0, to=100, variable=self.craft_tier_bias, orient=tk.HORIZONTAL)
+        self.tier_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.tier_lbl = ttk.Label(row, text=str(self.craft_tier_bias.get()), width=4)
         self.tier_lbl.pack(side=tk.LEFT)
         self.craft_tier_bias.trace_add("write", lambda *_: self.tier_lbl.config(text=str(self.craft_tier_bias.get())))
@@ -590,8 +765,8 @@ class YamlConfigurator(tk.Tk):
         row.pack(fill=tk.X, pady=2)
         self.lbl_traps_pct = ttk.Label(row, text="", width=36)
         self.lbl_traps_pct.pack(side=tk.LEFT)
-        trap_scale = ttk.Scale(row, from_=0, to=100, variable=self.bee_traps, orient=tk.HORIZONTAL)
-        trap_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
+        self.trap_scale = ttk.Scale(row, from_=0, to=100, variable=self.bee_traps, orient=tk.HORIZONTAL)
+        self.trap_scale.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=6)
         self.trap_lbl = ttk.Label(row, text=f"{self.bee_traps.get()}%", width=5)
         self.trap_lbl.pack(side=tk.LEFT)
         self.bee_traps.trace_add("write", lambda *_: self.trap_lbl.config(text=f"{self.bee_traps.get()}%"))
@@ -677,6 +852,77 @@ class YamlConfigurator(tk.Tk):
 
         self.btn_reset = ttk.Button(btn_frame, text="", command=self.reset_to_default)
         self.btn_reset.pack(fill=tk.X, pady=2)
+
+    def _bind_tooltips(self):
+        """Attaches localized tooltips to interactive elements."""
+        # Header
+        self._add_tooltip(self.lang_combo, "tip_language")
+        self._add_tooltip(self.preset_combo, "tip_preset")
+
+        # Player Info
+        self._add_tooltip(self.lbl_player_name, "tip_player_name")
+        self._add_tooltip(self.entry_player_name, "tip_player_name")
+
+        # Goals & Bosses
+        self._add_tooltip(self.lbl_check_goal, "tip_check_goal")
+        self._add_tooltip(self.check_goal_scale, "tip_check_goal")
+        self._add_tooltip(self.lbl_required_bosses, "tip_required_bosses")
+        self._add_tooltip(self.combo_bosses, "tip_required_bosses")
+        self._add_tooltip(self.lbl_egg_shards_req, "tip_egg_shards_req")
+        self._add_tooltip(self.spin_shards_req, "tip_egg_shards_req")
+        self._add_tooltip(self.lbl_egg_shards_avail, "tip_egg_shards_avail")
+        self._add_tooltip(self.spin_shards_avail, "tip_egg_shards_avail")
+
+        # Advancements
+        self._add_tooltip(self.radio_adv_vanilla, "tip_adv_vanilla")
+        self._add_tooltip(self.radio_adv_milestones, "tip_adv_milestones")
+        self._add_tooltip(self.radio_adv_random, "tip_adv_random")
+        self._add_tooltip(self.lbl_milestone_step, "tip_milestone_step")
+        self._add_tooltip(self.step_scale, "tip_milestone_step")
+
+        # World Checks
+        self._add_tooltip(self.chk_biome_checks, "tip_biome_checks")
+        self._add_tooltip(self.chk_major_biomes, "tip_major_biomes")
+        self._add_tooltip(self.chk_small_biomes, "tip_small_biomes")
+        self._add_tooltip(self.chk_endgame_biomes, "tip_endgame_biomes")
+        self._add_tooltip(self.chk_structure_checks, "tip_structure_checks")
+        self._add_tooltip(self.lbl_trader_trades, "tip_trader_trades")
+        self._add_tooltip(self.trader_scale, "tip_trader_trades")
+
+        # Restrictions
+        self._add_tooltip(self.chk_hp_restr, "tip_hp_restr")
+        self._add_tooltip(self.chk_hunger_restr, "tip_hunger_restr")
+        self._add_tooltip(self.chk_reach_restr, "tip_reach_restr")
+        self._add_tooltip(self.chk_world_border_restr, "tip_world_border_restr")
+        self._add_tooltip(self.chk_inventory_restr, "tip_inventory_restr")
+        self._add_tooltip(self.chk_offhand_restr, "tip_offhand_restr")
+        self._add_tooltip(self.chk_structure_restr, "tip_structure_restr")
+        self._add_tooltip(self.chk_structure_shuffle, "tip_structure_shuffle")
+        self._add_tooltip(self.chk_curses, "tip_curses")
+        self._add_tooltip(self.lbl_tier_bias, "tip_tier_bias")
+        self._add_tooltip(self.tier_scale, "tip_tier_bias")
+
+        # Compasses & Abilities
+        self._add_tooltip(self.chk_unvisited_struct, "tip_unvisited_struct")
+        self._add_tooltip(self.chk_all_struct, "tip_all_struct")
+        self._add_tooltip(self.chk_unvisited_biomes, "tip_unvisited_biomes")
+        self._add_tooltip(self.chk_major_biomes_comp, "tip_major_biomes_comp")
+        self._add_tooltip(self.chk_minor_biomes_comp, "tip_minor_biomes_comp")
+        self._add_tooltip(self.chk_extra_abilities, "tip_extra_abilities")
+
+        # Traps
+        self._add_tooltip(self.lbl_traps_pct, "tip_bee_traps")
+        self._add_tooltip(self.trap_scale, "tip_bee_traps")
+
+        # Dashboard & Balance
+        self._add_tooltip(self.balance_frame, "tip_balance_status")
+        self._add_tooltip(self.lbl_balance_status, "tip_balance_status")
+
+        # Buttons
+        self._add_tooltip(self.btn_save, "tip_btn_save")
+        self._add_tooltip(self.btn_save_as, "tip_btn_save_as")
+        self._add_tooltip(self.btn_load, "tip_btn_load")
+        self._add_tooltip(self.btn_reset, "tip_btn_reset")
 
     def _on_language_selected(self, _):
         chosen = self.lang_combo.get().strip()
