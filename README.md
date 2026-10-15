@@ -1,3 +1,5 @@
+🇷🇺 [Русская версия (ReadmeRus.md)](ReadmeRus.md)
+
 # Minecraft Randomizer Setup Guide
 
 Mod-Rework by U2VR, MjKey
