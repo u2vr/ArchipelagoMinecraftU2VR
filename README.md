@@ -154,7 +154,7 @@ When you are finished with the Minecraft World, you may delete it from the list.
 
 ### Connect to the MultiServer
 
-Using Minecraft 26.2, connect to the server. The IP address is:
+Using Minecraft 26.3, connect to the server. The IP address is:
 - `localhost` if you're hosting
 - provided to you by the server hosting service, if using one
 - your friend's public IP address, if they're port forwarding
