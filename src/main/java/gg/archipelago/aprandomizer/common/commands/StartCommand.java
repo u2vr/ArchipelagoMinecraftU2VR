@@ -45,15 +45,15 @@ public class StartCommand {
 
     private static int Start(CommandContext<CommandSourceStack> commandSourceCommandContext, boolean force) {
         if (!APRandomizer.isConnected() && !force) {
-            commandSourceCommandContext.getSource().sendFailure(Component.literal("Please connect to the Archipelago server before starting."));
+            commandSourceCommandContext.getSource().sendFailure(Component.translatable("aprandomizer.start.not_connected"));
             return 1;
         }
         if (!APRandomizer.isJailPlayers()) {
-            commandSourceCommandContext.getSource().sendFailure(Component.literal("The game has already started! what are you doing? START PLAYING!"));
+            commandSourceCommandContext.getSource().sendFailure(Component.translatable("aprandomizer.start.already_started"));
             return 1;
         }
-        Utils.sendMessageToAll("GO!");
-        Utils.sendTitleToAll(Component.literal("§aGO!"), Component.literal("§eThe adventure begins!"), 10, 50, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.start.go"));
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.start.title"), Component.translatable("aprandomizer.start.subtitle"), 10, 50, 10);
         if (APRandomizer.isConnected()) {
             assert APRandomizer.getAP() != null; // safe because isConnected verifies this
             APRandomizer.getAP().setGameState(ClientStatus.CLIENT_PLAYING);

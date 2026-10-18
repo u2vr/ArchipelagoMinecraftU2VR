@@ -16,7 +16,7 @@ public class ClientItemTooltipHandler {
     @SubscribeEvent
     public static void onItemTooltip(ItemTooltipEvent event) {
         if (ClientRecipeManager.isItemLocked(event.getItemStack())) {
-            event.getToolTip().add(Component.literal("§c🔒 Рецепт заблокирован в Архипелаге").withStyle(ChatFormatting.RED));
+            event.getToolTip().add(Component.translatable("aprandomizer.tooltip.recipe_locked").withStyle(ChatFormatting.RED));
         }
     }
 }

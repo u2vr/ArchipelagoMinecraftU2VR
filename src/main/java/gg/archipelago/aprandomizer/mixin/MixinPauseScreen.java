@@ -25,8 +25,8 @@ public abstract class MixinPauseScreen extends Screen {
         int tickets = ClientRecipeManager.getTickets();
         boolean ticketMode = ClientRecipeManager.isTicketMode();
         Component buttonText = ticketMode
-                ? Component.literal("✦ Рецепты [🎟 " + tickets + "]")
-                : Component.literal("✦ Древо рецептов");
+                ? Component.translatable("aprandomizer.button.recipes_tickets", tickets)
+                : Component.translatable("aprandomizer.button.recipe_tree");
 
         int btnWidth = 124;
         int btnHeight = 20;

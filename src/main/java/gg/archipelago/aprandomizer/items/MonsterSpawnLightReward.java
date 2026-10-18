@@ -21,7 +21,7 @@ public record MonsterSpawnLightReward() implements APReward {
         if (worldData != null) {
             worldData.setIgnoreLightSpawningEnabled(true);
         }
-        Utils.sendTitleToAll(Component.literal("§4Власть Тьмы"), Component.literal("Монстры спавнятся даже на свету!"), 10, 50, 10);
-        Utils.sendMessageToAll("§4[Наказание] Постоянное проклятие: Монстры теперь спавнятся вне зависимости от освещения!");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.curse.monster_light.title"), Component.translatable("aprandomizer.curse.monster_light.subtitle"), 10, 50, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.curse.monster_light.chat"));
     }
 }

@@ -29,7 +29,7 @@ public record HpReward() implements APReward {
         }
         int hp = worldData.getHpUpgrades();
         int hearts = 3 + hp;
-        Utils.sendTitleToAll(Component.literal("§c+1 Сердце (HP)"), Component.literal("Максимальное здоровье: " + hearts + " сердец (" + hp + "/7)"), 10, 40, 10);
-        Utils.sendMessageToAll("§a[Archipelago] §fРазблокировано улучшение здоровья: §c+1 Сердце §7(Всего: " + hearts + " сердец, " + hp + "/7)");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.hp.title"), Component.translatable("aprandomizer.reward.hp.subtitle", hearts, hp, 7), 10, 40, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.hp.chat", hearts, hp, 7));
     }
 }

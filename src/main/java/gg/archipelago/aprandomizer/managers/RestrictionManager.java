@@ -83,18 +83,26 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RestrictionManager {
 
     private static final List<StructureEntry> STRUCTURES = List.of(
-            new StructureEntry("Village", APStructureTags.VILLAGE, "Деревня"),
-            new StructureEntry("Pillager Outpost", APStructureTags.PILLAGER_OUTPOST, "Аванпост разбойников"),
-            new StructureEntry("Trial Chambers", APStructureTags.TRIAL_CHAMBERS, "Испытательные палаты"),
-            new StructureEntry("Nether Fortress", APStructureTags.FORTRESS, "Крепость Незера"),
-            new StructureEntry("Bastion Remnant", APStructureTags.BASTION_REMNANT, "Бастион"),
-            new StructureEntry("Stronghold", APStructureTags.STRONGHOLD, "Крепость"),
-            new StructureEntry("Ancient City", APStructureTags.ANCIENT_CITY, "Древний город"),
-            new StructureEntry("Ocean Monument", APStructureTags.OCEAN_MONUMENT, "Подводный монумент"),
-            new StructureEntry("End City", APStructureTags.END_CITY, "Город Края")
+            new StructureEntry("Village", APStructureTags.VILLAGE, "aprandomizer.structure.village"),
+            new StructureEntry("Pillager Outpost", APStructureTags.PILLAGER_OUTPOST, "aprandomizer.structure.pillager_outpost"),
+            new StructureEntry("Trial Chambers", APStructureTags.TRIAL_CHAMBERS, "aprandomizer.structure.trial_chambers"),
+            new StructureEntry("Nether Fortress", APStructureTags.FORTRESS, "aprandomizer.structure.fortress"),
+            new StructureEntry("Bastion Remnant", APStructureTags.BASTION_REMNANT, "aprandomizer.structure.bastion"),
+            new StructureEntry("Stronghold", APStructureTags.STRONGHOLD, "aprandomizer.structure.stronghold"),
+            new StructureEntry("Ancient City", APStructureTags.ANCIENT_CITY, "aprandomizer.structure.ancient_city"),
+            new StructureEntry("Ocean Monument", APStructureTags.OCEAN_MONUMENT, "aprandomizer.structure.ocean_monument"),
+            new StructureEntry("End City", APStructureTags.END_CITY, "aprandomizer.structure.end_city")
     );
 
-    public record StructureEntry(String id, TagKey<Structure> tag, String displayName) {}
+    public record StructureEntry(String id, TagKey<Structure> tag, String translationKey) {
+        public Component displayNameComponent() {
+            return Component.translatable(translationKey);
+        }
+
+        public String displayName() {
+            return displayNameComponent().getString();
+        }
+    }
 
     public static List<StructureEntry> getStructures() {
         return STRUCTURES;

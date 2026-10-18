@@ -21,7 +21,7 @@ public record MonsterSunBurningReward() implements APReward {
         if (worldData != null) {
             worldData.setMonsterSunBurningDisabled(true);
         }
-        Utils.sendTitleToAll(Component.literal("§4Затмение"), Component.literal("Монстры больше не сгорают на солнце!"), 10, 50, 10);
-        Utils.sendMessageToAll("§4[Наказание] Постоянное проклятие: Монстры больше не горят под лучами солнца!");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.curse.monster_sun.title"), Component.translatable("aprandomizer.curse.monster_sun.subtitle"), 10, 50, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.curse.monster_sun.chat"));
     }
 }

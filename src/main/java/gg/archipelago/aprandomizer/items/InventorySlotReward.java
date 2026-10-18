@@ -23,7 +23,7 @@ public record InventorySlotReward() implements APReward {
             worldData.incrementInventorySlotUpgrades();
         }
         int allowed = RestrictionManager.getAllowedSlots();
-        Utils.sendTitleToAll(Component.literal("§d+Слот инвентаря"), Component.literal("Разблокирован еще 1 слот (" + allowed + "/36)!"), 10, 50, 10);
-        Utils.sendMessageToAll("§d[Archipelago] Разблокирован слот инвентаря (" + allowed + "/36 слотов доступно)!");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.inventory_slot.title"), Component.translatable("aprandomizer.reward.inventory_slot.subtitle", allowed, 36), 10, 50, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.inventory_slot.chat", allowed, 36));
     }
 }

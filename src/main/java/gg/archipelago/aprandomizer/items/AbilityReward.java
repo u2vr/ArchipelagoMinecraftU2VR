@@ -57,47 +57,49 @@ public record AbilityReward(AbilityType type) implements APReward {
                     case 5 -> "3×3×3";
                     default -> "1×1×1";
                 };
-                Utils.sendTitleToAll(Component.literal("§6Прогрессивное копание (" + level + "/5)"),
-                        Component.literal("Макс. сетка: " + shapeDesc), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокировано улучшение копания: §6Уровень " + level + "/5 §7(Сетка: " + shapeDesc + ")");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.mining.title", level, 5),
+                        Component.translatable("aprandomizer.reward.mining.subtitle", shapeDesc), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.mining.chat", level, 5, shapeDesc));
             }
             case TREE_FELLER -> {
                 worldData.unlockTreeFeller();
-                Utils.sendTitleToAll(Component.literal("§aРубка деревьев"),
-                        Component.literal("Срубает всё дерево целиком!"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована способность: §aРубка деревьев §7(Срубает всё дерево и листву)");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.tree_feller.title"),
+                        Component.translatable("aprandomizer.reward.tree_feller.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.tree_feller.chat"));
             }
             case PROGRESSIVE_JUMP -> {
                 worldData.incrementJumpLevel();
                 int level = worldData.getJumpLevel();
-                String name = (level >= 2) ? "Тройной прыжок" : "Двойной прыжок";
-                Utils.sendTitleToAll(Component.literal("§b" + name + " (" + level + "/2)"),
-                        Component.literal("Дополнительный прыжок в воздухе!"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована способность: §b" + name + " §7(" + level + "/2)");
+                Component jumpName = (level >= 2)
+                        ? Component.translatable("aprandomizer.reward.triple_jump.title")
+                        : Component.translatable("aprandomizer.reward.double_jump.title");
+                Utils.sendTitleToAll(Component.empty().append(jumpName).append(" (" + level + "/2)"),
+                        Component.translatable("aprandomizer.reward.jump.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.jump.chat", jumpName, level, 2));
             }
             case ITEM_MAGNET -> {
                 worldData.unlockItemMagnet();
-                Utils.sendTitleToAll(Component.literal("§cМагнит предметов"),
-                        Component.literal("Притягивает дроп и сферы опыта"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована способность: §cМагнит предметов §7(Радиус 10 блоков)");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.magnet.title"),
+                        Component.translatable("aprandomizer.reward.magnet.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.magnet.chat"));
             }
             case STEP_ASSIST -> {
                 worldData.unlockStepAssist();
-                Utils.sendTitleToAll(Component.literal("§eАвтоподъем на 1 блок"),
-                        Component.literal("Плавный шаг без прыжков"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована способность: §eАвтоподъем на 1 блок §7(Step Assist)");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.step_assist.title"),
+                        Component.translatable("aprandomizer.reward.step_assist.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.step_assist.chat"));
             }
             case TRASH_CAN -> {
                 worldData.unlockTrashCan();
-                Utils.sendTitleToAll(Component.literal("§8Мусорка в инвентаре"),
-                        Component.literal("Ячейка для удаления ненужных предметов"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована ячейка: §8Мусорка §7(Поместите предмет или Alt+Клик)");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.trash_can.title"),
+                        Component.translatable("aprandomizer.reward.trash_can.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.trash_can.chat"));
             }
             case LIGHT_HOLDER -> {
                 worldData.unlockLightHolder();
-                Utils.sendTitleToAll(Component.literal("§eДержатель света"),
-                        Component.literal("Светящийся блок на груди освещает путь"), 10, 40, 10);
-                Utils.sendMessageToAll("§a[Archipelago] §fРазблокирована ячейка: §eДержатель света §7(Светящиеся блоки освещают мир)");
+                Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.light_holder.title"),
+                        Component.translatable("aprandomizer.reward.light_holder.subtitle"), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.light_holder.chat"));
             }
         }
 

@@ -75,7 +75,7 @@ public class GoalManager {
         eggInfoBar.setColor(BossEvent.BossBarColor.WHITE);
         eggInfoBar.setOverlay(BossEvent.BossBarOverlay.NOTCHED_6);
 
-        connectionInfoBar = bossInfoManager.create(server.getLevel(Level.OVERWORLD).getRandom(), Identifier.fromNamespaceAndPath(APRandomizer.MODID, "connectioninfobar"), Component.literal("Нет подключения к Архипелагу").withStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
+        connectionInfoBar = bossInfoManager.create(server.getLevel(Level.OVERWORLD).getRandom(), Identifier.fromNamespaceAndPath(APRandomizer.MODID, "connectioninfobar"), Component.translatable("aprandomizer.goal.no_connection").withStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
         connectionInfoBar.setMax(1);
         connectionInfoBar.setValue(1);
         connectionInfoBar.setColor(BossEvent.BossBarColor.RED);
@@ -184,12 +184,12 @@ public class GoalManager {
         if (showEggBar) {
             eggInfoBar.setMax(Math.max(1, dragonEggShardsRequired));
             eggInfoBar.setValue(currentEggShards());
-            eggInfoBar.setName(Component.literal(getEggShardsRemainingString()));
+            eggInfoBar.setName(Component.translatable("aprandomizer.goal.egg_shards", currentEggShards(), dragonEggShardsRequired));
         }
 
         if (isGameCompleted()) {
             if (isCompletionTextVisible()) {
-                advancementInfoBar.setName(Component.literal("Игра пройдена").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                advancementInfoBar.setName(Component.translatable("aprandomizer.goal.completed").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 advancementInfoBar.setColor(BossEvent.BossBarColor.GREEN);
                 advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
                 advancementInfoBar.setMax(1);
@@ -199,7 +199,7 @@ public class GoalManager {
                 advancementInfoBar.setVisible(false);
             }
         } else if (!isChecksDone()) {
-            advancementInfoBar.setName(Component.literal(String.format("Чеки: %d / %d", advancementManager.getFinishedAmount(), advancementsRequired)));
+            advancementInfoBar.setName(Component.translatable("aprandomizer.goal.checks", advancementManager.getFinishedAmount(), advancementsRequired));
             advancementInfoBar.setColor(BossEvent.BossBarColor.BLUE);
             advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.NOTCHED_10);
             advancementInfoBar.setMax(Math.max(1, advancementsRequired));
@@ -216,25 +216,25 @@ public class GoalManager {
             boolean needWither = apmc.required_bosses.hasWither() && !witherKilled;
 
             if (needDragon && needWither) {
-                advancementInfoBar.setName(Component.literal("Убить дракона Края и Иссушителя").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD));
+                advancementInfoBar.setName(Component.translatable("aprandomizer.goal.kill_dragon_and_wither").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD));
                 advancementInfoBar.setColor(BossEvent.BossBarColor.PURPLE);
                 advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.NOTCHED_6);
                 advancementInfoBar.setMax(2);
                 advancementInfoBar.setValue((dragonKilled ? 1 : 0) + (witherKilled ? 1 : 0));
             } else if (needDragon) {
-                advancementInfoBar.setName(Component.literal("Убить дракона Края").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD));
+                advancementInfoBar.setName(Component.translatable("aprandomizer.goal.kill_dragon").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD));
                 advancementInfoBar.setColor(BossEvent.BossBarColor.PURPLE);
                 advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
                 advancementInfoBar.setMax(1);
                 advancementInfoBar.setValue(0);
             } else if (needWither) {
-                advancementInfoBar.setName(Component.literal("Убить Иссушителя").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+                advancementInfoBar.setName(Component.translatable("aprandomizer.goal.kill_wither").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
                 advancementInfoBar.setColor(BossEvent.BossBarColor.PURPLE);
                 advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
                 advancementInfoBar.setMax(1);
                 advancementInfoBar.setValue(0);
             } else {
-                advancementInfoBar.setName(Component.literal("Собрать осколки яйца дракона").withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD));
+                advancementInfoBar.setName(Component.translatable("aprandomizer.goal.collect_egg_shards").withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD));
                 advancementInfoBar.setColor(BossEvent.BossBarColor.WHITE);
                 advancementInfoBar.setOverlay(BossEvent.BossBarOverlay.PROGRESS);
                 advancementInfoBar.setMax(Math.max(1, dragonEggShardsRequired));
@@ -255,10 +255,10 @@ public class GoalManager {
 
         if (!gameCompletedAnnounced) {
             gameCompletedAnnounced = true;
-            Utils.sendTitleToAll(Component.literal("§aИгра пройдена!"), Component.literal("§eПоздравляем с победой!"), 20, 100, 20);
-            Utils.sendScreenTitleToAll(Component.literal("§aИгра пройдена!"), Component.literal("§eПоздравляем с победой!"), 20, 100, 20);
+            Utils.sendTitleToAll(Component.translatable("aprandomizer.goal.completed_title"), Component.translatable("aprandomizer.goal.completed_subtitle"), 20, 100, 20);
+            Utils.sendScreenTitleToAll(Component.translatable("aprandomizer.goal.completed_title"), Component.translatable("aprandomizer.goal.completed_subtitle"), 20, 100, 20);
             Utils.PlaySoundToAll(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
-            Utils.sendMessageToAll("§a[Archipelago] Игра пройдена! Поздравляем!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.goal.completed_chat"));
         }
 
         if (APRandomizer.isConnected()) {

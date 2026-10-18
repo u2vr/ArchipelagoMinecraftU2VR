@@ -74,7 +74,7 @@ public class OnPlayerInteract {
             if (placed.is(BlockTags.BEDS) || placed.getBlock() instanceof BedBlock) {
                 event.setCanceled(true);
                 if (event.getEntity() instanceof ServerPlayer player) {
-                    player.sendSystemMessage(Component.literal("§cYou cannot place beds in The End!"), true);
+                    player.sendSystemMessage(Component.translatable("aprandomizer.interact.no_beds_place_end"), true);
                 }
             }
         }
@@ -92,7 +92,7 @@ public class OnPlayerInteract {
             if (held.is(ItemTags.BEDS) || (held.getItem() instanceof BlockItem blockItem && (blockItem.getBlock() instanceof BedBlock || blockItem.getBlock().defaultBlockState().is(BlockTags.BEDS)))) {
                 event.setCanceled(true);
                 if (event.getEntity() instanceof ServerPlayer player) {
-                    player.sendSystemMessage(Component.literal("§cYou cannot place beds in The End!"), true);
+                    player.sendSystemMessage(Component.translatable("aprandomizer.interact.no_beds_place_end"), true);
                 }
                 return;
             }
@@ -101,7 +101,7 @@ public class OnPlayerInteract {
             if (targetBlock.is(BlockTags.BEDS) || targetBlock.getBlock() instanceof BedBlock) {
                 event.setCanceled(true);
                 if (event.getEntity() instanceof ServerPlayer player) {
-                    player.sendSystemMessage(Component.literal("§cYou cannot use beds in The End!"), true);
+                    player.sendSystemMessage(Component.translatable("aprandomizer.interact.no_beds_use_end"), true);
                 }
                 return;
             }
@@ -155,7 +155,7 @@ public class OnPlayerInteract {
         if (categories.size() > 1) {
             dialog = new DialogListDialog(
                     new CommonDialogData(
-                            Component.literal("Compass"),
+                            Component.translatable("aprandomizer.compass.dialog_title"),
                             Optional.empty(),
                             true,
                             true,

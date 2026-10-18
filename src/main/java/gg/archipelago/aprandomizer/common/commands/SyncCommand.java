@@ -29,7 +29,7 @@ public class SyncCommand {
         APClient apClient = APRandomizer.getAP();
         AdvancementManager am = APRandomizer.getAdvancementManager();
         if (apClient != null && apClient.isConnected()) {
-            Utils.sendMessageToAll("§6[Archipelago] §fСинхронизация с сервером Archipelago...");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.command.syncing"));
             apClient.sync();
             if (am != null) {
                 am.resendAdvancements(apClient);
@@ -59,7 +59,7 @@ public class SyncCommand {
             goalManager.updateInfoBar();
         }
 
-        source.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Все достижения, чеки, предметы и рецепты успешно синхронизированы!"), true);
+        source.getSource().sendSuccess(() -> Component.translatable("aprandomizer.command.sync_success"), true);
         return 1;
     }
 

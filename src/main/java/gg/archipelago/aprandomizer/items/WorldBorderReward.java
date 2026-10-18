@@ -24,9 +24,11 @@ public record WorldBorderReward() implements APReward {
         }
         RestrictionManager.applyWorldBorder(server);
         double size = RestrictionManager.getWorldBorderSize();
-        String sizeText = size >= 60000000.0 ? "максимальный размер!" : (int) size + " блоков!";
+        Component sizeText = size >= 60000000.0
+                ? Component.translatable("aprandomizer.reward.world_border.max")
+                : Component.translatable("aprandomizer.reward.world_border.blocks", (int) size);
         int borderUpgrades = (worldData != null) ? worldData.getWorldBorderUpgrades() : 0;
-        Utils.sendTitleToAll(Component.literal("§a+Граница Мира"), Component.literal("Размер мира расширен: " + sizeText), 10, 40, 10);
-        Utils.sendMessageToAll("§a[Archipelago] §fРасширена граница мира: §a" + sizeText + " §7(" + borderUpgrades + "/5)");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.world_border.title"), Component.translatable("aprandomizer.reward.world_border.subtitle", sizeText), 10, 40, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.world_border.chat", sizeText, borderUpgrades, 5));
     }
 }

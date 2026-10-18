@@ -75,9 +75,9 @@ public class OnJoin {
                 if (milestones < maxChecks && milestones < AdvancementManager.MAX_BACAP_MILESTONES) {
                     int rem = step - (total % step);
                     if (rem == 0) rem = step;
-                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.literal("§6[BACAP] §fАчивок: §a" + total + " §7| До след. майлстоуна: §e" + Utils.pluralizeAdvancements(rem)));
+                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.translatable("aprandomizer.join.actionbar", total, rem));
                 } else {
-                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.literal("§6[BACAP] §fВсе майлстоуны выполнены! (§a" + total + " §fачивок)"));
+                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.translatable("aprandomizer.join.actionbar_all", total));
                 }
             }
         }

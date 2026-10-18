@@ -20,10 +20,10 @@ public record StructureUnlockReward() implements APReward {
     public void give(MinecraftServer server) {
         RestrictionManager.StructureEntry unlocked = RestrictionManager.unlockNextStructure();
         if (unlocked != null) {
-            Utils.sendTitleToAll(Component.literal("§eСтруктура разблокирована!"), Component.literal(unlocked.displayName()), 10, 50, 10);
-            Utils.sendMessageToAll("§e[Archipelago] Разблокирован доступ к структуре: " + unlocked.displayName());
+            Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.structure.title"), unlocked.displayNameComponent(), 10, 50, 10);
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.structure.chat", unlocked.displayNameComponent()));
         } else {
-            Utils.sendMessageToAll("§e[Archipelago] Все известные структуры уже разблокированы!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.structure.all_unlocked"));
         }
     }
 }

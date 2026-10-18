@@ -47,7 +47,7 @@ public class SharedChestScreen extends AbstractContainerScreen<SharedChestMenu> 
         this.comboBox = new RecipientComboBox(this.leftPos + 30, this.topPos + 72, 86, 20);
         this.comboBox.setOptions(cachedRecipients);
 
-        this.sendButton = Button.builder(Component.literal("Послать"), b -> onSendClicked())
+        this.sendButton = Button.builder(Component.translatable("aprandomizer.chest.button_send"), b -> onSendClicked())
                 .bounds(this.leftPos + 120, this.topPos + 72, 48, 20)
                 .build();
         this.sendButton.active = false;
@@ -165,12 +165,12 @@ public class SharedChestScreen extends AbstractContainerScreen<SharedChestMenu> 
 
     @Override
     protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-        Component titleText = Component.literal("✦ Общий сундук ✦");
+        Component titleText = Component.translatable("aprandomizer.chest.screen_title");
         int titleW = this.font.width(titleText);
         graphics.text(this.font, titleText, (this.imageWidth - titleW) / 2, 3, 0xFFFFA000, false);
 
-        graphics.text(this.font, Component.literal("Инвентарь приёма:"), 8, 14, 0xFF80D8FF, false);
-        graphics.text(this.font, Component.literal("Отправка:"), 8, 61, 0xFFFFD54F, false);
+        graphics.text(this.font, Component.translatable("aprandomizer.chest.inbox"), 8, 14, 0xFF80D8FF, false);
+        graphics.text(this.font, Component.translatable("aprandomizer.chest.outbox"), 8, 61, 0xFFFFD54F, false);
         graphics.text(this.font, this.playerInventoryTitle, 8, this.inventoryLabelY, 0xFFCCCCCC, false);
     }
 }

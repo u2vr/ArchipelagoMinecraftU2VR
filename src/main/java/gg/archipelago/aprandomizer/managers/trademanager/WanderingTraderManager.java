@@ -421,33 +421,33 @@ public class WanderingTraderManager {
             }
 
             List<Component> lore = new ArrayList<>();
-            lore.add(Component.literal("Recipient: ").withStyle(ChatFormatting.GRAY)
+            lore.add(Component.translatable("aprandomizer.trader.recipient").withStyle(ChatFormatting.GRAY)
                     .append(Component.literal(playerName).withStyle(ChatFormatting.AQUA)));
-            lore.add(Component.literal("Game: ").withStyle(ChatFormatting.GRAY)
+            lore.add(Component.translatable("aprandomizer.trader.game").withStyle(ChatFormatting.GRAY)
                     .append(Component.literal(gameName).withStyle(ChatFormatting.GREEN)));
 
             if ((scout.flags & io.github.archipelagomw.flags.NetworkItem.ADVANCEMENT) != 0) {
-                lore.add(Component.literal("★ Progression Item").withStyle(ChatFormatting.GOLD));
+                lore.add(Component.translatable("aprandomizer.trader.progression_item").withStyle(ChatFormatting.GOLD));
             } else if ((scout.flags & io.github.archipelagomw.flags.NetworkItem.USEFUL) != 0) {
-                lore.add(Component.literal("◆ Useful Item").withStyle(ChatFormatting.AQUA));
+                lore.add(Component.translatable("aprandomizer.trader.useful_item").withStyle(ChatFormatting.AQUA));
             } else if ((scout.flags & io.github.archipelagomw.flags.NetworkItem.TRAP) != 0) {
-                lore.add(Component.literal("⚠ Trap Item").withStyle(ChatFormatting.RED));
+                lore.add(Component.translatable("aprandomizer.trader.trap_item").withStyle(ChatFormatting.RED));
             } else {
-                lore.add(Component.literal("○ Common Item").withStyle(ChatFormatting.WHITE));
+                lore.add(Component.translatable("aprandomizer.trader.common_item").withStyle(ChatFormatting.WHITE));
             }
 
-            lore.add(Component.literal("Trade Location: Wandering Trader #" + tradeIndex).withStyle(ChatFormatting.DARK_GRAY));
-            lore.add(Component.literal("Archipelago Multiworld").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
+            lore.add(Component.translatable("aprandomizer.trader.trade_location", tradeIndex).withStyle(ChatFormatting.DARK_GRAY));
+            lore.add(Component.translatable("aprandomizer.trader.multiworld").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
             stack.set(DataComponents.LORE, new ItemLore(lore));
         } else {
             stack.set(DataComponents.CUSTOM_NAME,
-                    Component.literal("Archipelago Trade #" + tradeIndex).withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
+                    Component.translatable("aprandomizer.trader.default_trade_name", tradeIndex).withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
 
             List<Component> lore = new ArrayList<>();
-            lore.add(Component.literal("Multiworld Item Check").withStyle(ChatFormatting.YELLOW));
-            lore.add(Component.literal("Trade requested items to check this location.").withStyle(ChatFormatting.GRAY));
-            lore.add(Component.literal("Trade Location: Wandering Trader #" + tradeIndex).withStyle(ChatFormatting.DARK_GRAY));
-            lore.add(Component.literal("Archipelago Multiworld").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
+            lore.add(Component.translatable("aprandomizer.trader.multiworld_item_check").withStyle(ChatFormatting.YELLOW));
+            lore.add(Component.translatable("aprandomizer.trader.multiworld_trade_hint").withStyle(ChatFormatting.GRAY));
+            lore.add(Component.translatable("aprandomizer.trader.trade_location", tradeIndex).withStyle(ChatFormatting.DARK_GRAY));
+            lore.add(Component.translatable("aprandomizer.trader.multiworld").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC));
             stack.set(DataComponents.LORE, new ItemLore(lore));
         }
 
@@ -468,9 +468,9 @@ public class WanderingTraderManager {
                 int tradeIndex = getTraderIndex(locId);
                 if (item != null && item.itemName != null) {
                     String recipient = item.playerName != null ? item.playerName : "Multiworld";
-                    serverPlayer.sendSystemMessage(Component.literal("§6[Archipelago] §aBought §f" + item.itemName + " §afor §e" + recipient + " §a(Trade #" + tradeIndex + ")!"), true);
+                    serverPlayer.sendSystemMessage(Component.translatable("aprandomizer.trader.bought_for", item.itemName, recipient, tradeIndex), true);
                 } else {
-                    serverPlayer.sendSystemMessage(Component.literal("§6[Archipelago] §aCompleted Wandering Trader Trade #" + tradeIndex + "!"), true);
+                    serverPlayer.sendSystemMessage(Component.translatable("aprandomizer.trader.completed_trade", tradeIndex), true);
                 }
             }
         }

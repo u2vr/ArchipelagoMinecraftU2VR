@@ -21,7 +21,7 @@ public record OffhandReward() implements APReward {
         if (worldData != null) {
             worldData.setOffhandUnlocked(true);
         }
-        Utils.sendTitleToAll(Component.literal("§eВторая рука разблокирована!"), Component.literal("Теперь доступен слот второй руки!"), 10, 50, 10);
-        Utils.sendMessageToAll("§e[Archipelago] Слот второй руки (Offhand) теперь разблокирован!");
+        Utils.sendTitleToAll(Component.translatable("aprandomizer.reward.offhand.title"), Component.translatable("aprandomizer.reward.offhand.subtitle"), 10, 50, 10);
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.reward.offhand.chat"));
     }
 }

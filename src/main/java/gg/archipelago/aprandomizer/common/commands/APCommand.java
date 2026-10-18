@@ -158,7 +158,7 @@ public class APCommand {
                             var apClient = APRandomizer.getAP();
                             var am = APRandomizer.getAdvancementManager();
                             if (apClient != null && apClient.isConnected()) {
-                                Utils.sendMessageToAll("§6[Archipelago] §fСинхронизация с сервером Archipelago...");
+                                Utils.sendMessageToAll(Component.translatable("aprandomizer.command.syncing"));
                                 apClient.sync();
                                 if (am != null) {
                                     am.resendAdvancements(apClient);
@@ -182,7 +182,7 @@ public class APCommand {
                                 goalManager.updateGoal(true);
                                 goalManager.updateInfoBar();
                             }
-                            ctx.getSource().sendSuccess(() -> Component.literal("§a[Archipelago] Все достижения, чеки, предметы и рецепты успешно синхронизированы!"), true);
+                            ctx.getSource().sendSuccess(() -> Component.translatable("aprandomizer.command.sync_success"), true);
                             return 1;
                         })
                 )
@@ -410,7 +410,7 @@ public class APCommand {
         CompassReward chosenReward = null;
         if (targetName != null && !targetName.isBlank()) {
             if (unlocked.isEmpty()) {
-                source.sendFailure(Component.literal("§c[Archipelago] У вас пока нет открытых целей для компаса."));
+                source.sendFailure(Component.translatable("aprandomizer.command.compass_no_targets"));
                 return;
             }
             String search = targetName.trim().toLowerCase();
@@ -424,7 +424,7 @@ public class APCommand {
                 }
             }
             if (chosenReward == null) {
-                source.sendFailure(Component.literal("§c[Archipelago] Не найдено открытой цели компаса по запросу: " + targetName));
+                source.sendFailure(Component.translatable("aprandomizer.command.compass_target_not_found", targetName));
                 return;
             }
         } else if (!unlocked.isEmpty()) {
@@ -450,18 +450,18 @@ public class APCommand {
                 compass.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
                 Utils.giveItemToPlayer(player, compass);
                 final String targetTitle = chosenReward.name().getString();
-                source.sendSuccess(() -> Component.literal("§a[Archipelago] Выдан компас Архипелага (" + targetTitle + ")"), false);
+                source.sendSuccess(() -> Component.translatable("aprandomizer.command.compass_given_target", targetTitle), false);
             } else {
                 Utils.giveItemToPlayer(player, compass);
-                source.sendSuccess(() -> Component.literal("§a[Archipelago] Выдан компас Архипелага (цели еще не открыты)"), false);
+                source.sendSuccess(() -> Component.translatable("aprandomizer.command.compass_given_no_targets"), false);
             }
         } else {
             if (chosenReward != null) {
                 ItemManager.updateCompassLocation(chosenReward, player, existingCompass);
                 final String targetTitle = chosenReward.name().getString();
-                source.sendSuccess(() -> Component.literal("§a[Archipelago] Компас перенаправлен на " + targetTitle), false);
+                source.sendSuccess(() -> Component.translatable("aprandomizer.command.compass_retargeted", targetTitle), false);
             } else {
-                source.sendSuccess(() -> Component.literal("§e[Archipelago] Компас Архипелага уже находится в вашем инвентаре."), false);
+                source.sendSuccess(() -> Component.translatable("aprandomizer.command.compass_already_in_inventory"), false);
             }
         }
         ItemManager.cleanCompasses(player);

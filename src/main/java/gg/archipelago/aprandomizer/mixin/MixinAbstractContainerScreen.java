@@ -61,8 +61,8 @@ public abstract class MixinAbstractContainerScreen extends Screen {
             int tickets = ClientRecipeManager.getTickets();
             boolean ticketMode = ClientRecipeManager.isTicketMode();
             Component text = ticketMode
-                    ? Component.literal("✦ Рецепты [🎟 " + tickets + "]")
-                    : Component.literal("✦ Древо рецептов");
+                    ? Component.translatable("aprandomizer.button.recipes_tickets", tickets)
+                    : Component.translatable("aprandomizer.button.recipe_tree");
 
             this.aprandomizer$recipeTreeButton = Button.builder(text, b -> {
                 if (this.minecraft != null) {
@@ -80,8 +80,8 @@ public abstract class MixinAbstractContainerScreen extends Screen {
             int tickets = ClientRecipeManager.getTickets();
             boolean ticketMode = ClientRecipeManager.isTicketMode();
             Component text = ticketMode
-                    ? Component.literal("✦ Рецепты [🎟 " + tickets + "]")
-                    : Component.literal("✦ Древо рецептов");
+                    ? Component.translatable("aprandomizer.button.recipes_tickets", tickets)
+                    : Component.translatable("aprandomizer.button.recipe_tree");
             this.aprandomizer$recipeTreeButton.setMessage(text);
         }
     }

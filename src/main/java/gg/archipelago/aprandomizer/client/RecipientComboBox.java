@@ -166,7 +166,7 @@ public class RecipientComboBox {
 
         // Text
         if (options.isEmpty()) {
-            graphics.text(font, Component.literal("§7(Нет игроков)"), x + 4, y + (height - 8) / 2, 0xFF888888, false);
+            graphics.text(font, Component.translatable("aprandomizer.chest.no_players"), x + 4, y + (height - 8) / 2, 0xFF888888, false);
         } else {
             RecipientEntry selected = getSelectedRecipient();
             if (selected != null) {

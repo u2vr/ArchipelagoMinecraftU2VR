@@ -157,8 +157,8 @@ public class ArchipelagoTraderSpawner implements CustomSpawner {
 
         // Notify player via sound, action bar, and chat
         player.playSound(SoundEvents.WANDERING_TRADER_YES, 1.0f, 1.0f);
-        player.sendSystemMessage(Component.literal("§6[Archipelago] §eA Wandering Trader has arrived nearby!"), true);
-        player.sendSystemMessage(Component.literal("§6[Archipelago] §eA Wandering Trader has arrived nearby!"), false);
+        player.sendSystemMessage(Component.translatable("aprandomizer.trader.arrived"), true);
+        player.sendSystemMessage(Component.translatable("aprandomizer.trader.arrived"), false);
 
         LOGGER.info("Archipelago Wandering Trader spawned at {} in {} near player {}",
                 spawnPos, level.dimension().identifier(), player.getScoreboardName());
