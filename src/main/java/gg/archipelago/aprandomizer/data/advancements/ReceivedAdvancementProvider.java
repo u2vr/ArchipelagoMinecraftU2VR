@@ -457,11 +457,11 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
 
     private void generateWorldBorderChain(JsonObject startNode, Identifier rootId, Map<String, Identifier> nodeToAdvId) {
         List<WorldBorderDef> defs = List.of(
-                new WorldBorderDef(1800, "World Border 1/5 (1800 блоков)", "Расширяет границу мира до 1800 блоков (1800×1800, ±900 от спавна)"),
-                new WorldBorderDef(3000, "World Border 2/5 (3000 блоков)", "Расширяет границу мира до 3000 блоков (3000×3000, ±1500 от спавна)"),
-                new WorldBorderDef(5000, "World Border 3/5 (5000 блоков)", "Расширяет границу мира до 5000 блоков (5000×5000, ±2500 от спавна)"),
-                new WorldBorderDef(8000, "World Border 4/5 (8000 блоков)", "Расширяет границу мира до 8000 блоков (8000×8000, ±4000 от спавна)"),
-                new WorldBorderDef(60000000, "World Border 5/5 (Макс / Без ограничений)", "Снимает ограничения границы мира (максимальный размер, 60M×60M блоков)")
+                new WorldBorderDef(1800, "World Border 1/5 (1800 blocks)", "Expands the world border to 1800 blocks (1800×1800, ±900 from spawn)"),
+                new WorldBorderDef(3000, "World Border 2/5 (3000 blocks)", "Expands the world border to 3000 blocks (3000×3000, ±1500 from spawn)"),
+                new WorldBorderDef(5000, "World Border 3/5 (5000 blocks)", "Expands the world border to 5000 blocks (5000×5000, ±2500 from spawn)"),
+                new WorldBorderDef(8000, "World Border 4/5 (8000 blocks)", "Expands the world border to 8000 blocks (8000×8000, ±4000 from spawn)"),
+                new WorldBorderDef(60000000, "World Border 5/5 (Max / Unrestricted)", "Removes world border restrictions (maximum size, 60M×60M blocks)")
         );
 
         JsonObject curr = startNode;

@@ -33,7 +33,7 @@ import java.awt.Color;
 @EventBusSubscriber
 public class GoalManager {
 
-    public static final long COMPLETION_DISPLAY_DURATION_MS = 5 * 60 * 1000L; // 5 минут
+    public static final long COMPLETION_DISPLAY_DURATION_MS = 5 * 60 * 1000L; // 5 minutes
 
     int advancementsRequired;
     int dragonEggShardsRequired;
@@ -125,12 +125,12 @@ public class GoalManager {
         return (System.currentTimeMillis() - completedTime) < COMPLETION_DISPLAY_DURATION_MS;
     }
 
-    public String getAdvancementRemainingString() {
+    public Component getAdvancementRemainingComponent() {
         if (isGameCompleted()) {
-            return isCompletionTextVisible() ? "Игра пройдена" : "";
+            return isCompletionTextVisible() ? Component.translatable("aprandomizer.goal.completed") : Component.empty();
         }
         if (!isChecksDone()) {
-            return String.format("Чеки: %d / %d", advancementManager.getFinishedAmount(), advancementsRequired);
+            return Component.translatable("aprandomizer.goal.checks", advancementManager.getFinishedAmount(), advancementsRequired);
         }
         WorldData wd = APRandomizer.getWorldData();
         boolean dragonKilled = wd != null && wd.isDragonKilled();
@@ -140,21 +140,21 @@ public class GoalManager {
         boolean needWither = apmc.required_bosses.hasWither() && !witherKilled;
 
         if (needDragon && needWither) {
-            return "Убить дракона Края и Иссушителя";
+            return Component.translatable("aprandomizer.goal.kill_dragon_and_wither");
         } else if (needDragon) {
-            return "Убить дракона Края";
+            return Component.translatable("aprandomizer.goal.kill_dragon");
         } else if (needWither) {
-            return "Убить Иссушителя";
+            return Component.translatable("aprandomizer.goal.kill_wither");
         } else {
-            return "Собрать осколки яйца дракона";
+            return Component.translatable("aprandomizer.goal.collect_egg_shards");
         }
     }
 
-    public String getEggShardsRemainingString() {
+    public Component getEggShardsRemainingComponent() {
         if (dragonEggShardsRequired > 0) {
-            return String.format("Осколки яйца дракона: %d / %d", currentEggShards(), dragonEggShardsRequired);
+            return Component.translatable("aprandomizer.goal.egg_shards", currentEggShards(), dragonEggShardsRequired);
         }
-        return "";
+        return Component.empty();
     }
 
     private int currentEggShards() {
@@ -206,8 +206,8 @@ public class GoalManager {
             advancementInfoBar.setValue(advancementManager.getFinishedAmount());
             advancementInfoBar.setVisible(true);
         } else {
-            // Все необходимые чеки сделаны. Число чеков пропадает.
-            // Вместо Check Goal пишется что нужно убить босса (дракона и/или визера).
+            // All required checks completed. Check counter is removed.
+            // Instead of Check Goal, show required boss kills (Dragon and/or Wither).
             WorldData wd = APRandomizer.getWorldData();
             boolean dragonKilled = wd != null && wd.isDragonKilled();
             boolean witherKilled = wd != null && wd.isWitherKilled();

@@ -199,7 +199,7 @@ public class SharedChestManager {
             if (server != null) {
                 ServerPlayer sender = server.getPlayerList().getPlayer(pt.senderUuid());
                 if (sender != null) {
-                    sender.sendSystemMessage(Component.literal("§6[Общий сундук] §cИгрок §e" + pt.targetName() + " §cне отвечает или вышел из сети!"), true);
+                    sender.sendSystemMessage(Component.translatable("aprandomizer.chest.target_offline_or_no_reply", pt.targetName()), true);
                     sender.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
                 }
             }
@@ -321,39 +321,38 @@ public class SharedChestManager {
 
     public static void handleSendItem(ServerPlayer player, int targetSlotId) {
         if (isTransferPending()) {
-            player.sendSystemMessage(Component.literal("§e[!] Предыдущая передача еще обрабатывается..."), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.chest.transfer_in_progress"), true);
             return;
         }
 
         ItemStack sendStack = CONTAINER.getItem(SharedChestContainer.SEND_SLOT);
         if (sendStack.isEmpty()) {
-            player.sendSystemMessage(Component.literal("§c[!] Слот передачи пуст!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.chest.send_slot_empty"), true);
             player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
             return;
         }
 
         if (apClient == null || !apClient.isConnected()) {
-            player.sendSystemMessage(Component.literal("§c[!] Нет подключения к Архипелагу!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.chest.no_connection"), true);
             player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
             return;
         }
 
         int mySlot = apClient.getSlot();
         if (targetSlotId == mySlot || targetSlotId <= 0) {
-            player.sendSystemMessage(Component.literal("§c[!] Нельзя отправить предмет себе!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.chest.cannot_send_to_self"), true);
             return;
         }
 
         if (!isSlotOnline(targetSlotId)) {
-            player.sendSystemMessage(Component.literal("§c[!] Получатель не в сети!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.chest.target_offline"), true);
             player.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
             return;
         }
 
-        String targetName = "Игрок " + targetSlotId;
-        if (apClient.getSlotInfo() != null && apClient.getSlotInfo().containsKey(targetSlotId)) {
-            targetName = apClient.getSlotInfo().get(targetSlotId).name;
-        }
+        String targetName = (apClient.getSlotInfo() != null && apClient.getSlotInfo().containsKey(targetSlotId))
+                ? apClient.getSlotInfo().get(targetSlotId).name
+                : ("Player " + targetSlotId);
 
         String txId = UUID.randomUUID().toString();
         String itemJson = serializeItemStack(sendStack);
@@ -373,7 +372,7 @@ public class SharedChestManager {
         packet.want_reply = false;
         apClient.dataStorageSet(packet);
 
-        player.sendSystemMessage(Component.literal("§e[...] Передача предмета игроку " + targetName + "..."), true);
+        player.sendSystemMessage(Component.translatable("aprandomizer.chest.sending_to_target", targetName), true);
     }
 
     public static void handleArchipelagoRetrieved(RetrievedEvent event) {
@@ -436,7 +435,7 @@ public class SharedChestManager {
             JsonObject tx = JsonParser.parseString(json).getAsJsonObject();
             String txId = tx.get("txId").getAsString();
             int fromSlot = tx.get("fromSlot").getAsInt();
-            String fromName = tx.has("fromName") ? tx.get("fromName").getAsString() : ("Игрок " + fromSlot);
+            String fromName = tx.has("fromName") ? tx.get("fromName").getAsString() : ("Player " + fromSlot);
             int toSlot = tx.get("toSlot").getAsInt();
 
             if (apClient == null || toSlot != apClient.getSlot()) return;
@@ -462,7 +461,7 @@ public class SharedChestManager {
 
             if (server != null) {
                 for (ServerPlayer sp : server.getPlayerList().getPlayers()) {
-                    sp.sendSystemMessage(Component.literal("§6[Общий сундук] §aПолучен предмет §f" + stack.getCount() + "x " + stack.getHoverName().getString() + " §aот игрока §e" + fromName + "§a!"), false);
+                    sp.sendSystemMessage(Component.translatable("aprandomizer.chest.received_item", stack.getCount(), stack.getHoverName(), fromName), false);
                     sp.playSound(SoundEvents.PLAYER_LEVELUP, 0.7f, 1.2f);
                 }
             }
@@ -493,12 +492,12 @@ public class SharedChestManager {
                     refreshOpenMenus();
 
                     if (sender != null) {
-                        sender.sendSystemMessage(Component.literal("§6[Общий сундук] §aПредмет успешно доставлен игроку §e" + pt.targetName() + "§a!"), true);
+                        sender.sendSystemMessage(Component.translatable("aprandomizer.chest.delivered_item", pt.targetName()), true);
                         sender.playSound(SoundEvents.ARROW_HIT_PLAYER, 1.0f, 1.2f);
                     }
                 } else if ("FULL".equals(status)) {
                     if (sender != null) {
-                        sender.sendSystemMessage(Component.literal("§6[Общий сундук] §cУ игрока §e" + pt.targetName() + " §cпереполнен инвентарь приёма!"), true);
+                        sender.sendSystemMessage(Component.translatable("aprandomizer.chest.target_inventory_full", pt.targetName()), true);
                         sender.playSound(SoundEvents.CHEST_LOCKED, 0.8f, 1.0f);
                     }
                 }

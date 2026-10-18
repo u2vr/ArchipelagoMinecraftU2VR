@@ -261,8 +261,7 @@ public class RestrictionManager {
         Long last = LAST_ITEM_WARN_TIME.get(player.getUUID());
         if (last == null || now - last > 15) {
             LAST_ITEM_WARN_TIME.put(player.getUUID(), now);
-            String name = stack.getHoverName().getString();
-            player.sendSystemMessage(Component.literal("§c[!] Предмет «" + name + "» заблокирован в Архипелаге!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.restriction.item_locked", stack.getHoverName()), true);
             if (player.level() instanceof ServerLevel sLevel) {
                 sLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 0.8f, 1.0f);
@@ -276,7 +275,7 @@ public class RestrictionManager {
         Long last = LAST_ITEM_WARN_TIME.get(player.getUUID());
         if (last == null || now - last > 15) {
             LAST_ITEM_WARN_TIME.put(player.getUUID(), now);
-            player.sendSystemMessage(Component.literal("§c[!] Блок «" + blockName + "» заблокирован в Архипелаге!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.restriction.block_locked", blockName), true);
             if (player.level() instanceof ServerLevel sLevel) {
                 sLevel.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.VILLAGER_NO, SoundSource.PLAYERS, 0.8f, 1.0f);
@@ -642,7 +641,7 @@ public class RestrictionManager {
             }
         }
         if (anyDroppedOrMoved) {
-            player.sendSystemMessage(Component.literal("§cСлот инвентаря заблокирован! Разблокировано: " + allowed + "/36"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.restriction.inventory_slot_locked", allowed, 36), true);
             player.containerMenu.broadcastChanges();
         }
     }
@@ -707,11 +706,11 @@ public class RestrictionManager {
         boolean isMonsterTrap = ThreadLocalRandom.current().nextInt(100) < monsterPct;
 
         if (isMonsterTrap) {
-            // Спавн мобов: 0 - злые пчелы, 1 - скелеты, 2 - зомби
+            // Mob spawn: 0 - angry bees, 1 - skeletons, 2 - zombies
             int mobType = ThreadLocalRandom.current().nextInt(3);
             switch (mobType) {
                 case 0 -> {
-                    // Спавн злых пчёл
+                    // Spawn angry bees
                     for (int i = 0; i < 4; i++) {
                         Entity entity = EntityTypes.BEE.create(level, EntitySpawnReason.MOB_SUMMONED);
                         if (entity instanceof Mob mob) {
@@ -726,11 +725,11 @@ public class RestrictionManager {
                             level.addFreshEntity(mob);
                         }
                     }
-                    Utils.sendTitleToPlayer(player, Component.literal("§eЗлые пчёлы!"), Component.literal("От: §c" + sender), 10, 40, 10);
-                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §eЗлые пчёлы §fот §c" + sender + "§f!"));
+                    Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.bees.title"), Component.translatable("aprandomizer.trap.from", sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.bees.chat", player.getName().getString(), sender));
                 }
                 case 1 -> {
-                    // Спавн скелетов
+                    // Spawn skeletons
                     for (int i = 0; i < 3; i++) {
                         Entity entity = EntityTypes.SKELETON.create(level, EntitySpawnReason.MOB_SUMMONED);
                         if (entity instanceof Mob mob) {
@@ -742,11 +741,11 @@ public class RestrictionManager {
                             level.addFreshEntity(mob);
                         }
                     }
-                    Utils.sendTitleToPlayer(player, Component.literal("§7Засада скелетов!"), Component.literal("От: §c" + sender), 10, 40, 10);
-                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §7Засада скелетов §fот §c" + sender + "§f!"));
+                    Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.skeletons.title"), Component.translatable("aprandomizer.trap.from", sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.skeletons.chat", player.getName().getString(), sender));
                 }
                 case 2 -> {
-                    // Спавн зомби
+                    // Spawn zombies
                     for (int i = 0; i < 4; i++) {
                         Entity entity = EntityTypes.ZOMBIE.create(level, EntitySpawnReason.MOB_SUMMONED);
                         if (entity instanceof Mob mob) {
@@ -758,15 +757,15 @@ public class RestrictionManager {
                             level.addFreshEntity(mob);
                         }
                     }
-                    Utils.sendTitleToPlayer(player, Component.literal("§2Орда зомби!"), Component.literal("От: §c" + sender), 10, 40, 10);
-                    Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §2Орда зомби §fот §c" + sender + "§f!"));
+                    Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.zombies.title"), Component.translatable("aprandomizer.trap.from", sender), 10, 40, 10);
+                    Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.zombies.chat", player.getName().getString(), sender));
                 }
             }
         } else {
-            // Не-мобы: Мусор в карманах (70%), Песок 3х9х9 (15%), Слепота (15%)
+            // Non-mob traps: Junk in pockets (70%), Sand 3x9x9 (15%), Blindness (15%)
             int nonMobRoll = ThreadLocalRandom.current().nextInt(100);
             if (nonMobRoll < 70) {
-                // Мусор в инвентарь
+                // Junk in inventory
                 var inv = player.getInventory();
                 int allowed = getAllowedSlots();
                 int junkCount = 0;
@@ -781,15 +780,15 @@ public class RestrictionManager {
                     }
                 }
                 if (junkCount == 0) {
-                    // Если свободных слотов нет, дропнем мусор под ноги
+                    // Drop junk at player feet if no free slots
                     var junkItem = JUNK_ITEMS.get(ThreadLocalRandom.current().nextInt(JUNK_ITEMS.size()));
                     Utils.giveItemToPlayer(player, new ItemStack(junkItem, 16));
                 }
                 player.containerMenu.broadcastChanges();
-                Utils.sendTitleToPlayer(player, Component.literal("§6Мусор в карманах!"), Component.literal("От: §c" + sender), 10, 40, 10);
-                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §6Мусор в карманах §fот §c" + sender + "§f!"));
+                Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.junk.title"), Component.translatable("aprandomizer.trap.from", sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.junk.chat", player.getName().getString(), sender));
             } else if (nonMobRoll < 85) {
-                // Падающий песок 3х9х9 (высота 3, ширина 9, длина 9) над игроком
+                // Falling sand 3x9x9 above player
                 int startX = player.getBlockX() - 4;
                 int startZ = player.getBlockZ() - 4;
                 int baseY = player.getBlockY() + 6;
@@ -804,13 +803,13 @@ public class RestrictionManager {
                         }
                     }
                 }
-                Utils.sendTitleToPlayer(player, Component.literal("§6Падающий песок!"), Component.literal("Песчаный обвал 3х9х9 от: §c" + sender), 10, 40, 10);
-                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §6Песчаный обвал §fот §c" + sender + "§f!"));
+                Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.sand.title"), Component.translatable("aprandomizer.trap.sand.subtitle", sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.sand.chat", player.getName().getString(), sender));
             } else {
-                // Слепота
+                // Blindness
                 player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 200, 0, false, false));
-                Utils.sendTitleToPlayer(player, Component.literal("§8Слепота!"), Component.literal("От: §c" + sender), 10, 40, 10);
-                Utils.sendMessageToAll(Component.literal("§c[Ловушка] §e" + player.getName().getString() + " §fполучил ловушку §8Слепота §fот §c" + sender + "§f!"));
+                Utils.sendTitleToPlayer(player, Component.translatable("aprandomizer.trap.blindness.title"), Component.translatable("aprandomizer.trap.from", sender), 10, 40, 10);
+                Utils.sendMessageToAll(Component.translatable("aprandomizer.trap.blindness.chat", player.getName().getString(), sender));
             }
         }
     }
@@ -1010,7 +1009,7 @@ public class RestrictionManager {
         Long lastWarn = LAST_STRUCTURE_WARN_TIME.get(player.getUUID());
         if (lastWarn == null || now - lastWarn > 20) {
             LAST_STRUCTURE_WARN_TIME.put(player.getUUID(), now);
-            player.sendSystemMessage(Component.literal("§c[!] Структура \"" + entry.displayName() + "\" заблокирована в Архипелаге!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.restriction.structure_locked", entry.displayNameComponent()), true);
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.WIND_CHARGE_BURST.value(), SoundSource.PLAYERS, 1.2f, 0.8f);
             level.sendParticles(ParticleTypes.GUST, player.getX(), player.getY() + 0.8, player.getZ(), 6, 0.4, 0.4, 0.4, 0.05);
         }
@@ -1057,7 +1056,7 @@ public class RestrictionManager {
             ItemStack offhand = player.getOffhandItem();
             player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
             Utils.giveItemToPlayer(player, offhand);
-            player.sendSystemMessage(Component.literal("§cВторая рука заблокирована до получения улучшения!"), true);
+            player.sendSystemMessage(Component.translatable("aprandomizer.restriction.offhand_locked_upgrade"), true);
             player.containerMenu.broadcastChanges();
         }
 
@@ -1171,7 +1170,7 @@ public class RestrictionManager {
         if (event.getHand() == InteractionHand.OFF_HAND && !isOffhandUnlocked()) {
             event.setCanceled(true);
             if (event.getEntity() instanceof ServerPlayer player) {
-                player.sendSystemMessage(Component.literal("§cВторая рука заблокирована!"), true);
+                player.sendSystemMessage(Component.translatable("aprandomizer.restriction.offhand_locked"), true);
             }
         }
     }

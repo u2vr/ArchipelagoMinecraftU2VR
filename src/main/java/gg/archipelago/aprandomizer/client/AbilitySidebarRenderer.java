@@ -284,63 +284,65 @@ public class AbilitySidebarRenderer {
 
         switch (el.type) {
             case TYPE_LIGHT_HOLDER -> {
-                tip.add(Component.literal("§e§lДержатель света"));
+                tip.add(Component.translatable("aprandomizer.sidebar.light_holder.title"));
                 ItemStack item = ClientAbilityManager.getLightHolderItem();
                 if (item.isEmpty()) {
-                    tip.add(Component.literal("§7(Ячейка пуста)"));
-                    tip.add(Component.literal("§8Поместите светящийся блок"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.light_holder.empty"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.light_holder.place"));
                 } else {
-                    tip.add(Component.literal("§f" + item.getHoverName().getString()));
-                    tip.add(Component.literal("§a✔ Активен на груди"));
+                    tip.add(item.getHoverName());
+                    tip.add(Component.translatable("aprandomizer.sidebar.light_holder.active"));
                 }
-                tip.add(Component.literal("§7Освещает мир вокруг (LambDynamicLights)"));
+                tip.add(Component.translatable("aprandomizer.sidebar.light_holder.desc"));
             }
             case TYPE_TRASH_CAN -> {
-                tip.add(Component.literal("§8§lМусорка"));
+                tip.add(Component.translatable("aprandomizer.sidebar.trash_can.title"));
                 ItemStack item = ClientAbilityManager.getTrashCanItem();
                 if (!item.isEmpty()) {
-                    tip.add(Component.literal("§7Внутри: §f" + item.getHoverName().getString() + " x" + item.getCount()));
-                    tip.add(Component.literal("§cУничтожится при следующем удалении!"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.trash_can.inside", item.getHoverName().getString(), item.getCount()));
+                    tip.add(Component.translatable("aprandomizer.sidebar.trash_can.destroy_warn"));
                 } else {
-                    tip.add(Component.literal("§7(Ячейка пуста)"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.trash_can.empty"));
                 }
-                tip.add(Component.literal("§eAlt + Клик §7по предмету для быстрой отправки в мусорку"));
+                tip.add(Component.translatable("aprandomizer.sidebar.trash_can.alt_click"));
             }
             case TYPE_MINING -> {
                 int shape = ClientAbilityManager.getMiningShapeIndex();
                 int tier = ClientAbilityManager.getMiningTier();
                 String desc = getShapeDescription(shape);
                 String maxDesc = getShapeDescription(tier);
-                tip.add(Component.literal("§6§lПрогрессивное копание"));
-                tip.add(Component.literal("§eТекущий режим: §f" + desc + " §7(В×Ш×Г)"));
-                tip.add(Component.literal("§7ЛКМ: сменить режим (от 1×1×1 до " + maxDesc + ")"));
-                tip.add(Component.literal("§8Сохраняет прочность инструмента (не ломает в 0)"));
+                tip.add(Component.translatable("aprandomizer.sidebar.mining.title"));
+                tip.add(Component.translatable("aprandomizer.sidebar.mining.mode", desc));
+                tip.add(Component.translatable("aprandomizer.sidebar.mining.switch_mode", maxDesc));
+                tip.add(Component.translatable("aprandomizer.sidebar.mining.durability"));
             }
             case TYPE_TREE_FELLER -> {
                 boolean active = ClientAbilityManager.isTreeFellerActive();
-                tip.add(Component.literal("§a§lРубка деревьев"));
+                tip.add(Component.translatable("aprandomizer.sidebar.tree_feller.title"));
                 if (active) {
-                    tip.add(Component.literal("§7Режим: §aТопор с деревом (ВКЛ)"));
-                    tip.add(Component.literal("§fСрубает всё дерево и листву сразу!"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.tree_feller.mode_on"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.tree_feller.desc_on"));
                 } else {
-                    tip.add(Component.literal("§7Режим: §cТопор с бревном (ВЫКЛ)"));
-                    tip.add(Component.literal("§8Срубает только один блок"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.tree_feller.mode_off"));
+                    tip.add(Component.translatable("aprandomizer.sidebar.tree_feller.desc_off"));
                 }
-                tip.add(Component.literal("§eЛКМ: переключить"));
+                tip.add(Component.translatable("aprandomizer.sidebar.toggle"));
             }
             case TYPE_MAGNET -> {
                 boolean active = ClientAbilityManager.isItemMagnetActive();
-                tip.add(Component.literal("§c§lМагнит предметов"));
-                tip.add(Component.literal("§7Статус: " + (active ? "§aВКЛ" : "§cВЫКЛ")));
-                tip.add(Component.literal("§7Притягивает предметы и сферы опыта (10 блоков)"));
-                tip.add(Component.literal("§eЛКМ: переключить"));
+                tip.add(Component.translatable("aprandomizer.sidebar.magnet.title"));
+                tip.add(Component.translatable("aprandomizer.sidebar.magnet.status",
+                        active ? Component.translatable("aprandomizer.common.on") : Component.translatable("aprandomizer.common.off")));
+                tip.add(Component.translatable("aprandomizer.sidebar.magnet.desc"));
+                tip.add(Component.translatable("aprandomizer.sidebar.toggle"));
             }
             case TYPE_STEP_ASSIST -> {
                 boolean active = ClientAbilityManager.isStepAssistActive();
-                tip.add(Component.literal("§e§lАвтоподъем на 1 блок"));
-                tip.add(Component.literal("§7Статус: " + (active ? "§aВКЛ" : "§cВЫКЛ")));
-                tip.add(Component.literal("§7Плавный шаг вверх без необходимости прыжка"));
-                tip.add(Component.literal("§eЛКМ: переключить"));
+                tip.add(Component.translatable("aprandomizer.sidebar.step_assist.title"));
+                tip.add(Component.translatable("aprandomizer.sidebar.step_assist.status",
+                        active ? Component.translatable("aprandomizer.common.on") : Component.translatable("aprandomizer.common.off")));
+                tip.add(Component.translatable("aprandomizer.sidebar.step_assist.desc"));
+                tip.add(Component.translatable("aprandomizer.sidebar.toggle"));
             }
         }
 

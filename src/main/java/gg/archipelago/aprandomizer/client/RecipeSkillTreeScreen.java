@@ -66,7 +66,7 @@ public class RecipeSkillTreeScreen extends Screen {
     public record NodePos(int x, int y) {}
 
     public RecipeSkillTreeScreen(Screen parent) {
-        super(Component.literal("✦ Древо рецептов Archipelago ✦"));
+        super(Component.translatable("aprandomizer.screen.recipe_tree.title"));
         this.parent = parent;
         computeAllLayouts();
     }
@@ -156,7 +156,7 @@ public class RecipeSkillTreeScreen extends Screen {
         this.canvasWidth = this.windowWidth - 16;
         this.canvasHeight = this.windowHeight - 72;
 
-        // 1. Tab Buttons (⚔ Оружие, 🛡 Броня, ⚙ Механизмы, ✦ Все древо)
+        // 1. Tab Buttons (Weapons, Armor, Utility, All)
         int tabCount = 4;
         int tabGap = 4;
         int totalTabGaps = (tabCount - 1) * tabGap;
@@ -164,21 +164,26 @@ public class RecipeSkillTreeScreen extends Screen {
         int tabsStartX = this.canvasX;
         int tabsY = this.windowY + 22;
 
-        String[] tabLabels = new String[]{"⚔ Оружие", "🛡 Броня", "⚙ Быт", "✦ Все древо (77)"};
-        String[] tabTooltips = new String[]{
-                "Оружие и инструменты (Мечи, Кирки, Топоры, Луки, Мотыги)",
-                "Доспехи (Шлемы, Нагрудники, Поножи, Ботинки)",
-                "Металлургия и полезные механизмы (Печи, Наковальни, Зелья)",
-                "Все 77 доступных рецептов на общем холсте"
+        Component[] tabLabels = new Component[]{
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.weapons"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.armor"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.household"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.all", "77")
+        };
+        Component[] tabTooltips = new Component[]{
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.weapons.desc"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.armor.desc"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.household.desc"),
+                Component.translatable("aprandomizer.screen.recipe_tree.tab.all.desc", "77")
         };
 
         for (int i = 0; i < tabCount; i++) {
             final int tabIdx = i;
-            Button tabBtn = Button.builder(Component.literal(tabLabels[i]), b -> {
+            Button tabBtn = Button.builder(tabLabels[i], b -> {
                 this.selectedTab = tabIdx;
                 centerView();
             }).bounds(tabsStartX + i * (tabW + tabGap), tabsY, tabW, 18).build();
-            tabBtn.setTooltip(Tooltip.create(Component.literal(tabTooltips[i])));
+            tabBtn.setTooltip(Tooltip.create(tabTooltips[i]));
             this.addRenderableWidget(tabBtn);
         }
 
@@ -187,10 +192,10 @@ public class RecipeSkillTreeScreen extends Screen {
         int btnH = 20;
         int bottomY = this.windowY + this.windowHeight - 24;
 
-        this.addRenderableWidget(Button.builder(Component.literal("⌖ Центр"), b -> centerView())
+        this.addRenderableWidget(Button.builder(Component.translatable("aprandomizer.screen.recipe_tree.center"), b -> centerView())
                 .bounds(this.canvasX, bottomY, btnW, btnH).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("Закрыть"), b -> this.onClose())
+        this.addRenderableWidget(Button.builder(Component.translatable("aprandomizer.screen.recipe_tree.close"), b -> this.onClose())
                 .bounds(this.canvasX + this.canvasWidth - btnW, bottomY, btnW, btnH).build());
 
         centerView();
@@ -265,7 +270,7 @@ public class RecipeSkillTreeScreen extends Screen {
         graphics.fill(this.windowX + this.windowWidth - 1, this.windowY, this.windowX + this.windowWidth, this.windowY + this.windowHeight, borderMain);
 
         // Header Title
-        graphics.centeredText(this.font, Component.literal("✦ Древо рецептов Archipelago ✦"), this.windowX + this.windowWidth / 2, this.windowY + 6, 0xFFFFA000);
+        graphics.centeredText(this.font, Component.translatable("aprandomizer.screen.recipe_tree.title"), this.windowX + this.windowWidth / 2, this.windowY + 6, 0xFFFFA000);
 
         // 2. Tickets & Unlocked Counter
         int tickets = ClientRecipeManager.getTickets();
@@ -280,12 +285,14 @@ public class RecipeSkillTreeScreen extends Screen {
         int totalCount = allUnlockable.size();
         int totalPct = totalCount > 0 ? (unlockedCount * 100 / totalCount) : 100;
 
-        String ticketText = ticketMode ? ("🎟 Талоны: §e" + tickets) : "🎲 Случайный режим";
-        String progressText = "✔ Открыто: §a" + unlockedCount + "/" + totalCount + " (" + totalPct + "%)";
+        Component ticketText = ticketMode
+                ? Component.translatable("aprandomizer.screen.recipe_tree.tickets", tickets)
+                : Component.translatable("aprandomizer.screen.recipe_tree.random_mode");
+        Component progressText = Component.translatable("aprandomizer.screen.recipe_tree.unlocked_progress", unlockedCount, totalCount, totalPct);
 
-        graphics.text(this.font, Component.literal(ticketText), this.canvasX + 6, this.windowY + 6, 0xFFFFFFFF);
+        graphics.text(this.font, ticketText, this.canvasX + 6, this.windowY + 6, 0xFFFFFFFF);
         int progW = this.font.width(progressText);
-        graphics.text(this.font, Component.literal(progressText), this.canvasX + this.canvasWidth - progW - 6, this.windowY + 6, 0xFFE0E0E0);
+        graphics.text(this.font, progressText, this.canvasX + this.canvasWidth - progW - 6, this.windowY + 6, 0xFFE0E0E0);
 
         // 3. Render Widgets (Buttons)
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
@@ -445,8 +452,7 @@ public class RecipeSkillTreeScreen extends Screen {
         }
 
         // 7. Navigation hint in bottom center
-        String navHint = "§7Удерживайте ПКМ для перемещения | Колесо мыши для прокрутки";
-        graphics.centeredText(this.font, Component.literal(navHint), this.windowX + this.windowWidth / 2, this.windowY + this.windowHeight - 20, 0xFF888888);
+        graphics.centeredText(this.font, Component.translatable("aprandomizer.screen.recipe_tree.nav_hint"), this.windowX + this.windowWidth / 2, this.windowY + this.windowHeight - 20, 0xFF888888);
 
         // 8. Tooltip
         if (hoveredNode != null) {
@@ -471,21 +477,24 @@ public class RecipeSkillTreeScreen extends Screen {
         graphics.fill(minX, minY, maxX + 1, maxY + 1, color);
     }
 
+    public static Component getTierName(int tier) {
+        return switch (tier) {
+            case 1 -> Component.translatable("aprandomizer.tier.1");
+            case 2 -> Component.translatable("aprandomizer.tier.2");
+            case 3 -> Component.translatable("aprandomizer.tier.3");
+            case 4 -> Component.translatable("aprandomizer.tier.4");
+            case 5 -> Component.translatable("aprandomizer.tier.5");
+            case 6 -> Component.translatable("aprandomizer.tier.6");
+            case 7 -> Component.translatable("aprandomizer.tier.7");
+            default -> Component.translatable("aprandomizer.tier.generic", tier);
+        };
+    }
+
     private void renderNodeTooltip(GuiGraphicsExtractor graphics, RecipeTreeNode node, Set<ResourceKey<Recipe<?>>> unlocked, int threshold, int mouseX, int mouseY) {
         List<Component> tip = new ArrayList<>();
-        String tierName = switch (node.tier()) {
-            case 1 -> "Тир 1 (Дерево)";
-            case 2 -> "Тир 2 (Камень/Кожа)";
-            case 3 -> "Тир 3 (Медь/Слитки)";
-            case 4 -> "Тир 4 (Железо)";
-            case 5 -> "Тир 5 (Золото)";
-            case 6 -> "Тир 6 (Алмаз)";
-            case 7 -> "Тир 7 (Незерит)";
-            default -> "Тир " + node.tier();
-        };
 
         tip.add(Component.literal("§6§l" + node.name()));
-        tip.add(Component.literal("§e" + tierName + "   §7(Рецептов: §f" + node.recipes().size() + "§7)"));
+        tip.add(Component.translatable("aprandomizer.screen.recipe_tree.tier_recipes", getTierName(node.tier()), node.recipes().size()));
 
         RecipeTreeManager.UnlockStatus status = RecipeTreeManager.getUnlockStatus(node, unlocked, ClientRecipeManager.getTickets(), threshold);
 
@@ -493,7 +502,9 @@ public class RecipeSkillTreeScreen extends Screen {
             RecipeTreeNode parentNode = RecipeTreeManager.getNodeById(node.parentId());
             String pName = parentNode != null ? parentNode.name() : node.parentId();
             boolean pUnlocked = parentNode != null && parentNode.isUnlocked(unlocked);
-            tip.add(Component.literal("§7Предок: " + (pUnlocked ? "§a✔ " : "§c✖ ") + pName));
+            tip.add(pUnlocked
+                    ? Component.translatable("aprandomizer.screen.recipe_tree.parent_unlocked", pName)
+                    : Component.translatable("aprandomizer.screen.recipe_tree.parent_locked", pName));
         }
 
         if (node.tier() > 1 && threshold > 0) {
@@ -501,20 +512,21 @@ public class RecipeSkillTreeScreen extends Screen {
             int unlockedBefore = RecipeTreeManager.getUnlockedNodesBeforeTier(node.tier(), unlocked);
             int required = (int) Math.ceil(totalBefore * (threshold / 100.0));
             boolean tierMet = unlockedBefore >= required;
-            String tierRange = (node.tier() == 2) ? "Т1" : ("Т1-Т" + (node.tier() - 1));
-            tip.add(Component.literal("§7Порог " + tierRange + " (" + threshold + "%): "
-                    + (tierMet ? "§a" : "§c") + unlockedBefore + "/" + required + " §7(всего " + totalBefore + ")"));
+            String tierRange = (node.tier() == 2) ? "T1" : ("T1-T" + (node.tier() - 1));
+            String color = tierMet ? "§a" : "§c";
+            tip.add(Component.translatable("aprandomizer.screen.recipe_tree.threshold_info",
+                    tierRange, threshold, color, unlockedBefore, required, totalBefore));
         }
 
         tip.add(Component.empty());
         switch (status) {
-            case UNLOCKED -> tip.add(Component.literal("§2✔ Рецепт уже разблокирован"));
-            case AVAILABLE -> tip.add(Component.literal("§a► Нажмите ЛКМ, чтобы открыть за 1 талон!"));
-            case NO_TICKETS -> tip.add(Component.literal("§6✖ Нет доступных талонов (нужен 1 талон)"));
-            case LOCKED_TREE -> tip.add(Component.literal("§c✖ Сначала откройте предыдущий рецепт в древе"));
+            case UNLOCKED -> tip.add(Component.translatable("aprandomizer.screen.recipe_tree.status.unlocked"));
+            case AVAILABLE -> tip.add(Component.translatable("aprandomizer.screen.recipe_tree.status.available"));
+            case NO_TICKETS -> tip.add(Component.translatable("aprandomizer.screen.recipe_tree.status.no_tickets"));
+            case LOCKED_TREE -> tip.add(Component.translatable("aprandomizer.screen.recipe_tree.status.locked_tree"));
             case LOCKED_TIER -> {
-                String tierRange = (node.tier() == 2) ? "Т1" : ("Т1-Т" + (node.tier() - 1));
-                tip.add(Component.literal("§c✖ Откройте больше рецептов тиров " + tierRange));
+                String tierRange = (node.tier() == 2) ? "T1" : ("T1-T" + (node.tier() - 1));
+                tip.add(Component.translatable("aprandomizer.screen.recipe_tree.status.locked_threshold", tierRange));
             }
         }
 
@@ -577,7 +589,7 @@ public class RecipeSkillTreeScreen extends Screen {
                         if (this.minecraft != null) {
                             this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                             if (this.minecraft.player != null) {
-                                this.minecraft.player.sendSystemMessage(Component.literal("§2✔ Рецепт «" + clicked.name() + "» уже разблокирован!"));
+                                this.minecraft.player.sendSystemMessage(Component.translatable("aprandomizer.screen.recipe_tree.msg.unlocked", clicked.name()));
                             }
                         }
                         return true;
@@ -585,7 +597,7 @@ public class RecipeSkillTreeScreen extends Screen {
                         if (this.minecraft != null) {
                             this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 0.6F));
                             if (this.minecraft.player != null) {
-                                this.minecraft.player.sendSystemMessage(Component.literal("§6[Archipelago] Для открытия «" + clicked.name() + "» требуется 1 талон на рецепт!"));
+                                this.minecraft.player.sendSystemMessage(Component.translatable("aprandomizer.screen.recipe_tree.msg.need_ticket", clicked.name()));
                             }
                         }
                         return true;
@@ -594,8 +606,8 @@ public class RecipeSkillTreeScreen extends Screen {
                             this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 0.4F));
                             if (this.minecraft.player != null) {
                                 RecipeTreeNode parent = RecipeTreeManager.getNodeById(clicked.parentId());
-                                String parentName = parent != null ? parent.name() : "предыдущий";
-                                this.minecraft.player.sendSystemMessage(Component.literal("§c[Archipelago] Сначала откройте «" + parentName + "» в древе!"));
+                                Object parentName = parent != null ? parent.name() : Component.translatable("aprandomizer.screen.recipe_tree.msg.previous_recipe");
+                                this.minecraft.player.sendSystemMessage(Component.translatable("aprandomizer.screen.recipe_tree.msg.unlock_parent", parentName));
                             }
                         }
                         return true;
@@ -608,8 +620,8 @@ public class RecipeSkillTreeScreen extends Screen {
                                 int required = (int) Math.ceil(totalBefore * (thresh / 100.0));
                                 Set<ResourceKey<Recipe<?>>> unlocked = ClientRecipeManager.getUnlockedRecipeKeys();
                                 int unlockedBefore = RecipeTreeManager.getUnlockedNodesBeforeTier(clicked.tier(), unlocked);
-                                String tierRange = (clicked.tier() == 2) ? "Т1" : ("Т1-Т" + (clicked.tier() - 1));
-                                this.minecraft.player.sendSystemMessage(Component.literal("§c[Archipelago] Откройте больше рецептов тиров " + tierRange + " (открыто " + unlockedBefore + "/" + required + ", нужно " + thresh + "%)!"));
+                                String tierRange = (clicked.tier() == 2) ? "T1" : ("T1-T" + (clicked.tier() - 1));
+                                this.minecraft.player.sendSystemMessage(Component.translatable("aprandomizer.screen.recipe_tree.msg.unlock_more", tierRange, unlockedBefore, required, thresh));
                             }
                         }
                         return true;

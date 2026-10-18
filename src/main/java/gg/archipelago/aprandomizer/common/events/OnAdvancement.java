@@ -89,12 +89,12 @@ public class OnAdvancement {
                 .orElse(net.minecraft.network.chat.Component.literal(id.getPath()));
 
         server.getPlayerList().broadcastSystemMessage(
-                net.minecraft.network.chat.Component.literal("§6[Archipelago] §aЧек выполнен: §e").append(advTitle),
+                net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.check_completed").append(advTitle),
                 false
         );
 
         Utils.sendActionBarToAll(
-                net.minecraft.network.chat.Component.literal("§6[Archipelago] §aЧек выполнен: §e").append(advTitle)
+                net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.check_completed").append(advTitle)
         );
 
         gg.archipelago.aprandomizer.managers.GoalManager gm = APRandomizer.getGoalManager();
@@ -152,9 +152,9 @@ public class OnAdvancement {
                 int nextM = m + 1;
                 net.minecraft.network.chat.Component abMsg;
                 if (nextM <= maxChecks && nextM <= AdvancementManager.MAX_BACAP_MILESTONES) {
-                    abMsg = net.minecraft.network.chat.Component.literal("§6Майлстоун " + m + " достигнут! §a(" + (m * step) + " ачивок) §7| До след. майлстоуна: §e" + Utils.pluralizeAdvancements(step));
+                    abMsg = net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.milestone_reached_remaining", m, (m * step), step);
                 } else {
-                    abMsg = net.minecraft.network.chat.Component.literal("§6Майлстоун " + m + " достигнут! §aВсе майлстоуны выполнены! (" + (m * step) + " ачивок)");
+                    abMsg = net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.milestone_reached_all", m, (m * step));
                 }
                 Utils.sendActionBarToAll(abMsg);
             }
@@ -167,9 +167,9 @@ public class OnAdvancement {
             if (nextM <= maxChecks && nextM <= AdvancementManager.MAX_BACAP_MILESTONES) {
                 int remaining = step - (totalEarned % step);
                 if (remaining == 0) remaining = step;
-                abMsg = net.minecraft.network.chat.Component.literal("§a").append(advTitle).append(net.minecraft.network.chat.Component.literal(" §7| До след. майлстоуна: §e" + Utils.pluralizeAdvancements(remaining)));
+                abMsg = net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.remaining", advTitle, remaining);
             } else {
-                abMsg = net.minecraft.network.chat.Component.literal("§a").append(advTitle).append(net.minecraft.network.chat.Component.literal(" §7| Все майлстоуны выполнены! (§f" + totalEarned + "§7)"));
+                abMsg = net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.all_done", advTitle, totalEarned);
             }
             Utils.sendActionBarToAll(abMsg);
         }
@@ -238,9 +238,9 @@ public class OnAdvancement {
                 if (milestones < maxChecks && milestones < AdvancementManager.MAX_BACAP_MILESTONES) {
                     int rem = step - (newEarned % step);
                     if (rem == 0) rem = step;
-                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.literal("§6[BACAP] §fСинхронизировано ачивок: §a" + newEarned + " §7| До след. майлстоуна: §e" + Utils.pluralizeAdvancements(rem)));
+                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.sync_actionbar", newEarned, rem));
                 } else {
-                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.literal("§6[BACAP] §fВсе майлстоуны выполнены! (§a" + newEarned + " §fачивок)"));
+                    Utils.sendActionBarToPlayer(player, net.minecraft.network.chat.Component.translatable("aprandomizer.advancement.sync_actionbar_all", newEarned));
                 }
             }
         }

@@ -58,7 +58,7 @@ public class QueuedTitle {
         } else {
             String titleStr = title.getString().trim();
             if ("Received".equalsIgnoreCase(titleStr)) {
-                base = Component.literal("§6[Archipelago] §fПолучено: ").append(subTitle);
+                base = Component.translatable("aprandomizer.title.received").append(subTitle);
             } else {
                 base = Component.empty().append(title).append(Component.literal(" §7| ")).append(subTitle);
             }
@@ -66,8 +66,8 @@ public class QueuedTitle {
 
         // In BACAP Milestones mode, append remaining advancements to next milestone check if not already present
         if (APRandomizer.getApmcData() != null && APRandomizer.getApmcData().isBacapMilestones()) {
-            String str = base.getString();
-            if (!str.contains("майлстоун") && !str.contains("Майлстоун") && !str.contains("До чека")) {
+            String str = base.getString().toLowerCase();
+            if (!str.contains("milestone") && !str.contains("майлстоун") && !str.contains("до чека") && !str.contains("until check")) {
                 WorldData wd = APRandomizer.getWorldData();
                 if (wd != null) {
                     int step = APRandomizer.getApmcData().getBacapStep();
@@ -77,7 +77,7 @@ public class QueuedTitle {
                     if (milestones < maxChecks && milestones < AdvancementManager.MAX_BACAP_MILESTONES) {
                         int rem = step - (total % step);
                         if (rem == 0) rem = step;
-                        base = Component.empty().append(base).append(Component.literal(" §7[До чека: §e" + Utils.pluralizeAdvancements(rem) + "§7]"));
+                        base = Component.empty().append(base).append(Component.translatable("aprandomizer.title.until_check", rem));
                     }
                 }
             }

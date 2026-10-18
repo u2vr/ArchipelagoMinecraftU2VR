@@ -303,7 +303,7 @@ public class RecipeTreeManager {
         }
 
         if (lockedNodes.isEmpty()) {
-            Utils.sendMessageToAll("§a[Archipelago] Все известные рецепты уже разблокированы!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.all_recipes_unlocked"));
             return null;
         }
 
@@ -378,13 +378,13 @@ public class RecipeTreeManager {
         worldData.incrementRecipeUnlockTier();
 
         if (chosen.recipes().size() > 1) {
-            Utils.sendMessageToAll("§a[Archipelago] Открыт рецепт: §e" + chosen.name() + " §7(Тир " + chosen.tier() + ", рецептов: " + chosen.recipes().size() + ")!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.recipe_unlocked_with_count", chosen.name(), chosen.tier(), chosen.recipes().size()));
         } else {
-            Utils.sendMessageToAll("§a[Archipelago] Открыт рецепт: §e" + chosen.name() + " §7(Тир " + chosen.tier() + ")!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.recipe_unlocked", chosen.name(), chosen.tier()));
         }
         Utils.sendTitleToAll(
                 Component.literal("§6" + chosen.name()),
-                Component.literal("§aРецепт разблокирован (Тир " + chosen.tier() + ")"),
+                Component.translatable("aprandomizer.recipetree.recipe_unlocked_toast", chosen.tier()),
                 10, 40, 10
         );
 
@@ -414,14 +414,14 @@ public class RecipeTreeManager {
 
     public static int getTierColor(int tier) {
         return switch (tier) {
-            case 1 -> 0xFF8D5524; // коричневый (Brown)
-            case 2 -> 0xFFA0A0A0; // серый (Gray)
-            case 3 -> 0xFF4CAF50; // зелёный (Green)
-            case 4 -> 0xFF2196F3; // синий (Blue)
-            case 5 -> 0xFF9C27B0; // фиолетовый (Purple)
-            case 6 -> 0xFFFF9800; // оранжевый (Orange)
-            case 7 -> 0xFFF44336; // красный (Red)
-            default -> 0xFFFFFFFF; // белый (White for all non-recipe achievements)
+            case 1 -> 0xFF8D5524; // Brown
+            case 2 -> 0xFFA0A0A0; // Gray
+            case 3 -> 0xFF4CAF50; // Green
+            case 4 -> 0xFF2196F3; // Blue
+            case 5 -> 0xFF9C27B0; // Purple
+            case 6 -> 0xFFFF9800; // Orange
+            case 7 -> 0xFFF44336; // Red
+            default -> 0xFFFFFFFF; // White for all non-recipe achievements
         };
     }
 
@@ -558,11 +558,11 @@ public class RecipeTreeManager {
         worldData.addRecipeTickets(1);
         int tickets = worldData.getRecipeTickets();
 
-        Utils.sendMessageToAll("§a[Archipelago] Получен талон на разблокировку рецепта! §7(Всего талонов: §e" + tickets + "§7)");
-        Utils.sendMessageToAll("§7Откройте §eМеню паузы -> Древо рецептов§7, чтобы выбрать и открыть рецепт.");
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.ticket_received", tickets));
+        Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.ticket_hint"));
         Utils.sendTitleToAll(
-                Component.literal("§6+1 Талон на рецепт"),
-                Component.literal("§eДоступно талонов: " + tickets + " §7(Меню паузы -> Рецепты)"),
+                Component.translatable("aprandomizer.recipetree.ticket_toast_title"),
+                Component.translatable("aprandomizer.recipetree.ticket_toast_sub", tickets),
                 10, 40, 10
         );
 
@@ -588,7 +588,7 @@ public class RecipeTreeManager {
         }
 
         if (worldData.getRecipeTickets() <= 0) {
-            Utils.sendMessageToAll("§c[Archipelago] Недостаточно талонов для разблокировки рецепта!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.not_enough_tickets"));
             syncStateToAll(server);
             return false;
         }
@@ -596,14 +596,14 @@ public class RecipeTreeManager {
         if (!canUnlockInTree(node, unlocked)) {
             RecipeTreeNode parent = getNodeById(node.parentId());
             String parentName = parent != null ? parent.name() : node.parentId();
-            Utils.sendMessageToAll("§c[Archipelago] Нельзя разблокировать " + node.name() + ": сначала разблокируйте «" + parentName + "»!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.unlock_parent_first", node.name(), parentName));
             syncStateToAll(server);
             return false;
         }
 
         int threshold = getRecipeTierUnlockPercentage();
         if (!canUnlockInTierProgression(node, unlocked, threshold)) {
-            Utils.sendMessageToAll("§c[Archipelago] Нельзя разблокировать " + node.name() + ": откройте больше рецептов предыдущих тиров (требуется " + threshold + "%)!");
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.threshold_required", node.name(), threshold));
             syncStateToAll(server);
             return false;
         }
@@ -631,13 +631,13 @@ public class RecipeTreeManager {
 
         int remainingTickets = worldData.getRecipeTickets();
         if (node.recipes().size() > 1) {
-            Utils.sendMessageToAll("§a[Archipelago] Открыт рецепт: §e" + node.name() + " §7(Тир " + node.tier() + ", рецептов: " + node.recipes().size() + ")! §7Осталось талонов: §e" + remainingTickets);
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.unlocked_with_count_tickets_left", node.name(), node.tier(), node.recipes().size(), remainingTickets));
         } else {
-            Utils.sendMessageToAll("§a[Archipelago] Открыт рецепт: §e" + node.name() + " §7(Тир " + node.tier() + ")! §7Осталось талонов: §e" + remainingTickets);
+            Utils.sendMessageToAll(Component.translatable("aprandomizer.recipetree.unlocked_tickets_left", node.name(), node.tier(), remainingTickets));
         }
         Utils.sendTitleToAll(
                 Component.literal("§6" + node.name()),
-                Component.literal("§aРецепт разблокирован! §7(Осталось талонов: " + remainingTickets + ")"),
+                Component.translatable("aprandomizer.recipetree.recipe_unlocked_tickets_toast", remainingTickets),
                 10, 40, 10
         );
 
