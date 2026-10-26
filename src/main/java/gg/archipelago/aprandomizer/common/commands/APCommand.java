@@ -68,6 +68,10 @@ public class APCommand {
                         })
                         .then(Commands.literal("ticket")
                                 .executes(ctx -> {
+                                    if (!APRandomizer.isCheatsEnabled()) {
+                                        ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                        return 0;
+                                    }
                                     RecipeTreeManager.setTicketMode(true);
                                     RecipeTreeManager.syncStateToAll(ctx.getSource().getServer());
                                     ctx.getSource().sendSuccess(() -> Component.literal("recipe_unlock_mode set to: Ticket Mode (skilltree)"), true);
@@ -76,6 +80,10 @@ public class APCommand {
                         )
                         .then(Commands.literal("random")
                                 .executes(ctx -> {
+                                    if (!APRandomizer.isCheatsEnabled()) {
+                                        ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                        return 0;
+                                    }
                                     RecipeTreeManager.setTicketMode(false);
                                     RecipeTreeManager.syncStateToAll(ctx.getSource().getServer());
                                     ctx.getSource().sendSuccess(() -> Component.literal("recipe_unlock_mode set to: Random by Bias"), true);
@@ -93,6 +101,10 @@ public class APCommand {
                         .then(Commands.literal("add")
                                 .then(Commands.argument("amount", com.mojang.brigadier.arguments.IntegerArgumentType.integer())
                                         .executes(ctx -> {
+                                            if (!APRandomizer.isCheatsEnabled()) {
+                                                ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                                return 0;
+                                            }
                                             int amount = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "amount");
                                             var wd = APRandomizer.getWorldData();
                                             if (wd != null) {
@@ -107,6 +119,10 @@ public class APCommand {
                         .then(Commands.literal("set")
                                 .then(Commands.argument("amount", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0))
                                         .executes(ctx -> {
+                                            if (!APRandomizer.isCheatsEnabled()) {
+                                                ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                                return 0;
+                                            }
                                             int amount = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "amount");
                                             var wd = APRandomizer.getWorldData();
                                             if (wd != null) {
@@ -127,6 +143,10 @@ public class APCommand {
                         })
                         .then(Commands.argument("value", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0, 100))
                                 .executes(ctx -> {
+                                    if (!APRandomizer.isCheatsEnabled()) {
+                                        ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                        return 0;
+                                    }
                                     int val = com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(ctx, "value");
                                     RecipeTreeManager.setRecipeTierUnlockPercentage(val);
                                     RecipeTreeManager.syncStateToAll(ctx.getSource().getServer());
@@ -137,12 +157,20 @@ public class APCommand {
                 )
                 .then(Commands.literal("unlock_recipe")
                         .executes(ctx -> {
+                            if (!APRandomizer.isCheatsEnabled()) {
+                                ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                return 0;
+                            }
                             RecipeTreeManager.unlockNextRecipeNode(ctx.getSource().getServer());
                             return 1;
                         })
                 )
                 .then(Commands.literal("chest")
                         .executes(ctx -> {
+                            if (!APRandomizer.isCheatsEnabled()) {
+                                ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                return 0;
+                            }
                             if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
                                 Utils.giveItemToPlayer(player, new net.minecraft.world.item.ItemStack(gg.archipelago.aprandomizer.APBlocks.SHARED_CHEST_ITEM.get()));
                                 ctx.getSource().sendSuccess(() -> Component.literal("Gave 1 Archipelago Chest"), false);
@@ -189,6 +217,10 @@ public class APCommand {
                 .then(Commands.literal("give")
                         .then(Commands.argument("itemId", com.mojang.brigadier.arguments.LongArgumentType.longArg(1))
                                 .executes(ctx -> {
+                                    if (!APRandomizer.isCheatsEnabled()) {
+                                        ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                        return 0;
+                                    }
                                     long id = com.mojang.brigadier.arguments.LongArgumentType.getLong(ctx, "itemId");
                                     var im = APRandomizer.getItemManager();
                                     var wd = APRandomizer.getWorldData();
@@ -304,6 +336,10 @@ public class APCommand {
                 )
                 .then(Commands.literal("spawntrader")
                         .executes(ctx -> {
+                            if (!APRandomizer.isCheatsEnabled()) {
+                                ctx.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+                                return 0;
+                            }
                             if (ctx.getSource().getEntity() instanceof net.minecraft.server.level.ServerPlayer player) {
                                 boolean spawned = gg.archipelago.aprandomizer.managers.trademanager.ArchipelagoTraderSpawner.trySpawnTrader((net.minecraft.server.level.ServerLevel) player.level(), player);
                                 if (spawned) {
@@ -361,6 +397,10 @@ public class APCommand {
     }
 
     private static int setRecipeBias(CommandContext<CommandSourceStack> source) {
+        if (!APRandomizer.isCheatsEnabled()) {
+            source.getSource().sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+            return 0;
+        }
         double value = DoubleArgumentType.getDouble(source, "value");
         RecipeTreeManager.setRecipeTierBias(value);
         source.getSource().sendSuccess(() -> Component.literal("recipe_tier_bias is now set to " + RecipeTreeManager.getRecipeTierBias() + "%"), false);
@@ -468,6 +508,10 @@ public class APCommand {
     }
 
     private static int setAbilityLevel(CommandSourceStack source, String ability, int level) {
+        if (!APRandomizer.isCheatsEnabled()) {
+            source.sendFailure(Component.translatable("aprandomizer.command.cheats_disabled"));
+            return 0;
+        }
         WorldData wd = APRandomizer.getWorldData();
         if (wd == null) {
             source.sendFailure(Component.literal("World data not loaded."));

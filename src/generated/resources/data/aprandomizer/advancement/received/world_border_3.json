@@ -11,13 +11,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Расширяет границу мира до 5000 блоков (5000×5000, ±2500 от спавна)",
+    "description": "Expands the world border to 5000 blocks (5000×5000, ±2500 from spawn)",
     "frame": "goal",
     "icon": {
       "id": "minecraft:map"
     },
     "show_toast": false,
-    "title": "World Border 3/5 (5000 блоков)"
+    "title": "World Border 3/5 (5000 blocks)"
   },
   "requirements": [
     [

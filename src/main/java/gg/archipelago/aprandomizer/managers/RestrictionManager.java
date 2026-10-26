@@ -318,6 +318,13 @@ public class RestrictionManager {
         return index != -1 && index < worldData.getStructureUpgrades();
     }
 
+    public static List<StructureEntry> getShuffledStructures(long seed) {
+        List<StructureEntry> shuffled = new ArrayList<>(STRUCTURES);
+        Random rng = new Random(seed ^ 0x5354525543545552L); // "STRUCTUR"
+        Collections.shuffle(shuffled, rng);
+        return shuffled;
+    }
+
     public static StructureEntry unlockNextStructure() {
         if (!isStructureRestrictionEnabled()) {
             return null;
@@ -346,15 +353,30 @@ public class RestrictionManager {
 
         StructureEntry chosen;
         if (isStructureUnlockShuffle()) {
-            // Random unlock order
-            int randomIndex = ThreadLocalRandom.current().nextInt(locked.size());
-            chosen = locked.get(randomIndex);
+            long seed = APRandomizer.getWorldSeed();
+            List<StructureEntry> order = getShuffledStructures(seed);
+            chosen = null;
+            for (StructureEntry entry : order) {
+                if (!isStructureUnlocked(entry)) {
+                    chosen = entry;
+                    break;
+                }
+            }
+            if (chosen == null) {
+                chosen = locked.get(0);
+            }
         } else {
             // Sequential unlock order (as in recipe_tree.json)
             chosen = locked.get(0);
         }
 
         worldData.unlockStructureId(chosen.id());
+        MinecraftServer server = APRandomizer.getServer();
+        if (server != null) {
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                gg.archipelago.aprandomizer.advancements.APCriteriaTriggers.STRUCTURE_UNLOCK.get().trigger(player, chosen.id());
+            }
+        }
         return chosen;
     }
 
@@ -652,24 +674,26 @@ public class RestrictionManager {
     }
 
     // --- Traps ---
-    private static final List<net.minecraft.world.item.Item> JUNK_ITEMS = List.of(
-            Items.DIRT,
-            Items.COBBLESTONE,
-            Items.ROTTEN_FLESH,
-            Items.POISONOUS_POTATO,
-            Items.GRAVEL,
-            Items.STICK,
-            Items.DEAD_BUSH,
-            Items.PUMPKIN_SEEDS,
-            Items.WHEAT_SEEDS,
-            Items.BEETROOT_SEEDS,
-            Items.DRIED_KELP,
-            Items.WOODEN_SHOVEL,
-            Items.BOWL,
-            Items.STRING,
-            Items.CLAY_BALL,
-            Items.FLINT
-    );
+    private static class JunkItemsHolder {
+        private static final List<net.minecraft.world.item.Item> ITEMS = List.of(
+                Items.DIRT,
+                Items.COBBLESTONE,
+                Items.ROTTEN_FLESH,
+                Items.POISONOUS_POTATO,
+                Items.GRAVEL,
+                Items.STICK,
+                Items.DEAD_BUSH,
+                Items.PUMPKIN_SEEDS,
+                Items.WHEAT_SEEDS,
+                Items.BEETROOT_SEEDS,
+                Items.DRIED_KELP,
+                Items.WOODEN_SHOVEL,
+                Items.BOWL,
+                Items.STRING,
+                Items.CLAY_BALL,
+                Items.FLINT
+        );
+    }
 
     public static int getMonsterTrapPercentage() {
         if (APRandomizer.isConnected() && APRandomizer.getAP() != null && APRandomizer.getAP().getSlotData() != null) {
@@ -772,7 +796,7 @@ public class RestrictionManager {
                 int targetSlots = ThreadLocalRandom.current().nextInt(2, 5);
                 for (int i = 0; i < Math.min(36, allowed); i++) {
                     if (inv.getItem(i).isEmpty()) {
-                        var junkItem = JUNK_ITEMS.get(ThreadLocalRandom.current().nextInt(JUNK_ITEMS.size()));
+                        var junkItem = JunkItemsHolder.ITEMS.get(ThreadLocalRandom.current().nextInt(JunkItemsHolder.ITEMS.size()));
                         int amount = ThreadLocalRandom.current().nextInt(4, 24);
                         inv.setItem(i, new ItemStack(junkItem, amount));
                         junkCount++;
@@ -781,7 +805,7 @@ public class RestrictionManager {
                 }
                 if (junkCount == 0) {
                     // Drop junk at player feet if no free slots
-                    var junkItem = JUNK_ITEMS.get(ThreadLocalRandom.current().nextInt(JUNK_ITEMS.size()));
+                    var junkItem = JunkItemsHolder.ITEMS.get(ThreadLocalRandom.current().nextInt(JunkItemsHolder.ITEMS.size()));
                     Utils.giveItemToPlayer(player, new ItemStack(junkItem, 16));
                 }
                 player.containerMenu.broadcastChanges();
@@ -1342,6 +1366,7 @@ public class RestrictionManager {
             toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/world_border_1"));
         }
         if (!isStructureRestrictionEnabled()) {
+            toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/structures_root"));
             toRemove.add(net.minecraft.resources.Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/structure_village"));
         }
         if (!isOffhandRestrictionEnabled()) {

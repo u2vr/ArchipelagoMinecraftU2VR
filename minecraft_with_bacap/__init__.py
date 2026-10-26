@@ -338,13 +338,16 @@ class MinecraftWorld(World):
         exits = [connection[0] for connection in Constants.region_info["default_connections"]]
         server_host, server_port, server_password = self._get_server_info()
 
+        world_random = random.Random(f"{self.multiworld.seed}_mc_world_seed")
+        world_seed = world_random.getrandbits(32)
+
         return {
             # Mod data
             'game': self.game,
             'server': server_host,
             'port': server_port,
             'password': server_password,
-            'world_seed': self.random.getrandbits(32),
+            'world_seed': world_seed,
             'seed_name': self.multiworld.seed_name,
             'player_name': self.player_name,
             'player_id': self.player,
@@ -361,6 +364,7 @@ class MinecraftWorld(World):
             'starting_items': json.dumps(self.options.starting_items.value),
             'race': self.multiworld.is_race,
             'immediate_respawn': bool(self.options.immediate_respawn.value),
+            'cheats_enabled': bool(self.options.cheats_enabled.value),
 
             # U2VR Restrictions & Modifiers
             'reach_restriction': bool(self.options.reach_restriction.value),
@@ -432,6 +436,8 @@ class MinecraftWorld(World):
             self.options.combat_difficulty.value = self.passthrough["combat_difficulty"]
             self.options.death_link.value = self.passthrough["death_link"]
             self.options.immediate_respawn.value = self.passthrough["immediate_respawn"]
+            if "cheats_enabled" in self.passthrough:
+                self.options.cheats_enabled.value = self.passthrough["cheats_enabled"]
             if "extra_abilities" in self.passthrough:
                 self.options.extra_abilities.value = self.passthrough["extra_abilities"]
             if "reach_restriction" in self.passthrough:
@@ -591,9 +597,11 @@ class MinecraftWorld(World):
 
         # Filter candidates (exclude all structures and biomes to prevent world expansion / structure softlocks)
         candidates = list(Constants.bacap_non_structure_biome_advancements)
+        candidates.sort(key=lambda adv: adv["id"])
 
         needed_count = min(needed_count, len(candidates))
-        sampled_advancements = self.random.sample(candidates, needed_count)
+        bacap_random = random.Random(f"{self.multiworld.seed}_random_bacap")
+        sampled_advancements = sorted(bacap_random.sample(candidates, needed_count), key=lambda adv: adv["id"])
 
         self.selected_bacap_advancements = [adv["id"] for adv in sampled_advancements]
         self.selected_bacap_map = {adv["id"]: adv["location_id"] for adv in sampled_advancements}

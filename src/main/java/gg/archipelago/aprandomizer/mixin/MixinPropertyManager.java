@@ -29,11 +29,14 @@ public abstract class MixinPropertyManager {
         properties.setProperty("level-type", "default");
         properties.setProperty("generator-settings", "{}");
 
+        if (!data.isCheatsEnabled() || data.race) {
+            properties.setProperty("gamemode", "survival");
+            properties.setProperty("force-gamemode", "true");
+        }
+
         if (data.race) {
             LogManager.getLogger().info("Archipelago race flag found enforcing race settings.");
             properties.setProperty("view-distance", "10");
-            properties.setProperty("gamemode", "survival");
-            properties.setProperty("force-gamemode", "true");
         }
 
 

@@ -11,13 +11,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "description": "Снимает ограничения границы мира (максимальный размер, 60M×60M блоков)",
+    "description": "Removes world border restrictions (maximum size, 60M×60M blocks)",
     "frame": "challenge",
     "icon": {
       "id": "minecraft:map"
     },
     "show_toast": false,
-    "title": "World Border 5/5 (Макс / Без ограничений)"
+    "title": "World Border 5/5 (Max / Unrestricted)"
   },
   "requirements": [
     [

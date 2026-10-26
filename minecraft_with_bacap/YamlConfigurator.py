@@ -152,6 +152,7 @@ TRANSLATIONS = {
         "shared_chest": "Starting Archipelago Shared Chest (syncs items across players)",
         "death_link": "Death Link (shared deaths across multiworld players)",
         "immediate_respawn": "Immediate respawn on death (skips death screen)",
+        "cheats_enabled": "Cheats Enabled (allow cheat commands in game)",
         "combat_difficulty": "Combat difficulty:",
         "diff_easy": "easy",
         "diff_normal": "normal",
@@ -264,6 +265,7 @@ TRANSLATIONS = {
         "tip_shared_chest": "Start with an Archipelago Shared Chest in inventory. Items placed inside are immediately shared with all players in the room.",
         "tip_death_link": "When enabled, dying will cause all other players with Death Link enabled in the multiworld to die as well.",
         "tip_immediate_respawn": "Skip the 'You Died' game over screen and respawn immediately at your bed/spawn point.",
+        "tip_cheats_enabled": "When enabled, players are allowed to use cheat commands in-game. When disabled (default), cheats are prohibited inside the game.",
         "tip_combat_difficulty": "Modifies logic requirements for weapons and gear when exploring dangerous dimensions and fighting bosses.",
         "tip_check_goal": "Percentage or count of checks required to complete the game victory condition (default 40).",
         "tip_required_bosses": "Which boss(es) must be defeated to win: None, Ender Dragon, Wither, or Both.",
@@ -330,6 +332,7 @@ TRANSLATIONS = {
         "shared_chest": "Стартовый общий сундук (Shared Chest, синхронизация между игроками)",
         "death_link": "Death Link (Связь смертей между игроками мультиворлда)",
         "immediate_respawn": "Мгновенное возрождение без экрана 'Вы погибли'",
+        "cheats_enabled": "Разрешить читы (Cheats Enabled)",
         "combat_difficulty": "Сложность боя (Combat Difficulty):",
         "diff_easy": "лёгкая (easy)",
         "diff_normal": "нормальная (normal)",
@@ -442,6 +445,7 @@ TRANSLATIONS = {
         "tip_shared_chest": "Старт со специальным общим сундуком Архипелага. Предметы внутри синхронизируются в реальном времени между всеми игроками комнаты.",
         "tip_death_link": "При вашей гибели погибают все игроки мультиворлда с включённым Death Link, и наоборот.",
         "tip_immediate_respawn": "Пропускает экран 'Вы погибли' и мгновенно возрождает игрока на кровати или точке спавна.",
+        "tip_cheats_enabled": "Если включено, игроки могут использовать чит-команды в игре. Если выключено (по умолчанию), использование читов внутри игры запрещено.",
         "tip_combat_difficulty": "Влияет на требования логики генератора к оружию и броне для исследования опасных измерений и боссов.",
         "tip_check_goal": "Количество или процент выполненных чеков, необходимых для победы (по умолчанию 40).",
         "tip_required_bosses": "Каких боссов нужно победить: Никого, Дракона Края, Иссушителя или Обоих.",
@@ -564,6 +568,7 @@ class YamlConfigurator(tk.Tk):
         self.starting_shared_chest = tk.BooleanVar(value=True)
         self.death_link = tk.BooleanVar(value=False)
         self.immediate_respawn = tk.BooleanVar(value=True)
+        self.cheats_enabled = tk.BooleanVar(value=False)
         self.combat_difficulty = tk.StringVar(value="normal")
 
         # 2. Goals & Bosses
@@ -619,7 +624,7 @@ class YamlConfigurator(tk.Tk):
         # Attach listeners for recalculation & visibility
         for var in [
             self.progression_balancing, self.accessibility, self.starting_shared_chest,
-            self.death_link, self.immediate_respawn, self.combat_difficulty,
+            self.death_link, self.immediate_respawn, self.cheats_enabled, self.combat_difficulty,
             self.check_goal, self.required_bosses, self.egg_shards_required, self.egg_shards_available,
             self.recipe_unlock_mode, self.recipe_tier_bias, self.recipe_tier_threshold,
             self.advancement_type, self.bacap_advancement_step, self.biome_checks,
@@ -764,6 +769,9 @@ class YamlConfigurator(tk.Tk):
 
         self.chk_immediate_respawn = ttk.Checkbutton(self.game_opts_grp, text="", variable=self.immediate_respawn)
         self.chk_immediate_respawn.pack(anchor="w", pady=1)
+
+        self.chk_cheats_enabled = ttk.Checkbutton(self.game_opts_grp, text="", variable=self.cheats_enabled)
+        self.chk_cheats_enabled.pack(anchor="w", pady=1)
 
         row = ttk.Frame(self.game_opts_grp)
         row.pack(fill=tk.X, pady=3)
@@ -1077,6 +1085,7 @@ class YamlConfigurator(tk.Tk):
         self._add_tooltip(self.chk_shared_chest, "tip_shared_chest")
         self._add_tooltip(self.chk_death_link, "tip_death_link")
         self._add_tooltip(self.chk_immediate_respawn, "tip_immediate_respawn")
+        self._add_tooltip(self.chk_cheats_enabled, "tip_cheats_enabled")
         self._add_tooltip(self.lbl_combat_diff, "tip_combat_difficulty")
         self._add_tooltip(self.combo_combat_diff, "tip_combat_difficulty")
 
@@ -1185,6 +1194,7 @@ class YamlConfigurator(tk.Tk):
         self.chk_shared_chest.config(text=self.t("shared_chest"))
         self.chk_death_link.config(text=self.t("death_link"))
         self.chk_immediate_respawn.config(text=self.t("immediate_respawn"))
+        self.chk_cheats_enabled.config(text=self.t("cheats_enabled"))
         self.lbl_combat_diff.config(text=self.t("combat_difficulty"))
 
         # 2. Goals & Bosses
@@ -1444,6 +1454,7 @@ class YamlConfigurator(tk.Tk):
             self.starting_shared_chest.set(True)
             self.death_link.set(False)
             self.immediate_respawn.set(True)
+            self.cheats_enabled.set(False)
             self.combat_difficulty.set("normal")
             self.check_goal.set(40)
             self.required_bosses.set("ender_dragon")
@@ -1483,6 +1494,7 @@ class YamlConfigurator(tk.Tk):
             self.starting_shared_chest.set(True)
             self.death_link.set(False)
             self.immediate_respawn.set(True)
+            self.cheats_enabled.set(False)
             self.combat_difficulty.set("normal")
             self.check_goal.set(40)
             self.required_bosses.set("ender_dragon")
@@ -1521,6 +1533,7 @@ class YamlConfigurator(tk.Tk):
             self.starting_shared_chest.set(True)
             self.death_link.set(True)
             self.immediate_respawn.set(True)
+            self.cheats_enabled.set(False)
             self.combat_difficulty.set("hard")
             self.check_goal.set(100)
             self.required_bosses.set("both")
@@ -1639,6 +1652,7 @@ class YamlConfigurator(tk.Tk):
             # Game Options
             "combat_difficulty": self.combat_difficulty.get(),
             "immediate_respawn": self.immediate_respawn.get(),
+            "cheats_enabled": self.cheats_enabled.get(),
             "death_link": self.death_link.get(),
             "starting_shared_chest": self.starting_shared_chest.get(),
 
@@ -1812,6 +1826,7 @@ class YamlConfigurator(tk.Tk):
             # Game Options
             "combat_difficulty": self.combat_difficulty,
             "immediate_respawn": self.immediate_respawn,
+            "cheats_enabled": self.cheats_enabled,
             "death_link": self.death_link,
             "starting_shared_chest": self.starting_shared_chest,
 
@@ -1866,6 +1881,9 @@ class YamlConfigurator(tk.Tk):
             "bacap_step": "bacap_advancement_step",
             "starting_chest": "starting_shared_chest",
             "trap_percentage": "bee_traps",
+            "enable_cheats": "cheats_enabled",
+            "allow_cheats": "cheats_enabled",
+            "cheats": "cheats_enabled",
         }
         for alias_k, canonical_k in alias_map.items():
             if alias_k in game_opts and canonical_k not in game_opts:

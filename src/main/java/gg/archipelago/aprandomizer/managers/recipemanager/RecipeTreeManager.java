@@ -307,6 +307,9 @@ public class RecipeTreeManager {
             return null;
         }
 
+        // Deterministic sorting to ensure consistent indices across clients
+        lockedNodes.sort(Comparator.comparingInt(RecipeTreeNode::tier).thenComparing(RecipeTreeNode::id));
+
         int minTier = Integer.MAX_VALUE;
         for (RecipeTreeNode node : lockedNodes) {
             if (node.tier() < minTier) {
@@ -317,6 +320,11 @@ public class RecipeTreeManager {
         double bias = Math.clamp(getRecipeTierBias(), 0.0, 100.0);
         RecipeTreeNode chosen = null;
 
+        long worldSeed = APRandomizer.getWorldSeed();
+        int step = (int) ALL_NODES.stream().filter(n -> n.isUnlocked(unlocked)).count();
+        long stepSeed = worldSeed ^ ((long) step * 0x9E3779B97F4A7C15L) ^ 0xD1B54A32D192ED03L;
+        Random rng = new Random(stepSeed);
+
         if (bias >= 100.0) {
             // Strictly minimal remaining tier only!
             List<RecipeTreeNode> minTierNodes = new ArrayList<>();
@@ -325,11 +333,12 @@ public class RecipeTreeManager {
                     minTierNodes.add(node);
                 }
             }
-            int randomIndex = ThreadLocalRandom.current().nextInt(minTierNodes.size());
+            minTierNodes.sort(Comparator.comparing(RecipeTreeNode::id));
+            int randomIndex = rng.nextInt(minTierNodes.size());
             chosen = minTierNodes.get(randomIndex);
         } else if (bias <= 0.0) {
             // Completely uniform random across all remaining locked nodes
-            int randomIndex = ThreadLocalRandom.current().nextInt(lockedNodes.size());
+            int randomIndex = rng.nextInt(lockedNodes.size());
             chosen = lockedNodes.get(randomIndex);
         } else {
             // Exponential decay gradient: weight = (1 - bias/100)^(tier - minTier)
@@ -345,7 +354,7 @@ public class RecipeTreeManager {
                 totalWeight += w;
             }
 
-            double randomValue = ThreadLocalRandom.current().nextDouble() * totalWeight;
+            double randomValue = rng.nextDouble() * totalWeight;
             double cumulative = 0.0;
             for (int i = 0; i < lockedNodes.size(); i++) {
                 cumulative += weights[i];

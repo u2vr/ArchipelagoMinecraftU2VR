@@ -12,5 +12,6 @@ public class APCriteriaTriggers {
     public static final DeferredHolder<CriterionTrigger<?>, ReceivedItemCriteria> RECEIVED_ITEM = CRITERION_TRIGGERS.register("received_item", ReceivedItemCriteria::new);
     public static final DeferredHolder<CriterionTrigger<?>, RecipeNodeCriteria> RECIPE_NODE = CRITERION_TRIGGERS.register("recipe_node", RecipeNodeCriteria::new);
     public static final DeferredHolder<CriterionTrigger<?>, ExplorationCriteria> EXPLORATION = CRITERION_TRIGGERS.register("exploration", ExplorationCriteria::new);
+    public static final DeferredHolder<CriterionTrigger<?>, StructureUnlockCriteria> STRUCTURE_UNLOCK = CRITERION_TRIGGERS.register("structure_unlock", StructureUnlockCriteria::new);
 }
 

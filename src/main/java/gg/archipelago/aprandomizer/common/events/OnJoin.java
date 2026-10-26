@@ -39,8 +39,11 @@ public class OnJoin {
             return;
         }
 
-        if (APRandomizer.isRace())
-            player.setGameMode(GameType.SURVIVAL);
+        if (APRandomizer.isRace() || !APRandomizer.isCheatsEnabled()) {
+            if (player.gameMode.getGameModeForPlayer() != GameType.SURVIVAL) {
+                player.setGameMode(GameType.SURVIVAL);
+            }
+        }
 
         APMCData data = APRandomizer.getApmcData();
         if (data.state == APMCData.State.MISSING) {

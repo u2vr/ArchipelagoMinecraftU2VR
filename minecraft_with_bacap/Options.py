@@ -330,6 +330,11 @@ class ImmediateRespawn(DefaultOnToggle):
     display_name = "Immediate Respawn"
 
 
+class CheatsEnabled(Toggle):
+    """Enable cheats in-game. If disabled, cheats and cheat commands are prohibited inside the game."""
+    display_name = "Cheats Enabled"
+
+
 # === 6. OTHER / ADVANCED OPTIONS ===
 
 class ShuffleStructures(DefaultOnToggle):
@@ -394,6 +399,7 @@ option_groups: list[OptionGroup] = [
         Accessibility,
         CombatDifficulty,
         ImmediateRespawn,
+        CheatsEnabled,
         DeathLink,
         StartingItems,
     ]),
@@ -445,6 +451,7 @@ class MinecraftOptions(PerGameCommonOptions):
     # Game Options
     combat_difficulty: CombatDifficulty
     immediate_respawn: ImmediateRespawn
+    cheats_enabled: CheatsEnabled
     death_link: DeathLink
     starting_items: StartingItems
 

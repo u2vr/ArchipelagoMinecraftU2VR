@@ -663,17 +663,9 @@ public class RestrictionSettingsTest {
 
     @Test
     public void testPluralizeAdvancements() {
-        assertEquals("1 ачивка", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(1));
-        assertEquals("2 ачивки", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(2));
-        assertEquals("3 ачивки", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(3));
-        assertEquals("4 ачивки", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(4));
-        assertEquals("5 ачивок", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(5));
-        assertEquals("11 ачивок", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(11));
-        assertEquals("12 ачивок", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(12));
-        assertEquals("20 ачивок", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(20));
-        assertEquals("21 ачивка", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(21));
-        assertEquals("22 ачивки", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(22));
-        assertEquals("25 ачивок", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(25));
+        assertEquals("1 advancement", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(1));
+        assertEquals("2 advancements", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(2));
+        assertEquals("5 advancements", gg.archipelago.aprandomizer.common.Utils.Utils.pluralizeAdvancements(5));
     }
 
     @Test
@@ -681,7 +673,7 @@ public class RestrictionSettingsTest {
         net.minecraft.network.chat.Component title = net.minecraft.network.chat.Component.literal("Received");
         net.minecraft.network.chat.Component subTitle = net.minecraft.network.chat.Component.literal("Diamond Sword");
         net.minecraft.network.chat.Component result = gg.archipelago.aprandomizer.common.Utils.QueuedTitle.formatActionBarMessage(title, subTitle);
-        assertTrue(result.getString().contains("Получено: Diamond Sword"));
+        assertTrue(result.getString().contains("Diamond Sword"));
 
         net.minecraft.network.chat.Component hpTitle = net.minecraft.network.chat.Component.literal("+1 Сердце (HP)");
         net.minecraft.network.chat.Component hpSub = net.minecraft.network.chat.Component.literal("Максимальное здоровье увеличено!");

@@ -480,6 +480,23 @@ public class APRandomizer {
     public static boolean isRace() {
         return getApmcData().race;
     }
+    public static boolean isCheatsEnabled() {
+        if (APClient != null && APClient.getSlotData() != null) {
+            return APClient.getSlotData().isCheatsEnabled();
+        }
+        return getApmcData().isCheatsEnabled();
+    }
+    public static long getWorldSeed() {
+        if (apmcData != null && apmcData.world_seed != 0) {
+            return apmcData.world_seed;
+        }
+        if (server != null) {
+            try {
+                return server.overworld().getSeed();
+            } catch (Exception ignored) {}
+        }
+        return 0L;
+    }
     public static boolean isFastRespawn(){
         return getApmcData().respawn;
     }

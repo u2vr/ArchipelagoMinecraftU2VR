@@ -7,6 +7,7 @@ import com.google.gson.JsonParser;
 import gg.archipelago.aprandomizer.APRandomizer;
 import gg.archipelago.aprandomizer.advancements.RecipeNodeCriteria;
 import gg.archipelago.aprandomizer.advancements.ReceivedItemCriteria;
+import gg.archipelago.aprandomizer.advancements.StructureUnlockCriteria;
 import gg.archipelago.aprandomizer.items.APItem;
 import gg.archipelago.aprandomizer.items.APItems;
 import net.minecraft.advancements.Advancement;
@@ -501,33 +502,45 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
         }
     }
 
-    private record StructureDef(String path, Item icon, String title, String description) {}
+    private record StructureDef(String id, String path, Item icon, String title, String description) {}
 
     private void generateStructuresChain(JsonObject startNode, Identifier rootId, Map<String, Identifier> nodeToAdvId) {
+        Identifier structuresRootId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/structures_root");
+        Advancement.Builder.recipeAdvancement()
+                .display(
+                        Items.CHISELED_STONE_BRICKS,
+                        Component.literal("Structure Access"),
+                        Component.literal("Structures unlocked across the world"),
+                        AdvancementType.GOAL,
+                        false,
+                        false,
+                        false)
+                .parent(rootId)
+                .addCriterion("auto", PlayerTrigger.TriggerInstance.tick())
+                .save(output, structuresRootId);
+
         List<StructureDef> structures = List.of(
-                new StructureDef("structure_village", Items.EMERALD, "Village Access", "Unlocks access to Villages"),
-                new StructureDef("structure_pillager_outpost", Items.CROSSBOW, "Pillager Outpost Access", "Unlocks access to Pillager Outposts"),
-                new StructureDef("structure_trial_chambers", Items.TRIAL_KEY, "Trial Chambers Access", "Unlocks access to Trial Chambers"),
-                new StructureDef("structure_fortress", Items.BLAZE_ROD, "Nether Fortress Access", "Unlocks access to Nether Fortresses"),
-                new StructureDef("structure_bastion", Items.GILDED_BLACKSTONE, "Bastion Remnant Access", "Unlocks access to Bastion Remnants"),
-                new StructureDef("structure_stronghold", Items.ENDER_EYE, "Stronghold Access", "Unlocks access to Strongholds"),
-                new StructureDef("structure_ancient_city", Items.ECHO_SHARD, "Ancient City Access", "Unlocks access to Ancient Cities"),
-                new StructureDef("structure_ocean_monument", Items.PRISMARINE_SHARD, "Ocean Monument Access", "Unlocks access to Ocean Monuments"),
-                new StructureDef("structure_end_city", Items.PURPUR_BLOCK, "End City Access", "Unlocks access to End Cities")
+                new StructureDef("Village", "structure_village", Items.EMERALD, "Village Access", "Unlocks access to Villages"),
+                new StructureDef("Pillager Outpost", "structure_pillager_outpost", Items.CROSSBOW, "Pillager Outpost Access", "Unlocks access to Pillager Outposts"),
+                new StructureDef("Trial Chambers", "structure_trial_chambers", Items.TRIAL_KEY, "Trial Chambers Access", "Unlocks access to Trial Chambers"),
+                new StructureDef("Nether Fortress", "structure_fortress", Items.BLAZE_ROD, "Nether Fortress Access", "Unlocks access to Nether Fortresses"),
+                new StructureDef("Bastion Remnant", "structure_bastion", Items.GILDED_BLACKSTONE, "Bastion Remnant Access", "Unlocks access to Bastion Remnants"),
+                new StructureDef("Stronghold", "structure_stronghold", Items.ENDER_EYE, "Stronghold Access", "Unlocks access to Strongholds"),
+                new StructureDef("Ancient City", "structure_ancient_city", Items.ECHO_SHARD, "Ancient City Access", "Unlocks access to Ancient Cities"),
+                new StructureDef("Ocean Monument", "structure_ocean_monument", Items.PRISMARINE_SHARD, "Ocean Monument Access", "Unlocks access to Ocean Monuments"),
+                new StructureDef("End City", "structure_end_city", Items.PURPUR_BLOCK, "End City Access", "Unlocks access to End Cities")
         );
 
         JsonObject curr = startNode;
-        Identifier parentId = rootId;
-
-        for (int i = 1; i <= structures.size(); i++) {
-            StructureDef def = structures.get(i - 1);
+        for (int i = 0; i < structures.size(); i++) {
+            StructureDef def = structures.get(i);
             String nodeId = (curr != null && curr.has("id")) ? curr.get("id").getAsString() : "";
             Identifier advId = Identifier.fromNamespaceAndPath(APRandomizer.MODID, "received/" + def.path());
             if (!nodeId.isEmpty()) {
                 nodeToAdvId.put(nodeId, advId);
             }
 
-            boolean isLast = (i == structures.size());
+            boolean isLast = (i == structures.size() - 1);
             AdvancementType frame = isLast ? AdvancementType.CHALLENGE : AdvancementType.TASK;
 
             Advancement.Builder.recipeAdvancement()
@@ -539,11 +552,10 @@ public class ReceivedAdvancementProvider extends AdvancementSubProvider {
                             false,
                             false,
                             false)
-                    .parent(parentId)
-                    .addCriterion("received", ReceivedItemCriteria.TriggerInstance.receivedItem(APItems.STRUCTURE_UNLOCK, i))
+                    .parent(structuresRootId)
+                    .addCriterion("unlocked", StructureUnlockCriteria.TriggerInstance.unlocked(def.id()))
                     .save(output, advId);
 
-            parentId = advId;
             if (curr != null) {
                 JsonArray children = curr.has("children") ? curr.getAsJsonArray("children") : null;
                 curr = (children != null && !children.isEmpty()) ? children.get(0).getAsJsonObject() : null;

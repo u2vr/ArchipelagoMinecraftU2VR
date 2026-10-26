@@ -50,6 +50,13 @@ public class APMCData {
     @SerializedName("immediate_respawn")
     public boolean respawn = true;
 
+    @SerializedName(value = "cheats_enabled", alternate = {"enable_cheats", "allow_cheats", "cheats"})
+    public Object cheats_enabled = false;
+
+    public boolean isCheatsEnabled() {
+        return gg.archipelago.aprandomizer.SlotData.parseBoolean(cheats_enabled, false);
+    }
+
     @SerializedName("required_bosses")
     public Bosses required_bosses = Bosses.ENDER_DRAGON;
 

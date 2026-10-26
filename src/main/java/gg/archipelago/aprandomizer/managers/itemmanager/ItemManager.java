@@ -479,9 +479,13 @@ public class ItemManager {
 
         // 5. Structure Unlocks
         if (RestrictionManager.isStructureRestrictionEnabled()) {
-            int structures = data.getStructureUpgrades();
-            for (int i = 1; i <= structures; i++) {
-                APCriteriaTriggers.RECEIVED_ITEM.get().trigger(player, APItems.STRUCTURE_UNLOCK, i);
+            if (data.getUnlockedStructureIds().isEmpty() && data.getStructureUpgrades() > 0) {
+                for (int i = 0; i < Math.min(data.getStructureUpgrades(), RestrictionManager.getStructures().size()); i++) {
+                    data.unlockStructureId(RestrictionManager.getStructures().get(i).id());
+                }
+            }
+            for (String structId : data.getUnlockedStructureIds()) {
+                APCriteriaTriggers.STRUCTURE_UNLOCK.get().trigger(player, structId);
             }
         }
 

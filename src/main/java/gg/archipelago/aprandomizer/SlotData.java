@@ -36,6 +36,9 @@ public class SlotData {
     @SerializedName("death_link")
     public boolean deathlink = false;
 
+    @SerializedName(value = "cheats_enabled", alternate = {"enable_cheats", "allow_cheats", "cheats"})
+    public Object cheatsEnabled = false;
+
     @SerializedName(value = "structure_unlock_shuffle", alternate = {"structure_shuffle_order"})
     public Object structureUnlockShuffle;
 
@@ -157,6 +160,10 @@ public class SlotData {
             if ("false".equalsIgnoreCase(s) || "0".equals(s) || "no".equalsIgnoreCase(s) || "off".equalsIgnoreCase(s)) return false;
         }
         return defaultVal;
+    }
+
+    public boolean isCheatsEnabled() {
+        return parseBoolean(cheatsEnabled, false);
     }
 
     public boolean isHpRestrictionEnabled() {

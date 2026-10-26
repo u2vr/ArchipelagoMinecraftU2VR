@@ -247,5 +247,6 @@
   "aprandomizer.trader.multiworld_item_check": "Multiworld Item Check",
   "aprandomizer.trader.multiworld_trade_hint": "Trade requested items to check this location.",
   "aprandomizer.trader.bought_for": "§6[Archipelago] §aBought §f%s §afor §e%s §a(Trade #%d)!",
-  "aprandomizer.trader.completed_trade": "§6[Archipelago] §aCompleted Wandering Trader Trade #%d!"
+  "aprandomizer.trader.completed_trade": "§6[Archipelago] §aCompleted Wandering Trader Trade #%d!",
+  "aprandomizer.command.cheats_disabled": "§c[Archipelago] Cheats are disabled in this world."
 }

@@ -247,5 +247,6 @@
   "aprandomizer.trader.multiworld_item_check": "Чек предмета Multiworld",
   "aprandomizer.trader.multiworld_trade_hint": "Обменяйте запрошенные предметы для проверки этой точки.",
   "aprandomizer.trader.bought_for": "§6[Archipelago] §aКуплен предмет §f%s §aдля §e%s §a(Сделка #%d)!",
-  "aprandomizer.trader.completed_trade": "§6[Archipelago] §aЗавершена сделка со странствующим торговцем #%d!"
+  "aprandomizer.trader.completed_trade": "§6[Archipelago] §aЗавершена сделка со странствующим торговцем #%d!",
+  "aprandomizer.command.cheats_disabled": "§c[Archipelago] Использование читов запрещено в этом мире."
 }

@@ -1,12 +1,11 @@
 {
-  "parent": "aprandomizer:received/structure_ancient_city",
+  "parent": "aprandomizer:received/structures_root",
   "criteria": {
-    "received": {
+    "unlocked": {
       "conditions": {
-        "item": "aprandomizer:upgrade/structure_unlock",
-        "tier": 8
+        "structure": "Ocean Monument"
       },
-      "trigger": "aprandomizer:received_item"
+      "trigger": "aprandomizer:structure_unlock"
     }
   },
   "display": {
@@ -20,7 +19,7 @@
   },
   "requirements": [
     [
-      "received"
+      "unlocked"
     ]
   ]
 }
